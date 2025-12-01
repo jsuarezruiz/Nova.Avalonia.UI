@@ -4,6 +4,20 @@
 
 **Nova.Avalonia.UI** is a comprehensive suite of UI controls for [Avalonia UI](https://avaloniaui.net/), designed to help developers build modern, accessible, and high-performance cross-platform applications.
 
+## Controls
+
+### Avatar
+
+The `Avatar` control presents a person's identity using an image, initials, icon, or custom content. It includes automatic background generation, size presets, and optional presence status indicators.
+
+![Avatar](images/novaui_avatar_light.gif)
+
+### Shimmer
+
+The `Shimmer` control shows a lightweight skeleton while your content is loading. It inspects the visual tree beneath it to draw shapes that match controls, then animates a gradient sweep over the placeholders.
+
+![Shimmer](images/novaui_shimmer_light.gif)
+
 ## Contribute
 
 Do you want to contribute?.
