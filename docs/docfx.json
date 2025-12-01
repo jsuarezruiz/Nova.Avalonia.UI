@@ -33,6 +33,13 @@
         "files": [
           "images/**"
         ]
+      },
+      {
+        "src": "../images",
+        "files": [
+          "**"
+        ],
+        "dest": "images"
       }
     ],
     "output": "_site",
