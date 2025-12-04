@@ -11,6 +11,66 @@
       }
     },
     {
+      "type": "Resource",
+      "source_relative_path": "../images/banner.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/banner.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/logo-transparent.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo-transparent.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_avatar_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_avatar_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_avatar_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_avatar_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_shimmer_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_shimmer_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_shimmer_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_shimmer_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "ManagedReference",
       "source_relative_path": "api/Nova.Avalonia.UI.Controls.Avatar.yml",
       "output": {
@@ -245,11 +305,31 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.ico"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {
         ".html": {
           "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "logo.png"
         }
       },
       "version": ""

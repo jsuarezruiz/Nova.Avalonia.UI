@@ -31,7 +31,9 @@
     "resource": [
       {
         "files": [
-          "images/**"
+          "images/**",
+          "logo.png",
+          "favicon.ico"
         ]
       },
       {
@@ -50,6 +52,8 @@
     "globalMetadata": {
       "_appName": "Nova.Avalonia.UI",
       "_appTitle": "Nova.Avalonia.UI",
+      "_appLogoPath": "logo.png",
+      "_appFaviconPath": "favicon.ico",
       "_enableSearch": true,
       "pdf": true
     }
