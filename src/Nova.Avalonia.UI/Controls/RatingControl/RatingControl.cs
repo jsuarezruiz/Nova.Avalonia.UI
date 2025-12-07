@@ -237,6 +237,8 @@ namespace Nova.Avalonia.UI.Controls
                 prop.Changed.AddClassHandler<RatingControl>((x, _) => x.RegenerateItems());
             
             ValueProperty.Changed.AddClassHandler<RatingControl>((x, e) => x.OnValueChanged(e));
+            ItemCountProperty.Changed.AddClassHandler<RatingControl>(
+                (x, _) => x.SetCurrentValue(ValueProperty, Math.Clamp(x.Value, 0, x.ItemCount)));
             IsReadOnlyProperty.Changed.AddClassHandler<RatingControl>((x, e) => x.UpdatePseudoClasses(e.NewValue is true));
         }
 
