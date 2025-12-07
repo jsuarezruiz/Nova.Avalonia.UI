@@ -22,378 +22,408 @@
       <StackPanel Spacing="20" Margin="20">
 
             <!-- Basic Avatars with Auto Mode -->
-            <StackPanel Spacing="20">
-                <TextBlock Text="Basic Avatars"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
-                <TextBlock Text="Displays Image → Initials → Icon → Content"
-                           Foreground="#666"
-                           Margin="0,0,0,10"
-                           TextWrapping="Wrap"/>
-                
-                <WrapPanel Orientation="Horizontal">
-                    <!-- Image -->
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Javier Suarez"
-                                         ImageSource="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg"
-                                         Size="Large"/>
-                        <TextBlock Text="Image (if loaded)"
-                                   FontSize="12"
-                                   HorizontalAlignment="Center"/>
-                    </StackPanel>
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Avatars"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Displays Image → Initials → Icon → Content"
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,10"
+                               TextWrapping="Wrap"/>
+                    
+                    <WrapPanel Orientation="Horizontal">
+                        <!-- Image -->
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Javier Suarez"
+                                             ImageSource="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg"
+                                             Size="Large"/>
+                            <TextBlock Text="Image (if loaded)"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <!-- Initials -->
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Sarah Wilson"
-                                       Size="Large"/>
-                        <TextBlock Text="Initials"
-                                   FontSize="12"
-                                   HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <!-- Initials -->
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Sarah Wilson"
+                                           Size="Large"/>
+                            <TextBlock Text="Initials"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <!-- Single Name -->
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Alice"
-                                       Size="Large"/>
-                        <TextBlock Text="Single Name"
-                                   FontSize="12"
-                                   HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <!-- Single Name -->
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Alice"
+                                           Size="Large"/>
+                            <TextBlock Text="Single Name"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <!-- Long Name -->
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Robert Michael Anderson"
-                                       Size="Large"
-                                       MaxInitials="3"/>
-                        <TextBlock Text="3 Initials"
-                                   FontSize="12"
-                                   HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </WrapPanel>
-            </StackPanel>
+                        <!-- Long Name -->
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Robert Michael Anderson"
+                                           Size="Large"
+                                           MaxInitials="3"/>
+                            <TextBlock Text="3 Initials"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
             <!-- Different Sizes -->
-            <StackPanel Spacing="20">
-                <TextBlock Text="Sizes"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
-                
-                <!-- Changed to WrapPanel -->
-                <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="XS" Size="ExtraSmall"/>
-                        <TextBlock Text="XS (24px)" FontSize="10" HorizontalAlignment="Center"/>
-                    </StackPanel>
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Sizes"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <!-- Changed to WrapPanel -->
+                    <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="XS" Size="ExtraSmall"/>
+                            <TextBlock Text="XS (24px)" FontSize="10" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="SM" Size="Small"/>
-                        <TextBlock Text="Small (32px)" FontSize="10" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="SM" Size="Small"/>
+                            <TextBlock Text="Small (32px)" FontSize="10" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="MD" Size="Medium"/>
-                        <TextBlock Text="Medium (48px)" FontSize="10" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="MD" Size="Medium"/>
+                            <TextBlock Text="Medium (48px)" FontSize="10" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="LG" Size="Large"/>
-                        <TextBlock Text="Large (64px)" FontSize="10" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="LG" Size="Large"/>
+                            <TextBlock Text="Large (64px)" FontSize="10" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="XL" Size="ExtraLarge"/>
-                        <TextBlock Text="XL (96px)" FontSize="10" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="XL" Size="ExtraLarge"/>
+                            <TextBlock Text="XL (96px)" FontSize="10" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="CS" 
-                                       Size="Custom"
-                                       CustomSize="120"/>
-                        <TextBlock Text="Custom (120px)" FontSize="10" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </WrapPanel>
-            </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="CS" 
+                                           Size="Custom"
+                                           CustomSize="120"/>
+                            <TextBlock Text="Custom (120px)" FontSize="10" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
             <!-- Different Shapes -->
-            <StackPanel Spacing="20">
-                <TextBlock Text="Shapes"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
-                
-                <!-- Changed to WrapPanel -->
-                <WrapPanel Orientation="Horizontal">
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Circle User"
-                                       Size="Large"
-                                       Shape="Circle"/>
-                        <TextBlock Text="Circle" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Shapes"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <!-- Changed to WrapPanel -->
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Circle User"
+                                           Size="Large"
+                                           Shape="Circle"/>
+                            <TextBlock Text="Circle" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Square User"
-                                       Size="Large"
-                                       Shape="Square"/>
-                        <TextBlock Text="Square" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Square User"
+                                           Size="Large"
+                                           Shape="Square"/>
+                            <TextBlock Text="Square" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Rect User"
-                                       Size="Large"
-                                       Shape="Rectangle"/>
-                        <TextBlock Text="Rectangle" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </WrapPanel>
-            </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Rect User"
+                                           Size="Large"
+                                           Shape="Rectangle"/>
+                            <TextBlock Text="Rectangle" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
             <!-- Status Indicators -->
-            <StackPanel Spacing="20">
-                <TextBlock Text="Status Indicators"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
-                
-                <!-- Changed to WrapPanel -->
-                <WrapPanel Orientation="Horizontal">
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Online User"
-                                       Size="Large"
-                                       Status="Online"/>
-                        <TextBlock Text="Online" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Status Indicators"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <!-- Changed to WrapPanel -->
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Online User"
+                                           Size="Large"
+                                           Status="Online"/>
+                            <TextBlock Text="Online" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Away User"
-                                       Size="Large"
-                                       Status="Away"/>
-                        <TextBlock Text="Away" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Away User"
+                                           Size="Large"
+                                           Status="Away"/>
+                            <TextBlock Text="Away" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Busy User"
-                                       Size="Large"
-                                       Status="Busy"/>
-                        <TextBlock Text="Busy" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Busy User"
+                                           Size="Large"
+                                           Status="Busy"/>
+                            <TextBlock Text="Busy" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="DND User"
-                                       Size="Large"
-                                       Status="DoNotDisturb"/>
-                        <TextBlock Text="Do Not Disturb" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="DND User"
+                                           Size="Large"
+                                           Status="DoNotDisturb"/>
+                            <TextBlock Text="Do Not Disturb" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8">
-                        <controls:Avatar DisplayName="Offline User"
-                                       Size="Large"
-                                       Status="Offline"/>
-                        <TextBlock Text="Offline" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </WrapPanel>
-            </StackPanel>
+                        <StackPanel Spacing="8">
+                            <controls:Avatar DisplayName="Offline User"
+                                           Size="Large"
+                                           Status="Offline"/>
+                            <TextBlock Text="Offline" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
             <!-- Custom Colors -->
-            <StackPanel Spacing="20">
-                <TextBlock Text="Custom Colors"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
-                
-                <!-- Changed to WrapPanel -->
-                <WrapPanel Orientation="Horizontal">
-                    <controls:Avatar DisplayName="Red"
-                                   Size="Large"
-                                   BackgroundColor="#EF4444"
-                                   AutoGenerateBackground="False"/>
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Custom Colors"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <!-- Changed to WrapPanel -->
+                    <WrapPanel Orientation="Horizontal">
+                        <controls:Avatar DisplayName="Red"
+                                       Size="Large"
+                                       BackgroundColor="#EF4444"
+                                       AutoGenerateBackground="False"/>
 
-                    <controls:Avatar DisplayName="Blue"
-                                   Size="Large"
-                                   BackgroundColor="#3B82F6"
-                                   AutoGenerateBackground="False"/>
+                        <controls:Avatar DisplayName="Blue"
+                                       Size="Large"
+                                       BackgroundColor="#3B82F6"
+                                       AutoGenerateBackground="False"/>
 
-                    <controls:Avatar DisplayName="Green"
-                                   Size="Large"
-                                   BackgroundColor="#10B981"
-                                   AutoGenerateBackground="False"/>
+                        <controls:Avatar DisplayName="Green"
+                                       Size="Large"
+                                       BackgroundColor="#10B981"
+                                       AutoGenerateBackground="False"/>
 
-                    <controls:Avatar DisplayName="Purple"
-                                   Size="Large"
-                                   BackgroundColor="#8B5CF6"
-                                   AutoGenerateBackground="False"/>
+                        <controls:Avatar DisplayName="Purple"
+                                       Size="Large"
+                                       BackgroundColor="#8B5CF6"
+                                       AutoGenerateBackground="False"/>
 
-                    <controls:Avatar DisplayName="Gray"
-                                   Size="Large"
-                                   BackgroundColor="#6B7280"
-                                   ForegroundColor="White"
-                                   AutoGenerateBackground="False"/>
-                </WrapPanel>
-            </StackPanel>
+                        <controls:Avatar DisplayName="Gray"
+                                       Size="Large"
+                                       BackgroundColor="#6B7280"
+                                       ForegroundColor="White"
+                                       AutoGenerateBackground="False"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
             <!-- Auto-Generated Colors -->
-            <StackPanel Spacing="20">
-                <TextBlock Text="Auto-Generated Colors (name hash)"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
-                
-                <!-- Already WrapPanel, preserved -->
-                <WrapPanel>
-                    <controls:Avatar DisplayName="Alice Johnson" Size="Large" Margin="0,0,12,12"/>
-                    <controls:Avatar DisplayName="Bob Smith" Size="Large" Margin="0,0,12,12"/>
-                    <controls:Avatar DisplayName="Charlie Brown" Size="Large" Margin="0,0,12,12"/>
-                    <controls:Avatar DisplayName="Diana Prince" Size="Large" Margin="0,0,12,12"/>
-                    <controls:Avatar DisplayName="Edward Norton" Size="Large" Margin="0,0,12,12"/>
-                    <controls:Avatar DisplayName="Fiona Apple" Size="Large" Margin="0,0,12,12"/>
-                </WrapPanel>
-            </StackPanel>
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Auto-Generated Colors (name hash)"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <!-- Already WrapPanel, preserved -->
+                    <WrapPanel>
+                        <controls:Avatar DisplayName="Alice Johnson" Size="Large" Margin="0,0,12,12"/>
+                        <controls:Avatar DisplayName="Bob Smith" Size="Large" Margin="0,0,12,12"/>
+                        <controls:Avatar DisplayName="Charlie Brown" Size="Large" Margin="0,0,12,12"/>
+                        <controls:Avatar DisplayName="Diana Prince" Size="Large" Margin="0,0,12,12"/>
+                        <controls:Avatar DisplayName="Edward Norton" Size="Large" Margin="0,0,12,12"/>
+                        <controls:Avatar DisplayName="Fiona Apple" Size="Large" Margin="0,0,12,12"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
             <!-- Display Modes -->
-            <StackPanel Spacing="20">
-                <TextBlock Text="Display Modes"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
-                
-                <!-- Already WrapPanel, preserved -->
-                <WrapPanel>
-                    <StackPanel Spacing="8" Margin="0,0,12,12">
-                        <controls:Avatar DisplayName="Initials Mode"
-                                       Size="Large"
-                                       DisplayMode="Initials"/>
-                        <TextBlock Text="Initials" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Display Modes"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <!-- Already WrapPanel, preserved -->
+                    <WrapPanel>
+                        <StackPanel Spacing="8" Margin="0,0,12,12">
+                            <controls:Avatar DisplayName="Initials Mode"
+                                           Size="Large"
+                                           DisplayMode="Initials"/>
+                            <TextBlock Text="Initials" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8" Margin="0,0,12,12">
-                        <controls:Avatar DisplayName="Icon Mode"
-                                       Size="Large"
-                                       DisplayMode="Icon">
-                            <controls:Avatar.Icon>
-                                <PathIcon Data="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                                         Width="24" Height="24"/>
-                            </controls:Avatar.Icon>
-                        </controls:Avatar>
-                        <TextBlock Text="Icon" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <StackPanel Spacing="8" Margin="0,0,12,12">
+                            <controls:Avatar DisplayName="Icon Mode"
+                                           Size="Large"
+                                           DisplayMode="Icon">
+                                <controls:Avatar.Icon>
+                                    <PathIcon Data="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                                             Width="24" Height="24"/>
+                                </controls:Avatar.Icon>
+                            </controls:Avatar>
+                            <TextBlock Text="Icon" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8" Margin="0,0,12,12">
-                        <controls:Avatar Size="Large"
-                                       DisplayMode="Content">
-                            <controls:Avatar.Content>
-                                <TextBlock Text="42" FontSize="24" FontWeight="Bold"/>
-                            </controls:Avatar.Content>
-                        </controls:Avatar>
-                        <TextBlock Text="Content (Number)" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </WrapPanel>
-            </StackPanel>
+                        <StackPanel Spacing="8" Margin="0,0,12,12">
+                            <controls:Avatar Size="Large"
+                                           DisplayMode="Content">
+                                <controls:Avatar.Content>
+                                    <TextBlock Text="42" FontSize="24" FontWeight="Bold"/>
+                                </controls:Avatar.Content>
+                            </controls:Avatar>
+                            <TextBlock Text="Content (Number)" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
             <!-- Avatar Group -->
-            <StackPanel Spacing="20">
-                <TextBlock Text="Avatar Group"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
-                
-                <StackPanel Spacing="15">
-                    <TextBlock Text="Horizontal Group:" FontWeight="SemiBold"/>
-                    <controls:AvatarGroup MaxDisplayed="5" Overlap="0.3" Size="Large">
-                        <controls:AvatarGroup.Avatars>
-                            <controls:Avatar DisplayName="Alice Cooper"/>
-                            <controls:Avatar DisplayName="Bob Dylan"/>
-                            <controls:Avatar DisplayName="Charlie Parker"/>
-                            <controls:Avatar DisplayName="Diana Ross"/>
-                            <controls:Avatar DisplayName="Eddie Vedder"/>
-                            <controls:Avatar DisplayName="Fiona Apple"/>
-                            <controls:Avatar DisplayName="George Harrison"/>
-                        </controls:AvatarGroup.Avatars>
-                    </controls:AvatarGroup>
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Avatar Group"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <StackPanel Spacing="15">
+                        <TextBlock Text="Horizontal Group:" FontWeight="SemiBold"/>
+                        <controls:AvatarGroup MaxDisplayed="5" Overlap="0.3" Size="Large">
+                            <controls:AvatarGroup.Avatars>
+                                <controls:Avatar DisplayName="Alice Cooper"/>
+                                <controls:Avatar DisplayName="Bob Dylan"/>
+                                <controls:Avatar DisplayName="Charlie Parker"/>
+                                <controls:Avatar DisplayName="Diana Ross"/>
+                                <controls:Avatar DisplayName="Eddie Vedder"/>
+                                <controls:Avatar DisplayName="Fiona Apple"/>
+                                <controls:Avatar DisplayName="George Harrison"/>
+                            </controls:AvatarGroup.Avatars>
+                        </controls:AvatarGroup>
 
-                    <TextBlock Text="Vertical Group:" FontWeight="SemiBold" Margin="0,20,0,0"/>
-                    <controls:AvatarGroup MaxDisplayed="4" 
-                                        Overlap="0.25" 
-                                        Size="Medium"
-                                        Orientation="Vertical">
-                        <controls:AvatarGroup.Avatars>
-                            <controls:Avatar DisplayName="Team Member 1"/>
-                            <controls:Avatar DisplayName="Team Member 2"/>
-                            <controls:Avatar DisplayName="Team Member 3"/>
-                            <controls:Avatar DisplayName="Team Member 4"/>
-                            <controls:Avatar DisplayName="Team Member 5"/>
-                        </controls:AvatarGroup.Avatars>
-                    </controls:AvatarGroup>
+                        <TextBlock Text="Vertical Group:" FontWeight="SemiBold" Margin="0,20,0,0"/>
+                        <controls:AvatarGroup MaxDisplayed="4" 
+                                            Overlap="0.25" 
+                                            Size="Medium"
+                                            Orientation="Vertical">
+                            <controls:AvatarGroup.Avatars>
+                                <controls:Avatar DisplayName="Team Member 1"/>
+                                <controls:Avatar DisplayName="Team Member 2"/>
+                                <controls:Avatar DisplayName="Team Member 3"/>
+                                <controls:Avatar DisplayName="Team Member 4"/>
+                                <controls:Avatar DisplayName="Team Member 5"/>
+                            </controls:AvatarGroup.Avatars>
+                        </controls:AvatarGroup>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </Border>
 
             <!-- Styled Variants -->
-            <StackPanel Spacing="20">
-                <TextBlock Text="Styled Variants"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
-                
-                <WrapPanel>
-                    <StackPanel Spacing="8" Margin="0,0,12,12">
-                        <controls:Avatar DisplayName="Default"
-                                       Size="Large"/>
-                        <TextBlock Text="Default" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Styled Variants"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <WrapPanel>
+                        <StackPanel Spacing="8" Margin="0,0,12,12">
+                            <controls:Avatar DisplayName="Default"
+                                           Size="Large"/>
+                            <TextBlock Text="Default" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8" Margin="0,0,12,12">
-                        <controls:Avatar DisplayName="Bordered"
-                                       Size="Large"
-                                       Theme="{StaticResource BorderedAvatar}"
-                                       BorderBrush="#3B82F6"/>
-                        <TextBlock Text="Bordered" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                        <StackPanel Spacing="8" Margin="0,0,12,12">
+                            <controls:Avatar DisplayName="Bordered"
+                                           Size="Large"
+                                           Theme="{StaticResource BorderedAvatar}"
+                                           BorderBrush="#3B82F6"/>
+                            <TextBlock Text="Bordered" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Spacing="8" Margin="0,0,12,12">
-                        <controls:Avatar DisplayName="Shadow"
-                                       Size="Large"
-                                       Theme="{StaticResource ShadowAvatar}"/>
-                        <TextBlock Text="With Shadow" FontSize="12" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </WrapPanel>
-            </StackPanel>
+                        <StackPanel Spacing="8" Margin="0,0,12,12">
+                            <controls:Avatar DisplayName="Shadow"
+                                           Size="Large"
+                                           Theme="{StaticResource ShadowAvatar}"/>
+                            <TextBlock Text="With Shadow" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
             <!-- Real-World Example -->
-            <StackPanel Spacing="20">
-                <TextBlock Text="Real-World Example"
-                           FontSize="20"
-                           FontWeight="SemiBold"/>
-                
-                <Border Background="{DynamicResource CardBackgroundBrush}"
-                        BorderBrush="{DynamicResource CardBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="12"
-                        Padding="20"
-                        MaxWidth="420">
-                    <StackPanel Spacing="15">
-                        <!-- Replaced Horizontal StackPanel with Grid to support wrapping/shrinking text -->
-                        <Grid ColumnDefinitions="Auto, *">
-                            <controls:Avatar Grid.Column="0"
-                                           Margin="0,0,15,0"
-                                           DisplayName="Jane Doe"
-                                           Size="Large"
-                                           Status="Online"
-                                           Theme="{StaticResource BorderedAvatar}"
-                                           BorderBrush="{DynamicResource SystemAccentColor}"
-                                           StatusColor="{DynamicResource SystemAccentColor}" />
-                            
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="4">
-                                <TextBlock Text="Javier Suarez"
-                                         FontSize="16"
-                                         FontWeight="SemiBold"
-                                         TextTrimming="CharacterEllipsis" />
-                                <TextBlock Text="Software Engineer"
-                                         FontSize="14"
-                                         Foreground="{DynamicResource SecondaryTextBrush}"
-                                         TextWrapping="Wrap" />
-                                <StackPanel Orientation="Horizontal" Spacing="6">
-                                    <Ellipse Width="10"
-                                             Height="10"
-                                             Fill="{DynamicResource SystemAccentColor}" />
-                                    <TextBlock Text="Online"
-                                               FontSize="12"
-                                               Foreground="{DynamicResource SecondaryTextBrush}" />
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Real-World Example"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <Border Background="{DynamicResource CardBackgroundBrush}"
+                            BorderBrush="{DynamicResource CardBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="12"
+                            Padding="20"
+                            MaxWidth="420">
+                        <StackPanel Spacing="15">
+                            <!-- Replaced Horizontal StackPanel with Grid to support wrapping/shrinking text -->
+                            <Grid ColumnDefinitions="Auto, *">
+                                <controls:Avatar Grid.Column="0"
+                                               Margin="0,0,15,0"
+                                               DisplayName="Jane Doe"
+                                               Size="Large"
+                                               Status="Online"
+                                               Theme="{StaticResource BorderedAvatar}"
+                                               BorderBrush="{DynamicResource SystemAccentColor}"
+                                               StatusColor="{DynamicResource SystemAccentColor}" />
+                                
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="4">
+                                    <TextBlock Text="Javier Suarez"
+                                             FontSize="16"
+                                             FontWeight="SemiBold"
+                                             TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Text="Software Engineer"
+                                             FontSize="14"
+                                             Foreground="{DynamicResource SecondaryTextBrush}"
+                                             TextWrapping="Wrap" />
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <Ellipse Width="10"
+                                                 Height="10"
+                                                 Fill="{DynamicResource SystemAccentColor}" />
+                                        <TextBlock Text="Online"
+                                                   FontSize="12"
+                                                   Foreground="{DynamicResource SecondaryTextBrush}" />
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
       </StackPanel>
   </ScrollViewer>
 </UserControl>
