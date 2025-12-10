@@ -1,7 +1,7 @@
 ---
 title: Welcome to Nova.Avalonia.UI
 description: Overview of the Nova.Avalonia.UI control suite and how to get started.
-ms.date: 2025-12-01
+ms.date: 2025-12-10
 ---
 
 # Welcome to Nova.Avalonia.UI
@@ -13,6 +13,7 @@ ms.date: 2025-12-01
 
 ### Visual feedback
 
+- **[RatingControl](xref:Nova.Avalonia.UI.Controls.RatingControl)**: Allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
 - **[Shimmer](xref:Nova.Avalonia.UI.Controls.Shimmer)**: Skeleton loading effect that detects your content layout to create matching placeholders.
 - **[Avatar](xref:Nova.Avalonia.UI.Controls.Avatar)**: Identity control supporting images, initials, icons, and status indicators with auto-generated backgrounds.
 
