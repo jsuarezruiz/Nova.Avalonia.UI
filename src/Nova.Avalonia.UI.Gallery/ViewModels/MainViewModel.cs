@@ -24,6 +24,7 @@ public partial class MainViewModel : ViewModelBase
         Samples = new ObservableCollection<NavigationSample>
         {
             new("Avatar", new AvatarViewModel(), "Profile avatar control and styling"),
+            new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
             new("Shimmer", new ShimmerViewModel(), "Loading placeholders with animated shimmer")
         };
 

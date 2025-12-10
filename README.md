@@ -16,13 +16,19 @@ The docs cover everything from first steps to detailed control APIs and samples,
 
 The `Avatar` control presents a person's identity using an image, initials, icon, or custom content. It includes automatic background generation, size presets, and optional presence status indicators.
 
-![Avatar](images/novaui_avatar_light.gif)
+<img src="images/novaui_avatar_light.gif" alt="Avatar" width="250" />
+
+### RatingControl
+
+The `RatingControl` allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
+
+<img src="images/novaui_ratingcontrol_light.gif" alt="Shimmer" width="250" />
 
 ### Shimmer
 
 The `Shimmer` control shows a lightweight skeleton while your content is loading. It inspects the visual tree beneath it to draw shapes that match controls, then animates a gradient sweep over the placeholders.
 
-![Shimmer](images/novaui_shimmer_light.gif)
+<img src="images/novaui_shimmer_light.gif" alt="Shimmer" width="250" />
 
 ## Contribute
 

@@ -1,5 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Avatar.axaml" />
+    <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/RatingControl.axaml" />
     <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Shimmer.axaml" />
 </Styles>

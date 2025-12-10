@@ -1,0 +1,135 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls;assembly=Nova.Avalonia.UI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1200"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.RatingControlView">
+    <ScrollViewer Margin="20">
+        <StackPanel Spacing="20">
+            
+            <TextBlock Text="RatingControl" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Standard rating control with default settings." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <controls:RatingControl Value="3" />
+                </StackPanel>
+            </Border>
+
+            <!-- Precision Modes -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Precision Modes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Control how values are selected: Full, Half, or Exact." Foreground="{DynamicResource SecondaryTextBrush}" />
+
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Full Precision (Integers)" FontWeight="SemiBold"/>
+                        <controls:RatingControl Value="2.3" Precision="Full" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Half Precision (0.5 steps)" FontWeight="SemiBold"/>
+                        <controls:RatingControl Value="3.5" Precision="Half" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Exact Precision (Continuous)" FontWeight="SemiBold"/>
+                        <controls:RatingControl Value="4.2" Precision="Exact" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Shapes -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Shapes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Built-in shapes and support for custom geometries." Foreground="{DynamicResource SecondaryTextBrush}" />
+
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="Star" HorizontalAlignment="Center"/>
+                            <controls:RatingControl Shape="Star" Value="3" />
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="Heart" HorizontalAlignment="Center"/>
+                            <controls:RatingControl Shape="Heart" Value="4" RatedFill="#E91E63" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="Circle" HorizontalAlignment="Center"/>
+                            <controls:RatingControl Shape="Circle" Value="2" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="Diamond" HorizontalAlignment="Center"/>
+                            <controls:RatingControl Shape="Diamond" Value="5" />
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Custom Geometry (Triangle)" FontWeight="SemiBold"/>
+                        <controls:RatingControl Shape="Custom" 
+                                                CustomGeometry="M 12,2 L 2,22 L 22,22 Z"
+                                                Value="3" 
+                                                ItemSize="24"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Colors & Styling -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Colors &amp; Styling" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Customize fills, strokes, sizing, and spacing." Foreground="{DynamicResource SecondaryTextBrush}" />
+
+                    <controls:RatingControl Value="4" 
+                                            ItemSize="40" 
+                                            ItemSpacing="10"
+                                            RatedFill="#00BCD4" 
+                                            UnratedFill="#B2EBF2"
+                                            StrokeThickness="1"
+                                            RatedStroke="#0097A7"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Read Only -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Read Only" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Display-only mode. Users cannot interact with it." Foreground="{DynamicResource SecondaryTextBrush}" />
+
+                    <controls:RatingControl Value="3.7" IsReadOnly="True" Precision="Exact" />
+                </StackPanel>
+            </Border>
+
+            <!-- Item Count -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Item Count" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Support for any number of items." Foreground="{DynamicResource SecondaryTextBrush}" />
+
+                    <controls:RatingControl Value="7" ItemCount="10" ItemSize="20" />
+                </StackPanel>
+            </Border>
+
+            <!-- ValueChanged Event -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="ValueChanged Event" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="React to value changes with the ValueChanged event." Foreground="{DynamicResource SecondaryTextBrush}" />
+
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <controls:RatingControl x:Name="EventRatingControl" Value="0" ValueChanged="OnRatingValueChanged" />
+                        <TextBlock x:Name="RatingValueText" Text="Value: 0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
