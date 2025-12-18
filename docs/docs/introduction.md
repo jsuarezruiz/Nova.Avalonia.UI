@@ -12,6 +12,7 @@ Nova.Avalonia.UI is a control library built for Avalonia. It focuses on controls
 
 - **[Shimmer](xref:Nova.Avalonia.UI.Controls.Shimmer)**: Skeleton loading effect for async data scenarios.
 - **[Avatar](xref:Nova.Avalonia.UI.Controls.Avatar)** and **[AvatarGroup](xref:Nova.Avalonia.UI.Controls.AvatarGroup)**: Identity visuals with initials, images, status badges, and grouping support.
+- **[Badge](xref:Nova.Avalonia.UI.Controls.Badge)**: Notifications, status indicators, and counters with customizable placement and overflow handling.
 
 ## How to use these docs
 
