@@ -10,3 +10,5 @@
     href: controls/avatar.md
   - name: Badge
     href: controls/badge.md
+  - name: RatingControl
+    href: controls/ratingcontrol.md

@@ -96,8 +96,7 @@ If you only need a simple indicator without text, use `Kind="Dot"`. You can comb
 
 When displaying numbers, you can limit the maximum value shown using `MaxCount`. If the `BadgeContent` exceeds this limit, it will display the limit followed by a `+` (e.g., "99+").
 
-- Default `MaxCount` is often handled by your view model logic, but the control supports logical truncation if implemented. 
-*(Note: The current implementation handles string parsing for basic numeric comparison if the content is numeric)*.
+- The default `MaxCount` is 99. If the content is numeric and exceeds this value, it will be truncated with a `+` suffix logic.
 
 ```xaml
 <!-- Displays "99+" if content is > 99 -->
@@ -127,8 +126,8 @@ The `Badge` control can also be used without wrapping content, acting as a stand
 | Property | Type | Description |
 |----------|------|-------------|
 | `BadgeContent` | `object` | The content to display inside the badge (text, number, etc.). |
-| `BadgePlacement` | `BadgePlacement` | The position of the badge relative to the content content. Default is `TopRight`. |
+| `BadgePlacement` | `BadgePlacement` | The position of the badge relative to the content. Default is `TopRight`. |
 | `Kind` | `BadgeKind` | The visual style of the badge content. Values: `Content` (default), `Dot`. |
 | `MaxCount` | `int` | The maximum numeric value to display before showing a `+` suffix. Default is 99. |
 | `IsBadgeVisible` | `bool` | Controls the visibility of the badge itself. Default is `True`. |
-| `BadgeOffset` | `Point` | Additional X/Y offset to fine-tune the badge position. |
+| `BadgeOffset` | `double` | Additional X/Y offset to fine-tune the badge position. |
