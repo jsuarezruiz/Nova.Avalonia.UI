@@ -21,6 +21,22 @@
             <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource SystemAccentColor}" />
             <SolidColorBrush x:Key="AccentMutedBrush" Color="{DynamicResource SystemAccentColor}" Opacity="0.75" />
 
+            <!-- Shared Barcode brushes (High Contrast for both themes) -->
+            <SolidColorBrush x:Key="BarcodeBarBrush" Color="#1A1A1A" />
+            <SolidColorBrush x:Key="BarcodeBackgroundBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="BarcodeBlueBrush" Color="#1565C0" />
+            <SolidColorBrush x:Key="BarcodeBlueBackgroundBrush" Color="#E3F2FD" />
+            <SolidColorBrush x:Key="BarcodeRedBrush" Color="#C62828" />
+            <SolidColorBrush x:Key="BarcodeRedBackgroundBrush" Color="#FFEBEE" />
+            <SolidColorBrush x:Key="BarcodeGreenBrush" Color="#2E7D32" />
+            <SolidColorBrush x:Key="BarcodeGreenBackgroundBrush" Color="#E8F5E9" />
+            <SolidColorBrush x:Key="BarcodePurpleBrush" Color="#6A1B9A" />
+            <SolidColorBrush x:Key="BarcodePurpleBackgroundBrush" Color="#F3E5F5" />
+            <SolidColorBrush x:Key="BarcodeAmberBrush" Color="#263238" />
+            <SolidColorBrush x:Key="BarcodeAmberBackgroundBrush" Color="#FFFDE7" />
+            <SolidColorBrush x:Key="BarcodeGrayBrush" Color="#37474F" />
+            <SolidColorBrush x:Key="BarcodeGrayBackgroundBrush" Color="#ECEFF1" />
+
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="SecondaryTextBrush" Color="#666666" />

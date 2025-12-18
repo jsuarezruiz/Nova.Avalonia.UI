@@ -25,5 +25,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Nova.Avalonia.UI\Nova.Avalonia.UI.csproj" />
+      <ProjectReference Include="..\Nova.Avalonia.UI.BarcodeGenerator\Nova.Avalonia.UI.BarcodeGenerator.csproj" />
     </ItemGroup>
 </Project>
