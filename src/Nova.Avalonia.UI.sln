@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova.Avalonia.UI", "Nova.Av
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova.Avalonia.UI.Tests", "Nova.Avalonia.UI.Tests\Nova.Avalonia.UI.Tests.csproj", "{24BC3333-11DF-4DF3-9862-11AD62F2EA1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova.Avalonia.UI.BarcodeGenerator", "Nova.Avalonia.UI.BarcodeGenerator\Nova.Avalonia.UI.BarcodeGenerator.csproj", "{A4C2F6CA-881A-4178-815A-94757D3CBC6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,18 @@ Global
 		{24BC3333-11DF-4DF3-9862-11AD62F2EA1D}.Release|x64.Build.0 = Release|Any CPU
 		{24BC3333-11DF-4DF3-9862-11AD62F2EA1D}.Release|x86.ActiveCfg = Release|Any CPU
 		{24BC3333-11DF-4DF3-9862-11AD62F2EA1D}.Release|x86.Build.0 = Release|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Debug|x64.Build.0 = Debug|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Debug|x86.Build.0 = Debug|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Release|x64.ActiveCfg = Release|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Release|x64.Build.0 = Release|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Release|x86.ActiveCfg = Release|Any CPU
+		{A4C2F6CA-881A-4178-815A-94757D3CBC6C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,427 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Nova.Avalonia.UI.BarcodeGenerator;assembly=Nova.Avalonia.UI.BarcodeGenerator"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="4000"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.BarcodeGeneratorView">
+    <ScrollViewer Margin="20">
+        <StackPanel Spacing="20">
+
+            <!-- Basic QR Code -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic QR Code" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Standard QR code with text display. Adapts to theme automatically." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <controls:BarcodeGenerator Value="https://www.avaloniaui.net/"
+                                               Symbology="QRCode"
+                                               BarBrush="{DynamicResource BarcodeBarBrush}"
+                                               BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                               ShowText="True"
+                                               TextFontSize="14"
+                                               TextMargin="0,8,0,0"
+                                               Width="250" Height="250"
+                                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Custom Colors QR -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Custom Colors" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="QR code with theme-aware custom colors." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="Blue Theme" HorizontalAlignment="Center"/>
+                            <controls:BarcodeGenerator Value="https://avaloniaui.net/"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBlueBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBlueBackgroundBrush}"
+                                                       ShowText="True"
+                                                       TextFontSize="12"
+                                                       Width="150" Height="150"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="Red Theme" HorizontalAlignment="Center"/>
+                            <controls:BarcodeGenerator Value="Custom Red"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeRedBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeRedBackgroundBrush}"
+                                                       ShowText="True"
+                                                       TextFontSize="12"
+                                                       Width="150" Height="150"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Green Theme" HorizontalAlignment="Center"/>
+                            <controls:BarcodeGenerator Value="Custom Green"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeGreenBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeGreenBackgroundBrush}"
+                                                       ShowText="True"
+                                                       TextFontSize="12"
+                                                       Width="150" Height="150"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Code 128 -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Code 128" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Linear barcode commonly used in shipping and logistics." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <controls:BarcodeGenerator Value="AVALONIA2025"
+                                               Symbology="Code128"
+                                               BarBrush="{DynamicResource BarcodeAmberBrush}"
+                                               BackgroundBrush="{DynamicResource BarcodeAmberBackgroundBrush}"
+                                               ShowText="True"
+                                               TextFontSize="16"
+                                               TextAlignment="Center"
+                                               Width="350" Height="100"
+                                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Code 39 -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Code 39" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Alphanumeric barcode used in automotive and defense industries." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <controls:BarcodeGenerator Value="CODE39-DEMO"
+                                               Symbology="Code39"
+                                               BarBrush="{DynamicResource BarcodeBarBrush}"
+                                               BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                               ShowText="True"
+                                               TextFontSize="18"
+                                               TextMargin="0,10,0,0"
+                                               Width="350" Height="100"
+                                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- EAN Barcodes -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="EAN Barcodes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="European Article Number barcodes for retail products." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="5" Margin="0,0,30,0">
+                            <TextBlock Text="EAN-13" FontWeight="SemiBold"/>
+                            <controls:BarcodeGenerator Value="5901234123457"
+                                                       Symbology="EAN13"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ShowText="True"
+                                                       TextFontSize="14"
+                                                       Width="200" Height="80"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="EAN-8" FontWeight="SemiBold"/>
+                            <controls:BarcodeGenerator Value="12345670"
+                                                       Symbology="EAN8"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ShowText="True"
+                                                       TextAlignment="Left"
+                                                       TextFontSize="14"
+                                                       Width="150" Height="80"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- UPC-A -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="UPC-A" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Universal Product Code used in North America." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <controls:BarcodeGenerator Value="012345678905"
+                                               Symbology="UPCA"
+                                               BarBrush="{DynamicResource BarcodeRedBrush}"
+                                               BackgroundBrush="{DynamicResource BarcodeRedBackgroundBrush}"
+                                               ShowText="True"
+                                               TextFontSize="16"
+                                               Width="250" Height="90"
+                                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Data Matrix -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Data Matrix" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="2D matrix barcode for small items and electronic components." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <controls:BarcodeGenerator Value="Avalonia Controls"
+                                               Symbology="DataMatrix"
+                                               BarBrush="{DynamicResource BarcodeGreenBrush}"
+                                               BackgroundBrush="{DynamicResource BarcodeGreenBackgroundBrush}"
+                                               ShowText="False"
+                                               Width="200" Height="200"
+                                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- PDF417 -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="PDF417" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="2D stacked linear format with high data capacity." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <controls:BarcodeGenerator Value="PDF417 Demo Data"
+                                               Symbology="PDF417"
+                                               BarBrush="{DynamicResource BarcodeGrayBrush}"
+                                               BackgroundBrush="{DynamicResource BarcodeGrayBackgroundBrush}"
+                                               ShowText="True"
+                                               TextFontSize="14"
+                                               Width="350" Height="120"
+                                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Aztec -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Aztec Code" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="2D matrix barcode used in transport tickets and boarding passes." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <controls:BarcodeGenerator Value="AZTEC-2025"
+                                               Symbology="Aztec"
+                                               BarBrush="{DynamicResource BarcodePurpleBrush}"
+                                               BackgroundBrush="{DynamicResource BarcodePurpleBackgroundBrush}"
+                                               ShowText="True"
+                                               TextFontSize="14"
+                                               Width="200" Height="200"
+                                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ITF -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="ITF (Interleaved 2 of 5)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Numeric barcode used in logistics and shipping." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <controls:BarcodeGenerator Value="12345678901234"
+                                               Symbology="ITF"
+                                               BarBrush="{DynamicResource BarcodeGreenBrush}"
+                                               BackgroundBrush="{DynamicResource BarcodeGreenBackgroundBrush}"
+                                               ShowText="True"
+                                               TextFontSize="14"
+                                               Width="350" Height="90"
+                                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Code 93 and Codabar -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Other Linear Barcodes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Code 93 and Codabar formats." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="5" Margin="0,0,30,0">
+                            <TextBlock Text="Code 93" FontWeight="SemiBold"/>
+                            <controls:BarcodeGenerator Value="CODE93DEMO"
+                                                       Symbology="Code93"
+                                                       BarBrush="{DynamicResource BarcodeGrayBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ShowText="True"
+                                                       TextFontSize="14"
+                                                       Width="280" Height="80"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Codabar" FontWeight="SemiBold"/>
+                            <controls:BarcodeGenerator Value="A1234567890B"
+                                                       Symbology="Codabar"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ShowText="True"
+                                                       TextAlignment="Left"
+                                                       TextFontSize="14"
+                                                       Width="280" Height="80"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Error Correction Levels -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Error Correction Levels" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Higher levels allow more damage recovery but reduce data capacity." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="5" Margin="0,0,15,0">
+                            <TextBlock Text="Level L (7%)" HorizontalAlignment="Center" FontSize="11"/>
+                            <controls:BarcodeGenerator Value="EC-Level-L"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ErrorCorrectionLevel="L"
+                                                       ShowText="False"
+                                                       Width="100" Height="100"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5" Margin="0,0,15,0">
+                            <TextBlock Text="Level M (15%)" HorizontalAlignment="Center" FontSize="11"/>
+                            <controls:BarcodeGenerator Value="EC-Level-M"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ErrorCorrectionLevel="M"
+                                                       ShowText="False"
+                                                       Width="100" Height="100"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5" Margin="0,0,15,0">
+                            <TextBlock Text="Level Q (25%)" HorizontalAlignment="Center" FontSize="11"/>
+                            <controls:BarcodeGenerator Value="EC-Level-Q"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ErrorCorrectionLevel="Q"
+                                                       ShowText="False"
+                                                       Width="100" Height="100"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Level H (30%)" HorizontalAlignment="Center" FontSize="11"/>
+                            <controls:BarcodeGenerator Value="EC-Level-H"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ErrorCorrectionLevel="H"
+                                                       ShowText="False"
+                                                       Width="100" Height="100"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Multiple Symbologies Comparison -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Symbology Comparison" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Side-by-side comparison of different barcode types." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="5" Margin="0,0,20,10">
+                            <TextBlock Text="QR Code" HorizontalAlignment="Center" FontSize="12"/>
+                            <controls:BarcodeGenerator Value="QR"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBlueBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBlueBackgroundBrush}"
+                                                       ShowText="False"
+                                                       Width="120" Height="120"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5" Margin="0,0,20,10">
+                            <TextBlock Text="Data Matrix" HorizontalAlignment="Center" FontSize="12"/>
+                            <controls:BarcodeGenerator Value="DM"
+                                                       Symbology="DataMatrix"
+                                                       BarBrush="{DynamicResource BarcodeGreenBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeGreenBackgroundBrush}"
+                                                       ShowText="False"
+                                                       Width="120" Height="120"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5" Margin="0,0,20,10">
+                            <TextBlock Text="Aztec" HorizontalAlignment="Center" FontSize="12"/>
+                            <controls:BarcodeGenerator Value="AZ"
+                                                       Symbology="Aztec"
+                                                       BarBrush="{DynamicResource BarcodePurpleBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodePurpleBackgroundBrush}"
+                                                       ShowText="False"
+                                                       Width="120" Height="120"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Sizes -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Different Sizes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="QR codes at various dimensions." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="5" Margin="0,0,20,10">
+                            <TextBlock Text="100x100" HorizontalAlignment="Center" FontSize="11"/>
+                            <controls:BarcodeGenerator Value="Small"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ShowText="False"
+                                                       Width="100" Height="100"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5" Margin="0,0,20,10">
+                            <TextBlock Text="150x150" HorizontalAlignment="Center" FontSize="11"/>
+                            <controls:BarcodeGenerator Value="Medium"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ShowText="False"
+                                                       Width="150" Height="150"/>
+                        </StackPanel>
+                        <StackPanel Spacing="5" Margin="0,0,20,10">
+                            <TextBlock Text="200x200" HorizontalAlignment="Center" FontSize="11"/>
+                            <controls:BarcodeGenerator Value="Large"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ShowText="False"
+                                                       Width="200" Height="200"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- QR Code with Logo -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="QR Code with Logo" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Embed a logo in the center of QR codes. Use ErrorCorrectionLevel H for best results." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="25% Logo Size" HorizontalAlignment="Center" FontSize="11"/>
+                            <controls:BarcodeGenerator x:Name="QRWithLogo25"
+                                                       Value="https://avaloniaui.net"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ErrorCorrectionLevel="H"
+                                                       LogoSizePercent="0.25"
+                                                       ShowText="False"
+                                                       Width="180" Height="180">
+                                <controls:BarcodeGenerator.Logo>
+                                    <Bitmap>avares://Nova.Avalonia.UI.Gallery/Assets/avalonia-logo.ico</Bitmap>
+                                </controls:BarcodeGenerator.Logo>
+                            </controls:BarcodeGenerator>
+                        </StackPanel>
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="35% Logo Size" HorizontalAlignment="Center" FontSize="11"/>
+                            <controls:BarcodeGenerator Value="https://avaloniaui.net"
+                                                       Symbology="QRCode"
+                                                       BarBrush="{DynamicResource BarcodeBarBrush}"
+                                                       BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                                       ErrorCorrectionLevel="H"
+                                                       LogoSizePercent="0.35"
+                                                       ShowText="False"
+                                                       Width="180" Height="180">
+                                <controls:BarcodeGenerator.Logo>
+                                    <Bitmap>avares://Nova.Avalonia.UI.Gallery/Assets/avalonia-logo.ico</Bitmap>
+                                </controls:BarcodeGenerator.Logo>
+                            </controls:BarcodeGenerator>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Disabled State -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Disabled State" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Barcode with IsEnabled=False." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <controls:BarcodeGenerator Value="DISABLED"
+                                               Symbology="QRCode"
+                                               BarBrush="{DynamicResource BarcodeBarBrush}"
+                                               BackgroundBrush="{DynamicResource BarcodeBackgroundBrush}"
+                                               IsEnabled="False"
+                                               ShowText="True"
+                                               TextFontSize="14"
+                                               Width="150" Height="150"
+                                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

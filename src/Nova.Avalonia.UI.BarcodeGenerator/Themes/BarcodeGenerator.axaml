@@ -1,0 +1,89 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:Nova.Avalonia.UI.BarcodeGenerator">
+    <!-- Theme Dictionaries for Dark/Light mode support -->
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="BarcodeGeneratorBarBrush" Color="#000000"/>
+            <SolidColorBrush x:Key="BarcodeGeneratorBackgroundBrush" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="BarcodeGeneratorTextForeground" Color="#1E293B"/>
+            <SolidColorBrush x:Key="BarcodeGeneratorBorderBrush" Color="#E2E8F0"/>
+            <SolidColorBrush x:Key="BarcodeGeneratorFocusBorderBrush" Color="#2196F3"/>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="BarcodeGeneratorBarBrush" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="BarcodeGeneratorBackgroundBrush" Color="#1E1E1E"/>
+            <SolidColorBrush x:Key="BarcodeGeneratorTextForeground" Color="#E2E8F0"/>
+            <SolidColorBrush x:Key="BarcodeGeneratorBorderBrush" Color="#3F3F46"/>
+            <SolidColorBrush x:Key="BarcodeGeneratorFocusBorderBrush" Color="#60A5FA"/>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <ControlTheme x:Key="{x:Type controls:BarcodeGenerator}" 
+                  TargetType="controls:BarcodeGenerator">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="Height" Value="300"/>
+        <Setter Property="Focusable" Value="True"/>
+        <Setter Property="BarBrush" Value="{DynamicResource BarcodeGeneratorBarBrush}"/>
+        <Setter Property="BackgroundBrush" Value="{DynamicResource BarcodeGeneratorBackgroundBrush}"/>
+        <Setter Property="TextForeground" Value="{DynamicResource BarcodeGeneratorTextForeground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BarcodeGeneratorBorderBrush}"/>
+        <Setter Property="AutomationProperties.Name" 
+                Value="{Binding Value, RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{TemplateBinding Padding}">
+                    <Grid RowDefinitions="*,Auto">
+                        <!-- Drawing surface (barcode rendered here) -->
+                        <Border x:Name="PART_Surface" Grid.Row="0"/>
+
+                        <!-- Optional Caption -->
+                        <TextBlock x:Name="PART_Caption"
+                                   Grid.Row="1"
+                                   AutomationProperties.AccessibilityView="Raw"
+                                   Text="{TemplateBinding Value}"
+                                   TextAlignment="{TemplateBinding TextAlignment}"
+                                   Foreground="{TemplateBinding TextForeground}"
+                                   FontSize="{TemplateBinding TextFontSize}"
+                                   Margin="{TemplateBinding TextMargin}"
+                                   IsVisible="{TemplateBinding ShowText}"/>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        
+        <!-- Focus Visual -->
+        <Style Selector="^:focus">
+            <Setter Property="BorderBrush" Value="{DynamicResource BarcodeGeneratorFocusBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        
+        <!-- Disabled State -->
+        <Style Selector="^:disabled">
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+    </ControlTheme>
+
+    <!-- Size Variants -->
+    <ControlTheme x:Key="BarcodeGeneratorCompact" 
+                  TargetType="controls:BarcodeGenerator"
+                  BasedOn="{StaticResource {x:Type controls:BarcodeGenerator}}">
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Height" Value="150"/>
+    </ControlTheme>
+
+    <ControlTheme x:Key="BarcodeGeneratorLarge" 
+                  TargetType="controls:BarcodeGenerator"
+                  BasedOn="{StaticResource {x:Type controls:BarcodeGenerator}}">
+        <Setter Property="Width" Value="500"/>
+        <Setter Property="Height" Value="500"/>
+    </ControlTheme>
+    
+</ResourceDictionary>

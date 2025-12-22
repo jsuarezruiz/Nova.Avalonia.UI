@@ -19,6 +19,7 @@
         <PackageVersion Include="Avalonia.Headless.XUnit" Version="11.3.8" />
 
         <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageVersion Include="ZXing.Net" Version="0.16.11" />
 
         <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.15" />
 

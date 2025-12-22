@@ -25,6 +25,7 @@ public partial class MainViewModel : ViewModelBase
         {
             new("Avatar", new AvatarViewModel(), "Profile avatar control and styling"),
             new("Badge", new BadgeViewModel(), "Notification badge control"),
+            new("BarcodeGenerator", new BarcodeGeneratorViewModel(), "QR codes, barcodes, and 2D symbologies"),
             new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
             new("Shimmer", new ShimmerViewModel(), "Loading placeholders with animated shimmer")
         };

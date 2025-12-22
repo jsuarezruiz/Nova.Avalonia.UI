@@ -4,11 +4,13 @@
   href: getting-started.md
 - name: Controls
   items:
-  - name: Shimmer
-    href: controls/shimmer.md
   - name: Avatar
     href: controls/avatar.md
   - name: Badge
     href: controls/badge.md
+  - name: BarcodeGenerator
+    href: controls/barcodegenerator.md
   - name: RatingControl
     href: controls/ratingcontrol.md
+  - name: Shimmer
+    href: controls/shimmer.md
