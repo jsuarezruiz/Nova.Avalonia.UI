@@ -1,0 +1,385 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.BadgeView">
+    <ScrollViewer>
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="Badge"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center" />
+
+            <!-- Basic Badges (Standalone) -->
+            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Basic Badges"
+                               FontSize="18"
+                               FontWeight="Bold" />
+                    
+                    <WrapPanel>
+                        <controls:Badge BadgeContent="Primary" 
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Success" 
+                                        Theme="{StaticResource SuccessBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Warning" 
+                                        Theme="{StaticResource WarningBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Danger" 
+                                        Theme="{StaticResource DangerBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Info" 
+                                        Theme="{StaticResource InfoBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Secondary" 
+                                        Theme="{StaticResource SecondaryBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Dark" 
+                                        Theme="{StaticResource DarkBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Light" 
+                                        Theme="{StaticResource LightBadge}"
+                                        Margin="5" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Outline Badges -->
+            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Outline Badges"
+                               FontSize="18"
+                               FontWeight="Bold" />
+                    
+                    <WrapPanel>
+                        <controls:Badge BadgeContent="Primary" 
+                                        Theme="{StaticResource PrimaryOutlineBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Success" 
+                                        Theme="{StaticResource SuccessOutlineBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Warning" 
+                                        Theme="{StaticResource WarningOutlineBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Danger" 
+                                        Theme="{StaticResource DangerOutlineBadge}"
+                                        Margin="5" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Sizes -->
+            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Different Sizes"
+                               FontSize="18"
+                               FontWeight="Bold" />
+                    
+                    <WrapPanel>
+                        <controls:Badge BadgeContent="Small" 
+                                        Theme="{StaticResource SmallBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Default" 
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="Large" 
+                                        Theme="{StaticResource LargeBadge}"
+                                        Margin="5" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Number Badges -->
+            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Number Badges"
+                               FontSize="18"
+                               FontWeight="Bold" />
+                    
+                    <WrapPanel>
+                        <controls:Badge BadgeContent="1" 
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="5" 
+                                        Theme="{StaticResource SuccessBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="99" 
+                                        Theme="{StaticResource WarningBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="999+" 
+                                        Theme="{StaticResource DangerBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge BadgeContent="New" 
+                                        Theme="{StaticResource InfoBadge}"
+                                        Margin="5" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Dot Indicators -->
+            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Dot Indicators"
+                               FontSize="18"
+                               FontWeight="Bold" />
+                    
+                    <WrapPanel>
+                        <controls:Badge Kind="Dot"
+                                        Theme="{StaticResource SmallDotBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge Kind="Dot"
+                                        Margin="5" />
+                        
+                        <controls:Badge Kind="Dot"
+                                        Theme="{StaticResource LargeDotBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge Kind="Dot"
+                                        Theme="{StaticResource SuccessBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge Kind="Dot"
+                                        Theme="{StaticResource DangerBadge}"
+                                        Margin="5" />
+                        
+                        <controls:Badge Kind="Dot"
+                                        Theme="{StaticResource WarningBadge}"
+                                        Margin="5" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- All Placements -->
+            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="All Placements"
+                               FontSize="18"
+                               FontWeight="Bold" />
+                    
+                    <UniformGrid Rows="3" Columns="3" Margin="0,10">
+                        <UniformGrid.Styles>
+                            <Style Selector="Border.PlacementBox">
+                                <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                                <Setter Property="BorderThickness" Value="1" />
+                                <Setter Property="CornerRadius" Value="8" />
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Margin" Value="10" />
+                                <Setter Property="Width" Value="100" />
+                                <Setter Property="Height" Value="60" />
+                                <!-- Ensure text is visible in dark mode -->
+                                <Setter Property="TextElement.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+                            </Style>
+                        </UniformGrid.Styles>
+                        
+                        <!-- Top Left -->
+                        <controls:Badge BadgePlacement="TopLeft" BadgeContent="1" Theme="{StaticResource DangerBadge}">
+                            <Border Classes="PlacementBox">
+                                <TextBlock Text="Top Left" 
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                            </Border>
+                        </controls:Badge>
+
+                        <!-- Top -->
+                        <controls:Badge BadgePlacement="Top" BadgeContent="2" Theme="{StaticResource DangerBadge}">
+                            <Border Classes="PlacementBox">
+                                <TextBlock Text="Top" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </controls:Badge>
+
+                        <!-- Top Right -->
+                        <controls:Badge BadgePlacement="TopRight" BadgeContent="3" Theme="{StaticResource DangerBadge}">
+                            <Border Classes="PlacementBox">
+                                <TextBlock Text="Top Right" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Border>
+                        </controls:Badge>
+
+                        <!-- Left -->
+                        <controls:Badge BadgePlacement="Left" BadgeContent="4" Theme="{StaticResource SuccessBadge}">
+                            <Border Classes="PlacementBox">
+                                <TextBlock Text="Left" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Border>
+                        </controls:Badge>
+
+                        <!-- Center (no badge) -->
+                        <Border Classes="PlacementBox">
+                            <TextBlock Text="Center" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
+
+                        <!-- Right -->
+                        <controls:Badge BadgePlacement="Right" BadgeContent="5" Theme="{StaticResource SuccessBadge}">
+                            <Border Classes="PlacementBox">
+                                <TextBlock Text="Right" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Border>
+                        </controls:Badge>
+
+                        <!-- Bottom Left -->
+                        <controls:Badge BadgePlacement="BottomLeft" BadgeContent="6" Theme="{StaticResource WarningBadge}">
+                            <Border Classes="PlacementBox">
+                                <TextBlock Text="Bottom Left" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </controls:Badge>
+
+                        <!-- Bottom -->
+                        <controls:Badge BadgePlacement="Bottom" BadgeContent="7" Theme="{StaticResource WarningBadge}">
+                            <Border Classes="PlacementBox">
+                                <TextBlock Text="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </controls:Badge>
+
+                        <!-- Bottom Right -->
+                        <controls:Badge BadgePlacement="BottomRight" BadgeContent="8" Theme="{StaticResource WarningBadge}">
+                             <Border Classes="PlacementBox">
+                                <TextBlock Text="Bottom Right" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Border>
+                        </controls:Badge>
+                    </UniformGrid>
+                </StackPanel>
+            </Border>
+
+            <!-- Badges on Buttons -->
+            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Badges on Buttons"
+                               FontSize="18"
+                               FontWeight="Bold" />
+                    
+                    <WrapPanel>
+                        <controls:Badge BadgePlacement="TopRight" Margin="10" BadgeContent="5" Theme="{StaticResource DangerBadge}">
+                            <Button Content="Messages" Padding="15,8" />
+                        </controls:Badge>
+
+                        <controls:Badge BadgePlacement="TopRight" Margin="10" BadgeContent="12" Theme="{StaticResource WarningBadge}">
+                            <Button Content="Notifications" Padding="15,8" />
+                        </controls:Badge>
+
+                        <!-- Explicit Dot Mode on Button -->
+                        <controls:Badge BadgePlacement="TopRight" Margin="10" Kind="Dot" Theme="{StaticResource SuccessBadge}">
+                            <Button Content="Status" Padding="15,8" />
+                        </controls:Badge>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Shape Variants -->
+            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Shape Variants"
+                               FontSize="18"
+                               FontWeight="Bold" />
+            
+                    <WrapPanel>
+                        <controls:Badge BadgeContent="Pill Badge" 
+                                        Theme="{StaticResource PillBadge}"
+                                        Margin="5" />
+                
+                        <controls:Badge BadgeContent="Square Badge" 
+                                        Theme="{StaticResource SquareBadge}"
+                                        Margin="5" />
+                
+                        <controls:Badge BadgeContent="Default" 
+                                        Margin="5" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Interactive -->
+            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Interactive"
+                               FontSize="18"
+                               FontWeight="Bold" />
+                    
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Badge Content:" VerticalAlignment="Center" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Name="BadgeContentInput" Text="5" Width="200" HorizontalAlignment="Left" />
+                        
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Show Badge:" VerticalAlignment="Center" />
+                        <CheckBox Grid.Column="1" Grid.Row="1" Name="ShowBadgeCheck" IsChecked="True" />
+                        
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Result:" VerticalAlignment="Center" />
+                        
+                        <!-- Simplified Interactive Usage -->
+                        <controls:Badge Grid.Column="1" Grid.Row="2" 
+                                        BadgePlacement="TopRight"
+                                        BadgeContent="{Binding #BadgeContentInput.Text}"
+                                        IsBadgeVisible="{Binding #ShowBadgeCheck.IsChecked}"
+                                        HorizontalAlignment="Left">
+                            <Button Content="Click Me" Padding="20,10" />
+                        </controls:Badge>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            
+            <!-- Max Count & Cutout Effect -->
+            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Max Count &amp; Cutout Effect"
+                               FontSize="18"
+                               FontWeight="Bold" />
+                    
+                    <WrapPanel>
+                        <!-- Max Count Example (99 default limit) -->
+                        <StackPanel Spacing="5" Margin="10">
+                            <TextBlock Text="Max Count (150 → 99+)" FontSize="10" Foreground="Gray" HorizontalAlignment="Center"/>
+                            <controls:Badge BadgeContent="150" 
+                                            BadgePlacement="TopRight"
+                                            HorizontalAlignment="Center" 
+                                            Theme="{StaticResource DangerBadge}">
+                                <Button Content="Inbox" Padding="15,8"/>
+                            </controls:Badge>
+                        </StackPanel>
+
+                        <!-- Max Count Custom Limit (limit 9) -->
+                        <StackPanel Spacing="5" Margin="10">
+                            <TextBlock Text="Max Count (limit 9)" FontSize="10" Foreground="Gray" HorizontalAlignment="Center"/>
+                            <controls:Badge BadgeContent="12" 
+                                            MaxCount="9"
+                                            BadgePlacement="TopRight"
+                                            HorizontalAlignment="Center"
+                                            Theme="{StaticResource WarningBadge}">
+                                <Button Content="Chat" Padding="15,8"/>
+                            </controls:Badge>
+                        </StackPanel>
+
+                        <!-- Cutout Effect (Badge Border matches Parent Background) -->
+                        <StackPanel Spacing="5" Margin="10">
+                            <TextBlock Text="Material Cutout Effect" FontSize="10" Foreground="Gray" HorizontalAlignment="Center"/>
+                            <!-- Note: BadgeBorderBrush="Black" because the background here is dark/black in your screenshot.
+                                 If the background is white, set it to White. -->
+                            <controls:Badge BadgeContent="5" 
+                                            BadgePlacement="TopRight"
+                                            HorizontalAlignment="Center"
+                                            BadgeBorderBrush="Black"
+                                            BadgeBorderThickness="2"
+                                            Theme="{StaticResource InfoBadge}">
+                                <Button Content="Profile" Padding="15,8" Background="#E3F2FD" Foreground="Black"/>
+                            </controls:Badge>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

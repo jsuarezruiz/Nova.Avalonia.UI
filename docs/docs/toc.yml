@@ -6,6 +6,8 @@
   items:
   - name: Avatar
     href: controls/avatar.md
+  - name: Badge
+    href: controls/badge.md
   - name: BarcodeGenerator
     href: controls/barcodegenerator.md
   - name: RatingControl

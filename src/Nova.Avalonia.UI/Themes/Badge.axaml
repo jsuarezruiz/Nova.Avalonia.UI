@@ -1,0 +1,218 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Nova.Avalonia.UI.Controls">
+    <Styles.Resources>
+        <ResourceDictionary>
+            
+            <!-- Palettes -->
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="PrimaryBadgeBrush" Color="#2196F3" />
+                    <SolidColorBrush x:Key="SuccessBadgeBrush" Color="#4CAF50" />
+                    <SolidColorBrush x:Key="WarningBadgeBrush" Color="#FF9800" />
+                    <SolidColorBrush x:Key="DangerBadgeBrush" Color="#F44336" />
+                    <SolidColorBrush x:Key="InfoBadgeBrush" Color="#00BCD4" />
+                    <SolidColorBrush x:Key="SecondaryBadgeBrush" Color="#757575" />
+                    <SolidColorBrush x:Key="DarkBadgeBrush" Color="#212121" />
+                    <SolidColorBrush x:Key="LightBadgeBrush" Color="#F5F5F5" />
+                    <SolidColorBrush x:Key="LightBadgeForeground" Color="#212121" />
+                    <SolidColorBrush x:Key="BadgeDefaultForeground" Color="White" />
+                </ResourceDictionary>
+                
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="PrimaryBadgeBrush" Color="#64B5F6" />
+                    <SolidColorBrush x:Key="SuccessBadgeBrush" Color="#81C784" />
+                    <SolidColorBrush x:Key="WarningBadgeBrush" Color="#FFB74D" />
+                    <SolidColorBrush x:Key="DangerBadgeBrush" Color="#E57373" />
+                    <SolidColorBrush x:Key="InfoBadgeBrush" Color="#4DD0E1" />
+                    <SolidColorBrush x:Key="SecondaryBadgeBrush" Color="#9E9E9E" />
+                    <SolidColorBrush x:Key="DarkBadgeBrush" Color="#E0E0E0" />
+                    <SolidColorBrush x:Key="LightBadgeBrush" Color="#424242" />
+                    <SolidColorBrush x:Key="LightBadgeForeground" Color="#FAFAFA" />
+                    <SolidColorBrush x:Key="BadgeDefaultForeground" Color="#1C1B1F" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <!-- Badge Theme -->
+            <ControlTheme x:Key="{x:Type controls:Badge}" TargetType="controls:Badge">
+                <Setter Property="ClipToBounds" Value="False" />
+                <Setter Property="Background" Value="{DynamicResource PrimaryBadgeBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource BadgeDefaultForeground}" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontWeight" Value="Bold" />
+                
+                <Setter Property="Template">
+                    <ControlTemplate>
+                        <Grid ClipToBounds="False">
+                            <!-- 1. Content (Wrapped Button/Icon) -->
+                            <ContentPresenter Name="PART_ContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              Padding="{TemplateBinding Padding}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+
+                            <!-- 2. The Badge Pill -->
+                            <Border Name="PART_BadgeContainer"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    MinWidth="20" Height="20"
+                                    Padding="6,2"
+                                    IsVisible="{TemplateBinding IsBadgeVisible}"
+                                    UseLayoutRounding="False"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    IsHitTestVisible="False"
+                                    ZIndex="99">
+                                
+                                <TextBlock Name="PART_BadgeText"
+                                           Text="{TemplateBinding DisplayContent}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           FontSize="{TemplateBinding FontSize}" 
+                                           FontWeight="{TemplateBinding FontWeight}"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"
+                                           TextAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter>
+                
+                <!-- Default Style -->
+                <Style Selector="^ /template/ Border#PART_BadgeContainer">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+                
+                <!-- DOT MODE TRIGGER -->
+                <Style Selector="^.Dot /template/ Border#PART_BadgeContainer">
+                    <Setter Property="MinWidth" Value="10" />
+                    <Setter Property="Width" Value="10" />
+                    <Setter Property="Height" Value="10" />
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+                <Style Selector="^.Dot /template/ TextBlock#PART_BadgeText">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
+
+            </ControlTheme>
+
+            <!-- Shape Variants -->
+            
+            <ControlTheme x:Key="SquareBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Style Selector="^ /template/ Border#PART_BadgeContainer">
+                    <Setter Property="CornerRadius" Value="2" />
+                </Style>
+            </ControlTheme>
+
+            <ControlTheme x:Key="PillBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Style Selector="^ /template/ Border#PART_BadgeContainer">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </ControlTheme>
+
+            <!-- Size Variants -->
+            
+            <ControlTheme x:Key="SmallBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="FontSize" Value="10" />
+                <Style Selector="^ /template/ Border#PART_BadgeContainer">
+                    <Setter Property="Height" Value="16" />
+                    <Setter Property="MinWidth" Value="16" />
+                    <Setter Property="Padding" Value="4,0" />
+                </Style>
+            </ControlTheme>
+
+            <ControlTheme x:Key="LargeBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="FontSize" Value="14" />
+                <Style Selector="^ /template/ Border#PART_BadgeContainer">
+                    <Setter Property="Height" Value="24" />
+                    <Setter Property="MinWidth" Value="24" />
+                    <Setter Property="Padding" Value="8,2" />
+                    <Setter Property="CornerRadius" Value="12" />
+                </Style>
+            </ControlTheme>
+            
+            <ControlTheme x:Key="SmallDotBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Kind" Value="Dot" />
+                <Style Selector="^ /template/ Border#PART_BadgeContainer">
+                    <Setter Property="Width" Value="8" />
+                    <Setter Property="Height" Value="8" />
+                    <Setter Property="CornerRadius" Value="4" />
+                </Style>
+            </ControlTheme>
+
+            <ControlTheme x:Key="LargeDotBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Kind" Value="Dot" />
+                <Style Selector="^ /template/ Border#PART_BadgeContainer">
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Height" Value="16" />
+                    <Setter Property="CornerRadius" Value="8" />
+                </Style>
+            </ControlTheme>
+
+            <!-- Color Variants -->
+
+            <ControlTheme x:Key="SuccessBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="{DynamicResource SuccessBadgeBrush}" />
+            </ControlTheme>
+
+            <ControlTheme x:Key="WarningBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="{DynamicResource WarningBadgeBrush}" />
+            </ControlTheme>
+
+            <ControlTheme x:Key="DangerBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="{DynamicResource DangerBadgeBrush}" />
+            </ControlTheme>
+
+            <ControlTheme x:Key="InfoBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="{DynamicResource InfoBadgeBrush}" />
+            </ControlTheme>
+
+            <ControlTheme x:Key="SecondaryBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="{DynamicResource SecondaryBadgeBrush}" />
+            </ControlTheme>
+
+            <ControlTheme x:Key="DarkBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="{DynamicResource DarkBadgeBrush}" />
+            </ControlTheme>
+
+            <ControlTheme x:Key="LightBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="{DynamicResource LightBadgeBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource LightBadgeForeground}" />
+            </ControlTheme>
+
+            <!-- Outline Variants -->
+
+            <ControlTheme x:Key="PrimaryOutlineBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBadgeBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryBadgeBrush}" />
+            </ControlTheme>
+            
+            <ControlTheme x:Key="SuccessOutlineBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SuccessBadgeBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource SuccessBadgeBrush}" />
+            </ControlTheme>
+
+            <ControlTheme x:Key="WarningOutlineBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="{DynamicResource WarningBadgeBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource WarningBadgeBrush}" />
+            </ControlTheme>
+
+            <ControlTheme x:Key="DangerOutlineBadge" TargetType="controls:Badge" BasedOn="{StaticResource {x:Type controls:Badge}}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="{DynamicResource DangerBadgeBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource DangerBadgeBrush}" />
+            </ControlTheme>
+            
+        </ResourceDictionary>
+    </Styles.Resources>
+</Styles>

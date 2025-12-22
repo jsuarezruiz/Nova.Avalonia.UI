@@ -18,6 +18,12 @@ The `Avatar` control presents a person's identity using an image, initials, icon
 
 <img src="images/novaui_avatar_light.gif" alt="Avatar" width="250" />
 
+### Badge
+
+The `Badge` control displays a notification badge on top of other content. It supports numeric counts with overflow handling (e.g., "99+"), dot mode, various placements, and customizable styling.
+
+<img src="images/novaui_badge_light.gif" alt="Badge" width="250" />
+
 ### BarcodeGenerator
 
 The `BarcodeGenerator` control generates and renders various barcode symbologies including QR codes, Data Matrix, Code 128, EAN-13, and more. It supports customizable colors, error correction levels, and logo overlays.
