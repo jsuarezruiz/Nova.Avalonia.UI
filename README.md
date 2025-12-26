@@ -42,6 +42,10 @@ The `Shimmer` control shows a lightweight skeleton while your content is loading
 
 <img src="images/novaui_shimmer_light.gif" alt="Shimmer" width="250" />
 
+### Showcase
+
+The `Showcase` control creates interactive tutorials and onboarding experiences by highlighting UI elements step-by-step with customizable tooltips and overlays. It helps users discover features through guided walkthroughs.
+
 ## Contribute
 
 Do you want to contribute?.
