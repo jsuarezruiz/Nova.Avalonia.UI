@@ -42,6 +42,10 @@ The `Shimmer` control shows a lightweight skeleton while your content is loading
 
 <img src="images/novaui_shimmer_light.gif" alt="Shimmer" width="250" />
 
+### Fortune
+
+The `FortuneWheel` and `FortuneBar` controls provide interactive spin-to-win functionality for games, raffles, and random selection scenarios. Features include smooth animations, weighted selection, customizable styling strategies, and configurable indicators.
+
 ## Contribute
 
 Do you want to contribute?.
