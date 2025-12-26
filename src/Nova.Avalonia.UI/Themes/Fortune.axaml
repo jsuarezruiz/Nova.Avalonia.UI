@@ -1,0 +1,47 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:nova="using:Nova.Avalonia.UI.Controls">
+
+    <!-- FortuneWheel Default Style -->
+    <Style Selector="nova|FortuneWheel">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Width" Value="300" />
+        <Setter Property="Height" Value="300" />
+        <Setter Property="AnimationDuration" Value="0:0:3" />
+        <Setter Property="MinimumSpins" Value="3" />
+        <Setter Property="ShowIndicator" Value="True" />
+        <Setter Property="IndicatorFill" Value="#E53935" />
+        <Setter Property="IndicatorSize" Value="24" />
+        <Setter Property="CenterRadius" Value="25" />
+        <Setter Property="CenterFill" Value="White" />
+    </Style>
+
+    <!-- FortuneBar Default Style -->
+    <Style Selector="nova|FortuneBar">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Height" Value="80" />
+        <Setter Property="AnimationDuration" Value="0:0:3" />
+        <Setter Property="MinimumCycles" Value="2" />
+        <Setter Property="ItemSize" Value="100" />
+        <Setter Property="ShowIndicator" Value="True" />
+        <Setter Property="IndicatorFill" Value="#E53935" />
+        <Setter Property="IndicatorThickness" Value="3" />
+        <Setter Property="ClipToBounds" Value="True" />
+    </Style>
+
+    <!-- Vertical FortuneBar -->
+    <Style Selector="nova|FortuneBar.Vertical">
+        <Setter Property="Orientation" Value="Vertical" />
+        <Setter Property="Width" Value="80" />
+        <Setter Property="Height" Value="300" />
+    </Style>
+
+    <!-- FortuneIndicator Default Style -->
+    <Style Selector="nova|FortuneIndicator">
+        <Setter Property="Fill" Value="#E53935" />
+        <Setter Property="Stroke" Value="White" />
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="IndicatorSize" Value="24" />
+    </Style>
+
+</Styles>
