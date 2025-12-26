@@ -1,0 +1,75 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:nova="using:Nova.Avalonia.UI.Controls">
+
+    <!-- ShowcaseOverlay Style -->
+    <Style Selector="nova|ShowcaseOverlay">
+        <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+
+    <!-- ShowcaseTooltip Style -->
+    <Style Selector="nova|ShowcaseTooltip">
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="MaxWidth" Value="320" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{TemplateBinding Padding}"
+                        BoxShadow="0 4 16 0 #40000000">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="{TemplateBinding Title}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   TextWrapping="Wrap"
+                                   IsVisible="{TemplateBinding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                        
+                        <TextBlock Text="{TemplateBinding Description}"
+                                   FontSize="14"
+                                   TextWrapping="Wrap"
+                                   Opacity="0.8"
+                                   IsVisible="{TemplateBinding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                        
+                        <ContentPresenter Content="{TemplateBinding Content}" />
+                    </StackPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    
+    <!-- Showcase Style -->
+    <Style Selector="nova|Showcase">
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="nova:Showcase">
+                <Panel IsVisible="{TemplateBinding IsActive}">
+                    <!-- Overlay with cutout - does not block mouse -->
+                    <nova:ShowcaseOverlay Name="PART_Overlay"
+                                          OverlayBrush="{TemplateBinding OverlayBrush}"
+                                          IsHitTestVisible="False" />
+                    
+                    <!-- Tooltip container -->
+                    <Canvas>
+                        <nova:ShowcaseTooltip Name="PART_Tooltip">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="8"
+                                        HorizontalAlignment="Right"
+                                        Margin="0,8,0,0">
+                                <Button Name="PART_SkipButton" Content="Skip" />
+                                <Button Name="PART_PreviousButton" Content="Previous" />
+                                <Button Name="PART_NextButton" Content="Next" Classes="accent" />
+                            </StackPanel>
+                        </nova:ShowcaseTooltip>
+                    </Canvas>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+</Styles>
