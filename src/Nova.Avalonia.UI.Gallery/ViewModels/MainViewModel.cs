@@ -27,7 +27,8 @@ public partial class MainViewModel : ViewModelBase
             new("Badge", new BadgeViewModel(), "Notification badge control"),
             new("BarcodeGenerator", new BarcodeGeneratorViewModel(), "QR codes, barcodes, and 2D symbologies"),
             new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
-            new("Shimmer", new ShimmerViewModel(), "Loading placeholders with animated shimmer")
+            new("Shimmer", new ShimmerViewModel(), "Loading placeholders with animated shimmer"),
+            new("Showcase", new ShowcaseViewModel(), "Interactive tutorial and onboarding")
         };
 
         // Start on menu hub; initial navigation clears stack once.
