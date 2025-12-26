@@ -1,0 +1,286 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nova="clr-namespace:Nova.Avalonia.UI.Controls;assembly=Nova.Avalonia.UI"
+             xmlns:vm="clr-namespace:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1800"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.FortuneView"
+             x:DataType="vm:FortuneViewModel">
+
+    <UserControl.DataContext>
+        <vm:FortuneViewModel />
+    </UserControl.DataContext>
+
+    <ScrollViewer Margin="20">
+        <StackPanel Spacing="20">
+            
+            <TextBlock Text="Fortune Controls" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <!-- Basic FortuneWheel -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Fortune Wheel" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="A circular spin-to-win wheel. Click the button to spin!" Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <StackPanel HorizontalAlignment="Center" Spacing="15">
+                        <nova:FortuneWheel x:Name="PrizeWheel"
+                                          Width="280"
+                                          Height="280"
+                                          Items="{Binding WheelItems}"
+                                          SelectedIndex="{Binding WheelSelectedIndex}"
+                                          AnimationDuration="0:0:4"
+                                          MinimumSpins="3"
+                                          SpinCompleted="OnWheelSpinCompleted"/>
+                        
+                        <Button Content="SPIN THE WHEEL!" 
+                                HorizontalAlignment="Center"
+                                Padding="20,10"
+                                FontWeight="Bold"
+                                Click="OnSpinWheelClick"/>
+                        
+                        <TextBlock x:Name="WheelResultText" 
+                                  Text="Click to spin!" 
+                                  HorizontalAlignment="Center"
+                                  FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Style Strategies -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Style Strategies" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Different color strategies: Alternating vs Gradient." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Spacing="5" Margin="0,0,30,0">
+                            <TextBlock Text="Alternating (Default)" HorizontalAlignment="Center" FontWeight="SemiBold"/>
+                            <nova:FortuneWheel Width="200"
+                                              Height="200"
+                                              Items="{Binding WheelItems}">
+                                <nova:FortuneWheel.StyleStrategy>
+                                    <nova:AlternatingStyleStrategy 
+                                        PrimaryBackground="{DynamicResource SystemAccentColor}"
+                                        SecondaryBackground="{DynamicResource SystemAccentColorLight1}"/>
+                                </nova:FortuneWheel.StyleStrategy>
+                            </nova:FortuneWheel>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Gradient Rainbow" HorizontalAlignment="Center" FontWeight="SemiBold"/>
+                            <nova:FortuneWheel Width="200"
+                                              Height="200"
+                                              Items="{Binding WheelItems}">
+                                <nova:FortuneWheel.StyleStrategy>
+                                    <nova:GradientStyleStrategy 
+                                        StartColor="#E91E63"
+                                        EndColor="#9C27B0"/>
+                                </nova:FortuneWheel.StyleStrategy>
+                            </nova:FortuneWheel>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Indicator Positions -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Indicator Positions" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="The pointer can be positioned at any edge." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="Top" HorizontalAlignment="Center"/>
+                            <nova:FortuneWheel Width="140" Height="140"
+                                              Items="{Binding SmallWheelItems}"
+                                              IndicatorPosition="Top"
+                                              IndicatorFill="{DynamicResource SimpleBlueBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="Right" HorizontalAlignment="Center"/>
+                            <nova:FortuneWheel Width="140" Height="140"
+                                              Items="{Binding SmallWheelItems}"
+                                              IndicatorPosition="Right"
+                                              IndicatorFill="{DynamicResource SimpleOrangeBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="Bottom" HorizontalAlignment="Center"/>
+                            <nova:FortuneWheel Width="140" Height="140"
+                                              Items="{Binding SmallWheelItems}"
+                                              IndicatorPosition="Bottom"
+                                              IndicatorFill="{DynamicResource SimpleTealBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Left" HorizontalAlignment="Center"/>
+                            <nova:FortuneWheel Width="140" Height="140"
+                                              Items="{Binding SmallWheelItems}"
+                                              IndicatorPosition="Left"
+                                              IndicatorFill="{DynamicResource SimplePurpleBrush}"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- FortuneBar Horizontal -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Fortune Bar (Horizontal)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="A slot machine style scrolling bar." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <StackPanel HorizontalAlignment="Center" Spacing="15">
+                        <nova:FortuneBar x:Name="SlotBar"
+                                        Width="350"
+                                        Height="80"
+                                        Items="{Binding BarItems}"
+                                        SelectedIndex="{Binding BarSelectedIndex}"
+                                        ItemSize="100"
+                                        AnimationDuration="0:0:3"
+                                        SpinCompleted="OnBarSpinCompleted">
+                             <nova:FortuneBar.StyleStrategy>
+                                <nova:AlternatingStyleStrategy 
+                                    PrimaryBackground="{DynamicResource SystemAccentColor}"
+                                    SecondaryBackground="{DynamicResource SystemAccentColorLight1}"/>
+                            </nova:FortuneBar.StyleStrategy>
+                        </nova:FortuneBar>
+                        
+                        <Button Content="SPIN!" 
+                                HorizontalAlignment="Center"
+                                Padding="30,8"
+                                Click="OnSpinBarClick"/>
+                        
+                        <TextBlock x:Name="BarResultText" 
+                                  Text="Click to spin!" 
+                                  HorizontalAlignment="Center"
+                                  FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- FortuneBar Vertical -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Fortune Bar (Vertical)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Vertical orientation for different layouts." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <StackPanel HorizontalAlignment="Center" Spacing="15">
+                        <nova:FortuneBar x:Name="VerticalBar"
+                                        Width="100"
+                                        Height="200"
+                                        Orientation="Vertical"
+                                        Items="{Binding BarItems}"
+                                        ItemSize="60"
+                                        AnimationDuration="0:0:2">
+                            <nova:FortuneBar.StyleStrategy>
+                                <nova:GradientStyleStrategy 
+                                    StartColor="{DynamicResource SystemAccentColor}"
+                                    EndColor="{DynamicResource SystemAccentColorLight1}"/>
+                            </nova:FortuneBar.StyleStrategy>
+                        </nova:FortuneBar>
+                        
+                        <Button Content="SPIN VERTICAL" 
+                                HorizontalAlignment="Center"
+                                Padding="15,8"
+                                Click="OnSpinVerticalClick"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Events Demo -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Events" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Observe SpinStarted and SpinCompleted events." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="15">
+                        <Border Background="{DynamicResource SimpleGreenOpacityBrush}" CornerRadius="4" Padding="10,5">
+                            <TextBlock x:Name="EventStartedText" Text="Started: -" FontSize="12"/>
+                        </Border>
+                        <Border Background="{DynamicResource SimpleBlueOpacityBrush}" CornerRadius="4" Padding="10,5">
+                            <TextBlock x:Name="EventCompletedText" Text="Completed: -" FontSize="12"/>
+                        </Border>
+                        <Border Background="{DynamicResource SimpleRedOpacityBrush}" CornerRadius="4" Padding="10,5">
+                            <TextBlock x:Name="EventIsSpinningText" Text="IsSpinning: False" FontSize="12"/>
+                        </Border>
+                    </StackPanel>
+                    
+                    <StackPanel HorizontalAlignment="Center" Spacing="15">
+                        <nova:FortuneWheel x:Name="EventsWheel"
+                                          Width="200"
+                                          Height="200"
+                                          Items="{Binding WheelItems}"
+                                          SpinStarted="OnEventsWheelSpinStarted"
+                                          SpinCompleted="OnEventsWheelSpinCompleted">
+                             <nova:FortuneWheel.StyleStrategy>
+                                <nova:AlternatingStyleStrategy 
+                                    PrimaryBackground="{DynamicResource SystemAccentColor}"
+                                    SecondaryBackground="{DynamicResource SystemAccentColorLight1}"/>
+                            </nova:FortuneWheel.StyleStrategy>
+                        </nova:FortuneWheel>
+                        
+                        <Button Content="SPIN FOR EVENTS" 
+                                HorizontalAlignment="Center"
+                                Padding="15,8"
+                                Click="OnSpinEventsClick"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Customization -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Customization" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Custom center size, indicator colors, and slice colors." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="Large Center" HorizontalAlignment="Center"/>
+                            <nova:FortuneWheel Width="150" Height="150"
+                                              Items="{Binding SmallWheelItems}"
+                                              CenterRadius="25"
+                                              CenterFill="{DynamicResource SimpleYellowBrush}">
+                                <nova:FortuneWheel.StyleStrategy>
+                                    <nova:AlternatingStyleStrategy 
+                                        PrimaryBackground="{DynamicResource SimpleIndigoBrush}"
+                                        SecondaryBackground="{DynamicResource SimpleDeepPurpleBrush}"/>
+                                </nova:FortuneWheel.StyleStrategy>
+                            </nova:FortuneWheel>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5" Margin="0,0,20,0">
+                            <TextBlock Text="No Indicator" HorizontalAlignment="Center"/>
+                            <nova:FortuneWheel Width="150" Height="150"
+                                              Items="{Binding SmallWheelItems}"
+                                              ShowIndicator="False">
+                                <nova:FortuneWheel.StyleStrategy>
+                                    <nova:GradientStyleStrategy 
+                                        StartColor="#4CAF50"
+                                        EndColor="#00BCD4"/>
+                                </nova:FortuneWheel.StyleStrategy>
+                            </nova:FortuneWheel>
+                        </StackPanel>
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Deep Purple" HorizontalAlignment="Center"/>
+                            <nova:FortuneWheel Width="150" Height="150"
+                                              Items="{Binding SmallWheelItems}"
+                                              IndicatorFill="#FF5722"
+                                              IndicatorSize="30"
+                                              CenterFill="#263238">
+                                <nova:FortuneWheel.StyleStrategy>
+                                    <nova:AlternatingStyleStrategy 
+                                        PrimaryBackground="#673AB7"
+                                        SecondaryBackground="#9C27B0"/>
+                                </nova:FortuneWheel.StyleStrategy>
+                            </nova:FortuneWheel>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
