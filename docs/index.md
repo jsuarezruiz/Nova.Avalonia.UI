@@ -23,6 +23,11 @@ ms.date: 2025-12-10
 
 - **[AvatarGroup](xref:Nova.Avalonia.UI.Controls.AvatarGroup)**: Layout container for stacking multiple avatars with configurable overlap and overflow handling.
 
+### Games and entertainment
+
+- **[FortuneWheel](xref:Nova.Avalonia.UI.Controls.FortuneWheel)**: Circular prize wheel with smooth spin animations, weighted selection, and customizable styling strategies.
+- **[FortuneBar](xref:Nova.Avalonia.UI.Controls.FortuneBar)**: Slot machine style horizontal or vertical scrolling bar for random selection.
+
 ## Requirements
 
 - .NET 8.0 or higher

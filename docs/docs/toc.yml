@@ -10,7 +10,10 @@
     href: controls/badge.md
   - name: BarcodeGenerator
     href: controls/barcodegenerator.md
+  - name: Fortune
+    href: controls/fortune.md
   - name: RatingControl
     href: controls/ratingcontrol.md
   - name: Shimmer
     href: controls/shimmer.md
+
