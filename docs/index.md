@@ -23,6 +23,10 @@ ms.date: 2025-12-10
 
 - **[AvatarGroup](xref:Nova.Avalonia.UI.Controls.AvatarGroup)**: Layout container for stacking multiple avatars with configurable overlap and overflow handling.
 
+### Input
+
+- **[PinBox](xref:Nova.Avalonia.UI.Controls.PinBox)**: Specialized input control for PIN codes, security codes, and OTP entry with validation, masking, and individual character boxes.
+
 ## Requirements
 
 - .NET 8.0 or higher
