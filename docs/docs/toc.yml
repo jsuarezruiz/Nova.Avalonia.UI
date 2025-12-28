@@ -24,6 +24,8 @@
     href: controls/fortune.md
   - name: Gravatar
     href: controls/gravatar.md
+  - name: Particles
+    href: controls/particles.md
   - name: HexPanel
     href: controls/hexpanel.md
   - name: LoopPanel
