@@ -30,6 +30,10 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 <img src="images/novaui_barcodegenerator_light.gif" alt="BarcodeGenerator" width="250" />
 
+### PinBox
+
+The `PinBox` control provides a specialized input field for PIN codes, OTP verification, and security codes. It features individual character boxes, blinking cursor animation, validation support, and multiple theme presets.
+
 ### RatingControl
 
 The `RatingControl` allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
