@@ -60,6 +60,10 @@ The `Gravatar` control generates GitHub-style identicon avatars from identifiers
 
 <img src="images/novaui_gravatar_light.png" alt="Gravatar" width="250" />
 
+### Particles
+
+The `Particles` control is a high-performance particle system for creating visual effects like rain, fire, fireworks, snow, confetti, and more. It features object pooling, GPU-accelerated rendering, built-in affectors (gravity, fade, rotation, wind), and shape variety.
+
 ### Scratcher
 
 The `Scratcher` control temporarily hides content beneath an opaque overlay. Users can reveal the hidden content by "scratching" the overlay with pointer input, similar to a physical scratch card.
