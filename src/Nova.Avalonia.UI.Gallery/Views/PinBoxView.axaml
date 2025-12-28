@@ -1,0 +1,203 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.PinBoxView"
+             x:DataType="vm:PinBoxViewModel">
+    <ScrollViewer>
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="PinBox"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center" />
+
+            <!-- Basic PIN Entry -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Basic PIN Entry"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="4-digit PIN"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    Text="{Binding Pin}"
+                                    HorizontalAlignment="Center" />
+                    
+                    <TextBlock Text="6-digit OTP"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="6"
+                                    Text="{Binding OtpCode}"
+                                    HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+
+            <!-- Password Mode -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Password Mode"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Characters are obscured with dots"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    IsPassword="True"
+                                    Text="{Binding PasswordPin}"
+                                    HorizontalAlignment="Center" />
+                    
+                    <TextBlock Text="Custom password character"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    IsPassword="True"
+                                    PasswordChar="*"
+                                    HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+
+            <!-- Theme Variants -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Theme Variants"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Rounded"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    Classes="rounded"
+                                    HorizontalAlignment="Center" />
+                    
+                    <TextBlock Text="Underline"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    Classes="underline"
+                                    HorizontalAlignment="Center" />
+                    
+                    <TextBlock Text="Material"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    Classes="material"
+                                    HorizontalAlignment="Center" />
+                    
+                    <TextBlock Text="iOS Style"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="6"
+                                    Classes="ios"
+                                    HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+
+            <!-- Spacing Options -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Spacing Options"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Spacing: 4"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    Spacing="4"
+                                    HorizontalAlignment="Center" />
+                    
+                    <TextBlock Text="Spacing: 16"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    Spacing="16"
+                                    HorizontalAlignment="Center" />
+                    
+                    <TextBlock Text="Spacing: 24"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    Spacing="24"
+                                    HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+
+            <!-- Validation -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Validation"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Enter 1234 for valid PIN (press Backspace to edit)" 
+                               FontSize="12" 
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    Text="{Binding ValidationPin}"
+                                    Validator="{Binding ValidatePin}"
+                                    HorizontalAlignment="Center" />
+                    
+                    <Button Content="Clear"
+                           Command="{Binding ClearValidationCommand}"
+                           HorizontalAlignment="Center"
+                           Padding="20,8" />
+                </StackPanel>
+            </Border>
+
+            <!-- Interactive -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Interactive"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <controls:PinBox x:Name="InteractivePinBox"
+                                    Length="4"
+                                    Text="{Binding InteractivePin}"
+                                    HorizontalAlignment="Center" />
+                    
+                    <TextBlock Text="{Binding StatusText}"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Foreground="#4CAF50"
+                               HorizontalAlignment="Center"/>
+                    
+                    <Button Content="Clear All"
+                           Command="{Binding ClearCommand}"
+                           HorizontalAlignment="Center"
+                           Padding="20,8" />
+                </StackPanel>
+            </Border>
+
+            <!-- Disabled State -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Disabled State"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="PinBox with IsEnabled=False"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="4"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
