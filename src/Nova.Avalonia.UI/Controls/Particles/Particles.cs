@@ -421,6 +421,42 @@ public class Particles : TemplatedControl
                 var rectRect = new Rect(x - rectWidth / 2, y - rectHeight / 2, rectWidth, rectHeight);
                 context.DrawRectangle(brush, null, rectRect);
                 break;
+            case ParticleShape.Triangle:
+                var triangleGeometry = new StreamGeometry();
+                using (var ctx = triangleGeometry.Open())
+                {
+                    var halfSize = size / 2;
+                    ctx.BeginFigure(new Point(x, y - halfSize), true);
+                    ctx.LineTo(new Point(x + halfSize, y + halfSize));
+                    ctx.LineTo(new Point(x - halfSize, y + halfSize));
+                    ctx.EndFigure(true);
+                }
+                context.DrawGeometry(brush, null, triangleGeometry);
+                break;
+            case ParticleShape.Star:
+                var starGeometry = new StreamGeometry();
+                using (var ctx = starGeometry.Open())
+                {
+                    var outerRadius = size / 2;
+                    var innerRadius = size / 4;
+                    ctx.BeginFigure(new Point(x, y - outerRadius), true);
+                    ctx.LineTo(new Point(x + innerRadius * 0.7, y - innerRadius * 0.7));
+                    ctx.LineTo(new Point(x + outerRadius, y));
+                    ctx.LineTo(new Point(x + innerRadius * 0.7, y + innerRadius * 0.7));
+                    ctx.LineTo(new Point(x, y + outerRadius));
+                    ctx.LineTo(new Point(x - innerRadius * 0.7, y + innerRadius * 0.7));
+                    ctx.LineTo(new Point(x - outerRadius, y));
+                    ctx.LineTo(new Point(x - innerRadius * 0.7, y - innerRadius * 0.7));
+                    ctx.EndFigure(true);
+                }
+                context.DrawGeometry(brush, null, starGeometry);
+                break;
+            case ParticleShape.Line:
+                var lineHeight = size * 2;
+                var lineWidth = size * 0.3;
+                var lineRect = new Rect(x - lineWidth / 2, y - lineHeight / 2, lineWidth, lineHeight);
+                context.DrawRectangle(brush, null, lineRect);
+                break;
         }
     }
 }

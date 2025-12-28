@@ -63,6 +63,7 @@ public partial class ParticlesView : UserControl
                 particle.Scale = 0.3 + _random.NextDouble() * 0.3;
                 particle.Opacity = 0.5 + _random.NextDouble() * 0.5;
                 particle.Color = Color.FromRgb(150, 200, 255);
+                particle.Shape = ParticleShape.Line;
             }
         }
 

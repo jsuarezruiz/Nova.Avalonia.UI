@@ -15,7 +15,13 @@ public enum ParticleShape
     /// <summary>Square shape.</summary>
     Square,
     /// <summary>Rectangle shape (wider than tall).</summary>
-    Rectangle
+    Rectangle,
+    /// <summary>Triangle shape pointing up.</summary>
+    Triangle,
+    /// <summary>Four-pointed star shape.</summary>
+    Star,
+    /// <summary>Vertical line/streak shape.</summary>
+    Line
 }
 
 /// <summary>

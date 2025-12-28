@@ -76,7 +76,7 @@ Each `Particle` has the following properties:
 | `Rotation` | Rotation in degrees |
 | `Opacity` | Transparency (0.0 to 1.0) |
 | `Color` | Tint color |
-| `Shape` | `Circle`, `Square`, or `Rectangle` |
+| `Shape` | `Circle`, `Square`, `Rectangle`, `Triangle`, `Star`, or `Line` |
 | `LifeTime` | Time since creation (seconds) |
 | `Tag` | Custom user data |
 
