@@ -1,0 +1,230 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.ParticlesView"
+             x:DataType="vm:ParticlesViewModel">
+    <ScrollViewer>
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="Particles"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center" />
+
+            <!-- Rain Effect -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Rain Effect"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Simulates falling rain with streaks"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <controls:Particles x:Name="RainParticles"
+                                       Height="300"
+                                       Background="{DynamicResource SystemControlBackgroundAltMediumHighBrush}"
+                                       ClipToBounds="True"
+                                       MaxItems="500"
+                                       TargetFrameRate="60"
+                                       Update="OnRainUpdate" />
+                </StackPanel>
+            </Border>
+
+            <!-- Fire Effect -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Fire Effect"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Simulates flames rising upward"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <controls:Particles x:Name="FireParticles"
+                                       Height="300"
+                                       Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
+                                       ClipToBounds="True"
+                                       MaxItems="300"
+                                       Origin="50%,100%"
+                                       TargetFrameRate="60"
+                                       Update="OnFireUpdate" />
+                </StackPanel>
+            </Border>
+
+            <!-- Fireworks Effect -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Fireworks Effect"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Click to launch fireworks"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <controls:Particles x:Name="FireworksParticles"
+                                       Height="300"
+                                       Background="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                                       ClipToBounds="True"
+                                       MaxItems="1000"
+                                       TargetFrameRate="60"
+                                       PointerPressed="OnFireworksClick"
+                                       Update="OnFireworksUpdate" />
+                </StackPanel>
+            </Border>
+
+            <!-- Confetti Effect -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Confetti Effect"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Celebratory confetti particles"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Grid>
+                        <controls:Particles x:Name="ConfettiParticles"
+                                           Height="300"
+                                           Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                                           ClipToBounds="True"
+                                           MaxItems="200"
+                                           Origin="50%,0%"
+                                           TargetFrameRate="60"
+                                           Update="OnConfettiUpdate" />
+                        <Button Content="Celebrate!"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,20"
+                                Padding="20,10"
+                                Click="OnConfettiBurst" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Sparkle Trail (Interactive) -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Sparkle Trail (Interactive)"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Move your mouse or touch to create sparkle trails"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <controls:Particles x:Name="SparkleParticles"
+                                       Height="300"
+                                       Background="{DynamicResource SystemControlBackgroundAccentBrush}"
+                                       ClipToBounds="True"
+                                       MaxItems="500"
+                                       TargetFrameRate="60"
+                                       PointerMoved="OnSparklePointerMoved"
+                                       Update="OnSparkleUpdate" />
+                </StackPanel>
+            </Border>
+
+            <!-- Snow Effect -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Snow Effect"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Gentle snowfall with wind sway"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <controls:Particles x:Name="SnowParticles"
+                                       Height="300"
+                                       Background="{DynamicResource SystemControlBackgroundAltMediumBrush}"
+                                       ClipToBounds="True"
+                                       MaxItems="300"
+                                       TargetFrameRate="60"
+                                       Update="OnSnowUpdate" />
+                </StackPanel>
+            </Border>
+
+            <!-- Bubbles Effect -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Bubbles Effect"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Rising bubbles with float physics"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <controls:Particles x:Name="BubbleParticles"
+                                       Height="300"
+                                       Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                                       ClipToBounds="True"
+                                       MaxItems="150"
+                                       TargetFrameRate="60"
+                                       Update="OnBubblesUpdate" />
+                </StackPanel>
+            </Border>
+
+            <!-- Smoke Effect -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Smoke Effect"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Rising smoke clouds that fade and spread"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <controls:Particles x:Name="SmokeParticles"
+                                       Height="300"
+                                       Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                                       ClipToBounds="True"
+                                       Origin="50%,100%"
+                                       MaxItems="200"
+                                       TargetFrameRate="60"
+                                       Update="OnSmokeUpdate" />
+                </StackPanel>
+            </Border>
+
+            <!-- Galaxy/Spiral Effect -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Galaxy Effect"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    
+                    <TextBlock Text="Orbiting particles around center point"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <controls:Particles x:Name="GalaxyParticles"
+                                       Height="300"
+                                       Background="{DynamicResource SystemControlBackgroundChromeBlackLowBrush}"
+                                       ClipToBounds="True"
+                                       Origin="50%,50%"
+                                       MaxItems="400"
+                                       TargetFrameRate="60"
+                                       Update="OnGalaxyUpdate" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
