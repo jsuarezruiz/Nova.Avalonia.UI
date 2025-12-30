@@ -42,6 +42,10 @@ The `Shimmer` control shows a lightweight skeleton while your content is loading
 
 <img src="images/novaui_shimmer_light.gif" alt="Shimmer" width="250" />
 
+### Scratcher
+
+The `Scratcher` control temporarily hides content beneath an opaque overlay. Users can reveal the hidden content by "scratching" the overlay with pointer input, similar to a physical scratch card.
+
 ## Contribute
 
 Do you want to contribute?.
