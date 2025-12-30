@@ -1,0 +1,43 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Nova.Avalonia.UI.Controls">
+    
+    <Design.PreviewWith>
+        <Border Padding="20" Background="#333">
+            <controls:Scratcher Width="200" Height="100" OverlayBrush="Silver" CornerRadius="8">
+                <Border Background="Gold" CornerRadius="8">
+                    <TextBlock Text="You Won!" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               FontWeight="Bold" />
+                </Border>
+            </controls:Scratcher>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="controls|Scratcher">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border CornerRadius="{TemplateBinding CornerRadius}" ClipToBounds="True">
+                    <Panel>
+                        <!-- Layer 0: Hidden Content -->
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Padding="{TemplateBinding Padding}" />
+                        
+                        <!-- Layer 1: Scratch Overlay Image -->
+                        <Image Name="PART_OverlayImage" 
+                               Stretch="Fill"
+                               IsHitTestVisible="True" />
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    
+</Styles>
