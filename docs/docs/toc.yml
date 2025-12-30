@@ -10,6 +10,8 @@
     href: controls/badge.md
   - name: BarcodeGenerator
     href: controls/barcodegenerator.md
+  - name: CompareSlider
+    href: controls/compareslider.md
   - name: RatingControl
     href: controls/ratingcontrol.md
   - name: Shimmer

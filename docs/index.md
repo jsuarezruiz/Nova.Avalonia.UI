@@ -16,6 +16,7 @@ ms.date: 2025-12-10
 - **[Avatar](xref:Nova.Avalonia.UI.Controls.Avatar)**: Identity control supporting images, initials, icons, and status indicators with auto-generated backgrounds.
 - **[Badge](xref:Nova.Avalonia.UI.Controls.Badge)**: Notification indicator for counts, status, or dot indicators with configurable placement and overflow handling.
 - **[BarcodeGenerator](xref:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator)**: Generates QR codes, Data Matrix, Code 128, and other barcode formats with customizable colors and logo support.
+- **[CompareSlider](xref:Nova.Avalonia.UI.Controls.CompareSlider)**: A control that allows side-by-side comparison of two pieces of content with a draggable divider.
 - **[RatingControl](xref:Nova.Avalonia.UI.Controls.RatingControl)**: Allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
 - **[Shimmer](xref:Nova.Avalonia.UI.Controls.Shimmer)**: Skeleton loading effect that detects your content layout to create matching placeholders.
 
