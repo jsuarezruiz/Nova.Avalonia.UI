@@ -12,5 +12,7 @@
     href: controls/barcodegenerator.md
   - name: RatingControl
     href: controls/ratingcontrol.md
+  - name: Scratcher
+    href: controls/scratcher.md
   - name: Shimmer
     href: controls/shimmer.md
