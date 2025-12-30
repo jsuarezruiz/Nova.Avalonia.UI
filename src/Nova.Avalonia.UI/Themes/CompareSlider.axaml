@@ -1,0 +1,85 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Nova.Avalonia.UI.Controls">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="CompareSliderDividerStroke" Color="White" />
+                    <SolidColorBrush x:Key="CompareSliderThumbBackground" Color="White" />
+                    <SolidColorBrush x:Key="CompareSliderThumbBorderBrush" Color="#333333" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="CompareSliderDividerStroke" Color="White" />
+                    <!-- Use a lighter grey for visibility on dark backgrounds, avoiding pure white to reduce glare but maintain contrast -->
+                    <SolidColorBrush x:Key="CompareSliderThumbBackground" Color="#E0E0E0" />
+                    <SolidColorBrush x:Key="CompareSliderThumbBorderBrush" Color="Black" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <ControlTheme x:Key="{x:Type controls:CompareSlider}" TargetType="controls:CompareSlider">
+                <Setter Property="Focusable" Value="True" />
+                <Setter Property="Template">
+                    <ControlTemplate>
+                        <Grid Name="PART_Container" ClipToBounds="True">
+                            <!-- Before Content (clipped) -->
+                            <Panel Name="PART_BeforePanel">
+                                <ContentPresenter Name="PART_BeforePresenter"
+                                                  Content="{TemplateBinding BeforeContent}"
+                                                  ContentTemplate="{TemplateBinding BeforeContentTemplate}" />
+                            </Panel>
+                            
+                            <!-- After Content (clipped) -->
+                            <Panel Name="PART_AfterPanel">
+                                <ContentPresenter Name="PART_AfterPresenter"
+                                                  Content="{TemplateBinding AfterContent}"
+                                                  ContentTemplate="{TemplateBinding AfterContentTemplate}" />
+                            </Panel>
+                            
+                            <!-- Divider & Thumb Layer -->
+                            <Canvas Name="PART_Track">
+                                <Line Name="PART_Divider" />
+                                <Thumb Name="PART_Thumb" />
+                            </Canvas>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter>
+            </ControlTheme>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <Style Selector="controls|CompareSlider">
+        <!-- Divider styling -->
+        <Style Selector="^ /template/ Line#PART_Divider">
+            <Setter Property="Stroke" Value="{DynamicResource CompareSliderDividerStroke}" />
+            <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+        
+        <!-- Thumb styling -->
+        <Style Selector="^ /template/ Thumb#PART_Thumb">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Background" Value="{DynamicResource CompareSliderThumbBackground}" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CompareSliderThumbBorderBrush}" />
+            <Setter Property="Template">
+                 <Setter.Value>
+                    <ControlTemplate>
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Dragging State PseudoClass -->
+        <Style Selector="^:dragging /template/ Thumb#PART_Thumb">
+             <Setter Property="RenderTransform" Value="scale(1.1)" />
+             <!-- Optional: Change visual state when dragging -->
+             <!-- <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" /> --> 
+        </Style>
+    </Style>
+</Styles>
