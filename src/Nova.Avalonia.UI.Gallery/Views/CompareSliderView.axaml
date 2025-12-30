@@ -1,0 +1,169 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls;assembly=Nova.Avalonia.UI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1200"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.CompareSliderView">
+    <UserControl.Resources>
+        <StreamGeometry x:Key="CodeIcon">M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6M13.5,3.6L16.2,4.4L10.5,20.4L7.8,19.6L13.5,3.6Z</StreamGeometry>
+    </UserControl.Resources>
+
+    <ScrollViewer Margin="20">
+        <StackPanel Spacing="20">
+
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Side-by-side image comparison." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <controls:CompareSlider Height="300">
+                        <controls:CompareSlider.BeforeContent>
+                            <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg" Stretch="UniformToFill" />
+                        </controls:CompareSlider.BeforeContent>
+                        <controls:CompareSlider.AfterContent>
+                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/pizza.jpg" Stretch="UniformToFill" />
+                        </controls:CompareSlider.AfterContent>
+                    </controls:CompareSlider>
+                </StackPanel>
+            </Border>
+
+            <!-- Vertical Orientation -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Vertical Orientation" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Compare content vertically." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <controls:CompareSlider Orientation="Vertical" Height="300">
+                         <controls:CompareSlider.BeforeContent>
+                            <Border Background="LightBlue">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="BEFORE" FontSize="32" FontWeight="Black" Opacity="0.3" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Wireframe" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                </StackPanel>
+                            </Border>
+                        </controls:CompareSlider.BeforeContent>
+                        <controls:CompareSlider.AfterContent>
+                             <Border Background="LightCoral">
+                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="AFTER" FontSize="32" FontWeight="Black" Opacity="0.3" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Final Design" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                </StackPanel>
+                            </Border>
+                        </controls:CompareSlider.AfterContent>
+                    </controls:CompareSlider>
+                </StackPanel>
+            </Border>
+            
+            <!-- Interactive Control -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Interactive Control" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Control the slider programmatically." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <controls:CompareSlider x:Name="InteractiveSlider" Height="200" Value="0.5">
+                        <controls:CompareSlider.BeforeContent>
+                             <Border Background="#212121">
+                                 <TextBlock Text="DARK MODE" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                             </Border>
+                        </controls:CompareSlider.BeforeContent>
+                        <controls:CompareSlider.AfterContent>
+                             <Border Background="#FAFAFA">
+                                 <TextBlock Text="LIGHT MODE" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                             </Border>
+                        </controls:CompareSlider.AfterContent>
+                    </controls:CompareSlider>
+                    
+                    <WrapPanel Orientation="Horizontal" >
+                         <Button Content="Animate to Start" Click="OnAnimateToStartClick" Margin="0,0,10,10"/>
+                         <Button Content="Reset (Center)" Click="OnResetClick" Margin="0,0,10,10"/>
+                         <Button Content="Animate to End" Click="OnAnimateToEndClick" Margin="0,0,10,10"/>
+                         <CheckBox Content="Reverse Direction" IsChecked="{Binding #InteractiveSlider.IsDirectionReversed}" VerticalAlignment="Center" Margin="0,0,10,10"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Text/Code Comparison -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Content Comparison" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Compare arbitrary content, like code diffs." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <controls:CompareSlider Height="200">
+                        <controls:CompareSlider.Styles>
+                             <Style Selector="controls|CompareSlider /template/ Thumb#PART_Thumb">
+                                <Setter Property="Width" Value="32" />
+                                <Setter Property="Height" Value="32" />
+                                <Setter Property="CornerRadius" Value="16"/>
+                                <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                             <Style Selector="controls|CompareSlider /template/ Line#PART_Divider">
+                                <Setter Property="Stroke" Value="{DynamicResource AccentBrush}" />
+                                <Setter Property="StrokeThickness" Value="2" />
+                            </Style>
+                        </controls:CompareSlider.Styles>
+                        
+                        <controls:CompareSlider.BeforeContent>
+                            <Border Background="#1E1E1E" Padding="20">
+                                <StackPanel>
+                                    <TextBlock Text="ORIGINAL" Foreground="Gray" FontWeight="Bold" Margin="0,0,0,10"/>
+                                    <TextBlock Text="public void Update() {" FontFamily="Consolas, Monospace" Foreground="#D4D4D4"/>
+                                    <TextBlock Text="    if (isActive) {" FontFamily="Consolas, Monospace" Foreground="#D4D4D4"/>
+                                    <TextBlock Text="        Process();" FontFamily="Consolas, Monospace" Foreground="#D4D4D4"/>
+                                    <TextBlock Text="    }" FontFamily="Consolas, Monospace" Foreground="#D4D4D4"/>
+                                    <TextBlock Text="}" FontFamily="Consolas, Monospace" Foreground="#D4D4D4"/>
+                                </StackPanel>
+                            </Border>
+                        </controls:CompareSlider.BeforeContent>
+                        <controls:CompareSlider.AfterContent>
+                             <Border Background="#252526" Padding="20">
+                                <StackPanel>
+                                    <TextBlock Text="REFACTORED" Foreground="#4CAF50" FontWeight="Bold" Margin="0,0,0,10"/>
+                                    <TextBlock Text="public void Update() =>" FontFamily="Consolas, Monospace" Foreground="#D4D4D4"/>
+                                    <TextBlock Text="    isActive ? Process() : null;" FontFamily="Consolas, Monospace" Foreground="#CE9178"/>
+                                </StackPanel>
+                            </Border>
+                        </controls:CompareSlider.AfterContent>
+                    </controls:CompareSlider>
+                </StackPanel>
+            </Border>
+            
+             <!-- Custom Styling -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Custom Styling" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Customizing the divider and thumb using inline styles." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <controls:CompareSlider Height="300">
+                        <controls:CompareSlider.Styles>
+                            <Style Selector="controls|CompareSlider /template/ Line#PART_Divider">
+                                <Setter Property="Stroke" Value="Orange" />
+                                <Setter Property="StrokeThickness" Value="4" />
+                            </Style>
+                             <Style Selector="controls|CompareSlider /template/ Thumb#PART_Thumb">
+                                <Setter Property="Width" Value="30" />
+                                <Setter Property="Height" Value="60" />
+                                <Setter Property="Background" Value="Orange" />
+                                <Setter Property="CornerRadius" Value="0" />
+                                <Setter Property="BorderBrush" Value="DarkOrange" />
+                            </Style>
+                        </controls:CompareSlider.Styles>
+
+                        <controls:CompareSlider.BeforeContent>
+                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg" Stretch="UniformToFill">
+                                <Image.Effect>
+                                    <BlurEffect Radius="20"/>
+                                </Image.Effect>
+                             </Image>
+                        </controls:CompareSlider.BeforeContent>
+                        <controls:CompareSlider.AfterContent>
+                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg" Stretch="UniformToFill" />
+                        </controls:CompareSlider.AfterContent>
+                    </controls:CompareSlider>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
