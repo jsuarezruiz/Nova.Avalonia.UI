@@ -8,7 +8,7 @@
 
 ## Documentation
 
-The docs cover everything from first steps to detailed control APIs and samples, aiming to make the library easy to adopt and extend. If you’re interested in exploring more, you can find it here: https://jsuarezruiz.github.io/Nova.Avalonia.UI/
+The docs cover everything from first steps to detailed control APIs and samples, aiming to make the library easy to adopt and extend. If you're interested in exploring more, you can find it here: https://jsuarezruiz.github.io/Nova.Avalonia.UI/
 
 ## Controls
 
@@ -34,13 +34,63 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 The `RatingControl` allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
 
-<img src="images/novaui_ratingcontrol_light.gif" alt="Shimmer" width="250" />
+<img src="images/novaui_ratingcontrol_light.gif" alt="RatingControl" width="250" />
 
 ### Shimmer
 
 The `Shimmer` control shows a lightweight skeleton while your content is loading. It inspects the visual tree beneath it to draw shapes that match controls, then animates a gradient sweep over the placeholders.
 
 <img src="images/novaui_shimmer_light.gif" alt="Shimmer" width="250" />
+
+## Layout Panels
+
+### ArcPanel
+
+The `ArcPanel` arranges items along an arc (partial circle). Useful for semi-circular menus, dial interfaces, or decorative layouts.
+
+### AutoLayout
+
+A specialized panel reproducing Figma's Auto Layout behavior (Orientation, Spacing, Padding, Alignment).
+
+### BubblePanel
+
+The `BubblePanel` packs circular items using a circle packing algorithm, creating a dense, organic bubble arrangement.
+
+### CircularPanel
+
+The `CircularPanel` arranges items evenly around a circle. Perfect for radial menus, clock faces, or circular arrangements.
+
+### HexPanel
+
+The `HexPanel` arranges items in a honeycomb hexagonal grid. It supports both flat-topped and pointy-topped hexagons.
+
+### OrbitPanel
+
+The `OrbitPanel` arranges child elements in concentric orbit rings around a center point. Items are distributed evenly radiating from the center.
+
+### OverlapPanel
+
+The `OverlapPanel` stacks children with configurable X/Y offsets, creating card pile or layered effects.
+
+### RadialPanel
+
+The `RadialPanel` positions items in a circular or spiral fan arrangement. It supports configurable radius, start/sweep angles, and item rotation.
+
+### ResponsivePanel
+
+The `ResponsivePanel` is an adaptive panel that toggles visibility of children based on breakpoints (Mobile/Desktop switching).
+
+### StaggeredPanel
+
+The `StaggeredPanel` positions items in a staggered grid, creating a masonry-like effect by filling the shortest column first.
+
+### TimelinePanel
+
+The `TimelinePanel` arranges items in a timeline or step-by-step flow with connecting lines between items.
+
+### VariableSizeWrapPanel
+
+The `VariableSizeWrapPanel` arranges varying-sized items in a wrapping grid, permitting items to span multiple rows and columns similar to the Windows Start Screen.
 
 ## Contribute
 
