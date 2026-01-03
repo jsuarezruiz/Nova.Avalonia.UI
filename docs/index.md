@@ -19,6 +19,7 @@ ms.date: 2026-02-01
 - **[CompareSlider](docs/controls/compareslider.md)**: A control that allows side-by-side comparison of two pieces of content with a draggable divider.
 - **[FortuneBar](xref:Nova.Avalonia.UI.Controls.FortuneBar)**: Slot machine style horizontal or vertical scrolling bar for random selection.
 - **[FortuneWheel](xref:Nova.Avalonia.UI.Controls.FortuneWheel)**: Circular prize wheel with smooth spin animations, weighted selection, and customizable styling strategies.
+- **[Gravatar](xref:Nova.Avalonia.UI.Controls.Gravatar)**: GitHub-style identicon generator.
 - **[RatingControl](docs/controls/ratingcontrol.md)**: Allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
 - **[Shimmer](docs/controls/shimmer.md)**: Skeleton loading effect that detects your content layout to create matching placeholders.
 - **[Scratcher](docs/controls/scratcher.md)**: Interactive control that hides content beneath a scratchable overlay.

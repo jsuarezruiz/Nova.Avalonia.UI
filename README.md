@@ -54,6 +54,12 @@ The `Shimmer` control shows a lightweight skeleton while your content is loading
 
 <img src="images/novaui_shimmer_light.gif" alt="Shimmer" width="250" />
 
+### Gravatar
+
+The `Gravatar` control generates GitHub-style identicon avatars from identifiers such as emails or usernames. It supports custom image overrides, configurable sizes, and pluggable generators via the `IGravatarGenerator` interface.
+
+<img src="images/novaui_gravatar_light.png" alt="Gravatar" width="250" />
+
 ### Scratcher
 
 The `Scratcher` control temporarily hides content beneath an opaque overlay. Users can reveal the hidden content by "scratching" the overlay with pointer input, similar to a physical scratch card.
