@@ -1,0 +1,107 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls;assembly=Nova.Avalonia.UI"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.GravatarView"
+             x:DataType="vm:GravatarViewModel">
+    <ScrollViewer>
+        <StackPanel Spacing="20" Margin="20">
+
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Usage"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="GitHub-style identicons generated from email addresses."
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+
+                    <StackPanel Orientation="Horizontal" Spacing="16">
+                        <controls:Gravatar Id="user@example.com" Size="48" />
+                        <controls:Gravatar Id="john.doe@company.org" Size="48" />
+                        <controls:Gravatar Id="alice@wonderland.io" Size="48" />
+                        <controls:Gravatar Id="bob@builder.net" Size="48" />
+                        <controls:Gravatar Id="test@test.com" Size="48" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Size Variations -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Size Variations"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="The same ID at different sizes."
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+
+                    <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Bottom">
+                        <controls:Gravatar Id="demo@gravatar.com" Size="24" />
+                        <controls:Gravatar Id="demo@gravatar.com" Size="32" />
+                        <controls:Gravatar Id="demo@gravatar.com" Size="48" />
+                        <controls:Gravatar Id="demo@gravatar.com" Size="64" />
+                        <controls:Gravatar Id="demo@gravatar.com" Size="96" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Consistent Output -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Consistent Output"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Same ID always produces the same identicon."
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+
+                    <StackPanel Orientation="Horizontal" Spacing="32">
+                        <StackPanel Spacing="8" HorizontalAlignment="Center">
+                            <controls:Gravatar Id="consistent@test.com" Size="48" HorizontalAlignment="Center" />
+                            <TextBlock Text="Instance 1" Opacity="0.7" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Spacing="8" HorizontalAlignment="Center">
+                            <controls:Gravatar Id="consistent@test.com" Size="48" HorizontalAlignment="Center" />
+                            <TextBlock Text="Instance 2" Opacity="0.7" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Spacing="8" HorizontalAlignment="Center">
+                            <controls:Gravatar Id="consistent@test.com" Size="48" HorizontalAlignment="Center" />
+                            <TextBlock Text="Instance 3" Opacity="0.7" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Interactive Input -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Interactive Input"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Type an email or username to see the generated identicon."
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+
+                    <StackPanel Orientation="Horizontal" Spacing="16">
+                        <TextBox x:Name="EmailInput" 
+                                 Width="300" 
+                                 VerticalAlignment="Center"
+                                 Watermark="Enter email or username..."
+                                 Text="hello@world.com" />
+                        <controls:Gravatar Id="{Binding #EmailInput.Text}" Size="64" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
