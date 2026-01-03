@@ -30,6 +30,7 @@ public partial class MainViewModel : ViewModelBase
                 new("BarcodeGenerator", new BarcodeGeneratorViewModel(), "QR codes, barcodes, and 2D symbologies"),
                 new("CompareSlider", new CompareSliderViewModel(), "Side-by-side content comparison with slider"),
                 new("Fortune", new FortuneViewModel(), "Spin-to-win wheel and bar controls"),
+                new("Gravatar", new GravatarViewModel(), "Identicon avatars from emails/IDs"),
                 new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
                 new("Scratcher", new ScratcherViewModel(), "Interactive scratch card overlay"),
                 new("Shimmer", new ShimmerViewModel(), "Loading placeholders with animated shimmer"),
