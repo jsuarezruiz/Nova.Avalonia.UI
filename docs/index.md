@@ -18,6 +18,7 @@ ms.date: 2025-12-10
 - **[BarcodeGenerator](xref:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator)**: Generates QR codes, Data Matrix, Code 128, and other barcode formats with customizable colors and logo support.
 - **[RatingControl](xref:Nova.Avalonia.UI.Controls.RatingControl)**: Allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
 - **[Shimmer](xref:Nova.Avalonia.UI.Controls.Shimmer)**: Skeleton loading effect that detects your content layout to create matching placeholders.
+- **[Watermark](xref:Nova.Avalonia.UI.Controls.Watermark)**: Tiled text or image overlay for marking documents as confidential, draft, or adding branding.
 
 ### Layout and interaction
 
