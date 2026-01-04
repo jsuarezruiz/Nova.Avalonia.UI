@@ -1,0 +1,90 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls">
+
+  <!-- CircularSlider -->
+  <Style Selector="controls|CircularSlider">
+    <Setter Property="Width" Value="200"/>
+    <Setter Property="Height" Value="200"/>
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Cursor" Value="Hand"/>
+    <Setter Property="InactiveBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
+    <Setter Property="ActiveBrush" Value="{DynamicResource SystemAccentColor}"/>
+    <Setter Property="ThumbBrush" Value="{DynamicResource SystemAccentColorDark1}"/>
+    <Setter Property="InnerBackground" Value="{DynamicResource SystemControlBackgroundAltHighBrush}"/>
+    <Setter Property="TextBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Width="{TemplateBinding Width}"
+              Height="{TemplateBinding Height}"
+              Background="Transparent">
+          
+          <!-- Focus Ring -->
+          <Ellipse x:Name="PART_FocusRing"
+                   Stroke="{DynamicResource SystemAccentColor}"
+                   StrokeThickness="2"
+                   IsVisible="False"
+                   Margin="-4"/>
+          
+          <!-- Canvas for absolute thumb positioning -->
+          <Canvas ClipToBounds="False" IsHitTestVisible="False">
+            <!-- Thumb -->
+            <Border x:Name="PART_Thumb"
+                    Width="{TemplateBinding ThumbSize}"
+                    Height="{TemplateBinding ThumbSize}"
+                    Background="{TemplateBinding ThumbBrush}"
+                    CornerRadius="100"
+                    BorderThickness="2"
+                    BorderBrush="White"
+                    BoxShadow="0 2 8 0 #40000000"
+                    IsVisible="True"
+                    ZIndex="1000"/>
+          </Canvas>
+
+          <!-- Center content (value display or custom) -->
+          <Grid IsHitTestVisible="False">
+            <ContentPresenter x:Name="PART_CenterContent"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Content="{TemplateBinding CenterContent}"
+                              ContentTemplate="{TemplateBinding CenterContentTemplate}">
+              <ContentPresenter.DataTemplates>
+                <DataTemplate DataType="x:String">
+                  <TextBlock Text="{Binding}"
+                             FontSize="{Binding $parent[controls:CircularSlider].TextFontSize}"
+                             FontWeight="{Binding $parent[controls:CircularSlider].TextFontWeight}"
+                             Foreground="{Binding $parent[controls:CircularSlider].TextBrush}"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"/>
+                </DataTemplate>
+              </ContentPresenter.DataTemplates>
+            </ContentPresenter>
+          </Grid>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+    
+  <!-- Focus Visual -->
+  <Style Selector="controls|CircularSlider:focus-visible /template/ Ellipse#PART_FocusRing">
+    <Setter Property="IsVisible" Value="True"/>
+  </Style>
+  
+  <!-- Disabled State - Use solid colors instead of transparency -->
+  <Style Selector="controls|CircularSlider:disabled">
+    <Setter Property="Cursor" Value="Arrow"/>
+    <Setter Property="ActiveBrush" Value="#A0A0A0"/>
+    <Setter Property="InactiveBrush" Value="#D0D0D0"/>
+  </Style>
+  
+  <Style Selector="controls|CircularSlider:disabled /template/ Border#PART_Thumb">
+    <Setter Property="Background" Value="#808080"/>
+    <Setter Property="BoxShadow" Value="none"/>
+  </Style>
+  
+  <Style Selector="controls|CircularSlider:disabled /template/ ContentPresenter#PART_CenterContent">
+    <Setter Property="Opacity" Value="0.5"/>
+  </Style>
+
+</Styles>
+
