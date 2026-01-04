@@ -21,6 +21,7 @@ ms.date: 2025-12-10
 
 ### Layout and interaction
 
+- **[CircularSlider](xref:Nova.Avalonia.UI.Controls.CircularSlider)**: Circular arc slider for selecting numeric values with customizable angles, step frequencies, and center content.
 - **[AvatarGroup](xref:Nova.Avalonia.UI.Controls.AvatarGroup)**: Layout container for stacking multiple avatars with configurable overlap and overflow handling.
 
 ## Requirements

@@ -10,7 +10,10 @@
     href: controls/badge.md
   - name: BarcodeGenerator
     href: controls/barcodegenerator.md
+  - name: CircularSlider
+    href: controls/circularslider.md
   - name: RatingControl
     href: controls/ratingcontrol.md
   - name: Shimmer
     href: controls/shimmer.md
+
