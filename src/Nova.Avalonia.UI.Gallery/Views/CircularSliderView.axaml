@@ -1,0 +1,296 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls;assembly=Nova.Avalonia.UI"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.CircularSliderView"
+             x:DataType="vm:CircularSliderViewModel">
+    
+    <UserControl.Styles>
+        <Style Selector="WrapPanel > StackPanel">
+            <Setter Property="Margin" Value="0,0,20,20"/>
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer>
+        <StackPanel Spacing="20" Margin="20">
+            
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Usage"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Simple circular slider with default 270 degree arc."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,10"/>
+                    
+                    <WrapPanel HorizontalAlignment="Center">
+                        <controls:CircularSlider Width="180" Height="180"
+                                                  MinValue="0" MaxValue="100"
+                                                  Value="50"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Arc Configurations -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Arc Configurations"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Different start and end angles for various arc styles."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,10"/>
+                    
+                    <WrapPanel HorizontalAlignment="Center">
+                        <!-- 270° Arc (default) -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider Width="140" Height="140"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="65"
+                                                      StartAngle="-135" EndAngle="135"/>
+                            <TextBlock Text="270° Arc" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                        
+                        <!-- Semicircle Bottom -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider Width="140" Height="140"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="75"
+                                                      StartAngle="-180" EndAngle="0"/>
+                            <TextBlock Text="Bottom Semicircle" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                        
+                        <!-- Semicircle Top -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider Width="140" Height="140"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="60"
+                                                      StartAngle="90" EndAngle="270"/>
+                            <TextBlock Text="Top Semicircle" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                        
+                        <!-- Full Circle -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider Width="140" Height="140"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="40"
+                                                      StartAngle="0" EndAngle="359"/>
+                            <TextBlock Text="Full Circle" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Custom Styling -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Custom Styling"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Different colors, thicknesses, and line caps."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,10"/>
+                    
+                    <WrapPanel HorizontalAlignment="Center">
+                        <!-- Orange Theme -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider Width="150" Height="150"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="75"
+                                                      ActiveBrush="#FF5722"
+                                                      InactiveBrush="#FFCCBC"
+                                                      ThumbBrush="#D32F2F"/>
+                            <TextBlock Text="Orange Theme" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                        
+                        <!-- Green Theme with Thick Arc -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider Width="150" Height="150"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="80"
+                                                      ActiveBrush="#4CAF50"
+                                                      InactiveBrush="#E8F5E9"
+                                                      ThumbBrush="#2E7D32"
+                                                      ActiveThickness="18"
+                                                      InactiveThickness="18"/>
+                            <TextBlock Text="Thick Arc" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                        
+                        <!-- Square Caps -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider Width="150" Height="150"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="55"
+                                                      ActiveBrush="#9C27B0"
+                                                      InactiveBrush="#E1BEE7"
+                                                      ThumbBrush="#7B1FA2"
+                                                      InactiveStrokeLineCap="Square"
+                                                      ActiveStrokeLineCap="Square"/>
+                            <TextBlock Text="Square Line Caps" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Center Content -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Center Content"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Custom content displayed in the center of the slider."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,10"/>
+                    
+                    <WrapPanel HorizontalAlignment="Center">
+                        <!-- Volume Control -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider x:Name="VolumeSlider"
+                                                      Width="160" Height="160"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="75"
+                                                      ActiveBrush="#2196F3"
+                                                      InactiveBrush="#BBDEFB"
+                                                      ThumbBrush="#1976D2">
+                                <controls:CircularSlider.CenterContent>
+                                    <StackPanel Spacing="2" HorizontalAlignment="Center">
+                                        <TextBlock Text="VOL" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Binding #VolumeSlider.Value, StringFormat='{}{0:F0}'}"
+                                                   FontSize="28" FontWeight="Bold" Foreground="#1976D2"
+                                                   HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </controls:CircularSlider.CenterContent>
+                            </controls:CircularSlider>
+                            <TextBlock Text="Volume" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+
+                        <!-- Temperature -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider x:Name="TempSlider"
+                                                      Width="160" Height="160"
+                                                      MinValue="16" MaxValue="30"
+                                                      Value="22"
+                                                      StepFrequency="0.5"
+                                                      ValueFormat="F1"
+                                                      ActiveBrush="#FF5722"
+                                                      InactiveBrush="#FFCCBC"
+                                                      ThumbBrush="#E64A19">
+                                <controls:CircularSlider.CenterContent>
+                                    <StackPanel Spacing="2" HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding #TempSlider.Value, StringFormat='{}{0:F1}°C'}"
+                                                   FontSize="24" FontWeight="Bold" Foreground="#E64A19"
+                                                   HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Temperature" FontSize="11" Foreground="Gray" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </controls:CircularSlider.CenterContent>
+                            </controls:CircularSlider>
+                            <TextBlock Text="Temperature" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                        
+                        <!-- Progress -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider x:Name="ProgressSlider"
+                                                      Width="160" Height="160"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="68"
+                                                      ActiveBrush="#4CAF50"
+                                                      InactiveBrush="#E8F5E9"
+                                                      ThumbBrush="#388E3C">
+                                <controls:CircularSlider.CenterContent>
+                                    <StackPanel Spacing="0" HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding #ProgressSlider.Value, StringFormat='{}{0:F0}%'}"
+                                                   FontSize="28" FontWeight="Bold" Foreground="#388E3C"
+                                                   HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Complete" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </controls:CircularSlider.CenterContent>
+                            </controls:CircularSlider>
+                            <TextBlock Text="Progress" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Step Frequency -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Step Frequency"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Values snap to defined step intervals."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,10"/>
+                    
+                    <WrapPanel HorizontalAlignment="Center">
+                        <!-- Step of 10 -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider x:Name="Step10Slider"
+                                                      Width="140" Height="140"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="50"
+                                                      StepFrequency="10"/>
+                            <TextBlock Text="{Binding #Step10Slider.Value, StringFormat='Value: {0:F0}'}" 
+                                       HorizontalAlignment="Center" FontSize="12"/>
+                            <TextBlock Text="Step: 10" HorizontalAlignment="Center" FontSize="10" Foreground="Gray"/>
+                        </StackPanel>
+                        
+                        <!-- Step of 5 -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider x:Name="Step5Slider"
+                                                      Width="140" Height="140"
+                                                      MinValue="0" MaxValue="100"
+                                                      Value="25"
+                                                      StepFrequency="5"/>
+                            <TextBlock Text="{Binding #Step5Slider.Value, StringFormat='Value: {0:F0}'}" 
+                                       HorizontalAlignment="Center" FontSize="12"/>
+                            <TextBlock Text="Step: 5" HorizontalAlignment="Center" FontSize="10" Foreground="Gray"/>
+                        </StackPanel>
+                        
+                        <!-- Step of 1 -->
+                        <StackPanel Spacing="8">
+                            <controls:CircularSlider x:Name="Step1Slider"
+                                                      Width="140" Height="140"
+                                                      MinValue="0" MaxValue="10"
+                                                      Value="5"
+                                                      StepFrequency="1"/>
+                            <TextBlock Text="{Binding #Step1Slider.Value, StringFormat='Value: {0:F0}'}" 
+                                       HorizontalAlignment="Center" FontSize="12"/>
+                            <TextBlock Text="Step: 1" HorizontalAlignment="Center" FontSize="10" Foreground="Gray"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Disabled State -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Disabled State"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Circular slider in disabled state."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,10"/>
+                    
+                    <WrapPanel HorizontalAlignment="Center">
+                        <controls:CircularSlider Width="160" Height="160"
+                                                  MinValue="0" MaxValue="100"
+                                                  Value="60"
+                                                  IsEnabled="False"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>
