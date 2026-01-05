@@ -52,7 +52,7 @@
                     <!-- Controls -->
                     <Grid ColumnDefinitions="100, *, 60" RowDefinitions="Auto, Auto, Auto, Auto, Auto" Margin="0,0,0,10">
                         <TextBlock Text="Radius" VerticalAlignment="Center"/>
-                        <Slider Grid.Column="1" Minimum="50" Maximum="200" Value="{Binding Radius}" />
+                        <Slider Grid.Column="1" Minimum="50" Maximum="130" Value="{Binding Radius}" />
                         <TextBlock Grid.Column="2" Text="{Binding Radius, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
 
                         <TextBlock Grid.Row="1" Text="Start Angle" VerticalAlignment="Center"/>

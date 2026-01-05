@@ -18,7 +18,7 @@
                     <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Items grouped by Orbit attached property (0=center, 1=first ring, etc.)." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
-                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="350" ClipToBounds="True">
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="350" ClipToBounds="True">
                         <controls:OrbitPanel OrbitSpacing="60" InnerRadius="60" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <!-- Center (Orbit 0) -->
                             <Border Width="50" Height="50" Background="#E74C3C" CornerRadius="25" controls:OrbitPanel.Orbit="0">
@@ -61,7 +61,7 @@
                         <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding StartAngle, StringFormat='{}{0:0}°'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                     </Grid>
 
-                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="350" ClipToBounds="True">
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="350" ClipToBounds="True">
                         <controls:OrbitPanel OrbitSpacing="{Binding OrbitSpacing}" 
                                              InnerRadius="{Binding InnerRadius}" 
                                              StartAngle="{Binding StartAngle}"
@@ -90,7 +90,7 @@
                         <TextBlock Text="{Binding Items.Count, StringFormat='Count: {0}'}" VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="350" ClipToBounds="True">
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="350" ClipToBounds="True">
                         <ItemsControl ItemsSource="{Binding Items}" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>

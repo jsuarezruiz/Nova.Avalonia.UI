@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 
 namespace Nova.Avalonia.UI.Controls;
 
@@ -65,7 +66,21 @@ public class OrbitPanel : Panel
     /// <summary>
     /// Gets the Orbit attached property value.
     /// </summary>
-    public static int GetOrbit(Control element) => element.GetValue(OrbitProperty);
+    public static int GetOrbit(Control element)
+    {
+        // Check if the element has the Orbit property set directly
+        var orbit = element.GetValue(OrbitProperty);
+        if (orbit != 0)
+            return orbit;
+
+        // If element is a ContentPresenter (from ItemsControl), check its content
+        if (element is ContentPresenter cp && cp.Child is Control childControl)
+        {
+            return childControl.GetValue(OrbitProperty);
+        }
+
+        return orbit;
+    }
 
     /// <summary>
     /// Sets the Orbit attached property value.

@@ -20,7 +20,7 @@
                     <TextBlock Text="Tiles auto-flow with ColumnSpan and RowSpan for variable sizes." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
-                        <controls:VariableSizeWrapPanel TileSize="80" Spacing="8" Columns="4">
+                        <controls:VariableSizeWrapPanel TileSize="70" Spacing="8" Columns="4">
                             <!-- Large 2x2 tile - Mail -->
                             <Border Background="#3498DB" CornerRadius="8" controls:VariableSizeWrapPanel.ColumnSpan="2" controls:VariableSizeWrapPanel.RowSpan="2">
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -134,32 +134,32 @@
                     <TextBlock Text="Creating a dashboard with mixed tile sizes." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
-                        <controls:VariableSizeWrapPanel TileSize="70" Spacing="6" Columns="5">
+                        <controls:VariableSizeWrapPanel TileSize="70" Spacing="6" Columns="4">
                             <!-- Header tile -->
-                            <Border Background="#2C3E50" CornerRadius="8" controls:VariableSizeWrapPanel.ColumnSpan="3" controls:VariableSizeWrapPanel.RowSpan="2">
+                            <Border Background="#2C3E50" CornerRadius="8" controls:VariableSizeWrapPanel.ColumnSpan="2" controls:VariableSizeWrapPanel.RowSpan="2">
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock Text="Dashboard" Foreground="White" FontSize="20" FontWeight="Bold"/>
-                                    <TextBlock Text="Welcome back!" Foreground="White" Opacity="0.7"/>
+                                    <TextBlock Text="Dashboard" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                                    <TextBlock Text="Welcome back!" Foreground="White" Opacity="0.7" FontSize="11"/>
                                 </StackPanel>
                             </Border>
                             
-                            <Border Background="#27AE60" CornerRadius="8" controls:VariableSizeWrapPanel.RowSpan="2">
+                            <Border Background="#27AE60" CornerRadius="8">
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock Text="128" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Messages" Foreground="White" FontSize="10" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="128" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Msgs" Foreground="White" FontSize="9" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
-                            <Border Background="#C0392B" CornerRadius="8" controls:VariableSizeWrapPanel.RowSpan="2">
+                            <Border Background="#C0392B" CornerRadius="8">
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock Text="5" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Alerts" Foreground="White" FontSize="10" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="5" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Alerts" Foreground="White" FontSize="9" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
-                            
-                            <Border Background="#8E44AD" CornerRadius="8" controls:VariableSizeWrapPanel.ColumnSpan="2"/>
+                            <Border Background="#8E44AD" CornerRadius="8"/>
                             <Border Background="#16A085" CornerRadius="8"/>
-                            <Border Background="#D35400" CornerRadius="8"/>
-                            <Border Background="#2980B9" CornerRadius="8"/>
+                            
+                            <Border Background="#D35400" CornerRadius="8" controls:VariableSizeWrapPanel.ColumnSpan="2"/>
+                            <Border Background="#2980B9" CornerRadius="8" controls:VariableSizeWrapPanel.ColumnSpan="2"/>
                         </controls:VariableSizeWrapPanel>
                     </Border>
                 </StackPanel>
@@ -176,7 +176,7 @@
                         <TextBlock Text="{Binding Items.Count, StringFormat='Count: {0}'}" VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="300" ClipToBounds="True">
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="300" ClipToBounds="True">
                         <ItemsControl ItemsSource="{Binding Items}" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
