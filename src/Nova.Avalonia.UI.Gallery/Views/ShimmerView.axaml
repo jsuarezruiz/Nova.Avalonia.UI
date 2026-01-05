@@ -106,7 +106,7 @@
                 </StackPanel>
             </Border>
 
-            <!-- Example 4: Complex Layout -->
+            <!-- Complex Layout -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Complex layout"
