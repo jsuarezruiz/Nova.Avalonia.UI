@@ -10,7 +10,7 @@
 
     <ScrollViewer HorizontalScrollBarVisibility="Disabled">
         <StackPanel Spacing="20" Margin="20">
-            <TextBlock Text="VariableSizeWrapPanel" Theme="{StaticResource TitleTextBlockStyle}"/>
+
             <TextBlock Text="Windows Metro-style tile layout with variable-size tiles." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6"/>
 
             <!-- Basic Usage -->

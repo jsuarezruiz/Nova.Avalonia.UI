@@ -10,10 +10,9 @@
     <ScrollViewer>
         <StackPanel Spacing="20" Margin="20">
 
-            <TextBlock Text="The shimmer automatically detects TextBlocks, Borders, Ellipses, etc. and creates matching skeleton shapes!"
-                       TextWrapping="Wrap"
-                       HorizontalAlignment="Center"
-                       Foreground="{DynamicResource SecondaryTextBrush}" />
+            <TextBlock Text="The shimmer automatically detects TextBlocks, Borders, Ellipses, etc. and creates matching skeleton shapes!" 
+                       Theme="{StaticResource BodyTextBlockStyle}" 
+                       Opacity="0.6"/>
 
             <CheckBox Name="GlobalToggle"
                       Content="Show Shimmer (IsLoading)"

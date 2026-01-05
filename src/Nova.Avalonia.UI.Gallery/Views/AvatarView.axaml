@@ -20,6 +20,7 @@
 
   <ScrollViewer>
       <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="A control that represents a user with an image, initials, or icon." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6"/>
 
             <!-- Basic Avatars with Auto Mode -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">

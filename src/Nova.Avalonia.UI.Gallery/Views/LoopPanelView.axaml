@@ -8,6 +8,9 @@
   <ScrollViewer>
     <StackPanel Spacing="20" Margin="20">
 
+
+      <TextBlock Text="A panel that provides infinite scrolling capabilities for its items." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6"/>
+
       <!-- Basic Usage Section -->
       <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
         <StackPanel Spacing="15">

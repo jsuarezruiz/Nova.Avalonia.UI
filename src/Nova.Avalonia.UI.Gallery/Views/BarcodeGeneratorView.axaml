@@ -7,6 +7,7 @@
              x:Class="Nova.Avalonia.UI.Gallery.Views.BarcodeGeneratorView">
     <ScrollViewer Margin="20">
         <StackPanel Spacing="20">
+            <TextBlock Text="A control that generates various 1D and 2D barcodes (QR, Code128, etc)." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6"/>
 
             <!-- Basic QR Code -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">

@@ -8,7 +8,8 @@
     <ScrollViewer Margin="20">
         <StackPanel Spacing="20">
             
-            <TextBlock Text="RatingControl" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <TextBlock Text="A control for collecting or displaying ratings with customizable shapes." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6"/>
 
             <!-- Basic Usage -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
