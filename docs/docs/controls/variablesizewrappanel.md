@@ -55,3 +55,63 @@ Define the basic `ItemHeight` and `ItemWidth`. Items default to a 1x1 span of th
 |----------|------|-------------|
 | `RowSpan` | `int` | How many vertical units the item spans. Default is 1. |
 | `ColumnSpan` | `int` | How many horizontal units the item spans. Default is 1. |
+
+## Virtualized Version
+
+For large datasets (100+ items), use `VirtualizedVariableSizeWrapLayout` with `ItemsRepeater` for efficient scrolling:
+
+```xaml
+<ScrollViewer>
+    <ItemsControl ItemsSource="{Binding LargeTileCollection}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <nova:VirtualizingVariableSizeWrapPanel 
+                    TileSize="100"
+                    Spacing="8"
+                    Columns="4" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemContainerTheme>
+            <ControlTheme TargetType="ContentPresenter">
+                <Setter Property="nova:VirtualizingVariableSizeWrapPanel.ColumnSpan" Value="{Binding ColumnSpan}"/>
+                <Setter Property="nova:VirtualizingVariableSizeWrapPanel.RowSpan" Value="{Binding RowSpan}"/>
+            </ControlTheme>
+        </ItemsControl.ItemContainerTheme>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Border Background="{Binding Brush}" CornerRadius="8">
+                    <TextBlock Text="{Binding Title}" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</ScrollViewer>
+```
+
+### VirtualizedVariableSizeWrapLayout Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `TileSize` | `double` | `100` | The base size of a single tile unit. |
+| `Spacing` | `double` | `8` | The spacing between tiles. |
+| `Columns` | `int` | `4` | The number of columns in the grid. |
+
+### Attached Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `RowSpan` | `int` | How many vertical units the item spans. Default is 1. |
+| `ColumnSpan` | `int` | How many horizontal units the item spans. Default is 1. |
+
+### Performance Features
+
+The `VirtualizingVariableSizeWrapPanel` is optimized for large datasets:
+
+- **Container Recycling**: Off-screen items are hidden and reused, not destroyed
+- **Minimal Allocations**: Reusable collections avoid per-frame allocations
+- **2x Viewport Buffer**: Items above and below the viewport are pre-realized for smooth scrolling
+- **Pool Size Limit**: Maximum 20 recycled containers per type to prevent memory bloat
+
+> [!TIP]
+> For best performance with 500+ items, ensure your `ItemTemplate` is lightweight and avoid expensive bindings or effects on each item.

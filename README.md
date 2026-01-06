@@ -96,6 +96,14 @@ The `TimelinePanel` arranges items in a timeline or step-by-step flow with conne
 
 The `VariableSizeWrapPanel` arranges varying-sized items in a wrapping grid, permitting items to span multiple rows and columns similar to the Windows Start Screen.
 
+### VirtualizedStaggeredPanel
+
+The `VirtualizedStaggeredPanel` is a high-performance staggered grid optimized for large datasets (1000+ items). It works seamlessly with `ItemsControl` and `ScrollViewer`.
+
+### VirtualizedVariableSizeWrapPanel
+
+The `VirtualizedVariableSizeWrapPanel` is a high-performance variable-size tile grid optimized for large datasets. Supports `ColumnSpan` and `RowSpan` attached properties for tiles spanning multiple cells.
+
 ## Contribute
 
 Do you want to contribute?.

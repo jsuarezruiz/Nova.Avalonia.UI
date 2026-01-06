@@ -96,3 +96,49 @@ You can also use `StaggeredPanel` directly with children defined in XAML:
     <Border Height="120" Background="Orange" />
 </nova:StaggeredPanel>
 ```
+
+## Virtualized Version
+
+For large datasets (100+ items), use `VirtualizedStaggeredLayout` with `ItemsRepeater` for efficient scrolling:
+
+```xaml
+<ScrollViewer>
+    <ItemsControl ItemsSource="{Binding LargeCollection}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <nova:VirtualizingStaggeredPanel 
+                    DesiredColumnWidth="200"
+                    ColumnSpacing="10" 
+                    RowSpacing="10" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Border Height="{Binding Height}" Background="{Binding Brush}" CornerRadius="4">
+                    <TextBlock Text="{Binding Title}" Margin="10" />
+                </Border>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</ScrollViewer>
+```
+
+### VirtualizingStaggeredPanel Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `DesiredColumnWidth` | `double` | `250` | The desired width for each column. |
+| `ColumnSpacing` | `double` | `0` | The distance between columns. |
+| `RowSpacing` | `double` | `0` | The distance between items in the same column. |
+
+### Performance Features
+
+The `VirtualizingStaggeredPanel` is optimized for large datasets:
+
+- **Container Recycling**: Off-screen items are hidden and reused, not destroyed
+- **Minimal Allocations**: Reusable collections avoid per-frame allocations
+- **2x Viewport Buffer**: Items above and below the viewport are pre-realized for smooth scrolling
+- **Pool Size Limit**: Maximum 20 recycled containers per type to prevent memory bloat
+
+> [!TIP]
+> For best performance with 500+ items, ensure your `ItemTemplate` is lightweight and avoid expensive bindings or effects on each item.

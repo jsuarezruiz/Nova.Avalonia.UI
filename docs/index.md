@@ -35,6 +35,8 @@ ms.date: 2026-01-02
 - **[StaggeredPanel](xref:Nova.Avalonia.UI.Controls.StaggeredPanel)**: Positions items in a staggered grid, creating a masonry-like effect.
 - **[TimelinePanel](xref:Nova.Avalonia.UI.Controls.TimelinePanel)**: Arranges items in a timeline/step flow with connecting lines.
 - **[VariableSizeWrapPanel](xref:Nova.Avalonia.UI.Controls.VariableSizeWrapPanel)**: Arranges varying-sized items in a wrapping grid.
+- **[VirtualizedStaggeredPanel](xref:Nova.Avalonia.UI.Controls.VirtualizedStaggeredPanel)**: High-performance staggered grid for large datasets.
+- **[VirtualizedVariableSizeWrapPanel](xref:Nova.Avalonia.UI.Controls.VirtualizedVariableSizeWrapPanel)**: High-performance variable-size tile grid for large datasets.
 
 ## Requirements
 

@@ -46,6 +46,8 @@ public partial class MainViewModel : ViewModelBase
                 new("StaggeredPanel", new StaggeredPanelViewModel(), "Masonry-like staggered grid layout"),
                 new("TimelinePanel", new TimelinePanelViewModel(), "Timeline/step process layout"),
                 new("VariableSizeWrapPanel", new VariableSizeWrapPanelViewModel(), "Windows Metro-style tile layout"),
+                new("VirtualizedStaggeredPanel", new VirtualizedStaggeredPanelViewModel(), "Virtualized masonry layout"),
+                new("VirtualizedVariableSizeWrapPanel", new VirtualizedVariableSizeWrapPanelViewModel(), "Virtualized tile grid layout"),
             }),
         };
 

@@ -40,3 +40,7 @@
     href: controls/timelinepanel.md
   - name: VariableSizeWrapPanel
     href: controls/variablesizewrappanel.md
+  - name: VirtualizedStaggeredPanel
+    href: controls/staggeredpanel.md
+  - name: VirtualizedVariableSizeWrapPanel
+    href: controls/variablesizewrappanel.md

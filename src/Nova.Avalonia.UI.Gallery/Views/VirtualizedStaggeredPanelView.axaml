@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.VirtualizedStaggeredPanelView"
+             x:DataType="vm:VirtualizedStaggeredPanelViewModel">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="A staggered (masonry) panel optimized for efficiently displaying large datasets with varying item heights." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6"/>
+
+            <!-- Configuration -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Configuration" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <Grid ColumnDefinitions="120, *, 60" RowDefinitions="Auto, Auto, Auto">
+                        <TextBlock Text="Column Width" VerticalAlignment="Center"/>
+                        <Slider Grid.Column="1" Minimum="100" Maximum="250" Value="{Binding DesiredColumnWidth}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding DesiredColumnWidth, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+
+                        <TextBlock Grid.Row="1" Text="Column Spacing" VerticalAlignment="Center"/>
+                        <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="20" Value="{Binding ColumnSpacing}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding ColumnSpacing, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+
+                        <TextBlock Grid.Row="2" Text="Row Spacing" VerticalAlignment="Center"/>
+                        <Slider Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="20" Value="{Binding RowSpacing}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding RowSpacing, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Add 100 Items" Command="{Binding AddItemsCommand}"/>
+                        <Button Content="Clear All" Command="{Binding ClearItemsCommand}"/>
+                        <TextBlock Text="{Binding Items.Count, StringFormat='Total Items: {0}'}" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Virtualized Panel Demo -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Large Dataset" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Scroll through 500+ items with smooth performance." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Height="500" ClipToBounds="True">
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl ItemsSource="{Binding Items}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <controls:VirtualizingStaggeredPanel 
+                                            DesiredColumnWidth="{Binding $parent[ItemsControl].DataContext.DesiredColumnWidth}"
+                                            ColumnSpacing="{Binding $parent[ItemsControl].DataContext.ColumnSpacing}"
+                                            RowSpacing="{Binding $parent[ItemsControl].DataContext.RowSpacing}"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:VirtualizedStaggeredItem">
+                                        <Border Height="{Binding Height}" Background="{Binding Brush}" CornerRadius="8" Margin="2">
+                                            <TextBlock Text="{Binding Title}" 
+                                                       Foreground="White" FontWeight="Bold"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
