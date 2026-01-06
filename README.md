@@ -132,6 +132,8 @@ The `VirtualizedStaggeredPanel` is a high-performance staggered grid optimized f
 
 The `VirtualizedVariableSizeWrapPanel` is a high-performance variable-size tile grid optimized for large datasets. Supports `ColumnSpan` and `RowSpan` attached properties for tiles spanning multiple cells.
 
+<img src="images/novaui_virtualizedvariablesizewrappanel_light.gif" alt="VirtualizedVariableSizeWrapPanel" width="250" />
+
 ## Contribute
 
 Do you want to contribute?.
