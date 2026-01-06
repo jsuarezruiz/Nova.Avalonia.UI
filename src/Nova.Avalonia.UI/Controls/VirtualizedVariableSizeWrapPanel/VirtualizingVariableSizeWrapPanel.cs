@@ -288,9 +288,56 @@ namespace Nova.Avalonia.UI.Controls
                 // Track which containers are needed (reuse collection)
                 _neededIndices.Clear();
                 double maxPanelHeight = 0;
+                bool needsFullLayout = true;
 
-                for (int i = 0; i < itemCount; i++)
+                // Optimistically reuse cached bounds if width hasn't changed
+                if (availableSize.Width == _lastMeasureWidth && _itemCacheCount == itemCount)
                 {
+                    needsFullLayout = false;
+                    
+                    for (int i = 0; i < itemCount; i++)
+                    {
+                        var rect = _itemBoundsCache[i];
+                        
+                        // Virtualization check
+                        bool isVisible = rect.Bottom >= viewportTop && rect.Y <= viewportBottom;
+                        if (isVisible)
+                        {
+                            var container = GetOrCreateContainer(items, i);
+                            if (container != null)
+                            {
+                                // Verify spans match cache (critical for correctness)
+                                int currentColSpan = GetColumnSpan(container);
+                                int currentRowSpan = GetRowSpan(container);
+                                if (currentColSpan < 1) currentColSpan = 1;
+                                if (currentRowSpan < 1) currentRowSpan = 1;
+
+                                if (currentColSpan != _cachedColSpans[i] || currentRowSpan != _cachedRowSpans[i])
+                                {
+                                    // Spans changed! Cache is invalid. Fallback to full layout.
+                                    needsFullLayout = true;
+                                    break;
+                                }
+
+                                _neededIndices.Add(i);
+                                container.Measure(rect.Size);
+                            }
+                        }
+                    }
+
+                    if (!needsFullLayout)
+                    {
+                        maxPanelHeight = _lastMaxHeight;
+                    }
+                }
+
+                if (needsFullLayout)
+                {
+                    // Clear needed indices as we will repopulate them
+                    _neededIndices.Clear();
+
+                    for (int i = 0; i < itemCount; i++)
+                    {
                     // Get spans
                     int colSpan = _cachedColSpans[i];
                     int rowSpan = _cachedRowSpans[i];
@@ -342,6 +389,7 @@ namespace Nova.Avalonia.UI.Controls
                         var container = GetOrCreateContainer(items, i);
                         container?.Measure(new Size(w, h));
                     }
+                }
                 }
 
                 // Recycle unneeded containers

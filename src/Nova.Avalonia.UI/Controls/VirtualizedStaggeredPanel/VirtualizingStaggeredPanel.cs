@@ -252,9 +252,51 @@ namespace Nova.Avalonia.UI.Controls
                 double maxHeight = 0;
                 int totalMeasured = 0;
                 double totalMeasuredHeight = 0;
+                bool needsFullLayout = true;
 
-                for (int i = 0; i < itemCount; i++)
+                // Optimistically reuse cached bounds if width hasn't changed
+                if (totalWidth == _lastMeasureWidth && _itemBoundsCacheCount == itemCount)
                 {
+                    needsFullLayout = false;
+                    for (int i = 0; i < itemCount; i++)
+                    {
+                        var rect = _itemBoundsCache[i];
+                        bool isVisible = rect.Bottom >= viewportTop && rect.Y <= viewportBottom;
+                        
+                        if (isVisible)
+                        {
+                            var container = GetOrCreateContainer(items, i);
+                            if (container != null)
+                            {
+                                container.Measure(measureConstraint);
+                                double itemHeight = container.DesiredSize.Height;
+                                
+                                // Check if height changed
+                                if (Math.Abs(itemHeight - rect.Height) > 0.1)
+                                {
+                                    needsFullLayout = true;
+                                    break;
+                                }
+
+                                _neededIndices.Add(i);
+                            }
+                        }
+                    }
+
+                    if (!needsFullLayout)
+                    {
+                        maxHeight = _lastMaxHeight;
+                    }
+                }
+
+                if (needsFullLayout)
+                {
+                    // Clear and prepare for full layout
+                    _neededIndices.Clear();
+                    _columnNextY.AsSpan(0, columnCount).Clear();
+
+                    for (int i = 0; i < itemCount; i++)
+                    {
                     int columnIndex = GetShortestColumn(columnCount);
                     double x = columnIndex * (actualColumnWidth + columnSpacing);
                     double y = _columnNextY[columnIndex];
@@ -299,6 +341,8 @@ namespace Nova.Avalonia.UI.Controls
                     double columnHeight = _columnNextY[columnIndex] - rowSpacing;
                     if (columnHeight > maxHeight)
                         maxHeight = columnHeight;
+                }
+
                 }
 
                 // Recycle containers that are no longer visible
