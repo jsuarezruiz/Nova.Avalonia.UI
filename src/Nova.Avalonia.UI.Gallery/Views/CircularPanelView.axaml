@@ -59,7 +59,7 @@
 
                     <!-- Preview -->
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="280" ClipToBounds="True">
-                        <controls:CircularPanel Radius="{Binding Radius}" StartAngle="{Binding StartAngle}" Orientation="{Binding Orientation}">
+                        <controls:CircularPanel Radius="{Binding Radius}" StartAngle="{Binding StartAngle}" SweepDirection="{Binding SweepDirection}">
                             <Border Width="50" Height="50" Background="#FF6B6B" CornerRadius="25"/>
                             <Border Width="50" Height="50" Background="#4ECDC4" CornerRadius="25"/>
                             <Border Width="50" Height="50" Background="#45B7D1" CornerRadius="25"/>

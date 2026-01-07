@@ -60,7 +60,7 @@ The `Orientation` property controls the shape and stacking direction of the hexa
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `Orientation` | `HexOrientation` | `Vertical` | The orientation of the hex grid (`Horizontal` or `Vertical`). |
+| `Orientation` | `Orientation` | `Vertical` | The orientation of the hex grid (`Horizontal` or `Vertical`). |
 | `RowCount` | `int` | `0` | The number of rows in the grid (affects size calculation). |
 | `ColumnCount` | `int` | `0` | The number of columns in the grid. |
 

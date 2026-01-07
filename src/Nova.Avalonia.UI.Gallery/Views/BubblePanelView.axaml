@@ -19,9 +19,9 @@
                     <TextBlock Text="Items pack together with larger items placed first." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="350" ClipToBounds="True">
-                        <controls:BubblePanel ItemSpacing="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <controls:BubblePanel Spacing="8" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <!-- Large bubble -->
-                            <Border Width="80" Height="80" Background="#3498DB" CornerRadius="40" controls:BubblePanel.Size="1.2">
+                            <Border Width="80" Height="80" Background="#3498DB" CornerRadius="40">
                                 <TextBlock Text="Main" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                             </Border>
                             
@@ -37,12 +37,12 @@
                             </Border>
                             
                             <!-- Small bubbles -->
-                            <Border Width="40" Height="40" Background="#F39C12" CornerRadius="20" controls:BubblePanel.Size="0.8"/>
-                            <Border Width="40" Height="40" Background="#1ABC9C" CornerRadius="20" controls:BubblePanel.Size="0.8"/>
-                            <Border Width="40" Height="40" Background="#E91E63" CornerRadius="20" controls:BubblePanel.Size="0.8"/>
-                            <Border Width="40" Height="40" Background="#00BCD4" CornerRadius="20" controls:BubblePanel.Size="0.8"/>
-                            <Border Width="40" Height="40" Background="#FF5722" CornerRadius="20" controls:BubblePanel.Size="0.8"/>
-                            <Border Width="40" Height="40" Background="#795548" CornerRadius="20" controls:BubblePanel.Size="0.8"/>
+                            <Border Width="40" Height="40" Background="#F39C12" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#1ABC9C" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#E91E63" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#00BCD4" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#FF5722" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#795548" CornerRadius="20"/>
                         </controls:BubblePanel>
                     </Border>
                 </StackPanel>
@@ -55,25 +55,25 @@
                     <TextBlock Text="Different sizes represent importance or frequency." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="320" ClipToBounds="True">
-                        <controls:BubblePanel ItemSpacing="6" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Border Width="90" Height="90" Background="#2980B9" CornerRadius="45" controls:BubblePanel.Size="1.3">
+                        <controls:BubblePanel Spacing="6" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="90" Height="90" Background="#2980B9" CornerRadius="45">
                                 <TextBlock Text="C#" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
                             </Border>
-                            <Border Width="70" Height="70" Background="#27AE60" CornerRadius="35" controls:BubblePanel.Size="1.1">
+                            <Border Width="70" Height="70" Background="#27AE60" CornerRadius="35">
                                 <TextBlock Text="XAML" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12"/>
                             </Border>
                             <Border Width="60" Height="60" Background="#8E44AD" CornerRadius="30">
                                 <TextBlock Text="UI" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                             </Border>
-                            <Border Width="50" Height="50" Background="#C0392B" CornerRadius="25" controls:BubblePanel.Size="0.9">
+                            <Border Width="50" Height="50" Background="#C0392B" CornerRadius="25">
                                 <TextBlock Text="API" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11"/>
                             </Border>
-                            <Border Width="45" Height="45" Background="#D35400" CornerRadius="22" controls:BubblePanel.Size="0.85"/>
-                            <Border Width="40" Height="40" Background="#16A085" CornerRadius="20" controls:BubblePanel.Size="0.8"/>
-                            <Border Width="35" Height="35" Background="#7F8C8D" CornerRadius="17" controls:BubblePanel.Size="0.7"/>
-                            <Border Width="35" Height="35" Background="#34495E" CornerRadius="17" controls:BubblePanel.Size="0.7"/>
-                            <Border Width="30" Height="30" Background="#95A5A6" CornerRadius="15" controls:BubblePanel.Size="0.6"/>
-                            <Border Width="30" Height="30" Background="#BDC3C7" CornerRadius="15" controls:BubblePanel.Size="0.6"/>
+                            <Border Width="45" Height="45" Background="#D35400" CornerRadius="22"/>
+                            <Border Width="40" Height="40" Background="#16A085" CornerRadius="20"/>
+                            <Border Width="35" Height="35" Background="#7F8C8D" CornerRadius="17"/>
+                            <Border Width="35" Height="35" Background="#34495E" CornerRadius="17"/>
+                            <Border Width="30" Height="30" Background="#95A5A6" CornerRadius="15"/>
+                            <Border Width="30" Height="30" Background="#BDC3C7" CornerRadius="15"/>
                         </controls:BubblePanel>
                     </Border>
                 </StackPanel>
@@ -86,12 +86,12 @@
                     
                     <Grid ColumnDefinitions="Auto, *, 50">
                         <TextBlock Text="Item Spacing" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <Slider Grid.Column="1" Minimum="0" Maximum="20" Value="{Binding ItemSpacing}"/>
-                        <TextBlock Grid.Column="2" Text="{Binding ItemSpacing, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <Slider Grid.Column="1" Minimum="0" Maximum="20" Value="{Binding Spacing}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Spacing, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                     </Grid>
 
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="280" ClipToBounds="True">
-                        <controls:BubblePanel ItemSpacing="{Binding ItemSpacing}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <controls:BubblePanel Spacing="{Binding Spacing}" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Border Width="70" Height="70" Background="#3498DB" CornerRadius="35"/>
                             <Border Width="55" Height="55" Background="#2ECC71" CornerRadius="27"/>
                             <Border Width="55" Height="55" Background="#E74C3C" CornerRadius="27"/>
@@ -120,7 +120,7 @@
                         <ItemsControl ItemsSource="{Binding Items}" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <controls:BubblePanel ItemSpacing="{Binding $parent[ItemsControl].DataContext.ItemSpacing}"/>
+                                    <controls:BubblePanel Spacing="{Binding $parent[ItemsControl].DataContext.Spacing}"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>

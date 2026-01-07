@@ -19,16 +19,10 @@ public class BubblePanel : Panel
         AvaloniaProperty.Register<BubblePanel, Thickness>(nameof(Padding));
 
     /// <summary>
-    /// Defines the <see cref="ItemSpacing"/> property.
+    /// Defines the <see cref="Spacing"/> property.
     /// </summary>
-    public static readonly StyledProperty<double> ItemSpacingProperty =
-        AvaloniaProperty.Register<BubblePanel, double>(nameof(ItemSpacing), 4);
-
-    /// <summary>
-    /// Defines the Size attached property for specifying relative size.
-    /// </summary>
-    public static readonly AttachedProperty<double> SizeProperty =
-        AvaloniaProperty.RegisterAttached<BubblePanel, Control, double>("Size", 1.0);
+    public static readonly StyledProperty<double> SpacingProperty =
+        AvaloniaProperty.Register<BubblePanel, double>(nameof(Spacing), 4);
 
     /// <summary>
     /// Gets or sets the padding around the panel content.
@@ -42,26 +36,16 @@ public class BubblePanel : Panel
     /// <summary>
     /// Gets or sets the minimum spacing between bubbles.
     /// </summary>
-    public double ItemSpacing
+    public double Spacing
     {
-        get => GetValue(ItemSpacingProperty);
-        set => SetValue(ItemSpacingProperty, value);
+        get => GetValue(SpacingProperty);
+        set => SetValue(SpacingProperty, value);
     }
-
-    /// <summary>
-    /// Gets the Size attached property value.
-    /// </summary>
-    public static double GetSize(Control element) => element.GetValue(SizeProperty);
-
-    /// <summary>
-    /// Sets the Size attached property value.
-    /// </summary>
-    public static void SetSize(Control element, double value) => element.SetValue(SizeProperty, value);
 
     static BubblePanel()
     {
-        AffectsMeasure<BubblePanel>(PaddingProperty, ItemSpacingProperty);
-        AffectsArrange<BubblePanel>(PaddingProperty, ItemSpacingProperty);
+        AffectsMeasure<BubblePanel>(PaddingProperty, SpacingProperty);
+        AffectsArrange<BubblePanel>(PaddingProperty, SpacingProperty);
     }
 
     private class PlacedCircle
@@ -83,12 +67,11 @@ public class BubblePanel : Panel
             child.Measure(Size.Infinity);
         }
 
-        // Estimate size based on children
+        // Estimate size based on children's actual visual size
         double totalArea = 0;
         foreach (var child in visibleChildren)
         {
-            var size = GetSize(child);
-            var radius = Math.Max(child.DesiredSize.Width, child.DesiredSize.Height) / 2 * size;
+            var radius = Math.Max(child.DesiredSize.Width, child.DesiredSize.Height) / 2;
             totalArea += Math.PI * radius * radius;
         }
 
@@ -108,14 +91,14 @@ public class BubblePanel : Panel
         var padding = Padding;
         double availableWidth = finalSize.Width - padding.Left - padding.Right;
         double availableHeight = finalSize.Height - padding.Top - padding.Bottom;
-        double spacing = ItemSpacing;
+        double spacing = Spacing;
 
         // Calculate radii and sort by size (largest first)
+        // Use the actual visual radius (not scaled) for collision detection
         var childData = visibleChildren.Select(child =>
         {
-            var size = GetSize(child);
-            var radius = Math.Max(child.DesiredSize.Width, child.DesiredSize.Height) / 2 * size;
-            return new { Child = child, Radius = Math.Max(10, radius) };
+            var visualRadius = Math.Max(child.DesiredSize.Width, child.DesiredSize.Height) / 2;
+            return new { Child = child, Radius = Math.Max(10, visualRadius), DesiredSize = child.DesiredSize };
         }).OrderByDescending(c => c.Radius).ToList();
 
         var placedCircles = new List<PlacedCircle>();
@@ -134,12 +117,13 @@ public class BubblePanel : Panel
                 Child = item.Child
             });
 
-            // Arrange the child
-            double childSize = item.Radius * 2;
-            double x = padding.Left + position.x - item.Radius;
-            double y = padding.Top + position.y - item.Radius;
+            // Arrange the child using its actual DesiredSize
+            double childWidth = item.DesiredSize.Width;
+            double childHeight = item.DesiredSize.Height;
+            double x = padding.Left + position.x - childWidth / 2;
+            double y = padding.Top + position.y - childHeight / 2;
 
-            item.Child.Arrange(new Rect(x, y, childSize, childSize));
+            item.Child.Arrange(new Rect(x, y, childWidth, childHeight));
         }
 
         return finalSize;
@@ -159,16 +143,16 @@ public class BubblePanel : Panel
             return (centerX, centerY);
         }
 
-        double bestX = centerX;
-        double bestY = centerY;
+        double bestX = 0;
+        double bestY = 0;
         double bestDistance = double.MaxValue;
         bool foundValid = false;
 
         // Try positions around each placed circle with finer granularity
         foreach (var circle in placed)
         {
-            // Try 24 positions around this circle (every 15 degrees)
-            for (int angle = 0; angle < 360; angle += 15)
+            // Try 36 positions around this circle (every 10 degrees)
+            for (int angle = 0; angle < 360; angle += 10)
             {
                 double rad = angle * Math.PI / 180;
                 double distance = circle.Radius + radius + spacing;
@@ -213,42 +197,48 @@ public class BubblePanel : Panel
             }
         }
 
-        // If no valid position found, find any non-overlapping position by expanding outward
-        if (!foundValid)
+        if (foundValid)
         {
-            for (double r = radius + spacing; r < Math.Max(width, height); r += 20)
+            return (bestX, bestY);
+        }
+
+        // If no valid position found around existing circles, 
+        // expand outward from center with finer step
+        for (double r = radius + spacing; r < Math.Max(width, height) * 2; r += 10)
+        {
+            for (int angle = 0; angle < 360; angle += 15)
             {
-                for (int angle = 0; angle < 360; angle += 30)
+                double rad = angle * Math.PI / 180;
+                double candidateX = centerX + r * Math.Cos(rad);
+                double candidateY = centerY + r * Math.Sin(rad);
+
+                if (candidateX - radius < 0 || candidateX + radius > width ||
+                    candidateY - radius < 0 || candidateY + radius > height)
+                    continue;
+
+                bool overlaps = false;
+                foreach (var other in placed)
                 {
-                    double rad = angle * Math.PI / 180;
-                    double candidateX = centerX + r * Math.Cos(rad);
-                    double candidateY = centerY + r * Math.Sin(rad);
-
-                    if (candidateX - radius < 0 || candidateX + radius > width ||
-                        candidateY - radius < 0 || candidateY + radius > height)
-                        continue;
-
-                    bool overlaps = false;
-                    foreach (var other in placed)
+                    double dx = candidateX - other.X;
+                    double dy = candidateY - other.Y;
+                    double dist = Math.Sqrt(dx * dx + dy * dy);
+                    if (dist < radius + other.Radius + spacing)
                     {
-                        double dx = candidateX - other.X;
-                        double dy = candidateY - other.Y;
-                        double dist = Math.Sqrt(dx * dx + dy * dy);
-                        if (dist < radius + other.Radius + spacing)
-                        {
-                            overlaps = true;
-                            break;
-                        }
+                        overlaps = true;
+                        break;
                     }
+                }
 
-                    if (!overlaps)
-                    {
-                        return (candidateX, candidateY);
-                    }
+                if (!overlaps)
+                {
+                    return (candidateX, candidateY);
                 }
             }
         }
 
-        return (bestX, bestY);
+        // Last resort: place outside bounds rather than overlap
+        // Find a position outside the current arrangement
+        double maxRadius = placed.Max(c => Math.Sqrt(c.X * c.X + c.Y * c.Y) + c.Radius);
+        return (centerX + maxRadius + radius + spacing, centerY);
     }
 }

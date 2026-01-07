@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
+using Avalonia.Layout;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
 
@@ -13,7 +14,7 @@ public class HexPanelTests
     {
         var panel = new HexPanel();
 
-        Assert.Equal(HexOrientation.Vertical, panel.Orientation);
+        Assert.Equal(Orientation.Vertical, panel.Orientation);
         Assert.Equal(3, panel.ColumnCount);
         Assert.Equal(3, panel.RowCount);
     }
@@ -58,7 +59,7 @@ public class HexPanelTests
         {
             ColumnCount = 3,
             RowCount = 2,
-            Orientation = HexOrientation.Vertical,
+            Orientation = Orientation.Vertical,
             Width = 300,
             Height = 200
         };
@@ -83,7 +84,7 @@ public class HexPanelTests
         {
             ColumnCount = 2,
             RowCount = 2,
-            Orientation = HexOrientation.Horizontal,
+            Orientation = Orientation.Horizontal,
             Width = 200,
             Height = 200
         };
@@ -173,7 +174,7 @@ public class HexPanelTests
         {
             ColumnCount = 2,
             RowCount = 2,
-            Orientation = HexOrientation.Vertical,
+            Orientation = Orientation.Vertical,
             Width = 200,
             Height = 200
         };

@@ -41,7 +41,7 @@ Items are automatically distributed evenly around the circle. The `StartAngle` p
 | `Radius` | `double` | `100` | The radius of the circle. |
 | `StartAngle` | `double` | `0` | The angle where the first item is placed (degrees). |
 | `AngleStep` | `double` | `0` | Override the angle between items. 0 = auto-calculate. |
-| `IsClockwise` | `bool` | `true` | Direction of item placement. |
+| `SweepDirection` | `SweepDirection` | `Clockwise` | Direction of item placement (`Clockwise` or `CounterClockwise`). |
 
 ## Examples
 

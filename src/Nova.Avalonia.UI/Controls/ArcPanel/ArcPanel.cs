@@ -20,7 +20,7 @@ public class ArcPanel : Panel
     /// Defines the <see cref="StartAngle"/> property.
     /// </summary>
     public static readonly StyledProperty<double> StartAngleProperty =
-        AvaloniaProperty.Register<ArcPanel, double>(nameof(StartAngle), -90);
+        AvaloniaProperty.Register<ArcPanel, double>(nameof(StartAngle), 0);
 
     /// <summary>
     /// Defines the <see cref="SweepAngle"/> property.

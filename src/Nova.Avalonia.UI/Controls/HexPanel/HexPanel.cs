@@ -1,6 +1,7 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
 
 namespace Nova.Avalonia.UI.Controls;
 
@@ -13,8 +14,8 @@ public class HexPanel : Panel
     /// <summary>
     /// Defines the <see cref="Orientation"/> property.
     /// </summary>
-    public static readonly StyledProperty<HexOrientation> OrientationProperty =
-        AvaloniaProperty.Register<HexPanel, HexOrientation>(nameof(Orientation), HexOrientation.Vertical);
+    public static readonly StyledProperty<Orientation> OrientationProperty =
+        AvaloniaProperty.Register<HexPanel, Orientation>(nameof(Orientation), Orientation.Vertical);
 
     /// <summary>
     /// Defines the <see cref="ColumnCount"/> property.
@@ -43,7 +44,7 @@ public class HexPanel : Panel
     /// <summary>
     /// Gets or sets the orientation of the hexagonal grid.
     /// </summary>
-    public HexOrientation Orientation
+    public Orientation Orientation
     {
         get => GetValue(OrientationProperty);
         set => SetValue(OrientationProperty, value);
@@ -115,7 +116,7 @@ public class HexPanel : Panel
         }
 
         // Calculate total size based on orientation
-        if (Orientation == HexOrientation.Horizontal)
+        if (Orientation == Orientation.Horizontal)
         {
             // Horizontal: hexes have pointy tops
             var totalWidth = maxChildWidth * (ColumnCount * 3 + 1) / 4;
@@ -139,7 +140,7 @@ public class HexPanel : Panel
 
         double columnWidth, rowHeight;
 
-        if (Orientation == HexOrientation.Horizontal)
+        if (Orientation == Orientation.Horizontal)
         {
             rowHeight = 0.5 * hexSize.Height;
             columnWidth = 0.25 * hexSize.Width;
@@ -168,7 +169,7 @@ public class HexPanel : Panel
 
         double x, y;
 
-        if (Orientation == HexOrientation.Horizontal)
+        if (Orientation == Orientation.Horizontal)
         {
             x = 3 * columnWidth * column;
             y = rowHeight * (2 * row + (column % 2 == 1 ? 1 : 0) + (shift ? -1 : 0));
@@ -184,7 +185,7 @@ public class HexPanel : Panel
 
     private void HasShift(out bool first, out bool last)
     {
-        if (Orientation == HexOrientation.Horizontal)
+        if (Orientation == Orientation.Horizontal)
             HasRowShift(out first, out last);
         else
             HasColumnShift(out first, out last);
@@ -242,7 +243,7 @@ public class HexPanel : Panel
 
     private Size GetPossibleSize(Size gridSize, bool first, bool last)
     {
-        if (Orientation == HexOrientation.Horizontal)
+        if (Orientation == Orientation.Horizontal)
             return GetPossibleSizeHorizontal(gridSize, first, last);
 
         return GetPossibleSizeVertical(gridSize, first, last);

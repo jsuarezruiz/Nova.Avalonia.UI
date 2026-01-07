@@ -38,6 +38,7 @@ The panel uses a force-directed circle packing algorithm that:
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `Padding` | `Thickness` | `0` | Space around the packed bubbles. |
+| `Spacing` | `double` | `4` | Minimum spacing between bubbles. |
 
 ## Tips
 

@@ -1,8 +1,8 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Avalonia.Layout;
 using Avalonia.Media;
-using Nova.Avalonia.UI.Controls;
 
 namespace Nova.Avalonia.UI.Gallery.ViewModels;
 
@@ -18,7 +18,7 @@ public partial class HexPanelViewModel : PageViewModel
     [NotifyPropertyChangedFor(nameof(Orientation))]
     private bool _isHorizontal = false;
 
-    public HexOrientation Orientation => IsHorizontal ? HexOrientation.Horizontal : HexOrientation.Vertical;
+    public Orientation Orientation => IsHorizontal ? Orientation.Horizontal : Orientation.Vertical;
 
     public ObservableCollection<HexItem> Items { get; } = new();
 

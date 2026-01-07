@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
 
 namespace Nova.Avalonia.UI.Controls;
 
@@ -13,14 +14,14 @@ public class TimelinePanel : Panel
     /// <summary>
     /// Defines the <see cref="Orientation"/> property.
     /// </summary>
-    public static readonly StyledProperty<TimelineOrientation> OrientationProperty =
-        AvaloniaProperty.Register<TimelinePanel, TimelineOrientation>(nameof(Orientation), TimelineOrientation.Vertical);
+    public static readonly StyledProperty<Orientation> OrientationProperty =
+        AvaloniaProperty.Register<TimelinePanel, Orientation>(nameof(Orientation), Orientation.Vertical);
 
     /// <summary>
-    /// Defines the <see cref="ItemSpacing"/> property.
+    /// Defines the <see cref="Spacing"/> property.
     /// </summary>
-    public static readonly StyledProperty<double> ItemSpacingProperty =
-        AvaloniaProperty.Register<TimelinePanel, double>(nameof(ItemSpacing), 20);
+    public static readonly StyledProperty<double> SpacingProperty =
+        AvaloniaProperty.Register<TimelinePanel, double>(nameof(Spacing), 20);
 
     /// <summary>
     /// Defines the <see cref="ConnectorWidth"/> property.
@@ -37,7 +38,7 @@ public class TimelinePanel : Panel
     /// <summary>
     /// Gets or sets the orientation of the timeline.
     /// </summary>
-    public TimelineOrientation Orientation
+    public Orientation Orientation
     {
         get => GetValue(OrientationProperty);
         set => SetValue(OrientationProperty, value);
@@ -46,10 +47,10 @@ public class TimelinePanel : Panel
     /// <summary>
     /// Gets or sets the spacing between items.
     /// </summary>
-    public double ItemSpacing
+    public double Spacing
     {
-        get => GetValue(ItemSpacingProperty);
-        set => SetValue(ItemSpacingProperty, value);
+        get => GetValue(SpacingProperty);
+        set => SetValue(SpacingProperty, value);
     }
 
     /// <summary>
@@ -72,8 +73,8 @@ public class TimelinePanel : Panel
 
     static TimelinePanel()
     {
-        AffectsMeasure<TimelinePanel>(OrientationProperty, ItemSpacingProperty, ConnectorWidthProperty, AlternateItemsProperty);
-        AffectsArrange<TimelinePanel>(OrientationProperty, ItemSpacingProperty, ConnectorWidthProperty, AlternateItemsProperty);
+        AffectsMeasure<TimelinePanel>(OrientationProperty, SpacingProperty, ConnectorWidthProperty, AlternateItemsProperty);
+        AffectsArrange<TimelinePanel>(OrientationProperty, SpacingProperty, ConnectorWidthProperty, AlternateItemsProperty);
     }
 
     protected override Size MeasureOverride(Size availableSize)
@@ -89,7 +90,7 @@ public class TimelinePanel : Panel
         {
             child.Measure(Size.Infinity);
 
-            if (Orientation == TimelineOrientation.Vertical)
+            if (Orientation == Orientation.Vertical)
             {
                 totalPrimary += child.DesiredSize.Height;
                 maxSecondary = Math.Max(maxSecondary, child.DesiredSize.Width);
@@ -102,9 +103,9 @@ public class TimelinePanel : Panel
         }
 
         // Add spacing
-        totalPrimary += (visibleChildren.Count - 1) * ItemSpacing;
+        totalPrimary += (visibleChildren.Count - 1) * Spacing;
 
-        if (Orientation == TimelineOrientation.Vertical)
+        if (Orientation == Orientation.Vertical)
         {
             // Width = connector + content (or 2x content if alternating)
             double width = AlternateItems ? maxSecondary * 2 + ConnectorWidth : maxSecondary + ConnectorWidth;
@@ -130,7 +131,7 @@ public class TimelinePanel : Panel
         {
             double x, y, width, height;
 
-            if (Orientation == TimelineOrientation.Vertical)
+            if (Orientation == Orientation.Vertical)
             {
                 height = child.DesiredSize.Height;
                 width = child.DesiredSize.Width;
@@ -157,7 +158,7 @@ public class TimelinePanel : Panel
                     x = ConnectorWidth;
                 }
 
-                currentPosition += height + ItemSpacing;
+                currentPosition += height + Spacing;
             }
             else
             {
@@ -185,7 +186,7 @@ public class TimelinePanel : Panel
                     y = ConnectorWidth;
                 }
 
-                currentPosition += width + ItemSpacing;
+                currentPosition += width + Spacing;
             }
 
             child.Arrange(new Rect(x, y, width, height));

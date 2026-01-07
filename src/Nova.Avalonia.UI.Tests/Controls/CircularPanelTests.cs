@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
+using Avalonia.Media;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
 
@@ -16,7 +17,7 @@ public class CircularPanelTests
         Assert.Equal(100, panel.Radius);
         Assert.Equal(0, panel.StartAngle);
         Assert.True(double.IsNaN(panel.AngleStep));
-        Assert.Equal(CircularOrientation.Clockwise, panel.Orientation);
+        Assert.Equal(SweepDirection.Clockwise, panel.SweepDirection);
         Assert.True(panel.KeepInBounds);
     }
 
@@ -85,7 +86,7 @@ public class CircularPanelTests
             Radius = 100,
             Width = 300,
             Height = 300,
-            Orientation = CircularOrientation.CounterClockwise
+            SweepDirection = SweepDirection.CounterClockwise
         };
 
         for (int i = 0; i < 4; i++)

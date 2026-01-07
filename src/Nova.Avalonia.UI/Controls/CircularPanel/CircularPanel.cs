@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace Nova.Avalonia.UI.Controls;
 
@@ -29,10 +30,10 @@ public class CircularPanel : Panel
         AvaloniaProperty.Register<CircularPanel, double>(nameof(AngleStep), double.NaN);
 
     /// <summary>
-    /// Defines the <see cref="Orientation"/> property.
+    /// Defines the <see cref="SweepDirection"/> property.
     /// </summary>
-    public static readonly StyledProperty<CircularOrientation> OrientationProperty =
-        AvaloniaProperty.Register<CircularPanel, CircularOrientation>(nameof(Orientation), CircularOrientation.Clockwise);
+    public static readonly StyledProperty<SweepDirection> SweepDirectionProperty =
+        AvaloniaProperty.Register<CircularPanel, SweepDirection>(nameof(SweepDirection), SweepDirection.Clockwise);
 
     /// <summary>
     /// Defines the <see cref="KeepInBounds"/> property.
@@ -88,10 +89,10 @@ public class CircularPanel : Panel
     /// <summary>
     /// Gets or sets the direction to arrange children.
     /// </summary>
-    public CircularOrientation Orientation
+    public SweepDirection SweepDirection
     {
-        get => GetValue(OrientationProperty);
-        set => SetValue(OrientationProperty, value);
+        get => GetValue(SweepDirectionProperty);
+        set => SetValue(SweepDirectionProperty, value);
     }
 
     /// <summary>
@@ -135,8 +136,8 @@ public class CircularPanel : Panel
 
     static CircularPanel()
     {
-        AffectsMeasure<CircularPanel>(RadiusProperty, StartAngleProperty, AngleStepProperty, OrientationProperty);
-        AffectsArrange<CircularPanel>(RadiusProperty, StartAngleProperty, AngleStepProperty, OrientationProperty, KeepInBoundsProperty);
+        AffectsMeasure<CircularPanel>(RadiusProperty, StartAngleProperty, AngleStepProperty, SweepDirectionProperty);
+        AffectsArrange<CircularPanel>(RadiusProperty, StartAngleProperty, AngleStepProperty, SweepDirectionProperty, KeepInBoundsProperty);
     }
 
     protected override Size MeasureOverride(Size availableSize)
@@ -175,7 +176,7 @@ public class CircularPanel : Panel
         }
 
         var currentAngle = StartAngle;
-        var angleMultiplier = Orientation == CircularOrientation.Clockwise ? 1 : -1;
+        var angleMultiplier = SweepDirection == SweepDirection.Clockwise ? 1 : -1;
 
         foreach (var child in visibleChildren)
         {

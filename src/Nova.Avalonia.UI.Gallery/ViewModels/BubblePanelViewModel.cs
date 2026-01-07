@@ -8,7 +8,7 @@ namespace Nova.Avalonia.UI.Gallery.ViewModels;
 public partial class BubblePanelViewModel : PageViewModel
 {
     [ObservableProperty]
-    private double _itemSpacing = 4;
+    private double _spacing = 4;
 
     public ObservableCollection<DynamicItem> Items { get; } = new();
 

@@ -13,7 +13,7 @@ public class BubblePanelTests
     {
         var panel = new BubblePanel();
 
-        Assert.Equal(4, panel.ItemSpacing);
+        Assert.Equal(4, panel.Spacing);
         Assert.Equal(new Thickness(0), panel.Padding);
     }
 
@@ -36,7 +36,7 @@ public class BubblePanelTests
     [AvaloniaFact]
     public void Should_Pack_Multiple_Children()
     {
-        var panel = new BubblePanel { Width = 300, Height = 300, ItemSpacing = 4 };
+        var panel = new BubblePanel { Width = 300, Height = 300, Spacing = 4 };
 
         var child1 = new Border { Width = 60, Height = 60 };
         var child2 = new Border { Width = 40, Height = 40 };
@@ -61,15 +61,12 @@ public class BubblePanelTests
     }
 
     [AvaloniaFact]
-    public void Should_Handle_Size_Attached_Property()
+    public void Should_Handle_Different_Sized_Items()
     {
         var panel = new BubblePanel { Width = 300, Height = 300 };
 
-        var large = new Border { Width = 50, Height = 50 };
-        var small = new Border { Width = 50, Height = 50 };
-
-        BubblePanel.SetSize(large, 1.5);
-        BubblePanel.SetSize(small, 0.5);
+        var large = new Border { Width = 80, Height = 80 };
+        var small = new Border { Width = 40, Height = 40 };
 
         panel.Children.Add(large);
         panel.Children.Add(small);
@@ -77,13 +74,9 @@ public class BubblePanelTests
         panel.Measure(new Size(300, 300));
         panel.Arrange(new Rect(0, 0, 300, 300));
 
-        // Both should be arranged
-        Assert.True(large.Bounds.Width > 0);
-        Assert.True(small.Bounds.Width > 0);
-        
-        // Size attached property should be retrievable
-        Assert.Equal(1.5, BubblePanel.GetSize(large));
-        Assert.Equal(0.5, BubblePanel.GetSize(small));
+        // Both should be arranged with their respective sizes
+        Assert.Equal(80, large.Bounds.Width);
+        Assert.Equal(40, small.Bounds.Width);
     }
 
     [AvaloniaFact]

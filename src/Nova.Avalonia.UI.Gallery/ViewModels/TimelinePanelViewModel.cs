@@ -8,7 +8,7 @@ namespace Nova.Avalonia.UI.Gallery.ViewModels;
 public partial class TimelinePanelViewModel : PageViewModel
 {
     [ObservableProperty]
-    private double _itemSpacing = 20;
+    private double _spacing = 20;
 
     [ObservableProperty]
     private double _connectorWidth = 40;

@@ -19,7 +19,7 @@
                     <TextBlock Text="Items flow vertically with space for a connector line." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
-                        <controls:TimelinePanel Orientation="Vertical" ConnectorWidth="50" ItemSpacing="15">
+                        <controls:TimelinePanel Orientation="Vertical" ConnectorWidth="50" Spacing="15">
                             <Border Background="#3498DB" CornerRadius="8" Padding="15">
                                 <StackPanel>
                                     <TextBlock Text="Step 1: Planning" FontWeight="Bold" Foreground="White"/>
@@ -56,7 +56,7 @@
                     <TextBlock Text="Items alternate left and right of the connector." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
-                        <controls:TimelinePanel Orientation="Vertical" ConnectorWidth="40" ItemSpacing="10" AlternateItems="True">
+                        <controls:TimelinePanel Orientation="Vertical" ConnectorWidth="40" Spacing="10" AlternateItems="True">
                             <Border Width="150" Background="#FF6B6B" CornerRadius="8" Padding="10">
                                 <TextBlock Text="2020" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
                             </Border>
@@ -84,8 +84,8 @@
                     
                     <Grid ColumnDefinitions="Auto, *, 50" RowDefinitions="Auto, Auto, Auto">
                         <TextBlock Text="Item Spacing" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <Slider Grid.Column="1" Minimum="5" Maximum="50" Value="{Binding ItemSpacing}"/>
-                        <TextBlock Grid.Column="2" Text="{Binding ItemSpacing, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <Slider Grid.Column="1" Minimum="5" Maximum="50" Value="{Binding Spacing}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Spacing, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
                         <TextBlock Grid.Row="1" Text="Connector Width" VerticalAlignment="Center" Margin="0,0,10,0"/>
                         <Slider Grid.Row="1" Grid.Column="1" Minimum="20" Maximum="80" Value="{Binding ConnectorWidth}"/>
@@ -97,7 +97,7 @@
 
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
                         <controls:TimelinePanel Orientation="Vertical" 
-                                                ItemSpacing="{Binding ItemSpacing}"
+                                                Spacing="{Binding Spacing}"
                                                 ConnectorWidth="{Binding ConnectorWidth}"
                                                 AlternateItems="{Binding AlternateItems}"
                                                 HorizontalAlignment="Center">
@@ -126,7 +126,7 @@
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <controls:TimelinePanel Orientation="Vertical"
-                                                            ItemSpacing="{Binding $parent[ItemsControl].DataContext.ItemSpacing}"
+                                                            Spacing="{Binding $parent[ItemsControl].DataContext.Spacing}"
                                                             ConnectorWidth="{Binding $parent[ItemsControl].DataContext.ConnectorWidth}"
                                                             AlternateItems="{Binding $parent[ItemsControl].DataContext.AlternateItems}"/>
                                 </ItemsPanelTemplate>

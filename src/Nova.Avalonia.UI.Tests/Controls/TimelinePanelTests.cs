@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
+using Avalonia.Layout;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
 
@@ -13,8 +14,8 @@ public class TimelinePanelTests
     {
         var panel = new TimelinePanel();
 
-        Assert.Equal(TimelineOrientation.Vertical, panel.Orientation);
-        Assert.Equal(20, panel.ItemSpacing);
+        Assert.Equal(Orientation.Vertical, panel.Orientation);
+        Assert.Equal(20, panel.Spacing);
         Assert.Equal(40, panel.ConnectorWidth);
         Assert.False(panel.AlternateItems);
     }
@@ -22,7 +23,7 @@ public class TimelinePanelTests
     [AvaloniaFact]
     public void Should_Stack_Vertically()
     {
-        var panel = new TimelinePanel { Orientation = TimelineOrientation.Vertical, Width = 300, Height = 400 };
+        var panel = new TimelinePanel { Orientation = Orientation.Vertical, Width = 300, Height = 400 };
 
         var child1 = new Border { Width = 100, Height = 50 };
         var child2 = new Border { Width = 100, Height = 50 };
@@ -40,7 +41,7 @@ public class TimelinePanelTests
     [AvaloniaFact]
     public void Should_Stack_Horizontally()
     {
-        var panel = new TimelinePanel { Orientation = TimelineOrientation.Horizontal, Width = 400, Height = 200 };
+        var panel = new TimelinePanel { Orientation = Orientation.Horizontal, Width = 400, Height = 200 };
 
         var child1 = new Border { Width = 80, Height = 60 };
         var child2 = new Border { Width = 80, Height = 60 };
@@ -60,7 +61,7 @@ public class TimelinePanelTests
     {
         var panel = new TimelinePanel
         {
-            Orientation = TimelineOrientation.Vertical,
+            Orientation = Orientation.Vertical,
             AlternateItems = true,
             ConnectorWidth = 40,
             Width = 300,
@@ -85,7 +86,7 @@ public class TimelinePanelTests
     {
         var panel = new TimelinePanel
         {
-            Orientation = TimelineOrientation.Vertical,
+            Orientation = Orientation.Vertical,
             ConnectorWidth = 50,
             Width = 300,
             Height = 400
@@ -106,8 +107,8 @@ public class TimelinePanelTests
     {
         var panel = new TimelinePanel
         {
-            Orientation = TimelineOrientation.Vertical,
-            ItemSpacing = 30,
+            Orientation = Orientation.Vertical,
+            Spacing = 30,
             Width = 300,
             Height = 400
         };
@@ -121,7 +122,7 @@ public class TimelinePanelTests
         panel.Measure(new Size(300, 400));
         panel.Arrange(new Rect(0, 0, 300, 400));
 
-        // Gap should be at least ItemSpacing
+        // Gap should be at least Spacing
         double gap = child2.Bounds.Y - child1.Bounds.Bottom;
         Assert.True(gap >= 30);
     }

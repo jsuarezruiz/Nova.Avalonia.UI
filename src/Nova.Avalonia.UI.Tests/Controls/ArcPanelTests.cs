@@ -15,7 +15,7 @@ public class ArcPanelTests
         var panel = new ArcPanel();
 
         Assert.Equal(100, panel.Radius);
-        Assert.Equal(-90, panel.StartAngle);
+        Assert.Equal(0, panel.StartAngle);
         Assert.Equal(180, panel.SweepAngle);
         Assert.True(panel.DistributeEvenly);
     }
