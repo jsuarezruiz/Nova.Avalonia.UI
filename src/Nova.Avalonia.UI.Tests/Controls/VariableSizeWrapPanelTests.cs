@@ -106,4 +106,50 @@ public class VariableSizeWrapPanelTests
 
         Assert.True(visible.Bounds.Width > 0);
     }
+    [AvaloniaFact]
+    public void Should_Handle_Zero_Children()
+    {
+        var panel = new VariableSizeWrapPanel();
+        panel.Measure(new Size(360, 200));
+
+        Assert.Equal(0, panel.DesiredSize.Width);
+        Assert.Equal(0, panel.DesiredSize.Height);
+    }
+
+    [AvaloniaFact]
+    public void Should_Clamp_ColumnSpan_To_Max_Columns()
+    {
+        var panel = new VariableSizeWrapPanel { TileSize = 80, Spacing = 8, Columns = 2, Width = 360, Height = 200 };
+
+        var child = new Border();
+        VariableSizeWrapPanel.SetColumnSpan(child, 5); // Exceeds Columns=2
+        panel.Children.Add(child);
+
+        panel.Measure(new Size(360, 200));
+        panel.Arrange(new Rect(0, 0, 360, 200));
+
+        // Width should be 2 * tileSize + 1 * spacing = 168
+        Assert.Equal(168, child.Bounds.Width);
+    }
+
+    [AvaloniaFact]
+    public void Should_Wrap_To_Next_Row_When_Column_Full()
+    {
+        var panel = new VariableSizeWrapPanel { TileSize = 100, Spacing = 0, Columns = 2, Width = 200, Height = 400 };
+
+        var child1 = new Border();
+        var child2 = new Border();
+        var child3 = new Border();
+
+        panel.Children.Add(child1); // Row 0, Col 0
+        panel.Children.Add(child2); // Row 0, Col 1
+        panel.Children.Add(child3); // Row 1, Col 0
+
+        panel.Measure(new Size(200, 400));
+        panel.Arrange(new Rect(0, 0, 200, 400));
+
+        Assert.Equal(0, child1.Bounds.Y);
+        Assert.Equal(0, child2.Bounds.Y);
+        Assert.Equal(100, child3.Bounds.Y);
+    }
 }

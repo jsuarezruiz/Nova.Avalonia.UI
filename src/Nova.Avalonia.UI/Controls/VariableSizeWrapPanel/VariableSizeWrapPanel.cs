@@ -96,10 +96,6 @@ public class VariableSizeWrapPanel : Panel
 
     protected override Size MeasureOverride(Size availableSize)
     {
-        var visibleChildren = Children.Where(c => c.IsVisible).ToList();
-        if (visibleChildren.Count == 0)
-            return new Size(0, 0);
-
         int columns = Math.Max(1, Columns);
         double tileSize = TileSize;
         double spacing = Spacing;
@@ -107,9 +103,13 @@ public class VariableSizeWrapPanel : Panel
         // List of rows, where each row is a bool[] of size 'columns'
         var grid = new List<bool[]>();
         int maxRow = 0;
+        bool hasVisible = false;
 
-        foreach (var child in visibleChildren)
+        foreach (var child in Children)
         {
+            if (!child.IsVisible) continue;
+            hasVisible = true;
+
             int colSpan = Math.Max(1, Math.Min(GetColumnSpan(child), columns));
             int rowSpan = Math.Max(1, GetRowSpan(child));
 
@@ -127,6 +127,9 @@ public class VariableSizeWrapPanel : Panel
             child.Measure(new Size(childWidth, childHeight));
         }
 
+        if (!hasVisible)
+            return new Size(0, 0);
+
         double totalWidth = columns * tileSize + (columns - 1) * spacing;
         double totalHeight = maxRow * tileSize + Math.Max(0, maxRow - 1) * spacing;
 
@@ -135,10 +138,6 @@ public class VariableSizeWrapPanel : Panel
 
     protected override Size ArrangeOverride(Size finalSize)
     {
-        var visibleChildren = Children.Where(c => c.IsVisible).ToList();
-        if (visibleChildren.Count == 0)
-            return finalSize;
-
         int columns = Math.Max(1, Columns);
         double tileSize = TileSize;
         double spacing = Spacing;
@@ -146,8 +145,10 @@ public class VariableSizeWrapPanel : Panel
         var grid = new List<bool[]>();
         int maxRow = 0;
 
-        foreach (var child in visibleChildren)
+        foreach (var child in Children)
         {
+            if (!child.IsVisible) continue;
+
             int colSpan = Math.Max(1, Math.Min(GetColumnSpan(child), columns));
             int rowSpan = Math.Max(1, GetRowSpan(child));
 

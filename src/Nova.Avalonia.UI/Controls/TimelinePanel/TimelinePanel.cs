@@ -79,15 +79,15 @@ public class TimelinePanel : Panel
 
     protected override Size MeasureOverride(Size availableSize)
     {
-        var visibleChildren = Children.Where(c => c.IsVisible).ToList();
-        if (visibleChildren.Count == 0)
-            return new Size(0, 0);
-
         double totalPrimary = 0;
         double maxSecondary = 0;
+        int visibleCount = 0;
 
-        foreach (var child in visibleChildren)
+        foreach (var child in Children)
         {
+            if (!child.IsVisible) continue;
+            
+            visibleCount++;
             child.Measure(Size.Infinity);
 
             if (Orientation == Orientation.Vertical)
@@ -102,8 +102,11 @@ public class TimelinePanel : Panel
             }
         }
 
+        if (visibleCount == 0)
+            return new Size(0, 0);
+
         // Add spacing
-        totalPrimary += (visibleChildren.Count - 1) * Spacing;
+        totalPrimary += (visibleCount - 1) * Spacing;
 
         if (Orientation == Orientation.Vertical)
         {
@@ -120,15 +123,13 @@ public class TimelinePanel : Panel
 
     protected override Size ArrangeOverride(Size finalSize)
     {
-        var visibleChildren = Children.Where(c => c.IsVisible).ToList();
-        if (visibleChildren.Count == 0)
-            return finalSize;
-
         double currentPosition = 0;
         int index = 0;
 
-        foreach (var child in visibleChildren)
+        foreach (var child in Children)
         {
+            if (!child.IsVisible) continue;
+
             double x, y, width, height;
 
             if (Orientation == Orientation.Vertical)

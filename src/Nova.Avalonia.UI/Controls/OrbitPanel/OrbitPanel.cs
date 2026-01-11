@@ -121,52 +121,64 @@ public class OrbitPanel : Panel
         var centerX = finalSize.Width / 2;
         var centerY = finalSize.Height / 2;
 
-        var orbitMap = new Dictionary<int, List<Control>>();
+        int minOrbit = int.MaxValue;
+        int maxOrbit = int.MinValue;
+        bool hasVisible = false;
+
         foreach (var child in Children)
         {
             if (!child.IsVisible) continue;
-            
             int orbit = GetOrbit(child);
-            if (!orbitMap.TryGetValue(orbit, out var list))
-            {
-                list = new List<Control>();
-                orbitMap[orbit] = list;
-            }
-            list.Add(child);
+            if (orbit < minOrbit) minOrbit = orbit;
+            if (orbit > maxOrbit) maxOrbit = orbit;
+            hasVisible = true;
         }
 
-        var sortedOrbits = orbitMap.Keys.ToList();
-        sortedOrbits.Sort();
+        if (!hasVisible) return finalSize;
 
-        foreach (var orbitIndex in sortedOrbits)
+        for (int orbitIndex = minOrbit; orbitIndex <= maxOrbit; orbitIndex++)
         {
-            var childrenInOrbit = orbitMap[orbitIndex];
+            // Count children in this orbit
+            int childrenInOrbitCount = 0;
+            foreach (var child in Children)
+            {
+                if (child.IsVisible && GetOrbit(child) == orbitIndex)
+                {
+                    childrenInOrbitCount++;
+                }
+            }
+
+            if (childrenInOrbitCount == 0) continue;
 
             if (orbitIndex == 0)
             {
-
-                foreach (var child in childrenInOrbit)
+                foreach (var child in Children)
                 {
-                    var x = centerX - child.DesiredSize.Width / 2;
-                    var y = centerY - child.DesiredSize.Height / 2;
-                    child.Arrange(new Rect(x, y, child.DesiredSize.Width, child.DesiredSize.Height));
+                    if (child.IsVisible && GetOrbit(child) == 0)
+                    {
+                        var x = centerX - child.DesiredSize.Width / 2;
+                        var y = centerY - child.DesiredSize.Height / 2;
+                        child.Arrange(new Rect(x, y, child.DesiredSize.Width, child.DesiredSize.Height));
+                    }
                 }
             }
             else
             {
-
                 double radius = InnerRadius + (orbitIndex - 1) * OrbitSpacing;
-                double angleStep = childrenInOrbit.Count > 0 ? 360.0 / childrenInOrbit.Count : 0;
+                double angleStep = 360.0 / childrenInOrbitCount;
                 double currentAngle = StartAngle;
 
-                foreach (var child in childrenInOrbit)
+                foreach (var child in Children)
                 {
-                    var angleRad = currentAngle * Math.PI / 180.0;
-                    var x = centerX + radius * Math.Cos(angleRad) - child.DesiredSize.Width / 2;
-                    var y = centerY + radius * Math.Sin(angleRad) - child.DesiredSize.Height / 2;
+                    if (child.IsVisible && GetOrbit(child) == orbitIndex)
+                    {
+                        var angleRad = currentAngle * Math.PI / 180.0;
+                        var x = centerX + radius * Math.Cos(angleRad) - child.DesiredSize.Width / 2;
+                        var y = centerY + radius * Math.Sin(angleRad) - child.DesiredSize.Height / 2;
 
-                    child.Arrange(new Rect(x, y, child.DesiredSize.Width, child.DesiredSize.Height));
-                    currentAngle += angleStep;
+                        child.Arrange(new Rect(x, y, child.DesiredSize.Width, child.DesiredSize.Height));
+                        currentAngle += angleStep;
+                    }
                 }
             }
         }

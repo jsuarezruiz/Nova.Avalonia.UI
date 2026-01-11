@@ -108,7 +108,12 @@ public class StaggeredPanel : Panel
             columnHeights[columnIndex] += child.DesiredSize.Height;
         }
 
-        double maxHeight = columnHeights.DefaultIfEmpty(0).Max();
+        double maxHeight = 0;
+        foreach (var h in columnHeights)
+        {
+            if (h > maxHeight) maxHeight = h;
+        }
+
         double resultWidth = double.IsInfinity(availableSize.Width) 
             ? (columnCount * actualColumnWidth + (columnCount - 1) * columnSpacing) + padding.Left + padding.Right 
             : availableSize.Width;
@@ -149,7 +154,12 @@ public class StaggeredPanel : Panel
             columnHeights[columnIndex] += child.DesiredSize.Height;
         }
 
-        double maxHeight = columnHeights.DefaultIfEmpty(0).Max();
+        double maxHeight = 0;
+        foreach (var h in columnHeights)
+        {
+            if (h > maxHeight) maxHeight = h;
+        }
+
         return new Size(finalSize.Width, maxHeight + padding.Top + padding.Bottom);
     }
 

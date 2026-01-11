@@ -100,14 +100,17 @@ public class ArcPanel : Panel
         var angles = new[] { startRad, endRad };
         var cardinals = new[] { 0, Math.PI / 2, Math.PI, 3 * Math.PI / 2, 2 * Math.PI };
 
-        foreach (var angle in angles.Concat(cardinals.Where(a => IsAngleInRange(a, startRad, endRad))))
+        foreach (var angle in angles)
         {
-            double x = totalRadius * Math.Cos(angle);
-            double y = totalRadius * Math.Sin(angle);
-            minX = Math.Min(minX, x);
-            maxX = Math.Max(maxX, x);
-            minY = Math.Min(minY, y);
-            maxY = Math.Max(maxY, y);
+            UpdateBounds(angle, totalRadius, ref minX, ref maxX, ref minY, ref maxY);
+        }
+
+        foreach (var angle in cardinals)
+        {
+            if (IsAngleInRange(angle, startRad, endRad))
+            {
+                UpdateBounds(angle, totalRadius, ref minX, ref maxX, ref minY, ref maxY);
+            }
         }
         
         minX = Math.Min(minX, 0);
@@ -161,6 +164,16 @@ public class ArcPanel : Panel
         }
 
         return finalSize;
+    }
+
+    private static void UpdateBounds(double angle, double radius, ref double minX, ref double maxX, ref double minY, ref double maxY)
+    {
+        double x = radius * Math.Cos(angle);
+        double y = radius * Math.Sin(angle);
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
     }
 
     private static bool IsAngleInRange(double angle, double start, double end)

@@ -144,8 +144,8 @@ public class ResponsivePanel : Panel
             try
             {
                 // Start transition between outgoing and incoming views
-                Control? from = outgoing.FirstOrDefault();
-                Control? to = incoming.FirstOrDefault();
+                Control? from = outgoing.Count > 0 ? outgoing[0] : null;
+                Control? to = incoming.Count > 0 ? incoming[0] : null;
                 
                 await transition.Start(from, to, true, token);
             }

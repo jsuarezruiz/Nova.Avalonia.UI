@@ -145,6 +145,67 @@ public class TimelinePanelTests
     }
 
     [AvaloniaFact]
+    public void Should_Alternate_Items_Horizontally()
+    {
+        var panel = new TimelinePanel
+        {
+            Orientation = Orientation.Horizontal,
+            AlternateItems = true,
+            ConnectorWidth = 40,
+            Width = 600,
+            Height = 300
+        };
+
+        var child1 = new Border { Width = 100, Height = 50 };
+        var child2 = new Border { Width = 100, Height = 50 };
+
+        panel.Children.Add(child1);
+        panel.Children.Add(child2);
+
+        panel.Measure(new Size(600, 300));
+        panel.Arrange(new Rect(0, 0, 600, 300));
+
+        // Child 1 on top, child 2 on bottom (alternating)
+        Assert.True(child2.Bounds.Y > child1.Bounds.Y);
+    }
+
+    [AvaloniaFact]
+    public void Should_Handle_Infinite_Available_Size()
+    {
+        var panel = new TimelinePanel { Orientation = Orientation.Vertical, Spacing = 10 };
+
+        panel.Children.Add(new Border { Width = 100, Height = 50 });
+        panel.Children.Add(new Border { Width = 100, Height = 50 });
+
+        panel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+        // Height should be 50 + 10 + 50 = 110
+        // Width should be ConnectorWidth (40) + maxSecondary (100) = 140
+        Assert.Equal(110, panel.DesiredSize.Height);
+        Assert.Equal(140, panel.DesiredSize.Width);
+    }
+
+    [AvaloniaFact]
+    public void Should_Handle_Varying_Child_Sizes()
+    {
+        var panel = new TimelinePanel { Orientation = Orientation.Vertical, Spacing = 10 };
+
+        var child1 = new Border { Width = 50, Height = 100 };
+        var child2 = new Border { Width = 150, Height = 50 };
+
+        panel.Children.Add(child1);
+        panel.Children.Add(child2);
+
+        panel.Measure(new Size(300, 300));
+        panel.Arrange(new Rect(0, 0, 300, 300));
+
+        // Total height = 100 + 10 + 50 = 160
+        Assert.Equal(160, panel.DesiredSize.Height);
+        // Max width = max(50, 150) + 40 = 190
+        Assert.Equal(190, panel.DesiredSize.Width);
+    }
+
+    [AvaloniaFact]
     public void Should_Handle_Zero_Children()
     {
         var panel = new TimelinePanel();
