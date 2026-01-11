@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VariableSizeWrapPanel | Nova.Avalonia.UI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VariableSizeWrapPanel | Nova.Avalonia.UI ">
+      
+      <meta name="description" content="A panel that arranges varying-sized items in a wrapping grid, similar to the Windows Start Screen.">
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/jsuarezruiz/Nova.Avalonia.UI/blob/panels/docs/docs/controls/variablesizewrappanel.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="Nova.Avalonia.UI">
+            Nova.Avalonia.UI
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="variablesizewrappanel">VariableSizeWrapPanel</h1>
+
+<p>The <code>VariableSizeWrapPanel</code> (formerly MetroPanel) lays out items based on a uniform unit size, but allows individual items to span multiple rows and columns. This layout style is famously used in the Windows 8/10 Start Screen &quot;Metro&quot; design.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>Define the basic <code>ItemHeight</code> and <code>ItemWidth</code>. Items default to a 1x1 span of this unit size. Use <code>VariableSizeWrapPanel.RowSpan</code> and <code>VariableSizeWrapPanel.ColumnSpan</code> to make items larger.</p>
+<pre><code class="lang-xaml">&lt;UserControl xmlns=&quot;https://github.com/avaloniaui&quot;
+             xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+             xmlns:nova=&quot;using:Nova.Avalonia.UI.Controls&quot;&gt;
+
+    &lt;nova:VariableSizeWrapPanel ItemHeight=&quot;100&quot; ItemWidth=&quot;100&quot; Orientation=&quot;Horizontal&quot; MaximumRowsOrColumns=&quot;3&quot;&gt;
+        
+        &lt;!-- Standard 1x1 Item (100x100) --&gt;
+        &lt;Border Background=&quot;Red&quot; /&gt;
+        
+        &lt;!-- Large 2x2 Item (200x200) --&gt;
+        &lt;Border Background=&quot;Blue&quot; 
+                nova:VariableSizeWrapPanel.RowSpan=&quot;2&quot; 
+                nova:VariableSizeWrapPanel.ColumnSpan=&quot;2&quot; /&gt;
+        
+        &lt;!-- Wide 2x1 Item (200x100) --&gt;
+        &lt;Border Background=&quot;Green&quot; 
+                nova:VariableSizeWrapPanel.ColumnSpan=&quot;2&quot; /&gt;
+                
+    &lt;/nova:VariableSizeWrapPanel&gt;
+&lt;/UserControl&gt;
+</code></pre>
+<h2 id="important-considerations">Important Considerations</h2>
+<ul>
+<li>The panel fills available space in the <code>Orientation</code> direction until <code>MaximumRowsOrColumns</code> is reached (or space runs out), then wraps to the next line/column.</li>
+<li><strong>Item Order</strong>: The panel tries to fit items in the &quot;holes&quot; left by larger items if the <code>Orientation</code> allows, but generally places items sequentially. Layout gaps may occur if items dimensions don't sum up perfectly to the line capacity.</li>
+</ul>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ItemHeight</code></td>
+<td><code>double</code></td>
+<td><code>NaN</code></td>
+<td>The base height of a 1-unit block.</td>
+</tr>
+<tr>
+<td><code>ItemWidth</code></td>
+<td><code>double</code></td>
+<td><code>NaN</code></td>
+<td>The base width of a 1-unit block.</td>
+</tr>
+<tr>
+<td><code>Orientation</code></td>
+<td><code>Orientation</code></td>
+<td><code>Vertical</code></td>
+<td>The direction in which items are arranged before wrapping.</td>
+</tr>
+<tr>
+<td><code>MaximumRowsOrColumns</code></td>
+<td><code>int</code></td>
+<td><code>-1</code></td>
+<td>The maximum number of units in the non-wrapping dimension before forcing a wrap.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="attached-properties">Attached Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RowSpan</code></td>
+<td><code>int</code></td>
+<td>How many vertical units the item spans. Default is 1.</td>
+</tr>
+<tr>
+<td><code>ColumnSpan</code></td>
+<td><code>int</code></td>
+<td>How many horizontal units the item spans. Default is 1.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="virtualized-version">Virtualized Version</h2>
+<p>For large datasets (100+ items), use <code>VirtualizedVariableSizeWrapLayout</code> with <code>ItemsRepeater</code> for efficient scrolling:</p>
+<pre><code class="lang-xaml">&lt;ScrollViewer&gt;
+    &lt;ItemsControl ItemsSource=&quot;{Binding LargeTileCollection}&quot;&gt;
+        &lt;ItemsControl.ItemsPanel&gt;
+            &lt;ItemsPanelTemplate&gt;
+                &lt;nova:VirtualizingVariableSizeWrapPanel 
+                    TileSize=&quot;100&quot;
+                    Spacing=&quot;8&quot;
+                    Columns=&quot;4&quot; /&gt;
+            &lt;/ItemsPanelTemplate&gt;
+        &lt;/ItemsControl.ItemsPanel&gt;
+        &lt;ItemsControl.ItemContainerTheme&gt;
+            &lt;ControlTheme TargetType=&quot;ContentPresenter&quot;&gt;
+                &lt;Setter Property=&quot;nova:VirtualizingVariableSizeWrapPanel.ColumnSpan&quot; Value=&quot;{Binding ColumnSpan}&quot;/&gt;
+                &lt;Setter Property=&quot;nova:VirtualizingVariableSizeWrapPanel.RowSpan&quot; Value=&quot;{Binding RowSpan}&quot;/&gt;
+            &lt;/ControlTheme&gt;
+        &lt;/ItemsControl.ItemContainerTheme&gt;
+        &lt;ItemsControl.ItemTemplate&gt;
+            &lt;DataTemplate&gt;
+                &lt;Border Background=&quot;{Binding Brush}&quot; CornerRadius=&quot;8&quot;&gt;
+                    &lt;TextBlock Text=&quot;{Binding Title}&quot; 
+                               HorizontalAlignment=&quot;Center&quot; VerticalAlignment=&quot;Center&quot;/&gt;
+                &lt;/Border&gt;
+            &lt;/DataTemplate&gt;
+        &lt;/ItemsControl.ItemTemplate&gt;
+    &lt;/ItemsControl&gt;
+&lt;/ScrollViewer&gt;
+</code></pre>
+<h3 id="virtualizedvariablesizewraplayout-properties">VirtualizedVariableSizeWrapLayout Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TileSize</code></td>
+<td><code>double</code></td>
+<td><code>100</code></td>
+<td>The base size of a single tile unit.</td>
+</tr>
+<tr>
+<td><code>Spacing</code></td>
+<td><code>double</code></td>
+<td><code>8</code></td>
+<td>The spacing between tiles.</td>
+</tr>
+<tr>
+<td><code>Columns</code></td>
+<td><code>int</code></td>
+<td><code>4</code></td>
+<td>The number of columns in the grid.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="attached-properties-1">Attached Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RowSpan</code></td>
+<td><code>int</code></td>
+<td>How many vertical units the item spans. Default is 1.</td>
+</tr>
+<tr>
+<td><code>ColumnSpan</code></td>
+<td><code>int</code></td>
+<td>How many horizontal units the item spans. Default is 1.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="performance-features">Performance Features</h3>
+<p>The <code>VirtualizingVariableSizeWrapPanel</code> is optimized for large datasets:</p>
+<ul>
+<li><strong>Container Recycling</strong>: Off-screen items are hidden and reused, not destroyed</li>
+<li><strong>Minimal Allocations</strong>: Reusable collections avoid per-frame allocations</li>
+<li><strong>2x Viewport Buffer</strong>: Items above and below the viewport are pre-realized for smooth scrolling</li>
+<li><strong>Pool Size Limit</strong>: Maximum 20 recycled containers per type to prevent memory bloat</li>
+</ul>
+<div class="TIP">
+<h5>Tip</h5>
+<p>For best performance with 500+ items, ensure your <code>ItemTemplate</code> is lightweight and avoid expensive bindings or effects on each item.</p>
+</div>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/jsuarezruiz/Nova.Avalonia.UI/blob/panels/docs/docs/controls/variablesizewrappanel.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

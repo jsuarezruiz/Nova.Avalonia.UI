@@ -49,7 +49,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Avatar
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -399,7 +399,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: DisplayNameProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -428,7 +428,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ImageSourceProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -457,7 +457,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: IconProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -486,7 +486,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ContentProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -515,7 +515,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: DisplayModeProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -544,7 +544,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ShapeProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -573,7 +573,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: SizeProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -602,7 +602,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: CustomSizeProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -631,7 +631,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BackgroundColorProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -660,7 +660,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: AutoGenerateBackgroundProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -689,7 +689,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ForegroundColorProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -718,7 +718,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: StatusProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -747,7 +747,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: StatusColorProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -776,7 +776,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: InitialsProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -805,7 +805,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: MaxInitialsProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -834,7 +834,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ShowTooltipProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -863,7 +863,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: DisplayName
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -894,7 +894,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ImageSource
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -925,7 +925,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Icon
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -956,7 +956,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Content
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -987,7 +987,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: DisplayMode
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1018,7 +1018,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Shape
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1049,7 +1049,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Size
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1080,7 +1080,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: CustomSize
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1111,7 +1111,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BackgroundColor
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1142,7 +1142,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: AutoGenerateBackground
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1173,7 +1173,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ForegroundColor
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1204,7 +1204,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Status
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1235,7 +1235,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: StatusColor
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1266,7 +1266,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Initials
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1297,7 +1297,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: MaxInitials
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1328,7 +1328,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ShowTooltip
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1359,7 +1359,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OnApplyTemplate
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
@@ -1395,7 +1395,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OnCreateAutomationPeer
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/Avatar.cs

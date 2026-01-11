@@ -1,0 +1,99 @@
+### YamlMime:ManagedReference
+items:
+- uid: Nova.Avalonia.UI.BarcodeGenerator
+  commentId: N:Nova.Avalonia.UI.BarcodeGenerator
+  id: Nova.Avalonia.UI.BarcodeGenerator
+  children:
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeErrorEventArgs
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratedEventArgs
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  - Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  langs:
+  - csharp
+  - vb
+  name: Nova.Avalonia.UI.BarcodeGenerator
+  nameWithType: Nova.Avalonia.UI.BarcodeGenerator
+  fullName: Nova.Avalonia.UI.BarcodeGenerator
+  type: Namespace
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+references:
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeErrorEventArgs
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.BarcodeErrorEventArgs
+  href: Nova.Avalonia.UI.BarcodeGenerator.BarcodeErrorEventArgs.html
+  name: BarcodeErrorEventArgs
+  nameWithType: BarcodeErrorEventArgs
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeErrorEventArgs
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratedEventArgs
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratedEventArgs
+  href: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratedEventArgs.html
+  name: BarcodeGeneratedEventArgs
+  nameWithType: BarcodeGeneratedEventArgs
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratedEventArgs
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator
+  parent: Nova.Avalonia.UI.BarcodeGenerator
+  href: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator.html
+  name: BarcodeGenerator
+  nameWithType: BarcodeGenerator
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+  href: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.html
+  name: BarcodeGeneratorAutomationPeer
+  nameWithType: BarcodeGeneratorAutomationPeer
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  parent: Nova.Avalonia.UI.BarcodeGenerator
+  href: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.html
+  name: BarcodeSymbology
+  nameWithType: BarcodeSymbology
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  parent: Nova.Avalonia.UI.BarcodeGenerator
+  href: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.html
+  name: QRErrorCorrectionLevel
+  nameWithType: QRErrorCorrectionLevel
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+- uid: Nova.Avalonia.UI.BarcodeGenerator
+  commentId: N:Nova.Avalonia.UI.BarcodeGenerator
+  href: Nova.html
+  name: Nova.Avalonia.UI.BarcodeGenerator
+  nameWithType: Nova.Avalonia.UI.BarcodeGenerator
+  fullName: Nova.Avalonia.UI.BarcodeGenerator
+  spec.csharp:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.BarcodeGenerator
+    name: BarcodeGenerator
+    href: Nova.Avalonia.UI.BarcodeGenerator.html
+  spec.vb:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.BarcodeGenerator
+    name: BarcodeGenerator
+    href: Nova.Avalonia.UI.BarcodeGenerator.html

@@ -32,7 +32,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Shimmer
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -396,7 +396,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: IsLoadingProperty
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -428,7 +428,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: LoadingTextProperty
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -457,7 +457,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: HighlightBrushProperty
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -489,7 +489,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ShimmerOpacityProperty
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -518,7 +518,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ShimmerAngleProperty
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -547,7 +547,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: IsLoading
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -581,7 +581,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: LoadingText
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -612,7 +612,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: AutomationControlType
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -643,7 +643,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: HighlightBrush
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -677,7 +677,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ShimmerOpacity
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -708,7 +708,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ShimmerAngle
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -739,7 +739,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OnApplyTemplate
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -775,7 +775,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OnAttachedToVisualTree
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -808,7 +808,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OnCreateAutomationPeer
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -840,7 +840,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OnDetachedFromVisualTree
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -873,7 +873,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OnPropertyChanged
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
@@ -906,7 +906,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Render
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/Shimmer.cs

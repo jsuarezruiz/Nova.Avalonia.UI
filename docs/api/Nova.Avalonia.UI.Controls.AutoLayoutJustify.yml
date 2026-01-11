@@ -1,0 +1,149 @@
+### YamlMime:ManagedReference
+items:
+- uid: Nova.Avalonia.UI.Controls.AutoLayoutJustify
+  commentId: T:Nova.Avalonia.UI.Controls.AutoLayoutJustify
+  id: AutoLayoutJustify
+  parent: Nova.Avalonia.UI.Controls
+  children:
+  - Nova.Avalonia.UI.Controls.AutoLayoutJustify.Packed
+  - Nova.Avalonia.UI.Controls.AutoLayoutJustify.SpaceBetween
+  langs:
+  - csharp
+  - vb
+  name: AutoLayoutJustify
+  nameWithType: AutoLayoutJustify
+  fullName: Nova.Avalonia.UI.Controls.AutoLayoutJustify
+  type: Enum
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/AutoLayout/AutoLayout.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: AutoLayoutJustify
+    path: ../src/Nova.Avalonia.UI/Controls/AutoLayout/AutoLayout.cs
+    startLine: 11
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Defines how items are distributed in the <xref href="Nova.Avalonia.UI.Controls.AutoLayout" data-throw-if-not-resolved="false"></xref> panel.
+  example: []
+  syntax:
+    content: public enum AutoLayoutJustify
+    content.vb: Public Enum AutoLayoutJustify
+- uid: Nova.Avalonia.UI.Controls.AutoLayoutJustify.Packed
+  commentId: F:Nova.Avalonia.UI.Controls.AutoLayoutJustify.Packed
+  id: Packed
+  parent: Nova.Avalonia.UI.Controls.AutoLayoutJustify
+  langs:
+  - csharp
+  - vb
+  name: Packed
+  nameWithType: AutoLayoutJustify.Packed
+  fullName: Nova.Avalonia.UI.Controls.AutoLayoutJustify.Packed
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/AutoLayout/AutoLayout.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Packed
+    path: ../src/Nova.Avalonia.UI/Controls/AutoLayout/AutoLayout.cs
+    startLine: 16
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Items are packed together with the specified <xref href="Nova.Avalonia.UI.Controls.AutoLayout.Spacing" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: Packed = 0
+    return:
+      type: Nova.Avalonia.UI.Controls.AutoLayoutJustify
+- uid: Nova.Avalonia.UI.Controls.AutoLayoutJustify.SpaceBetween
+  commentId: F:Nova.Avalonia.UI.Controls.AutoLayoutJustify.SpaceBetween
+  id: SpaceBetween
+  parent: Nova.Avalonia.UI.Controls.AutoLayoutJustify
+  langs:
+  - csharp
+  - vb
+  name: SpaceBetween
+  nameWithType: AutoLayoutJustify.SpaceBetween
+  fullName: Nova.Avalonia.UI.Controls.AutoLayoutJustify.SpaceBetween
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/AutoLayout/AutoLayout.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: SpaceBetween
+    path: ../src/Nova.Avalonia.UI/Controls/AutoLayout/AutoLayout.cs
+    startLine: 22
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: >-
+    Items are distributed evenly across the available space, creating equal spacing between them.
+
+    The <xref href="Nova.Avalonia.UI.Controls.AutoLayout.Spacing" data-throw-if-not-resolved="false"></xref> property is ignored in this mode.
+  example: []
+  syntax:
+    content: SpaceBetween = 1
+    return:
+      type: Nova.Avalonia.UI.Controls.AutoLayoutJustify
+references:
+- uid: Nova.Avalonia.UI.Controls.AutoLayout
+  commentId: T:Nova.Avalonia.UI.Controls.AutoLayout
+  href: Nova.Avalonia.UI.Controls.AutoLayout.html
+  name: AutoLayout
+  nameWithType: AutoLayout
+  fullName: Nova.Avalonia.UI.Controls.AutoLayout
+- uid: Nova.Avalonia.UI.Controls
+  commentId: N:Nova.Avalonia.UI.Controls
+  href: Nova.html
+  name: Nova.Avalonia.UI.Controls
+  nameWithType: Nova.Avalonia.UI.Controls
+  fullName: Nova.Avalonia.UI.Controls
+  spec.csharp:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.Controls
+    name: Controls
+    href: Nova.Avalonia.UI.Controls.html
+  spec.vb:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.Controls
+    name: Controls
+    href: Nova.Avalonia.UI.Controls.html
+- uid: Nova.Avalonia.UI.Controls.AutoLayout.Spacing
+  commentId: P:Nova.Avalonia.UI.Controls.AutoLayout.Spacing
+  href: Nova.Avalonia.UI.Controls.AutoLayout.html#Nova_Avalonia_UI_Controls_AutoLayout_Spacing
+  name: Spacing
+  nameWithType: AutoLayout.Spacing
+  fullName: Nova.Avalonia.UI.Controls.AutoLayout.Spacing
+- uid: Nova.Avalonia.UI.Controls.AutoLayoutJustify
+  commentId: T:Nova.Avalonia.UI.Controls.AutoLayoutJustify
+  parent: Nova.Avalonia.UI.Controls
+  href: Nova.Avalonia.UI.Controls.AutoLayoutJustify.html
+  name: AutoLayoutJustify
+  nameWithType: AutoLayoutJustify
+  fullName: Nova.Avalonia.UI.Controls.AutoLayoutJustify

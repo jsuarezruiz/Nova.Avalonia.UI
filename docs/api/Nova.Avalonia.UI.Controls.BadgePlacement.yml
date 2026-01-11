@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgePlacement
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
@@ -50,7 +50,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: TopLeft
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
@@ -78,7 +78,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Top
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
@@ -106,7 +106,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: TopRight
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
@@ -134,7 +134,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Right
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
@@ -162,7 +162,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BottomRight
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
@@ -190,7 +190,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Bottom
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
@@ -218,7 +218,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BottomLeft
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
@@ -246,7 +246,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Left
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgePlacement.cs

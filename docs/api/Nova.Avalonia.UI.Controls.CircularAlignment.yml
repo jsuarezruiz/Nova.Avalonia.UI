@@ -1,0 +1,163 @@
+### YamlMime:ManagedReference
+items:
+- uid: Nova.Avalonia.UI.Controls.CircularAlignment
+  commentId: T:Nova.Avalonia.UI.Controls.CircularAlignment
+  id: CircularAlignment
+  parent: Nova.Avalonia.UI.Controls
+  children:
+  - Nova.Avalonia.UI.Controls.CircularAlignment.Center
+  - Nova.Avalonia.UI.Controls.CircularAlignment.Inner
+  - Nova.Avalonia.UI.Controls.CircularAlignment.Outer
+  langs:
+  - csharp
+  - vb
+  name: CircularAlignment
+  nameWithType: CircularAlignment
+  fullName: Nova.Avalonia.UI.Controls.CircularAlignment
+  type: Enum
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/CircularPanel/CircularAlignment.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: CircularAlignment
+    path: ../src/Nova.Avalonia.UI/Controls/CircularPanel/CircularAlignment.cs
+    startLine: 5
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Specifies how a child element is aligned relative to its position on the circle.
+  example: []
+  syntax:
+    content: public enum CircularAlignment
+    content.vb: Public Enum CircularAlignment
+- uid: Nova.Avalonia.UI.Controls.CircularAlignment.Center
+  commentId: F:Nova.Avalonia.UI.Controls.CircularAlignment.Center
+  id: Center
+  parent: Nova.Avalonia.UI.Controls.CircularAlignment
+  langs:
+  - csharp
+  - vb
+  name: Center
+  nameWithType: CircularAlignment.Center
+  fullName: Nova.Avalonia.UI.Controls.CircularAlignment.Center
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/CircularPanel/CircularAlignment.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Center
+    path: ../src/Nova.Avalonia.UI/Controls/CircularPanel/CircularAlignment.cs
+    startLine: 10
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Align the center of the element to the position (default).
+  example: []
+  syntax:
+    content: Center = 0
+    return:
+      type: Nova.Avalonia.UI.Controls.CircularAlignment
+- uid: Nova.Avalonia.UI.Controls.CircularAlignment.Inner
+  commentId: F:Nova.Avalonia.UI.Controls.CircularAlignment.Inner
+  id: Inner
+  parent: Nova.Avalonia.UI.Controls.CircularAlignment
+  langs:
+  - csharp
+  - vb
+  name: Inner
+  nameWithType: CircularAlignment.Inner
+  fullName: Nova.Avalonia.UI.Controls.CircularAlignment.Inner
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/CircularPanel/CircularAlignment.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Inner
+    path: ../src/Nova.Avalonia.UI/Controls/CircularPanel/CircularAlignment.cs
+    startLine: 15
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Align the inner edge of the element toward the center.
+  example: []
+  syntax:
+    content: Inner = 1
+    return:
+      type: Nova.Avalonia.UI.Controls.CircularAlignment
+- uid: Nova.Avalonia.UI.Controls.CircularAlignment.Outer
+  commentId: F:Nova.Avalonia.UI.Controls.CircularAlignment.Outer
+  id: Outer
+  parent: Nova.Avalonia.UI.Controls.CircularAlignment
+  langs:
+  - csharp
+  - vb
+  name: Outer
+  nameWithType: CircularAlignment.Outer
+  fullName: Nova.Avalonia.UI.Controls.CircularAlignment.Outer
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/CircularPanel/CircularAlignment.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Outer
+    path: ../src/Nova.Avalonia.UI/Controls/CircularPanel/CircularAlignment.cs
+    startLine: 20
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Align the outer edge of the element away from the center.
+  example: []
+  syntax:
+    content: Outer = 2
+    return:
+      type: Nova.Avalonia.UI.Controls.CircularAlignment
+references:
+- uid: Nova.Avalonia.UI.Controls
+  commentId: N:Nova.Avalonia.UI.Controls
+  href: Nova.html
+  name: Nova.Avalonia.UI.Controls
+  nameWithType: Nova.Avalonia.UI.Controls
+  fullName: Nova.Avalonia.UI.Controls
+  spec.csharp:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.Controls
+    name: Controls
+    href: Nova.Avalonia.UI.Controls.html
+  spec.vb:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.Controls
+    name: Controls
+    href: Nova.Avalonia.UI.Controls.html
+- uid: Nova.Avalonia.UI.Controls.CircularAlignment
+  commentId: T:Nova.Avalonia.UI.Controls.CircularAlignment
+  parent: Nova.Avalonia.UI.Controls
+  href: Nova.Avalonia.UI.Controls.CircularAlignment.html
+  name: CircularAlignment
+  nameWithType: CircularAlignment
+  fullName: Nova.Avalonia.UI.Controls.CircularAlignment

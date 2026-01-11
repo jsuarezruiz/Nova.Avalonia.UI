@@ -27,7 +27,7 @@ public class ResponsivePanel : Panel
         AvaloniaProperty.Register<ResponsivePanel, double>(nameof(WideBreakpoint), 900);
 
     /// <summary>
-    /// Defines the <see cref="Condition"/> attached property.
+    /// Defines the Condition attached property.
     /// </summary>
     public static readonly AttachedProperty<ResponsiveBreakpoint> ConditionProperty =
         AvaloniaProperty.RegisterAttached<ResponsivePanel, Control, ResponsiveBreakpoint>("Condition", ResponsiveBreakpoint.All);
