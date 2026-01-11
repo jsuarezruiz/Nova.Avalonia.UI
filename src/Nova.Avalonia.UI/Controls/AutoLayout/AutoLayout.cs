@@ -263,26 +263,30 @@ public class AutoLayout : Panel
         double contentWidth = finalSize.Width - padding.Left - padding.Right;
         double contentHeight = finalSize.Height - padding.Top - padding.Bottom;
 
-        var layoutChildren = children.Where(c => c.IsVisible && !GetIsAbsolute(c)).ToList();
-        int count = layoutChildren.Count;
-        
-        if (count == 0) return finalSize;
+        int visibleCount = 0;
+        foreach (var child in Children)
+        {
+            if (child.IsVisible && !GetIsAbsolute(child)) visibleCount++;
+        }
+
+        if (visibleCount == 0) return finalSize;
 
         double actualSpacing = spacing;
         double totalItemSize = 0;
 
-        foreach (var child in layoutChildren)
+        foreach (var child in Children)
         {
+            if (!child.IsVisible || GetIsAbsolute(child)) continue;
             totalItemSize += (orientation == Orientation.Horizontal) ? child.DesiredSize.Width : child.DesiredSize.Height;
         }
 
         if (justify == AutoLayoutJustify.SpaceBetween)
         {
-            if (count > 1)
+            if (visibleCount > 1)
             {
                 double availableSpace = (orientation == Orientation.Horizontal) ? contentWidth : contentHeight;
                 double remainingSpace = Math.Max(0, availableSpace - totalItemSize);
-                actualSpacing = remainingSpace / (count - 1);
+                actualSpacing = remainingSpace / (visibleCount - 1);
             }
             else
             {
@@ -291,10 +295,7 @@ public class AutoLayout : Panel
         }
         else // Packed
         {
-            // Handle Alignment of the whole group
-            // If we are packed, we might not fill the space. ContentAlignment determines where the group starts.
-            
-            double groupSize = totalItemSize + (count - 1) * spacing;
+            double groupSize = totalItemSize + (visibleCount - 1) * spacing;
             
             if (orientation == Orientation.Horizontal)
             {
@@ -312,25 +313,25 @@ public class AutoLayout : Panel
             }
         }
 
-        var orderedChildren = layoutChildren;
-        
         if (isReverse)
         {
-            for (int i = 0; i < children.Count; i++)
+            for (int i = 0; i < Children.Count; i++)
             {
-                children[i].ZIndex = children.Count - i;
+                Children[i].ZIndex = Children.Count - i;
             }
         }
         else
         {
-            for (int i = 0; i < children.Count; i++)
+            for (int i = 0; i < Children.Count; i++)
             {
-                children[i].ZIndex = 0; // Reset
+                Children[i].ZIndex = 0; // Reset
             }
         }
 
-        foreach (var child in layoutChildren)
+        foreach (var child in Children)
         {
+            if (!child.IsVisible || GetIsAbsolute(child)) continue;
+
             var desired = child.DesiredSize;
             double childW = desired.Width;
             double childH = desired.Height;
@@ -390,10 +391,12 @@ public class AutoLayout : Panel
             }
         }
         
-        foreach (var child in children.Where(c => GetIsAbsolute(c) && c.IsVisible))
+        foreach (var child in Children)
         {
-             // Simple absolute: Give it the whole rect
-             child.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+            if (child.IsVisible && GetIsAbsolute(child))
+            {
+                child.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+            }
         }
 
         return finalSize;

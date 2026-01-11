@@ -106,4 +106,23 @@ public class BubblePanelTests
         Assert.Equal(0, panel.DesiredSize.Width);
         Assert.Equal(0, panel.DesiredSize.Height);
     }
+
+    [AvaloniaFact]
+    public void Should_Respect_Padding()
+    {
+        var padding = new Thickness(20);
+        var panel = new BubblePanel { Width = 300, Height = 300, Padding = padding };
+
+        var child = new Border { Width = 50, Height = 50 };
+        panel.Children.Add(child);
+
+        panel.Measure(new Size(300, 300));
+        panel.Arrange(new Rect(0, 0, 300, 300));
+
+        // Child should be within the padded area
+        Assert.True(child.Bounds.X >= padding.Left);
+        Assert.True(child.Bounds.Y >= padding.Top);
+        Assert.True(child.Bounds.Right <= 300 - padding.Right);
+        Assert.True(child.Bounds.Bottom <= 300 - padding.Bottom);
+    }
 }

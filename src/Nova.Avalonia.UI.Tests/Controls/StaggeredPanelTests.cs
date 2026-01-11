@@ -208,4 +208,44 @@ public class StaggeredPanelTests
         Assert.Equal(100, child2.Bounds.Y); // Below child1
     }
 
+    [AvaloniaFact]
+    public void Should_Stretch_Children_To_Column_Width()
+    {
+        var panel = new StaggeredPanel
+        {
+            DesiredColumnWidth = 100,
+            ColumnSpacing = 0,
+            Width = 100 // 1 column
+        };
+
+        var child = new Border { Height = 50 };
+        panel.Children.Add(child);
+
+        panel.Measure(new Size(100, 1000));
+        panel.Arrange(new Rect(0, 0, 100, 1000));
+
+        // Child should be stretched to column width (100)
+        Assert.Equal(100, child.Bounds.Width);
+    }
+
+    [AvaloniaFact]
+    public void Should_Handle_Large_Number_of_Items()
+    {
+        var panel = new StaggeredPanel
+        {
+            DesiredColumnWidth = 10,
+            Width = 100 // 10 columns
+        };
+
+        for (int i = 0; i < 1000; i++)
+        {
+            panel.Children.Add(new Border { Width = 10, Height = 10 });
+        }
+
+        panel.Measure(new Size(100, 5000));
+        panel.Arrange(new Rect(0, 0, 100, 5000));
+
+        // 1000 items in 10 columns -> approx 100 per column -> 100 * 10 = 1000 height
+        Assert.Equal(1000, panel.DesiredSize.Height);
+    }
 }

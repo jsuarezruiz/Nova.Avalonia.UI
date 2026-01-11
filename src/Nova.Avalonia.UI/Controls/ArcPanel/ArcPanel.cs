@@ -79,15 +79,20 @@ public class ArcPanel : Panel
     protected override Size MeasureOverride(Size availableSize)
     {
         double maxChildSize = 0;
+        bool hasVisible = false;
 
         foreach (var child in Children)
         {
             if (!child.IsVisible)
                 continue;
 
+            hasVisible = true;
             child.Measure(Size.Infinity);
             maxChildSize = Math.Max(maxChildSize, Math.Max(child.DesiredSize.Width, child.DesiredSize.Height));
         }
+
+        if (!hasVisible)
+            return new Size(0, 0);
 
         double totalRadius = Radius + maxChildSize / 2;
         

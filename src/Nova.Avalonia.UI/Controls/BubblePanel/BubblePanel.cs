@@ -50,32 +50,42 @@ public class BubblePanel : Panel
 
     protected override Size MeasureOverride(Size availableSize)
     {
-        var visibleChildren = Children.Where(c => c.IsVisible).ToList();
-        if (visibleChildren.Count == 0)
-            return new Size(0, 0);
-
-        foreach (var child in visibleChildren)
-        {
-            child.Measure(Size.Infinity);
-        }
-        
         double totalArea = 0;
-        foreach (var child in visibleChildren)
+        double maxChildRadius = 0;
+        bool hasVisible = false;
+
+        foreach (var child in Children)
         {
+            if (!child.IsVisible) continue;
+            
+            hasVisible = true;
+            child.Measure(Size.Infinity);
+            
             var radius = Math.Max(child.DesiredSize.Width, child.DesiredSize.Height) / 2;
             totalArea += Math.PI * radius * radius;
+            maxChildRadius = Math.Max(maxChildRadius, radius);
         }
+
+        if (!hasVisible)
+            return new Size(0, 0);
         
         double side = Math.Sqrt(totalArea) * 1.5;
-        var padding = Padding;
+        // Ensure side is at least max diameter to fit the largest item
+        side = Math.Max(side, maxChildRadius * 2);
 
+        var padding = Padding;
         return new Size(side + padding.Left + padding.Right, side + padding.Top + padding.Bottom);
     }
 
     protected override Size ArrangeOverride(Size finalSize)
     {
-        var visibleChildren = Children.Where(c => c.IsVisible).ToList();
-        if (visibleChildren.Count == 0)
+        int visibleCount = 0;
+        foreach (var child in Children)
+        {
+            if (child.IsVisible) visibleCount++;
+        }
+
+        if (visibleCount == 0)
             return finalSize;
 
         var padding = Padding;
@@ -83,15 +93,19 @@ public class BubblePanel : Panel
         double availableHeight = finalSize.Height - padding.Top - padding.Bottom;
         double spacing = Spacing;
 
-        var childData = new List<(Control Child, double Radius, Size DesiredSize)>(visibleChildren.Count);
-        foreach (var child in visibleChildren)
+        var childData = new List<(Control Child, double Radius, Size DesiredSize)>(visibleCount);
+        foreach (var child in Children)
         {
+            if (!child.IsVisible) continue;
             var visualRadius = Math.Max(child.DesiredSize.Width, child.DesiredSize.Height) / 2;
             childData.Add((child, Math.Max(10, visualRadius), child.DesiredSize));
         }
+
+        // Sorting is acceptable here as it's part of the algorithm, 
+        // but we've avoided the extra LINQ Where/ToList.
         childData.Sort((a, b) => b.Radius.CompareTo(a.Radius));
 
-        var placedCircles = new List<PlacedCircle>();
+        var placedCircles = new List<PlacedCircle>(visibleCount);
         double centerX = availableWidth / 2;
         double centerY = availableHeight / 2;
 
@@ -101,16 +115,16 @@ public class BubblePanel : Panel
 
             placedCircles.Add(new PlacedCircle
             {
-                X = position.x,
-                Y = position.y,
+                X = position.X,
+                Y = position.Y,
                 Radius = item.Radius,
                 Child = item.Child
             });
 
             double childWidth = item.DesiredSize.Width;
             double childHeight = item.DesiredSize.Height;
-            double x = padding.Left + position.x - childWidth / 2;
-            double y = padding.Top + position.y - childHeight / 2;
+            double x = padding.Left + position.X - childWidth / 2;
+            double y = padding.Top + position.Y - childHeight / 2;
 
             item.Child.Arrange(new Rect(x, y, childWidth, childHeight));
         }
@@ -118,7 +132,7 @@ public class BubblePanel : Panel
         return finalSize;
     }
 
-    private (double x, double y) FindBestPosition(
+    private (double X, double Y) FindBestPosition(
         List<PlacedCircle> placed,
         double radius,
         double centerX,
@@ -202,12 +216,14 @@ public class BubblePanel : Panel
                     continue;
 
                 bool overlaps = false;
-                foreach (var other in placed)
+                for (int i = 0; i < placed.Count; i++)
                 {
+                    var other = placed[i];
                     double dx = candidateX - other.X;
                     double dy = candidateY - other.Y;
-                    double dist = Math.Sqrt(dx * dx + dy * dy);
-                    if (dist < radius + other.Radius + spacing)
+                    double distSq = dx * dx + dy * dy;
+                    double minRelativeDist = radius + other.Radius + spacing;
+                    if (distSq < minRelativeDist * minRelativeDist)
                     {
                         overlaps = true;
                         break;
@@ -221,7 +237,14 @@ public class BubblePanel : Panel
             }
         }
 
-        double maxRadius = placed.Max(c => Math.Sqrt(c.X * c.X + c.Y * c.Y) + c.Radius);
+        double maxRadius = 0;
+        for (int i = 0; i < placed.Count; i++)
+        {
+            var c = placed[i];
+            double dist = Math.Sqrt(c.X * c.X + c.Y * c.Y) + c.Radius;
+            if (dist > maxRadius) maxRadius = dist;
+        }
+
         return (centerX + maxRadius + radius + spacing, centerY);
     }
     

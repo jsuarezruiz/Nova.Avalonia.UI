@@ -150,4 +150,23 @@ public class OverlapPanelTests
         Assert.Equal(0, child3.Bounds.X);
         Assert.Equal(0, child3.Bounds.Y);
     }
+    [AvaloniaFact]
+    public void OverlapPanel_SkipsInvisibleChildren()
+    {
+        var panel = new OverlapPanel { OffsetX = 20 };
+
+        var visible1 = new Border { Width = 50, Height = 50 };
+        var invisible = new Border { Width = 50, Height = 50, IsVisible = false };
+        var visible2 = new Border { Width = 50, Height = 50 };
+
+        panel.Children.Add(visible1);
+        panel.Children.Add(invisible);
+        panel.Children.Add(visible2);
+
+        panel.Measure(new Size(500, 500));
+        panel.Arrange(new Rect(0, 0, 500, 500));
+
+        // visible2 should be at OffsetX * 1 (skipping invisible)
+        Assert.Equal(20, visible2.Bounds.X);
+    }
 }

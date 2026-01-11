@@ -132,4 +132,33 @@ public class ResponsivePanelTests
         panel.Measure(new Size(2000, 2000)); // Wide
         Assert.True(child.IsVisible);
     }
+    [AvaloniaFact]
+    public void Should_Handle_Zero_Children()
+    {
+        var panel = new ResponsivePanel();
+        panel.Measure(new Size(800, 600));
+        
+        Assert.Equal(0, panel.DesiredSize.Width);
+        Assert.Equal(0, panel.DesiredSize.Height);
+    }
+
+    [AvaloniaFact]
+    public void Should_Default_To_Wide_On_Infinite_Width()
+    {
+        var panel = new ResponsivePanel();
+        
+        var wideChild = new Border { Width = 100, Height = 100 };
+        ResponsivePanel.SetCondition(wideChild, ResponsiveBreakpoint.Wide);
+        
+        var narrowChild = new Border { Width = 100, Height = 100 };
+        ResponsivePanel.SetCondition(narrowChild, ResponsiveBreakpoint.Narrow);
+
+        panel.Children.Add(wideChild);
+        panel.Children.Add(narrowChild);
+
+        panel.Measure(new Size(double.PositiveInfinity, 800));
+
+        Assert.True(wideChild.IsVisible);
+        Assert.False(narrowChild.IsVisible);
+    }
 }

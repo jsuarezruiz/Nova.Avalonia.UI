@@ -110,4 +110,53 @@ public class ArcPanelTests
 
         Assert.True(visible.Bounds.Width > 0);
     }
+    [AvaloniaFact]
+    public void Should_Handle_Zero_Children()
+    {
+        var panel = new ArcPanel();
+        panel.Measure(new Size(300, 300));
+        panel.Arrange(new Rect(0, 0, 300, 300));
+        
+        Assert.Equal(0, panel.DesiredSize.Width);
+        Assert.Equal(0, panel.DesiredSize.Height);
+    }
+
+    [AvaloniaFact]
+    public void Should_Handle_Zero_Sweep_Angle()
+    {
+        var panel = new ArcPanel { Radius = 100, SweepAngle = 0, Width = 300, Height = 300 };
+
+        var child1 = new Border { Width = 20, Height = 20 };
+        var child2 = new Border { Width = 20, Height = 20 };
+        panel.Children.Add(child1);
+        panel.Children.Add(child2);
+
+        panel.Measure(new Size(300, 300));
+        panel.Arrange(new Rect(0, 0, 300, 300));
+
+        // Both should be at same angle
+        Assert.Equal(child1.Bounds.X, child2.Bounds.X, 1);
+        Assert.Equal(child1.Bounds.Y, child2.Bounds.Y, 1);
+    }
+
+    [AvaloniaFact]
+    public void Should_Handle_DistributeEvenly_False()
+    {
+        var panel = new ArcPanel { Radius = 100, SweepAngle = 180, DistributeEvenly = false, Width = 300, Height = 300 };
+
+        var child1 = new Border { Width = 20, Height = 20 };
+        var child2 = new Border { Width = 20, Height = 20 };
+        panel.Children.Add(child1);
+        panel.Children.Add(child2);
+
+        panel.Measure(new Size(300, 300));
+        panel.Arrange(new Rect(0, 0, 300, 300));
+
+        // When false, it uses SweepAngle / visibleCount as step
+        // child 1 at 0, child 2 at 90. (if 180 / 2 = 90)
+        // Wait, our code: angleStep = SweepAngle / visibleCount if !DistributeEvenly
+        // StartAngle = 0, so child 1 at 0, child 2 at 90.
+        // Compare to DistributeEvenly=true: child 1 at 0, child 2 at 180.
+        Assert.True(child2.Bounds.X < 200); // Should be at 90 deg (center-ish X), not at 180 deg (far left X)
+    }
 }

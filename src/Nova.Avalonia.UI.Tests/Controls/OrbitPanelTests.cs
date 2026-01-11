@@ -103,4 +103,55 @@ public class OrbitPanelTests
 
         Assert.True(visible.Bounds.Width > 0);
     }
+    [AvaloniaFact]
+    public void Should_Handle_Zero_Children()
+    {
+        var panel = new OrbitPanel();
+        panel.Measure(new Size(300, 300));
+        panel.Arrange(new Rect(0, 0, 300, 300));
+        
+        Assert.Equal(0, panel.DesiredSize.Width);
+        Assert.Equal(0, panel.DesiredSize.Height);
+    }
+
+    [AvaloniaFact]
+    public void Should_Stack_Multiple_Children_In_Orbit_Zero()
+    {
+        var panel = new OrbitPanel { Width = 300, Height = 300 };
+
+        var child1 = new Border { Width = 40, Height = 40 };
+        var child2 = new Border { Width = 40, Height = 40 };
+        OrbitPanel.SetOrbit(child1, 0);
+        OrbitPanel.SetOrbit(child2, 0);
+        
+        panel.Children.Add(child1);
+        panel.Children.Add(child2);
+
+        panel.Measure(new Size(300, 300));
+        panel.Arrange(new Rect(0, 0, 300, 300));
+
+        // Both should be at center
+        Assert.Equal(130, child1.Bounds.X);
+        Assert.Equal(130, child2.Bounds.X);
+    }
+
+    [AvaloniaFact]
+    public void Should_Handle_Sparse_Orbits()
+    {
+        var panel = new OrbitPanel { Width = 300, Height = 300 };
+
+        var orbit1 = new Border { Width = 20, Height = 20 };
+        var orbit10 = new Border { Width = 20, Height = 20 };
+        OrbitPanel.SetOrbit(orbit1, 1);
+        OrbitPanel.SetOrbit(orbit10, 10);
+        
+        panel.Children.Add(orbit1);
+        panel.Children.Add(orbit10);
+
+        // This should not crash or be extremely slow despite the gap (1 to 10 is fine)
+        panel.Measure(new Size(300, 300));
+        panel.Arrange(new Rect(0, 0, 300, 300));
+
+        Assert.True(orbit10.Bounds.X != orbit1.Bounds.X);
+    }
 }

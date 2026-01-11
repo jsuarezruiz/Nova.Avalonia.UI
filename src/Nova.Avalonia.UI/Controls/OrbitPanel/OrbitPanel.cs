@@ -98,17 +98,21 @@ public class OrbitPanel : Panel
     {
         int maxOrbit = 0;
         double maxChildSize = 0;
+        bool hasVisible = false;
 
         foreach (var child in Children)
         {
             if (!child.IsVisible)
                 continue;
 
+            hasVisible = true;
             child.Measure(Size.Infinity);
             maxOrbit = Math.Max(maxOrbit, GetOrbit(child));
             maxChildSize = Math.Max(maxChildSize, Math.Max(child.DesiredSize.Width, child.DesiredSize.Height));
         }
 
+        if (!hasVisible)
+            return new Size(0, 0);
 
         double maxRadius = InnerRadius + maxOrbit * OrbitSpacing + maxChildSize / 2;
         double diameter = maxRadius * 2;

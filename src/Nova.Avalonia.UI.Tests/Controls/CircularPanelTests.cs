@@ -194,4 +194,46 @@ public class CircularPanelTests
         Assert.True(child.Bounds.Right <= 200);
         Assert.True(child.Bounds.Left >= 0);
     }
+
+    [AvaloniaFact]
+    public void Should_Respect_AngleStep()
+    {
+        var panel = new CircularPanel { Radius = 100, Width = 300, Height = 300, AngleStep = 45 };
+
+        for (int i = 0; i < 3; i++)
+        {
+            panel.Children.Add(new Border { Width = 20, Height = 20 });
+        }
+
+        panel.Measure(new Size(300, 300));
+        panel.Arrange(new Rect(0, 0, 300, 300));
+
+        // Child 0 at 0°, Child 1 at 45°, Child 2 at 90°
+        // We can check if child 1 is between child 0 and child 2
+        Assert.True(panel.Children[1].Bounds.X > 150 && panel.Children[1].Bounds.Y > 150);
+    }
+
+    [AvaloniaTheory]
+    [InlineData(CircularAlignment.Inner)]
+    [InlineData(CircularAlignment.Outer)]
+    public void Should_Handle_CircularAlignment(CircularAlignment alignment)
+    {
+        var panel = new CircularPanel { Radius = 100, Width = 300, Height = 300 };
+        var child = new Border { Width = 40, Height = 40 };
+        CircularPanel.SetAlignment(child, alignment);
+        panel.Children.Add(child);
+
+        panel.Measure(new Size(300, 300));
+        panel.Arrange(new Rect(0, 0, 300, 300));
+
+        // Center is at 150,150. Radius 100.
+        // At Angle 0: Center of item usually at 250, 150.
+        // If Alignment is Inner: item should be shifted left (towards center)
+        // If Alignment is Outer: item should be shifted right (away from center)
+        
+        if (alignment == CircularAlignment.Inner)
+            Assert.True(child.Bounds.Center.X < 250);
+        else if (alignment == CircularAlignment.Outer)
+            Assert.True(child.Bounds.Center.X > 250);
+    }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -321,23 +322,27 @@ public class LoopPanel : Panel
             ? new Size(double.PositiveInfinity, availableSize.Height)
             : new Size(availableSize.Width, double.PositiveInfinity);
 
+        int visibleCount = 0;
         for (int i = 0; i < Children.Count; i++)
         {
             var child = Children[i];
+            if (!child.IsVisible) continue;
+            
             child.Measure(childSize);
 
             if (isHorizontal)
             {
                 desiredSize = new Size(
-                    desiredSize.Width + child.DesiredSize.Width + (i > 0 ? Spacing : 0),
+                    desiredSize.Width + child.DesiredSize.Width + (visibleCount > 0 ? Spacing : 0),
                     Math.Max(desiredSize.Height, child.DesiredSize.Height));
             }
             else
             {
                 desiredSize = new Size(
                     Math.Max(desiredSize.Width, child.DesiredSize.Width),
-                    desiredSize.Height + child.DesiredSize.Height + (i > 0 ? Spacing : 0));
+                    desiredSize.Height + child.DesiredSize.Height + (visibleCount > 0 ? Spacing : 0));
             }
+            visibleCount++;
         }
 
         return isHorizontal
@@ -347,11 +352,18 @@ public class LoopPanel : Panel
 
     protected override Size ArrangeOverride(Size finalSize)
     {
-        int childCount = Children.Count;
-        if (childCount == 0) return finalSize;
+        // Loop to find visible children for layout
+        var visibleChildren = new List<Control>(Children.Count);
+        foreach (var child in Children)
+        {
+            if (child.IsVisible) visibleChildren.Add(child);
+        }
+
+        int visibleCount = visibleChildren.Count;
+        if (visibleCount == 0) return finalSize;
 
         bool isHorizontal = Orientation == Orientation.Horizontal;
-        double adjustedOffset = ((Offset % childCount) + childCount) % childCount;
+        double adjustedOffset = ((Offset % visibleCount) + visibleCount) % visibleCount;
         int pivotalIndex = (int)adjustedOffset;
         double fractionalOffset = adjustedOffset - pivotalIndex;
 
@@ -361,52 +373,50 @@ public class LoopPanel : Panel
             CurrentIndexChanged?.Invoke(this, pivotalIndex);
         }
 
-        var pivotalChild = Children[pivotalIndex];
+        var pivotalChild = visibleChildren[pivotalIndex];
         double pivotalExtent = isHorizontal ? pivotalChild.DesiredSize.Width : pivotalChild.DesiredSize.Height;
         double viewportExtent = isHorizontal ? finalSize.Width : finalSize.Height;
         double anchorPoint = viewportExtent * AnchorPosition;
         double pivotalStart = anchorPoint - pivotalExtent * fractionalOffset;
 
+        // Reset all children to zero bounds initially or handles collapses
+
         ArrangeChild(pivotalChild, pivotalStart, finalSize, isHorizontal);
 
         double nextEdge = pivotalStart + pivotalExtent + Spacing;
         double priorEdge = pivotalStart - Spacing;
-        int nextIndex = (pivotalIndex + 1) % childCount;
-        int priorIndex = pivotalIndex == 0 ? childCount - 1 : pivotalIndex - 1;
+        int nextIndex = (pivotalIndex + 1) % visibleCount;
+        int priorIndex = pivotalIndex == 0 ? visibleCount - 1 : pivotalIndex - 1;
 
         int nextPlaced = 0;
         int priorPlaced = 0;
-        int maxPerSide = (childCount - 1 + 1) / 2; // Divide remaining items roughly equally
+        int maxPerSide = (visibleCount - 1 + 1) / 2;
 
-        // Alternate between forward and backward
-        for (int i = 1; i < childCount; i++)
+        for (int i = 1; i < visibleCount; i++)
         {
-            // Alternate, but respect max per side to balance distribution
             bool placeNext = (i % 2 == 1);
-            
-            // If one side has placed its share, use the other
-            if (placeNext && nextPlaced >= maxPerSide && priorPlaced < childCount - 1 - maxPerSide) 
+            if (placeNext && nextPlaced >= maxPerSide && priorPlaced < visibleCount - 1 - maxPerSide) 
                 placeNext = false;
-            else if (!placeNext && priorPlaced >= maxPerSide && nextPlaced < childCount - 1 - maxPerSide) 
+            else if (!placeNext && priorPlaced >= maxPerSide && nextPlaced < visibleCount - 1 - maxPerSide) 
                 placeNext = true;
 
             if (placeNext)
             {
-                var child = Children[nextIndex];
+                var child = visibleChildren[nextIndex];
                 double childExtent = isHorizontal ? child.DesiredSize.Width : child.DesiredSize.Height;
                 ArrangeChild(child, nextEdge, finalSize, isHorizontal);
                 nextEdge += childExtent + Spacing;
-                nextIndex = (nextIndex + 1) % childCount;
+                nextIndex = (nextIndex + 1) % visibleCount;
                 nextPlaced++;
             }
             else
             {
-                var child = Children[priorIndex];
+                var child = visibleChildren[priorIndex];
                 double childExtent = isHorizontal ? child.DesiredSize.Width : child.DesiredSize.Height;
                 double itemStart = priorEdge - childExtent;
                 ArrangeChild(child, itemStart, finalSize, isHorizontal);
                 priorEdge = itemStart - Spacing;
-                priorIndex = priorIndex == 0 ? childCount - 1 : priorIndex - 1;
+                priorIndex = priorIndex == 0 ? visibleCount - 1 : priorIndex - 1;
                 priorPlaced++;
             }
         }

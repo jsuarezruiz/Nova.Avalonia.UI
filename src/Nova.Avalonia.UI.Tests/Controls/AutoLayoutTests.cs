@@ -149,4 +149,47 @@ public class AutoLayoutTests
         Assert.Equal(0, absoluteChild.Bounds.X);
         Assert.Equal(0, absoluteChild.Bounds.Y);
     }
+
+    [AvaloniaFact]
+    public void Should_Respect_IsReverseZIndex()
+    {
+        var target = new AutoLayout { IsReverseZIndex = true };
+        var child1 = new Border();
+        var child2 = new Border();
+        target.Children.Add(child1);
+        target.Children.Add(child2);
+
+        target.Measure(Size.Infinity);
+        target.Arrange(new Rect(0, 0, 100, 100));
+
+        // When reversed, first item should have higher ZIndex
+        Assert.True(child1.ZIndex > child2.ZIndex);
+    }
+
+    [AvaloniaFact]
+    public void Should_Skip_Invisible_Children()
+    {
+        var target = new AutoLayout
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 10
+        };
+
+        var child1 = new Border { Width = 50, Height = 50 };
+        var child2 = new Border { Width = 50, Height = 50, IsVisible = false };
+        var child3 = new Border { Width = 50, Height = 50 };
+
+        target.Children.Add(child1);
+        target.Children.Add(child2);
+        target.Children.Add(child3);
+
+        target.Measure(Size.Infinity);
+        target.Arrange(new Rect(0, 0, 200, 200));
+
+        // DesiredWidth: 50 + 10 + 50 = 110 (child 2 ignored)
+        Assert.Equal(110, target.DesiredSize.Width);
+        
+        // Child 3 should start at 60 (50 + 10)
+        Assert.Equal(60, child3.Bounds.X);
+    }
 }
