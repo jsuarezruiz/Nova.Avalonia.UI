@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeAutomationPeer
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
@@ -119,7 +119,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: .ctor
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
@@ -151,7 +151,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: GetAutomationControlTypeCore
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
@@ -181,7 +181,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: GetClassNameCore
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
@@ -211,7 +211,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: GetNameCore
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
@@ -241,7 +241,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: GetHelpTextCore
     path: ../src/Nova.Avalonia.UI/Controls/Badge/BadgeAutomationPeer.cs

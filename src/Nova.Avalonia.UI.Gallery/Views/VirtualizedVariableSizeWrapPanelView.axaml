@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.VirtualizedVariableSizeWrapPanelView"
+             x:DataType="vm:VirtualizedVariableSizeWrapPanelViewModel">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="A tile grid panel optimized for efficiently displaying large datasets with variable-size tiles." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
+
+            <!-- Configuration -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Configuration" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <Grid ColumnDefinitions="100, *, 60" RowDefinitions="Auto, Auto, Auto">
+                        <TextBlock Text="Tile Size" VerticalAlignment="Center"/>
+                        <Slider Grid.Column="1" Minimum="50" Maximum="120" Value="{Binding TileSize}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding TileSize, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+
+                        <TextBlock Grid.Row="1" Text="Spacing" VerticalAlignment="Center"/>
+                        <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="16" Value="{Binding Spacing}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Spacing, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+
+                        <TextBlock Grid.Row="2" Text="Columns" VerticalAlignment="Center"/>
+                        <Slider Grid.Row="2" Grid.Column="1" Minimum="2" Maximum="6" Value="{Binding Columns}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Columns, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Add 50 Items" Command="{Binding AddItemsCommand}"/>
+                        <Button Content="Clear All" Command="{Binding ClearItemsCommand}"/>
+                        <TextBlock Text="{Binding Items.Count, StringFormat='Total Items: {0}'}" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Virtualized Panel -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Large Dataset" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Scroll through 200+ tiles with varying spans." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Height="500" ClipToBounds="True">
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl ItemsSource="{Binding Items}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <controls:VirtualizingVariableSizeWrapPanel 
+                                            TileSize="{Binding $parent[ItemsControl].DataContext.TileSize}"
+                                            Spacing="{Binding $parent[ItemsControl].DataContext.Spacing}"
+                                            Columns="{Binding $parent[ItemsControl].DataContext.Columns}"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemContainerTheme>
+                                    <ControlTheme TargetType="ContentPresenter" x:DataType="vm:TileItem">
+                                        <Setter Property="controls:VirtualizingVariableSizeWrapPanel.ColumnSpan" Value="{Binding ColumnSpan}"/>
+                                        <Setter Property="controls:VirtualizingVariableSizeWrapPanel.RowSpan" Value="{Binding RowSpan}"/>
+                                    </ControlTheme>
+                                </ItemsControl.ItemContainerTheme>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:TileItem">
+                                        <Border Background="{Binding Brush}" CornerRadius="8" Margin="2">
+                                            <TextBlock Text="{Binding Title}" 
+                                                       Foreground="White" FontWeight="Bold" FontSize="14"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

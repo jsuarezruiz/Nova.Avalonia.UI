@@ -1,0 +1,142 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.OverlapPanelView"
+             x:DataType="vm:OverlapPanelViewModel">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="A panel that stacks children with configurable X/Y offsets." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
+
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Items stack with horizontal and vertical offsets." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="20" Height="250" ClipToBounds="True">
+                        <controls:OverlapPanel OffsetX="25" OffsetY="15" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="120" Height="80" Background="#E74C3C" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Card 1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="120" Height="80" Background="#3498DB" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Card 2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="120" Height="80" Background="#2ECC71" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Card 3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="120" Height="80" Background="#F39C12" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Card 4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                        </controls:OverlapPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Playground -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Adjust OffsetX, OffsetY, and ReverseZIndex." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <!-- Controls -->
+                    <Grid ColumnDefinitions="100, *, 60" RowDefinitions="Auto, Auto, Auto" Margin="0,0,0,10">
+                        <TextBlock Text="Offset X" VerticalAlignment="Center"/>
+                        <Slider Grid.Column="1" Minimum="-50" Maximum="50" Value="{Binding OffsetX}" />
+                        <TextBlock Grid.Column="2" Text="{Binding OffsetX, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+
+                        <TextBlock Grid.Row="1" Text="Offset Y" VerticalAlignment="Center"/>
+                        <Slider Grid.Row="1" Grid.Column="1" Minimum="-50" Maximum="50" Value="{Binding OffsetY}" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding OffsetY, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+
+                        <TextBlock Grid.Row="2" Text="Reverse Z" VerticalAlignment="Center"/>
+                        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding ReverseZIndex}" />
+                    </Grid>
+
+                    <!-- Preview -->
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="20" Height="350" ClipToBounds="True">
+                        <controls:OverlapPanel OffsetX="{Binding OffsetX}" 
+                                               OffsetY="{Binding OffsetY}" 
+                                               ReverseZIndex="{Binding ReverseZIndex}"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="100" Height="70" Background="#FF6B6B" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Card 1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="70" Background="#4ECDC4" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Card 2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="70" Background="#45B7D1" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Card 3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="70" Background="#FFA07A" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Card 4" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="70" Background="#98D8C8" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Card 5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                        </controls:OverlapPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Dynamic Items -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Add or remove items to see the overlap adjust." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Add Item" Command="{Binding AddItemCommand}"/>
+                        <Button Content="Remove Item" Command="{Binding RemoveItemCommand}"/>
+                        <TextBlock Text="{Binding Items.Count, StringFormat='Count: {0}'}" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="20" Height="300" ClipToBounds="True">
+                        <ItemsControl ItemsSource="{Binding Items}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:OverlapPanel OffsetX="15" OffsetY="10"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="80" Height="60" Background="{Binding Brush}" CornerRadius="6" BoxShadow="0 2 6 0 #40000000">
+                                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                   Foreground="White" FontSize="10"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Negative Offset Example -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Negative Offsets" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Use negative offsets to stack in the opposite direction." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="20" Height="200" ClipToBounds="True">
+                        <controls:OverlapPanel OffsetX="-20" OffsetY="-10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="100" Height="60" Background="#9B59B6" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="First" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="60" Background="#1ABC9C" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Second" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="60" Background="#E91E63" CornerRadius="8" BoxShadow="0 2 8 0 #40000000">
+                                <TextBlock Text="Third" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                        </controls:OverlapPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

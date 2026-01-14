@@ -1,0 +1,140 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.AutoLayoutView"
+             x:DataType="vm:AutoLayoutViewModel">
+
+    <ScrollViewer>
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="A specialized panel inspired by Figma's Auto Layout, providing StackPanel-like behavior with alignment distribution." 
+                       Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
+
+            <!-- Interactive Playground -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+
+                    <!-- Controls -->
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Margin="0,0,20,10">
+                            <TextBlock Text="Orientation"/>
+                            <ComboBox SelectedIndex="{Binding Orientation}">
+                                <ComboBoxItem>Horizontal</ComboBoxItem>
+                                <ComboBoxItem>Vertical</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                        
+                        <StackPanel Margin="0,0,20,10">
+                            <TextBlock Text="Spacing"/>
+                            <Slider Minimum="0" Maximum="50" Value="{Binding Spacing}" Width="100"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,0,20,10">
+                            <TextBlock Text="Justification"/>
+                            <ComboBox SelectedIndex="{Binding Justification}">
+                                <ComboBoxItem>Packed</ComboBoxItem>
+                                <ComboBoxItem>SpaceBetween</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                        
+                         <StackPanel Margin="0,0,20,10">
+                            <TextBlock Text="H Align"/>
+                            <ComboBox SelectedIndex="{Binding HorizontalContent}">
+                                <ComboBoxItem>Stretch</ComboBoxItem>
+                                <ComboBoxItem>Left</ComboBoxItem>
+                                <ComboBoxItem>Center</ComboBoxItem>
+                                <ComboBoxItem>Right</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                        
+                         <StackPanel Margin="0,0,20,10">
+                            <TextBlock Text="V Align"/>
+                            <ComboBox SelectedIndex="{Binding VerticalContent}">
+                                <ComboBoxItem>Stretch</ComboBoxItem>
+                                <ComboBoxItem>Top</ComboBoxItem>
+                                <ComboBoxItem>Center</ComboBoxItem>
+                                <ComboBoxItem>Bottom</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <Separator/>
+
+                    <!-- Demo Area -->
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" 
+                            CornerRadius="8" Height="400" Padding="0" ClipToBounds="True">
+                        
+                        <!-- The AutoLayout Panel -->
+                        <controls:AutoLayout Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                                             Orientation="{Binding Orientation}"
+                                             Spacing="{Binding Spacing}"
+                                             Padding="20"
+                                             Justification="{Binding Justification}"
+                                             HorizontalContentAlignment="{Binding HorizontalContent}"
+                                             VerticalContentAlignment="{Binding VerticalContent}"
+                                             IsReverseZIndex="{Binding IsReverseZIndex}">
+                            
+                            <!-- Items with MinWidth/MinHeight allow alignment to show effect -->
+                            <Border Background="#FF5722" CornerRadius="8" MinWidth="60" MinHeight="60" Padding="15">
+                                <Grid>
+                                    <TextBlock Text="1" Foreground="White" FontSize="20" FontWeight="Bold"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <Border Background="#2196F3" CornerRadius="8" MinWidth="60" MinHeight="60" Padding="15">
+                                <Grid>
+                                    <TextBlock Text="2" Foreground="White" FontSize="20" FontWeight="Bold"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                            
+                            <Border Background="#4CAF50" CornerRadius="8" MinWidth="60" MinHeight="60" Padding="15">
+                                <Grid>
+                                    <TextBlock Text="3" Foreground="White" FontSize="20" FontWeight="Bold"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <Border Background="#9C27B0" CornerRadius="8" MinWidth="60" MinHeight="60" Padding="15">
+                                <Grid>
+                                    <TextBlock Text="4" Foreground="White" FontSize="20" FontWeight="Bold"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                            
+                        </controls:AutoLayout>
+                    </Border>
+                </StackPanel>
+            </Border>
+            
+            <!-- Reference to Figma -->
+             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Absolute Positioning" FontWeight="Bold"/>
+                    <TextBlock Text="Items with IsAbsolute=True are removed from flow." Opacity="0.6"/>
+                    
+                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" 
+                            CornerRadius="8" Height="150" ClipToBounds="True">
+                         <controls:AutoLayout Spacing="10" Padding="10">
+                             <Border Background="Gray" Height="50" Width="100"/>
+                             <Border Background="Gray" Height="50" Width="100"/>
+                             
+                             <!-- Absolute Badge -->
+                             <Border Background="Red" CornerRadius="10" Padding="5,0"
+                                     controls:AutoLayout.IsAbsolute="True"
+                                     HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
+                                 <TextBlock Text="NEW" Foreground="White" FontSize="10" FontWeight="Bold"/>
+                             </Border>
+                         </controls:AutoLayout>
+                     </Border>
+                </StackPanel>
+             </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

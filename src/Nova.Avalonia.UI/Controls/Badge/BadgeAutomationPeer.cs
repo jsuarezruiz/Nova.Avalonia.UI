@@ -29,7 +29,7 @@ public class BadgeAutomationPeer : ControlAutomationPeer
 
     protected override string? GetNameCore()
     {
-        // 1. Check for manually set AutomationProperties.Name
+        // Check for manually set AutomationProperties.Name
         var baseName = base.GetNameCore();
         if (!string.IsNullOrEmpty(baseName)) 
             return baseName;
@@ -54,7 +54,7 @@ public class BadgeAutomationPeer : ControlAutomationPeer
 
     protected override string? GetHelpTextCore()
     {
-        // 1. Check for manually set HelpText
+        // Check for manually set HelpText
         var baseHelp = base.GetHelpTextCore();
         if (!string.IsNullOrEmpty(baseHelp)) return baseHelp;
 

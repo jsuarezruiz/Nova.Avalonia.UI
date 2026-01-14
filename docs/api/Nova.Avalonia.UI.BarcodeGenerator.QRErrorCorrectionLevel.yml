@@ -1,0 +1,192 @@
+### YamlMime:ManagedReference
+items:
+- uid: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  id: QRErrorCorrectionLevel
+  parent: Nova.Avalonia.UI.BarcodeGenerator
+  children:
+  - Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.H
+  - Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.L
+  - Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.M
+  - Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.Q
+  langs:
+  - csharp
+  - vb
+  name: QRErrorCorrectionLevel
+  nameWithType: QRErrorCorrectionLevel
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  type: Enum
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/QRErrorCorrectionLevel.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: QRErrorCorrectionLevel
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/QRErrorCorrectionLevel.cs
+    startLine: 5
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  summary: Error correction levels for QR codes. Higher levels allow more damage recovery but reduce data capacity.
+  example: []
+  syntax:
+    content: public enum QRErrorCorrectionLevel
+    content.vb: Public Enum QRErrorCorrectionLevel
+- uid: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.L
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.L
+  id: L
+  parent: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  langs:
+  - csharp
+  - vb
+  name: L
+  nameWithType: QRErrorCorrectionLevel.L
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.L
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/QRErrorCorrectionLevel.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: L
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/QRErrorCorrectionLevel.cs
+    startLine: 8
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  summary: Low - 7% error recovery capacity
+  example: []
+  syntax:
+    content: L = 0
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+- uid: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.M
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.M
+  id: M
+  parent: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  langs:
+  - csharp
+  - vb
+  name: M
+  nameWithType: QRErrorCorrectionLevel.M
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.M
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/QRErrorCorrectionLevel.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: M
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/QRErrorCorrectionLevel.cs
+    startLine: 10
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  summary: Medium - 15% error recovery capacity (default)
+  example: []
+  syntax:
+    content: M = 1
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+- uid: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.Q
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.Q
+  id: Q
+  parent: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  langs:
+  - csharp
+  - vb
+  name: Q
+  nameWithType: QRErrorCorrectionLevel.Q
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.Q
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/QRErrorCorrectionLevel.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Q
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/QRErrorCorrectionLevel.cs
+    startLine: 12
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  summary: Quartile - 25% error recovery capacity
+  example: []
+  syntax:
+    content: Q = 2
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+- uid: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.H
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.H
+  id: H
+  parent: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  langs:
+  - csharp
+  - vb
+  name: H
+  nameWithType: QRErrorCorrectionLevel.H
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.H
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/QRErrorCorrectionLevel.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: H
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/QRErrorCorrectionLevel.cs
+    startLine: 14
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  summary: High - 30% error recovery capacity (recommended for logo overlay)
+  example: []
+  syntax:
+    content: H = 3
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+references:
+- uid: Nova.Avalonia.UI.BarcodeGenerator
+  commentId: N:Nova.Avalonia.UI.BarcodeGenerator
+  href: Nova.html
+  name: Nova.Avalonia.UI.BarcodeGenerator
+  nameWithType: Nova.Avalonia.UI.BarcodeGenerator
+  fullName: Nova.Avalonia.UI.BarcodeGenerator
+  spec.csharp:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.BarcodeGenerator
+    name: BarcodeGenerator
+    href: Nova.Avalonia.UI.BarcodeGenerator.html
+  spec.vb:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.BarcodeGenerator
+    name: BarcodeGenerator
+    href: Nova.Avalonia.UI.BarcodeGenerator.html
+- uid: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+  parent: Nova.Avalonia.UI.BarcodeGenerator
+  href: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.html
+  name: QRErrorCorrectionLevel
+  nameWithType: QRErrorCorrectionLevel
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel

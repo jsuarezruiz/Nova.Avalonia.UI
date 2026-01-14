@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: AvatarStackPanel
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
@@ -342,7 +342,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OverlapProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
@@ -371,7 +371,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OrientationProperty
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
@@ -400,7 +400,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Overlap
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
@@ -431,7 +431,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Orientation
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
@@ -462,7 +462,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: MeasureOverride
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
@@ -498,7 +498,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ArrangeOverride
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarStackPanel.cs

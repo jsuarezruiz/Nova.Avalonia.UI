@@ -1,0 +1,114 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.OrbitPanelView"
+             x:DataType="vm:OrbitPanelViewModel">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="A layout panel that arranges items in concentric orbit rings." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
+
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Items grouped by Orbit attached property (0=center, 1=first ring, etc.)." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="350" ClipToBounds="True">
+                        <controls:OrbitPanel OrbitSpacing="60" InnerRadius="60" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <!-- Center (Orbit 0) -->
+                            <Border Width="50" Height="50" Background="#E74C3C" CornerRadius="25" controls:OrbitPanel.Orbit="0">
+                                <Path Data="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z" 
+                                      Fill="White" Width="28" Height="28" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            
+                            <!-- First ring (Orbit 1) -->
+                            <Border Width="30" Height="30" Background="#3498DB" CornerRadius="15" controls:OrbitPanel.Orbit="1"/>
+                            <Border Width="30" Height="30" Background="#2ECC71" CornerRadius="15" controls:OrbitPanel.Orbit="1"/>
+                            <Border Width="30" Height="30" Background="#F39C12" CornerRadius="15" controls:OrbitPanel.Orbit="1"/>
+                            
+                            <!-- Second ring (Orbit 2) -->
+                            <Border Width="25" Height="25" Background="#9B59B6" CornerRadius="12" controls:OrbitPanel.Orbit="2"/>
+                            <Border Width="25" Height="25" Background="#1ABC9C" CornerRadius="12" controls:OrbitPanel.Orbit="2"/>
+                            <Border Width="25" Height="25" Background="#E91E63" CornerRadius="12" controls:OrbitPanel.Orbit="2"/>
+                            <Border Width="25" Height="25" Background="#00BCD4" CornerRadius="12" controls:OrbitPanel.Orbit="2"/>
+                            <Border Width="25" Height="25" Background="#FF5722" CornerRadius="12" controls:OrbitPanel.Orbit="2"/>
+                        </controls:OrbitPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Configuration -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <Grid ColumnDefinitions="Auto, *, 50" RowDefinitions="Auto, Auto, Auto">
+                        <TextBlock Text="Orbit Spacing" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Slider Grid.Column="1" Minimum="30" Maximum="100" Value="{Binding OrbitSpacing}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding OrbitSpacing, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                        <TextBlock Grid.Row="1" Text="Inner Radius" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Slider Grid.Row="1" Grid.Column="1" Minimum="20" Maximum="100" Value="{Binding InnerRadius}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding InnerRadius, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                        <TextBlock Grid.Row="2" Text="Start Angle" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Slider Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="360" Value="{Binding StartAngle}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding StartAngle, StringFormat='{}{0:0}°'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="350" ClipToBounds="True">
+                        <controls:OrbitPanel OrbitSpacing="{Binding OrbitSpacing}" 
+                                             InnerRadius="{Binding InnerRadius}" 
+                                             StartAngle="{Binding StartAngle}"
+                                             HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="40" Height="40" Background="#E74C3C" CornerRadius="20" controls:OrbitPanel.Orbit="0"/>
+                            <Border Width="30" Height="30" Background="#3498DB" CornerRadius="15" controls:OrbitPanel.Orbit="1"/>
+                            <Border Width="30" Height="30" Background="#2ECC71" CornerRadius="15" controls:OrbitPanel.Orbit="1"/>
+                            <Border Width="30" Height="30" Background="#F39C12" CornerRadius="15" controls:OrbitPanel.Orbit="1"/>
+                            <Border Width="25" Height="25" Background="#9B59B6" CornerRadius="12" controls:OrbitPanel.Orbit="2"/>
+                            <Border Width="25" Height="25" Background="#1ABC9C" CornerRadius="12" controls:OrbitPanel.Orbit="2"/>
+                            <Border Width="25" Height="25" Background="#E91E63" CornerRadius="12" controls:OrbitPanel.Orbit="2"/>
+                            <Border Width="25" Height="25" Background="#00BCD4" CornerRadius="12" controls:OrbitPanel.Orbit="2"/>
+                        </controls:OrbitPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+            <!-- Dynamic Items -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Add or remove items to see orbit layout reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Add Item" Command="{Binding AddItemCommand}"/>
+                        <Button Content="Remove Item" Command="{Binding RemoveItemCommand}"/>
+                        <TextBlock Text="{Binding Items.Count, StringFormat='Count: {0}'}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="350" ClipToBounds="True">
+                        <ItemsControl ItemsSource="{Binding Items}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:OrbitPanel OrbitSpacing="{Binding $parent[ItemsControl].DataContext.OrbitSpacing}"
+                                                         InnerRadius="{Binding $parent[ItemsControl].DataContext.InnerRadius}"
+                                                         StartAngle="{Binding $parent[ItemsControl].DataContext.StartAngle}"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:OrbitItem">
+                                    <Border Width="30" Height="30" Background="{Binding Brush}" CornerRadius="15"
+                                            controls:OrbitPanel.Orbit="{Binding Orbit}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

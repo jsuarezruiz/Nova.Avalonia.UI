@@ -1,0 +1,232 @@
+### YamlMime:ManagedReference
+items:
+- uid: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  commentId: T:Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  id: ResponsiveBreakpoint
+  parent: Nova.Avalonia.UI.Controls
+  children:
+  - Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.All
+  - Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Narrow
+  - Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.None
+  - Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Normal
+  - Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Wide
+  langs:
+  - csharp
+  - vb
+  name: ResponsiveBreakpoint
+  nameWithType: ResponsiveBreakpoint
+  fullName: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  type: Enum
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: ResponsiveBreakpoint
+    path: ../src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Defines the size classes (breakpoints) for responsive layouts.
+  example: []
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum ResponsiveBreakpoint
+    content.vb: >-
+      <Flags>
+
+      Public Enum ResponsiveBreakpoint
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+- uid: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.None
+  commentId: F:Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.None
+  id: None
+  parent: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: ResponsiveBreakpoint.None
+  fullName: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.None
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: None
+    path: ../src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+    startLine: 13
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: No breakpoint specified.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+- uid: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Narrow
+  commentId: F:Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Narrow
+  id: Narrow
+  parent: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  langs:
+  - csharp
+  - vb
+  name: Narrow
+  nameWithType: ResponsiveBreakpoint.Narrow
+  fullName: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Narrow
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Narrow
+    path: ../src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+    startLine: 18
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Narrow layout (e.g., mobile devices).
+  example: []
+  syntax:
+    content: Narrow = 1
+    return:
+      type: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+- uid: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Normal
+  commentId: F:Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Normal
+  id: Normal
+  parent: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  langs:
+  - csharp
+  - vb
+  name: Normal
+  nameWithType: ResponsiveBreakpoint.Normal
+  fullName: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Normal
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Normal
+    path: ../src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+    startLine: 23
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Normal layout (e.g., tablets).
+  example: []
+  syntax:
+    content: Normal = 2
+    return:
+      type: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+- uid: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Wide
+  commentId: F:Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Wide
+  id: Wide
+  parent: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  langs:
+  - csharp
+  - vb
+  name: Wide
+  nameWithType: ResponsiveBreakpoint.Wide
+  fullName: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.Wide
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Wide
+    path: ../src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+    startLine: 28
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Wide layout (e.g., desktop monitors).
+  example: []
+  syntax:
+    content: Wide = 4
+    return:
+      type: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+- uid: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.All
+  commentId: F:Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.All
+  id: All
+  parent: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  langs:
+  - csharp
+  - vb
+  name: All
+  nameWithType: ResponsiveBreakpoint.All
+  fullName: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.All
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: All
+    path: ../src/Nova.Avalonia.UI/Controls/ResponsivePanel/ResponsiveBreakpoint.cs
+    startLine: 33
+  assemblies:
+  - Nova.Avalonia.UI
+  namespace: Nova.Avalonia.UI.Controls
+  summary: Matches all breakpoints.
+  example: []
+  syntax:
+    content: All = Narrow | Normal | Wide
+    return:
+      type: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+    content.vb: All = Narrow Or Normal Or Wide
+references:
+- uid: Nova.Avalonia.UI.Controls
+  commentId: N:Nova.Avalonia.UI.Controls
+  href: Nova.html
+  name: Nova.Avalonia.UI.Controls
+  nameWithType: Nova.Avalonia.UI.Controls
+  fullName: Nova.Avalonia.UI.Controls
+  spec.csharp:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.Controls
+    name: Controls
+    href: Nova.Avalonia.UI.Controls.html
+  spec.vb:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.Controls
+    name: Controls
+    href: Nova.Avalonia.UI.Controls.html
+- uid: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  commentId: T:Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  parent: Nova.Avalonia.UI.Controls
+  href: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.html
+  name: ResponsiveBreakpoint
+  nameWithType: ResponsiveBreakpoint
+  fullName: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
