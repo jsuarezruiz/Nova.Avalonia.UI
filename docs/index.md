@@ -9,9 +9,9 @@ ms.date: 2026-01-02
 **Nova.Avalonia.UI** is a comprehensive suite of controls for [Avalonia UI](https://avaloniaui.net/). The library bridges the gap between standard framework controls and the complex requirements of modern applications, providing components that are production-ready, fully themeable, and accessibility-first.
 
 
-## Controls overview
+## Overview
 
-### Visual feedback
+### Controls
 
 - **[Avatar](xref:Nova.Avalonia.UI.Controls.Avatar)**: Identity control supporting images, initials, icons, and status indicators with auto-generated backgrounds.
 - **[Badge](xref:Nova.Avalonia.UI.Controls.Badge)**: Notification indicator for counts, status, or dot indicators with configurable placement and overflow handling.
@@ -19,7 +19,7 @@ ms.date: 2026-01-02
 - **[RatingControl](xref:Nova.Avalonia.UI.Controls.RatingControl)**: Allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes.
 - **[Shimmer](xref:Nova.Avalonia.UI.Controls.Shimmer)**: Skeleton loading effect that detects your content layout to create matching placeholders.
 
-### Layout panels
+### Panels
 
 - **[ArcPanel](xref:Nova.Avalonia.UI.Controls.ArcPanel)**: Arranges items along an arc (partial circle) for semi-circular menus or dial interfaces.
 - **[AutoLayout](xref:Nova.Avalonia.UI.Controls.AutoLayout)**: A layout panel inspired by Figma's Auto Layout with Orientation, Spacing, Padding, and Alignment.
