@@ -1,6 +1,8 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Nova.Avalonia.UI.Controls;
+using Nova.Avalonia.UI.Gallery.ViewModels;
 
 namespace Nova.Avalonia.UI.Gallery.Views;
 
@@ -11,48 +13,62 @@ public partial class FortuneView : UserControl
         InitializeComponent();
     }
 
-    private async void OnSpinWheelClick(object? sender, RoutedEventArgs e)
+    protected override void OnDataContextChanged(EventArgs e)
     {
-        await PrizeWheel.SpinAsync();
+        base.OnDataContextChanged(e);
+
+        if (DataContext is FortuneViewModel vm)
+        {
+            vm.WheelSpinProvider = async () => await PrizeWheel.SpinAsync();
+            vm.BarSpinProvider = async () => await SlotBar.SpinAsync();
+            vm.VerticalBarSpinProvider = async () => await VerticalBar.SpinAsync();
+            vm.EventsWheelSpinProvider = async () => await EventsWheel.SpinAsync();
+        }
     }
 
     private void OnWheelSpinCompleted(object? sender, FortuneSelectionEventArgs e)
     {
-        var prize = e.SelectedItem?.Content?.ToString() ?? "Unknown";
-        WheelResultText.Text = $"You won: {prize}!";
-    }
-
-    private async void OnSpinBarClick(object? sender, RoutedEventArgs e)
-    {
-        await SlotBar.SpinAsync();
+        if (DataContext is FortuneViewModel vm)
+        {
+            var prize = e.SelectedItem?.Content?.ToString() ?? "Unknown";
+            vm.WheelResult = $"You won: {prize}!";
+        }
     }
 
     private void OnBarSpinCompleted(object? sender, FortuneSelectionEventArgs e)
     {
-        var result = e.SelectedItem?.Content?.ToString() ?? "Unknown";
-        BarResultText.Text = $"Result: {result}";
+        if (DataContext is FortuneViewModel vm)
+        {
+            var result = e.SelectedItem?.Content?.ToString() ?? "Unknown";
+            vm.BarResult = $"Result: {result}";
+        }
     }
 
-    private async void OnSpinVerticalClick(object? sender, RoutedEventArgs e)
+    private void OnVerticalBarSpinCompleted(object? sender, FortuneSelectionEventArgs e)
     {
-        await VerticalBar.SpinAsync();
-    }
-
-    private async void OnSpinEventsClick(object? sender, RoutedEventArgs e)
-    {
-        await EventsWheel.SpinAsync();
+        if (DataContext is FortuneViewModel vm)
+        {
+            var result = e.SelectedItem?.Content?.ToString() ?? "Unknown";
+            vm.VerticalBarResult = $"Result: {result}";
+        }
     }
 
     private void OnEventsWheelSpinStarted(object? sender, FortuneSelectionEventArgs e)
     {
-        EventStartedText.Text = $"Started: #{e.SelectedIndex}";
-        EventIsSpinningText.Text = "IsSpinning: True";
+        if (DataContext is FortuneViewModel vm)
+        {
+            vm.EventStarted = $"Started: #{e.SelectedIndex}";
+            vm.EventIsSpinning = true;
+        }
     }
 
     private void OnEventsWheelSpinCompleted(object? sender, FortuneSelectionEventArgs e)
     {
-        var prize = e.SelectedItem?.Content?.ToString() ?? "Unknown";
-        EventCompletedText.Text = $"Completed: {prize}";
-        EventIsSpinningText.Text = "IsSpinning: False";
+        if (DataContext is FortuneViewModel vm)
+        {
+            var prize = e.SelectedItem?.Content?.ToString() ?? "Unknown";
+            vm.EventCompleted = $"Completed: {prize}";
+            vm.EventIsSpinning = false;
+        }
     }
 }

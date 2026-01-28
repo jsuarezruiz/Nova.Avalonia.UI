@@ -13,7 +13,7 @@
         <Setter Property="IndicatorFill" Value="#E53935" />
         <Setter Property="IndicatorSize" Value="24" />
         <Setter Property="CenterRadius" Value="25" />
-        <Setter Property="CenterFill" Value="White" />
+        <Setter Property="CenterFill" Value="{DynamicResource FortuneWheelCenterBrush}" />
     </Style>
 
     <!-- FortuneBar Default Style -->
