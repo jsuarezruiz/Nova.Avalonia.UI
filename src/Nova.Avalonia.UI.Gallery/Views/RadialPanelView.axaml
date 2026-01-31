@@ -1,0 +1,173 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1200"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.RadialPanelView"
+             x:DataType="vm:RadialPanelViewModel">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="Arranges items in a radial pattern radiating from the center." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
+
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Items radiate outward from the center in a fan pattern." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="300" ClipToBounds="True">
+                        <controls:RadialPanel Radius="100" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="80" Height="30" Background="#FF6B6B" CornerRadius="15">
+                                <TextBlock Text="Item 1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="80" Height="30" Background="#4ECDC4" CornerRadius="15">
+                                <TextBlock Text="Item 2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="80" Height="30" Background="#45B7D1" CornerRadius="15">
+                                <TextBlock Text="Item 3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="80" Height="30" Background="#FFA07A" CornerRadius="15">
+                                <TextBlock Text="Item 4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="80" Height="30" Background="#98D8C8" CornerRadius="15">
+                                <TextBlock Text="Item 5" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="80" Height="30" Background="#F7DC6F" CornerRadius="15">
+                                <TextBlock Text="Item 6" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                        </controls:RadialPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Playground -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Adjust Radius, StartAngle, SweepAngle, and item rotation." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <!-- Controls -->
+                    <Grid ColumnDefinitions="100, *, 60" RowDefinitions="Auto, Auto, Auto, Auto, Auto" Margin="0,0,0,10">
+                        <TextBlock Text="Radius" VerticalAlignment="Center"/>
+                        <Slider Grid.Column="1" Minimum="50" Maximum="130" Value="{Binding Radius}" />
+                        <TextBlock Grid.Column="2" Text="{Binding Radius, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+
+                        <TextBlock Grid.Row="1" Text="Start Angle" VerticalAlignment="Center"/>
+                        <Slider Grid.Row="1" Grid.Column="1" Minimum="-360" Maximum="360" Value="{Binding StartAngle}" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding StartAngle, StringFormat='{}{0:0}°'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+
+                        <TextBlock Grid.Row="2" Text="Sweep Angle" VerticalAlignment="Center"/>
+                        <Slider Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="360" Value="{Binding SweepAngle}" />
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SweepAngle, StringFormat='{}{0:0}°'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+
+                        <TextBlock Grid.Row="3" Text="Item Rotation" VerticalAlignment="Center"/>
+                        <Slider Grid.Row="3" Grid.Column="1" Minimum="-180" Maximum="180" Value="{Binding ItemAngle}" />
+                        <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding ItemAngle, StringFormat='{}{0:0}°'}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+
+                        <TextBlock Grid.Row="4" Text="Rotate Items" VerticalAlignment="Center"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding RotateItems}" />
+                    </Grid>
+
+                    <!-- Preview -->
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="450" ClipToBounds="True">
+                        <controls:RadialPanel Radius="{Binding Radius}"
+                                              StartAngle="{Binding StartAngle}"
+                                              SweepAngle="{Binding SweepAngle}"
+                                              ItemAngle="{Binding ItemAngle}"
+                                              RotateItems="{Binding RotateItems}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="100" Height="40" Background="#FF6B6B" CornerRadius="20" BorderBrush="White" BorderThickness="2">
+                                <TextBlock Text="Item 1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="40" Background="#4ECDC4" CornerRadius="20" BorderBrush="White" BorderThickness="2">
+                                <TextBlock Text="Item 2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="40" Background="#45B7D1" CornerRadius="20" BorderBrush="White" BorderThickness="2">
+                                <TextBlock Text="Item 3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="40" Background="#FFA07A" CornerRadius="20" BorderBrush="White" BorderThickness="2">
+                                <TextBlock Text="Item 4" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="40" Background="#98D8C8" CornerRadius="20" BorderBrush="White" BorderThickness="2">
+                                <TextBlock Text="Item 5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="40" Background="#F7DC6F" CornerRadius="20" BorderBrush="White" BorderThickness="2">
+                                <TextBlock Text="Item 6" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="40" Background="#BB8FCE" CornerRadius="20" BorderBrush="White" BorderThickness="2">
+                                <TextBlock Text="Item 7" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="100" Height="40" Background="#85C1E9" CornerRadius="20" BorderBrush="White" BorderThickness="2">
+                                <TextBlock Text="Item 8" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                        </controls:RadialPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Dynamic Items -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Add or remove items to see the radial layout reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Add Item" Command="{Binding AddItemCommand}"/>
+                        <Button Content="Remove Item" Command="{Binding RemoveItemCommand}"/>
+                        <TextBlock Text="{Binding Items.Count, StringFormat='Count: {0}'}" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="350" ClipToBounds="True">
+                        <ItemsControl ItemsSource="{Binding Items}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:RadialPanel Radius="120"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="50" Height="50" Background="{Binding Brush}" CornerRadius="25" BorderBrush="White" BorderThickness="2">
+                                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                   Foreground="White" FontSize="9"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Half-Circle Example -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Half-Circle Layout" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="SweepAngle=180 creates a semi-circular arrangement." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="250" ClipToBounds="True">
+                        <controls:RadialPanel Radius="100" SweepAngle="180" StartAngle="-90" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="60" Height="30" Background="#E74C3C" CornerRadius="15">
+                                <TextBlock Text="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="60" Height="30" Background="#3498DB" CornerRadius="15">
+                                <TextBlock Text="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="60" Height="30" Background="#2ECC71" CornerRadius="15">
+                                <TextBlock Text="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="60" Height="30" Background="#F39C12" CornerRadius="15">
+                                <TextBlock Text="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Width="60" Height="30" Background="#9B59B6" CornerRadius="15">
+                                <TextBlock Text="5" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                        </controls:RadialPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

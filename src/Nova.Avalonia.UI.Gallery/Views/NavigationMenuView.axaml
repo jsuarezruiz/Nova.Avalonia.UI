@@ -11,29 +11,47 @@
         <vm:NavigationMenuViewModel />
     </Design.DataContext>
 
-    <StackPanel Spacing="12" Margin="12">
-        <ItemsControl ItemsSource="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).Samples}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate x:DataType="vm:NavigationSample">
-                    <Button Command="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).NavigateToCommand}"
-                            CommandParameter="{Binding}"
-                            Background="{DynamicResource CardBackgroundBrush}"
-                            BorderBrush="{DynamicResource CardBorderBrush}"
-                            CornerRadius="12"
-                            HorizontalContentAlignment="Stretch"
-                            Padding="12"
-                            Margin="0, 6"
-                            HorizontalAlignment="Stretch">
-                        <StackPanel Spacing="4">
-                            <TextBlock Text="{Binding Title}"
-                                       FontWeight="SemiBold" />
-                            <TextBlock Text="{Binding Description}"
-                                       FontSize="12"
-                                       Foreground="{DynamicResource SecondaryTextBrush}" />
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="12">
+            <ItemsControl ItemsSource="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).Categories}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="vm:SampleCategory">
+                        <StackPanel Spacing="8">
+                            <!-- Category Header -->
+                            <TextBlock Text="{Binding Name}" 
+                                       FontWeight="Bold" 
+                                       FontSize="18" 
+                                       Foreground="{DynamicResource AccentBrush}"
+                                       Margin="0,8,0,4"/>
+                            
+                            <!-- Category Items -->
+                            <ItemsControl ItemsSource="{Binding Samples}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:NavigationSample">
+                                        <Button Command="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).NavigateToCommand}"
+                                                CommandParameter="{Binding}"
+                                                Background="{DynamicResource CardBackgroundBrush}"
+                                                BorderBrush="{DynamicResource CardBorderBrush}"
+                                                CornerRadius="12"
+                                                HorizontalContentAlignment="Stretch"
+                                                Padding="12"
+                                                Margin="0,4"
+                                                HorizontalAlignment="Stretch">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Text="{Binding Title}"
+                                                           FontWeight="SemiBold" />
+                                                <TextBlock Text="{Binding Description}"
+                                                           FontSize="12"
+                                                           Foreground="{DynamicResource SecondaryTextBrush}" />
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
-                    </Button>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

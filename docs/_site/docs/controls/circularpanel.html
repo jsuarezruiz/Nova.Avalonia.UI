@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>CircularPanel | Nova.Avalonia.UI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="CircularPanel | Nova.Avalonia.UI ">
+      
+      <meta name="description" content="A layout panel that arranges items in a circular pattern.">
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/jsuarezruiz/Nova.Avalonia.UI/blob/panels/docs/docs/controls/circularpanel.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="Nova.Avalonia.UI">
+            Nova.Avalonia.UI
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="circularpanel">CircularPanel</h1>
+
+<p>The <code>CircularPanel</code> arranges child elements evenly around a circle. This is perfect for radial menus, clock faces, or any circular arrangement.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<pre><code class="lang-xaml">&lt;UserControl xmlns=&quot;https://github.com/avaloniaui&quot;
+             xmlns:nova=&quot;using:Nova.Avalonia.UI.Controls&quot;&gt;
+
+    &lt;nova:CircularPanel Radius=&quot;100&quot;&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;#FF6B6B&quot; CornerRadius=&quot;20&quot;/&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;#4ECDC4&quot; CornerRadius=&quot;20&quot;/&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;#45B7D1&quot; CornerRadius=&quot;20&quot;/&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;#FFA07A&quot; CornerRadius=&quot;20&quot;/&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;#98D8C8&quot; CornerRadius=&quot;20&quot;/&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;#F7DC6F&quot; CornerRadius=&quot;20&quot;/&gt;
+    &lt;/nova:CircularPanel&gt;
+&lt;/UserControl&gt;
+</code></pre>
+<h2 id="positioning">Positioning</h2>
+<p>Items are automatically distributed evenly around the circle. The <code>StartAngle</code> property controls where the first item is placed.</p>
+<ul>
+<li><strong>0°</strong>: 3 o'clock position (right)</li>
+<li><strong>-90°</strong>: 12 o'clock position (top)</li>
+<li><strong>90°</strong>: 6 o'clock position (bottom)</li>
+<li><strong>180°</strong>: 9 o'clock position (left)</li>
+</ul>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Radius</code></td>
+<td><code>double</code></td>
+<td><code>100</code></td>
+<td>The radius of the circle.</td>
+</tr>
+<tr>
+<td><code>StartAngle</code></td>
+<td><code>double</code></td>
+<td><code>0</code></td>
+<td>The angle where the first item is placed (degrees).</td>
+</tr>
+<tr>
+<td><code>AngleStep</code></td>
+<td><code>double</code></td>
+<td><code>0</code></td>
+<td>Override the angle between items. 0 = auto-calculate.</td>
+</tr>
+<tr>
+<td><code>SweepDirection</code></td>
+<td><code>SweepDirection</code></td>
+<td><code>Clockwise</code></td>
+<td>Direction of item placement (<code>Clockwise</code> or <code>CounterClockwise</code>).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="clock-face">Clock Face</h3>
+<pre><code class="lang-xaml">&lt;nova:CircularPanel Radius=&quot;100&quot; StartAngle=&quot;-90&quot;&gt;
+    &lt;TextBlock Text=&quot;12&quot; FontWeight=&quot;Bold&quot;/&gt;
+    &lt;TextBlock Text=&quot;1&quot;/&gt;
+    &lt;TextBlock Text=&quot;2&quot;/&gt;
+    &lt;TextBlock Text=&quot;3&quot; FontWeight=&quot;Bold&quot;/&gt;
+    &lt;TextBlock Text=&quot;4&quot;/&gt;
+    &lt;TextBlock Text=&quot;5&quot;/&gt;
+    &lt;TextBlock Text=&quot;6&quot; FontWeight=&quot;Bold&quot;/&gt;
+    &lt;TextBlock Text=&quot;7&quot;/&gt;
+    &lt;TextBlock Text=&quot;8&quot;/&gt;
+    &lt;TextBlock Text=&quot;9&quot; FontWeight=&quot;Bold&quot;/&gt;
+    &lt;TextBlock Text=&quot;10&quot;/&gt;
+    &lt;TextBlock Text=&quot;11&quot;/&gt;
+&lt;/nova:CircularPanel&gt;
+</code></pre>
+<h3 id="radial-menu">Radial Menu</h3>
+<pre><code class="lang-xaml">&lt;nova:CircularPanel Radius=&quot;80&quot; StartAngle=&quot;-90&quot;&gt;
+    &lt;Button Content=&quot;🏠&quot; ToolTip.Tip=&quot;Home&quot;/&gt;
+    &lt;Button Content=&quot;⚙️&quot; ToolTip.Tip=&quot;Settings&quot;/&gt;
+    &lt;Button Content=&quot;📁&quot; ToolTip.Tip=&quot;Files&quot;/&gt;
+    &lt;Button Content=&quot;❤️&quot; ToolTip.Tip=&quot;Favorites&quot;/&gt;
+&lt;/nova:CircularPanel&gt;
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/jsuarezruiz/Nova.Avalonia.UI/blob/panels/docs/docs/controls/circularpanel.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

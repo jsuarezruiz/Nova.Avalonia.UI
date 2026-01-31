@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/ShimmerAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ShimmerAutomationPeer
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/ShimmerAutomationPeer.cs
@@ -88,7 +88,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/ShimmerAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: .ctor
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/ShimmerAutomationPeer.cs
@@ -122,7 +122,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/ShimmerAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: GetNameCore
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/ShimmerAutomationPeer.cs
@@ -152,7 +152,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/ShimmerAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: GetAutomationControlTypeCore
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/ShimmerAutomationPeer.cs
@@ -182,7 +182,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Shimmer/ShimmerAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: IsContentElementCore
     path: ../src/Nova.Avalonia.UI/Controls/Shimmer/ShimmerAutomationPeer.cs

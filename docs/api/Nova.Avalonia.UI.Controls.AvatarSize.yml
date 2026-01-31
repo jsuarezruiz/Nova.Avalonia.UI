@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: AvatarSize
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
@@ -48,7 +48,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ExtraSmall
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
@@ -76,7 +76,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Small
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
@@ -104,7 +104,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Medium
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
@@ -132,7 +132,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Large
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
@@ -160,7 +160,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: ExtraLarge
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
@@ -188,7 +188,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Custom
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarSize.cs
