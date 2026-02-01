@@ -1,9 +1,40 @@
 ### YamlMime:TableOfContent
 items:
+- uid: Nova.Avalonia.UI.BarcodeGenerator
+  name: Nova.Avalonia.UI.BarcodeGenerator
+  type: Namespace
+  items:
+  - uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeErrorEventArgs
+    name: BarcodeErrorEventArgs
+    type: Class
+  - uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratedEventArgs
+    name: BarcodeGeneratedEventArgs
+    type: Class
+  - uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator
+    name: BarcodeGenerator
+    type: Class
+  - uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+    name: BarcodeGeneratorAutomationPeer
+    type: Class
+  - uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+    name: BarcodeSymbology
+    type: Enum
+  - uid: Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel
+    name: QRErrorCorrectionLevel
+    type: Enum
 - uid: Nova.Avalonia.UI.Controls
   name: Nova.Avalonia.UI.Controls
   type: Namespace
   items:
+  - uid: Nova.Avalonia.UI.Controls.ArcPanel
+    name: ArcPanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.AutoLayout
+    name: AutoLayout
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.AutoLayoutJustify
+    name: AutoLayoutJustify
+    type: Enum
   - uid: Nova.Avalonia.UI.Controls.Avatar
     name: Avatar
     type: Class
@@ -43,6 +74,30 @@ items:
   - uid: Nova.Avalonia.UI.Controls.BadgePlacement
     name: BadgePlacement
     type: Enum
+  - uid: Nova.Avalonia.UI.Controls.BubblePanel
+    name: BubblePanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.CircularAlignment
+    name: CircularAlignment
+    type: Enum
+  - uid: Nova.Avalonia.UI.Controls.CircularPanel
+    name: CircularPanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.HexPanel
+    name: HexPanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.LoopPanel
+    name: LoopPanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.OrbitPanel
+    name: OrbitPanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.OverlapPanel
+    name: OverlapPanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.RadialPanel
+    name: RadialPanel
+    type: Class
   - uid: Nova.Avalonia.UI.Controls.RatingControl
     name: RatingControl
     type: Class
@@ -55,10 +110,31 @@ items:
   - uid: Nova.Avalonia.UI.Controls.RatingShape
     name: RatingShape
     type: Enum
+  - uid: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+    name: ResponsiveBreakpoint
+    type: Enum
+  - uid: Nova.Avalonia.UI.Controls.ResponsivePanel
+    name: ResponsivePanel
+    type: Class
   - uid: Nova.Avalonia.UI.Controls.Shimmer
     name: Shimmer
     type: Class
   - uid: Nova.Avalonia.UI.Controls.ShimmerAutomationPeer
     name: ShimmerAutomationPeer
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.StaggeredPanel
+    name: StaggeredPanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.TimelinePanel
+    name: TimelinePanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.VariableSizeWrapPanel
+    name: VariableSizeWrapPanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.VirtualizingStaggeredPanel
+    name: VirtualizingStaggeredPanel
+    type: Class
+  - uid: Nova.Avalonia.UI.Controls.VirtualizingVariableSizeWrapPanel
+    name: VirtualizingVariableSizeWrapPanel
     type: Class
 memberLayout: SamePage

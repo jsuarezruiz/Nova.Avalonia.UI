@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: RatingItem
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
@@ -338,7 +338,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Geometry
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
@@ -369,7 +369,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: StrokeThickness
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
@@ -400,7 +400,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: RatedFill
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
@@ -431,7 +431,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: UnratedFill
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
@@ -462,7 +462,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: RatedStroke
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
@@ -493,7 +493,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: UnratedStroke
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
@@ -524,7 +524,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: FillRatio
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
@@ -555,7 +555,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Render
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingItem.cs

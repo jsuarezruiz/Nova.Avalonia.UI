@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: AvatarDisplayMode
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
@@ -47,7 +47,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Auto
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Image
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
@@ -103,7 +103,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Initials
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
@@ -131,7 +131,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Icon
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
@@ -159,7 +159,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Content
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarDisplayMode.cs
