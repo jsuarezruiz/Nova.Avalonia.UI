@@ -7,6 +7,15 @@
              mc:Ignorable="d"
              x:Class="Nova.Avalonia.UI.Gallery.Views.WatermarkView"
              x:DataType="vm:WatermarkViewModel">
+    <UserControl.Styles>
+        <Style Selector="controls|Watermark.bold">
+            <Setter Property="WatermarkFontWeight" Value="Bold" />
+        </Style>
+        <Style Selector="controls|Watermark.italic">
+            <Setter Property="WatermarkFontStyle" Value="Italic" />
+        </Style>
+    </UserControl.Styles>
+    
     <ScrollViewer>
         <StackPanel Spacing="20" Margin="20">
 
@@ -106,7 +115,7 @@
                                FontSize="16"
                                Foreground="{DynamicResource AccentBrush}" />
 
-                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto" Margin="0,0,0,10">
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto" Margin="0,0,0,10">
                         <StackPanel Grid.Column="0" Spacing="5" Margin="0,0,10,0">
                             <TextBlock Text="Angle" FontWeight="SemiBold"/>
                             <Slider x:Name="AngleSlider" Minimum="-90" Maximum="90" Value="-30" />
@@ -131,6 +140,24 @@
                             <TextBlock Text="V Spacing" FontWeight="SemiBold"/>
                             <Slider x:Name="VSpacingSlider" Minimum="10" Maximum="80" Value="30" />
                         </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2" Spacing="5" Margin="0,10,0,0">
+                            <TextBlock Text="Style" FontWeight="SemiBold"/>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <CheckBox x:Name="BoldCheck" Content="Bold" />
+                                <CheckBox x:Name="ItalicCheck" Content="Italic" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0" Spacing="5" Margin="0,10,10,0">
+                            <TextBlock Text="Foreground" FontWeight="SemiBold"/>
+                            <ComboBox x:Name="ColorCombo" SelectedIndex="0" HorizontalAlignment="Stretch">
+                                <x:String>Gray</x:String>
+                                <x:String>Red</x:String>
+                                <x:String>Blue</x:String>
+                                <x:String>Green</x:String>
+                                <x:String>Orange</x:String>
+                            </ComboBox>
+                        </StackPanel>
                     </Grid>
 
                     <controls:Watermark Text="WATERMARK"
@@ -139,6 +166,9 @@
                                         WatermarkFontSize="{Binding #FontSizeSlider.Value}"
                                         HorizontalSpacing="{Binding #HSpacingSlider.Value}"
                                         VerticalSpacing="{Binding #VSpacingSlider.Value}"
+                                        WatermarkForeground="{Binding #ColorCombo.SelectedItem}"
+                                        Classes.bold="{Binding #BoldCheck.IsChecked}"
+                                        Classes.italic="{Binding #ItalicCheck.IsChecked}"
                                         Height="200">
                         <Border Background="{DynamicResource CardBackgroundBrush}"
                                 BorderBrush="{DynamicResource CardBorderBrush}"
@@ -179,38 +209,6 @@
                                 CornerRadius="8"
                                 Padding="20">
                             <TextBlock Text="Wide letter spacing watermark" 
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" />
-                        </Border>
-                    </controls:Watermark>
-                </StackPanel>
-            </Border>
-
-            <!-- RTL Flow Direction -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
-                <StackPanel Spacing="10">
-                    <TextBlock Text="RTL Flow Direction"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
-                    <TextBlock Text="WatermarkFlowDirection=RightToLeft for RTL languages."
-                               TextWrapping="Wrap"
-                               Opacity="0.7" />
-
-                    <controls:Watermark Text="سري للغاية" 
-                                        WatermarkFlowDirection="RightToLeft"
-                                        Angle="-30"
-                                        WatermarkOpacity="0.2"
-                                        WatermarkFontSize="16"
-                                        HorizontalSpacing="80"
-                                        VerticalSpacing="40"
-                                        Height="120">
-                        <Border Background="{DynamicResource CardBackgroundBrush}"
-                                BorderBrush="{DynamicResource CardBorderBrush}"
-                                BorderThickness="1"
-                                CornerRadius="8"
-                                Padding="20">
-                            <TextBlock Text="Arabic RTL watermark" 
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center" />
                         </Border>

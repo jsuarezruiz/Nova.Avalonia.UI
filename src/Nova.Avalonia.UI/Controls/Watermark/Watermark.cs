@@ -1,9 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
+using Avalonia.Automation.Peers;
 using System;
+using System.Globalization;
 
 namespace Nova.Avalonia.UI.Controls;
 
@@ -59,6 +59,18 @@ public class Watermark : ContentControl
     /// </summary>
     public static readonly StyledProperty<FontFamily> WatermarkFontFamilyProperty =
         AvaloniaProperty.Register<Watermark, FontFamily>(nameof(WatermarkFontFamily), defaultValue: FontFamily.Default);
+
+    /// <summary>
+    /// Defines the font weight for text watermarks.
+    /// </summary>
+    public static readonly StyledProperty<FontWeight> WatermarkFontWeightProperty =
+        AvaloniaProperty.Register<Watermark, FontWeight>(nameof(WatermarkFontWeight), defaultValue: FontWeight.Normal);
+
+    /// <summary>
+    /// Defines the font style for text watermarks.
+    /// </summary>
+    public static readonly StyledProperty<FontStyle> WatermarkFontStyleProperty =
+        AvaloniaProperty.Register<Watermark, FontStyle>(nameof(WatermarkFontStyle), defaultValue: FontStyle.Normal);
 
     /// <summary>
     /// Defines the foreground brush for text watermarks.
@@ -130,6 +142,20 @@ public class Watermark : ContentControl
         set => SetValue(WatermarkFontFamilyProperty, value);
     }
 
+    /// <inheritdoc cref="WatermarkFontWeightProperty"/>
+    public FontWeight WatermarkFontWeight
+    {
+        get => GetValue(WatermarkFontWeightProperty);
+        set => SetValue(WatermarkFontWeightProperty, value);
+    }
+
+    /// <inheritdoc cref="WatermarkFontStyleProperty"/>
+    public FontStyle WatermarkFontStyle
+    {
+        get => GetValue(WatermarkFontStyleProperty);
+        set => SetValue(WatermarkFontStyleProperty, value);
+    }
+
     /// <inheritdoc cref="WatermarkForegroundProperty"/>
     public IBrush? WatermarkForeground
     {
@@ -155,6 +181,8 @@ public class Watermark : ContentControl
             WatermarkOpacityProperty,
             WatermarkFontSizeProperty,
             WatermarkFontFamilyProperty,
+            WatermarkFontWeightProperty,
+            WatermarkFontStyleProperty,
             WatermarkForegroundProperty,
             WatermarkFlowDirectionProperty
         );
@@ -167,10 +195,18 @@ public class Watermark : ContentControl
         if (change.Property == TextProperty ||
             change.Property == WatermarkFontSizeProperty ||
             change.Property == WatermarkFontFamilyProperty ||
+            change.Property == WatermarkFontWeightProperty ||
+            change.Property == WatermarkFontStyleProperty ||
+            change.Property == WatermarkForegroundProperty ||
             change.Property == WatermarkFlowDirectionProperty)
         {
             _cachedFormattedText = null;
         }
+    }
+
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+        return new WatermarkAutomationPeer(this);
     }
 
     public override void Render(DrawingContext context)
@@ -178,45 +214,33 @@ public class Watermark : ContentControl
         base.Render(context);
 
         var bounds = Bounds;
-        if (bounds.Width <= 0 || bounds.Height <= 0)
+        if (bounds.Width <= 0 || bounds.Height <= 0 || (string.IsNullOrEmpty(Text) && Source == null))
             return;
 
-        Size tileSize;
-        bool isImage = Source != null;
-
-        if (isImage)
-        {
-            tileSize = new Size(Source!.Size.Width + HorizontalSpacing, Source.Size.Height + VerticalSpacing);
-        }
-        else if (!string.IsNullOrEmpty(Text))
+        Size contentSize;
+        if (Source != null)
+            contentSize = Source.Size;
+        else
         {
             EnsureFormattedText();
             if (_cachedFormattedText == null) return;
-            tileSize = new Size(_cachedFormattedText.Width + HorizontalSpacing, _cachedFormattedText.Height + VerticalSpacing);
-        }
-        else
-        {
-            return;
+            contentSize = new Size(_cachedFormattedText.Width, _cachedFormattedText.Height);
         }
 
-        if (tileSize.Width <= 0 || tileSize.Height <= 0)
-            return;
+        var tileSize = new Size(contentSize.Width + HorizontalSpacing, contentSize.Height + VerticalSpacing);
+        if (tileSize.Width <= 0 || tileSize.Height <= 0) return;
 
         using (context.PushOpacity(WatermarkOpacity))
         {
             double angleRad = Angle * Math.PI / 180.0;
+            double centerX = bounds.Width / 2;
+            double centerY = bounds.Height / 2;
+
             double cos = Math.Abs(Math.Cos(angleRad));
             double sin = Math.Abs(Math.Sin(angleRad));
 
-            double expandedWidth = bounds.Width * cos + bounds.Height * sin;
-            double expandedHeight = bounds.Width * sin + bounds.Height * cos;
-
-            double diagonal = Math.Sqrt(bounds.Width * bounds.Width + bounds.Height * bounds.Height);
-            expandedWidth = Math.Max(expandedWidth, diagonal);
-            expandedHeight = Math.Max(expandedHeight, diagonal);
-
-            double centerX = bounds.Width / 2;
-            double centerY = bounds.Height / 2;
+            double expandedWidth = bounds.Width * cos + bounds.Height * sin + tileSize.Width * 2;
+            double expandedHeight = bounds.Width * sin + bounds.Height * cos + tileSize.Height * 2;
 
             using (context.PushTransform(
                 Matrix.CreateTranslation(-centerX, -centerY) *
@@ -225,6 +249,10 @@ public class Watermark : ContentControl
             {
                 double startX = centerX - expandedWidth / 2;
                 double startY = centerY - expandedHeight / 2;
+
+                // Sync grid to center
+                startX = centerX - (Math.Floor((centerX - startX) / tileSize.Width) * tileSize.Width);
+                startY = centerY - (Math.Floor((centerY - startY) / tileSize.Height) * tileSize.Height);
 
                 int cols = (int)Math.Ceiling(expandedWidth / tileSize.Width) + 2;
                 int rows = (int)Math.Ceiling(expandedHeight / tileSize.Height) + 2;
@@ -236,10 +264,9 @@ public class Watermark : ContentControl
                         double x = startX + col * tileSize.Width;
                         double y = startY + row * tileSize.Height;
 
-                        if (isImage && Source != null)
+                        if (Source != null)
                         {
-                            var destRect = new Rect(x, y, Source.Size.Width, Source.Size.Height);
-                            context.DrawImage(Source, destRect);
+                            context.DrawImage(Source, new Rect(new Point(x, y), Source.Size));
                         }
                         else if (_cachedFormattedText != null)
                         {
@@ -260,9 +287,9 @@ public class Watermark : ContentControl
 
         _cachedFormattedText = new FormattedText(
             Text,
-            System.Globalization.CultureInfo.CurrentCulture,
+            CultureInfo.CurrentUICulture,
             WatermarkFlowDirection,
-            new Typeface(WatermarkFontFamily),
+            new Typeface(WatermarkFontFamily, WatermarkFontStyle, WatermarkFontWeight),
             WatermarkFontSize,
             foreground);
     }

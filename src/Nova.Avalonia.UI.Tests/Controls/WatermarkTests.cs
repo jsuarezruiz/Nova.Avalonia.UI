@@ -1,5 +1,6 @@
 using Avalonia.Headless.XUnit;
 using Avalonia.Media;
+using Avalonia.Automation.Peers;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
 
@@ -20,6 +21,8 @@ public class WatermarkTests
         Assert.Equal(0.15, watermark.WatermarkOpacity);
         Assert.Equal(14.0, watermark.WatermarkFontSize);
         Assert.Equal(FontFamily.Default, watermark.WatermarkFontFamily);
+        Assert.Equal(FontWeight.Normal, watermark.WatermarkFontWeight);
+        Assert.Equal(FontStyle.Normal, watermark.WatermarkFontStyle);
     }
 
     [AvaloniaFact]
@@ -93,6 +96,20 @@ public class WatermarkTests
     }
 
     [AvaloniaFact]
+    public void Watermark_Sets_WatermarkFontWeight()
+    {
+        var watermark = new Watermark { WatermarkFontWeight = FontWeight.Bold };
+        Assert.Equal(FontWeight.Bold, watermark.WatermarkFontWeight);
+    }
+
+    [AvaloniaFact]
+    public void Watermark_Sets_WatermarkFontStyle()
+    {
+        var watermark = new Watermark { WatermarkFontStyle = FontStyle.Italic };
+        Assert.Equal(FontStyle.Italic, watermark.WatermarkFontStyle);
+    }
+
+    [AvaloniaFact]
     public void Watermark_Sets_WatermarkForeground()
     {
         var watermark = new Watermark { WatermarkForeground = Brushes.Red };
@@ -118,5 +135,32 @@ public class WatermarkTests
     {
         var watermark = new Watermark { WatermarkFlowDirection = FlowDirection.RightToLeft };
         Assert.Equal(FlowDirection.RightToLeft, watermark.WatermarkFlowDirection);
+    }
+
+    [AvaloniaFact]
+    public void Watermark_Creates_AutomationPeer()
+    {
+        var watermark = new Watermark();
+        var peer = ControlAutomationPeer.CreatePeerForElement(watermark);
+        
+        Assert.IsType<WatermarkAutomationPeer>(peer);
+    }
+
+    [AvaloniaFact]
+    public void Watermark_AutomationPeer_Exposes_Text()
+    {
+        var watermark = new Watermark { Text = "SECRET" };
+        var peer = ControlAutomationPeer.CreatePeerForElement(watermark);
+        
+        Assert.Equal("SECRET", peer.GetName());
+    }
+
+    [AvaloniaFact]
+    public void Watermark_AutomationPeer_Exposes_Source_Name_When_No_Text()
+    {
+        var watermark = new Watermark { Source = new DrawingImage() };
+        var peer = ControlAutomationPeer.CreatePeerForElement(watermark);
+        
+        Assert.Equal("Watermark image", peer.GetName());
     }
 }
