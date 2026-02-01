@@ -81,10 +81,13 @@ public partial class ScratcherView : UserControl
         }
     }
     
-    private void OnResetBasicClick(object? sender, RoutedEventArgs e)
+    private async void OnResetBasicClick(object? sender, RoutedEventArgs e)
     {
         var scratcher = this.FindControl<Scratcher>("BasicScratcher");
-        scratcher?.Reset();
+        if (scratcher != null)
+        {
+            await scratcher.Reset();
+        }
         
         var progressText = this.FindControl<TextBlock>("BasicProgressText");
         if (progressText != null)
@@ -93,10 +96,13 @@ public partial class ScratcherView : UserControl
         }
     }
     
-    private void OnRevealBasicClick(object? sender, RoutedEventArgs e)
+    private async void OnRevealBasicClick(object? sender, RoutedEventArgs e)
     {
         var scratcher = this.FindControl<Scratcher>("BasicScratcher");
-        scratcher?.Reveal();
+        if (scratcher != null)
+        {
+            await scratcher.Reveal();
+        }
     }
     
 

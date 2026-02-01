@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Automation.Peers;
@@ -10,8 +11,8 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using AvaloniaPixelFormats = global::Avalonia.Platform.PixelFormats;
-using AvaloniaAlphaFormat = global::Avalonia.Platform.AlphaFormat;
+using AvaloniaPixelFormats = Avalonia.Platform.PixelFormats;
+using AvaloniaAlphaFormat = Avalonia.Platform.AlphaFormat;
 
 namespace Nova.Avalonia.UI.Controls;
 
@@ -37,6 +38,17 @@ public class Scratcher : ContentControl
         AffectsRender<Scratcher>(
             OverlayBrushProperty,
             BrushSizeProperty);
+
+        OverlayBrushProperty.Changed.AddClassHandler<Scratcher>((x, e) => x.OnOverlayBrushChanged(e));
+    }
+
+    private void OnOverlayBrushChanged(AvaloniaPropertyChangedEventArgs e)
+    {
+        if (_scratchBuffer != null)
+        {
+            FillBuffer(true);
+            _overlayImage?.InvalidateVisual();
+        }
     }
 
     /// <summary>
@@ -46,6 +58,7 @@ public class Scratcher : ContentControl
     {
         _progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
         _progressTimer.Tick += OnProgressTimerTick;
+        Focusable = true;
     }
 
     /// <summary>
@@ -74,6 +87,21 @@ public class Scratcher : ContentControl
         AvaloniaProperty.Register<Scratcher, bool>(nameof(RebuildOnResize), true);
 
     /// <summary>
+    /// Defines the <see cref="ScratchProgress"/> property.
+    /// </summary>
+    public static readonly DirectProperty<Scratcher, double> ScratchProgressProperty =
+        AvaloniaProperty.RegisterDirect<Scratcher, double>(
+            nameof(ScratchProgress),
+            o => o.ScratchProgress);
+
+    /// <summary>
+    /// Defines the <see cref="IsThresholdReached"/> property.
+    /// </summary>
+    public static readonly DirectProperty<Scratcher, bool> IsThresholdReachedProperty =
+        AvaloniaProperty.RegisterDirect<Scratcher, bool>(
+            nameof(IsThresholdReached),
+            o => o.IsThresholdReached);
+
     /// <summary>
     /// Defines the <see cref="ProgressChanged"/> routed event.
     /// </summary>
@@ -141,7 +169,6 @@ public class Scratcher : ContentControl
     }
 
     /// <summary>
-    /// <summary>
     /// Gets the current scratch progress (0-100).
     /// </summary>
     public double ScratchProgress => _scratchProgress;
@@ -205,7 +232,7 @@ public class Scratcher : ContentControl
     /// Resets the scratcher to its initial state, covering all content again.
     /// </summary>
     /// <param name="duration">Animation duration for reset. If null, resets instantly.</param>
-    public async void Reset(TimeSpan? duration = null)
+    public async Task Reset(TimeSpan? duration = null)
     {
         _isThresholdReached = false;
         _scratchProgress = 0;
@@ -235,7 +262,7 @@ public class Scratcher : ContentControl
     /// Reveals all content by removing the entire overlay.
     /// </summary>
     /// <param name="duration">Animation duration for reveal. If null, reveals instantly.</param>
-    public async void Reveal(TimeSpan? duration = null)
+    public async Task Reveal(TimeSpan? duration = null)
     {
         if (_scratchBuffer == null) return;
 
@@ -419,38 +446,77 @@ public class Scratcher : ContentControl
         _scratchProgress = 0;
         _isThresholdReached = false;
 
-        FillBuffer();
+        FillBuffer(false);
         UpdateOverlayImage();
     }
 
-    private void FillBuffer()
+    private void FillBuffer(bool preserveScratches)
     {
-        if (_scratchBuffer == null) return;
+        if (_scratchBuffer == null || _scratchBuffer.PixelSize.Width <= 0 || _scratchBuffer.PixelSize.Height <= 0) return;
 
-        using var fb = _scratchBuffer.Lock();
-        var width = fb.Size.Width;
-        var height = fb.Size.Height;
+        var width = _scratchBuffer.PixelSize.Width;
+        var height = _scratchBuffer.PixelSize.Height;
 
-        unsafe
+        using (var fb = _scratchBuffer.Lock())
         {
-            var ptr = (uint*)fb.Address;
-
-            if (OverlayBrush is SolidColorBrush scb)
+            unsafe
             {
-                var color = scb.Color;
-                uint pixel = (uint)((color.A << 24) | (color.R << 16) | (color.G << 8) | color.B);
+                var ptr = (uint*)fb.Address;
+                var total = width * height;
+                var brush = OverlayBrush ?? Brushes.Gray;
 
-                for (int i = 0; i < width * height; i++)
+                if (brush is ISolidColorBrush scb)
                 {
-                    ptr[i] = pixel;
+                    var color = scb.Color;
+                    uint pixel = (0xFFU << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | (uint)color.B;
+
+                    for (int i = 0; i < total; i++)
+                    {
+                        if (!preserveScratches || ptr[i] != 0)
+                        {
+                            ptr[i] = pixel;
+                        }
+                    }
                 }
-            }
-            else
-            {
-                uint grayPixel = 0xFF808080;
-                for (int i = 0; i < width * height; i++)
+                else
                 {
-                    ptr[i] = grayPixel;
+                    // For complex brushes, try to render to a temporary buffer we can read
+                    try
+                    {
+                        using var rtb = new RenderTargetBitmap(new PixelSize(width, height), new Vector(96, 96));
+                        using (var context = rtb.CreateDrawingContext())
+                        {
+                            context.FillRectangle(brush, new Rect(0, 0, width, height));
+                        }
+
+                        // We can't Lock RTB, so we copy it to a temporary WriteableBitmap
+                        using var temp = new WriteableBitmap(new PixelSize(width, height), new Vector(96, 96), AvaloniaPixelFormats.Bgra8888, AvaloniaAlphaFormat.Premul);
+                        using (var tempLock = temp.Lock())
+                        {
+                            rtb.CopyPixels(new PixelRect(rtb.PixelSize), tempLock.Address, tempLock.RowBytes * tempLock.Size.Height, tempLock.RowBytes);
+                            
+                            var tempPtr = (uint*)tempLock.Address;
+                            for (int i = 0; i < total; i++)
+                            {
+                                if (!preserveScratches || ptr[i] != 0)
+                                {
+                                    ptr[i] = tempPtr[i] | 0xFF000000;
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // Fallback to a safe gray if RTB/CopyPixels fails (common in headless tests)
+                        uint fallbackPixel = 0xFF808080;
+                        for (int i = 0; i < total; i++)
+                        {
+                            if (!preserveScratches || ptr[i] != 0)
+                            {
+                                ptr[i] = fallbackPixel;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -484,17 +550,20 @@ public class Scratcher : ContentControl
         var distance = Math.Sqrt(Math.Pow(to.X - from.X, 2) + Math.Pow(to.Y - from.Y, 2));
         var steps = Math.Max(1, (int)(distance / (radius / 2)));
 
-        for (int i = 0; i <= steps; i++)
+        using (var fb = _scratchBuffer.Lock())
         {
-            var t = steps > 0 ? (double)i / steps : 0;
-            var x = from.X + (to.X - from.X) * t;
-            var y = from.Y + (to.Y - from.Y) * t;
-            ScratchCircle((int)x, (int)y, (int)radius);
+            for (int i = 0; i <= steps; i++)
+            {
+                var t = steps > 0 ? (double)i / steps : 0;
+                var x = from.X + (to.X - from.X) * t;
+                var y = from.Y + (to.Y - from.Y) * t;
+                ScratchCircleInternal(fb, (int)x, (int)y, (int)radius);
+            }
         }
 
         _overlayImage?.InvalidateVisual();
         
-        // Update progress immediately to ensure threshold detection
+        // Ensure immediate threshold detection
         UpdateProgress();
     }
 
@@ -503,33 +572,38 @@ public class Scratcher : ContentControl
         if (_scratchBuffer == null) return;
 
         using var fb = _scratchBuffer.Lock();
+        ScratchCircleInternal(fb, cx, cy, radius);
+        
+        _overlayImage?.InvalidateVisual();
+        UpdateProgress();
+    }
+
+    private unsafe void ScratchCircleInternal(global::Avalonia.Platform.ILockedFramebuffer fb, int cx, int cy, int radius)
+    {
         var width = fb.Size.Width;
         var height = fb.Size.Height;
         var radiusSq = radius * radius;
+        var ptr = (uint*)fb.Address;
 
-        unsafe
+        var minX = Math.Max(0, cx - radius);
+        var maxX = Math.Min(width - 1, cx + radius);
+        var minY = Math.Max(0, cy - radius);
+        var maxY = Math.Min(height - 1, cy + radius);
+
+        for (int y = minY; y <= maxY; y++)
         {
-            var ptr = (uint*)fb.Address;
-
-            var minX = Math.Max(0, cx - radius);
-            var maxX = Math.Min(width - 1, cx + radius);
-            var minY = Math.Max(0, cy - radius);
-            var maxY = Math.Min(height - 1, cy + radius);
-
-            for (int y = minY; y <= maxY; y++)
+            var rowOffset = y * width;
+            for (int x = minX; x <= maxX; x++)
             {
-                for (int x = minX; x <= maxX; x++)
+                var dx = x - cx;
+                var dy = y - cy;
+                if (dx * dx + dy * dy <= radiusSq)
                 {
-                    var dx = x - cx;
-                    var dy = y - cy;
-                    if (dx * dx + dy * dy <= radiusSq)
+                    var idx = rowOffset + x;
+                    if (ptr[idx] != 0)
                     {
-                        var idx = y * width + x;
-                        if (ptr[idx] != 0)
-                        {
-                            ptr[idx] = 0;
-                            _scratchedPixels++;
-                        }
+                        ptr[idx] = 0;
+                        _scratchedPixels++;
                     }
                 }
             }
@@ -561,6 +635,12 @@ public class Scratcher : ContentControl
         {
             _isThresholdReached = true;
             RaiseEvent(new RoutedEventArgs(ThresholdReachedEvent));
+            RaisePropertyChanged(IsThresholdReachedProperty, false, true);
+        }
+
+        if (previousProgress != _scratchProgress)
+        {
+            RaisePropertyChanged(ScratchProgressProperty, previousProgress, _scratchProgress);
         }
     }
 }

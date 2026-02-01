@@ -3,25 +3,39 @@
              xmlns:controls="using:Nova.Avalonia.UI.Controls"
              x:Class="Nova.Avalonia.UI.Gallery.Views.ScratcherView">
     
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="ScratcherOverlayBrush" Color="#A0A0A0" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="ScratcherOverlayBrush" Color="#404040" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <ScrollViewer>
-        <StackPanel Spacing="30" Margin="20">
-            <TextBlock Text="Scratcher Control" FontWeight="Bold" FontSize="24" />
-            <TextBlock Text="An interactive control that hides content beneath a scratchable overlay." 
-                       TextWrapping="Wrap" Opacity="0.7" />
+        <StackPanel Spacing="20" Margin="20">
             
             <!-- Basic Scratcher -->
-            <Border BorderBrush="{DynamicResource SystemAccentColor}" 
-                    BorderThickness="1" 
-                    Padding="20" 
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
+                    BorderThickness="2" 
+                    Padding="15" 
                     CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Basic Scratcher" FontWeight="SemiBold" FontSize="18" />
-                    <TextBlock Text="Scratch the gray area to reveal the hidden prize!" Opacity="0.6" />
+                    <TextBlock Text="Basic Scratcher" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Scratch the gray area to reveal the hidden prize!" 
+                               Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:Scratcher x:Name="BasicScratcher"
                                         Width="300" 
                                         Height="150"
-                                        OverlayBrush="{DynamicResource SystemBaseMediumColor}"
+                                        OverlayBrush="{DynamicResource ScratcherOverlayBrush}"
                                         BrushSize="40"
                                         Threshold="60"
                                         CornerRadius="8"
@@ -50,12 +64,17 @@
             </Border>
             
             <!-- Colored Overlay -->
-            <Border BorderBrush="{DynamicResource SystemAccentColor}" 
-                    BorderThickness="1" 
-                    Padding="20" 
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
+                    BorderThickness="2" 
+                    Padding="15" 
                     CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Colored Gradient Overlay" FontWeight="SemiBold" FontSize="18" />
+                    <TextBlock Text="Colored Gradient Overlay" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Support for linear and radial gradients in the overlay." 
+                               Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:Scratcher x:Name="GradientScratcher"
                                         Width="300" 
@@ -86,17 +105,21 @@
             </Border>
             
             <!-- Different Brush Sizes -->
-            <Border BorderBrush="{DynamicResource SystemAccentColor}" 
-                    BorderThickness="1" 
-                    Padding="20" 
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
+                    BorderThickness="2" 
+                    Padding="15" 
                     CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Brush Size Comparison" FontWeight="SemiBold" FontSize="18" />
-                    <TextBlock Text="Compare different brush sizes: Small (20px), Medium (40px), Large (80px)" Opacity="0.6" />
+                    <TextBlock Text="Brush Sizes" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Compare different brush sizes: Small (20px), Medium (40px), Large (80px)" 
+                               Foreground="{DynamicResource SecondaryTextBrush}" />
                     
-                    <StackPanel Orientation="Horizontal" Spacing="20">
-                        <StackPanel Spacing="5">
-                            <TextBlock Text="Small (20px)" HorizontalAlignment="Center" />
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Spacing="5" Margin="0,0,20,10">
+                            <TextBlock Text="Small (20px)" HorizontalAlignment="Center" FontSize="12" Opacity="0.7" />
                             <controls:Scratcher Width="150" 
                                                 Height="100"
                                                 OverlayBrush="#607D8B"
@@ -112,8 +135,8 @@
                             </controls:Scratcher>
                         </StackPanel>
                         
-                        <StackPanel Spacing="5">
-                            <TextBlock Text="Medium (40px)" HorizontalAlignment="Center" />
+                        <StackPanel Spacing="5" Margin="0,0,20,10">
+                            <TextBlock Text="Medium (40px)" HorizontalAlignment="Center" FontSize="12" Opacity="0.7" />
                             <controls:Scratcher Width="150" 
                                                 Height="100"
                                                 OverlayBrush="#455A64"
@@ -129,8 +152,8 @@
                             </controls:Scratcher>
                         </StackPanel>
                         
-                        <StackPanel Spacing="5">
-                            <TextBlock Text="Large (80px)" HorizontalAlignment="Center" />
+                        <StackPanel Spacing="5" Margin="0,0,20,10">
+                            <TextBlock Text="Large (80px)" HorizontalAlignment="Center" FontSize="12" Opacity="0.7" />
                             <controls:Scratcher Width="150" 
                                                 Height="100"
                                                 OverlayBrush="#37474F"
@@ -145,18 +168,22 @@
                                 </Border>
                             </controls:Scratcher>
                         </StackPanel>
-                    </StackPanel>
+                    </WrapPanel>
                 </StackPanel>
             </Border>
             
             <!-- Threshold Example -->
-            <Border BorderBrush="{DynamicResource SystemAccentColor}" 
-                    BorderThickness="1" 
-                    Padding="20" 
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
+                    BorderThickness="2" 
+                    Padding="15" 
                     CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Threshold Detection" FontWeight="SemiBold" FontSize="18" />
-                    <TextBlock Text="The message below will appear when 70% is scratched." Opacity="0.6" />
+                    <TextBlock Text="Threshold Detection" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="The message below will appear when 70% is scratched." 
+                               Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:Scratcher x:Name="ThresholdScratcher"
                                         Width="300" 
@@ -182,21 +209,25 @@
             </Border>
             
             <!-- Disabled State -->
-            <Border BorderBrush="{DynamicResource SystemAccentColor}" 
-                    BorderThickness="1" 
-                    Padding="20" 
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
+                    BorderThickness="2" 
+                    Padding="15" 
                     CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Disabled State" FontWeight="SemiBold" FontSize="18" />
-                    <TextBlock Text="The control cannot be scratched when disabled." Opacity="0.6" />
+                    <TextBlock Text="Disabled State" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="The control cannot be scratched when disabled." 
+                               Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:Scratcher Width="300" 
                                         Height="100"
                                         IsEnabled="False"
-                                        OverlayBrush="Gray"
+                                        OverlayBrush="{DynamicResource ScratcherOverlayBrush}"
                                         CornerRadius="8"
                                         HorizontalAlignment="Left">
-                        <Border Background="#9E9E9E" CornerRadius="8">
+                        <Border Background="{DynamicResource CardBackgroundBrush}" CornerRadius="8">
                             <TextBlock Text="Cannot Scratch Me" 
                                        FontSize="20"
                                        FontWeight="Bold"

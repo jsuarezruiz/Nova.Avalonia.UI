@@ -24,14 +24,14 @@ public class ScratcherAutomationPeer : ControlAutomationPeer
         var scratcher = (Scratcher)Owner;
         
         if (scratcher.IsThresholdReached)
-            return "Scratcher - Content revealed";
+            return "Scratcher: Content revealed";
         
-        return $"Scratcher - {scratcher.ScratchProgress:F0}% scratched. Press Space or Enter to reveal content.";
+        return "Scratcher";
     }
 
     protected override string? GetHelpTextCore()
     {
-        return "Interactive scratch card. Scratch to reveal hidden content, or press Space/Enter to reveal instantly.";
+        return "Interactive scratch card. Reveal hidden content by scratching or pressing Space/Enter.";
     }
 
     protected override bool IsContentElementCore() => true;

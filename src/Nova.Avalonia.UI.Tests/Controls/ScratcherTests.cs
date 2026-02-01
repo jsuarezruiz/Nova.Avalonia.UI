@@ -1,3 +1,7 @@
+using Avalonia;
+using Avalonia.Automation.Peers;
+using Avalonia.Automation.Provider;
+using Avalonia.Headless.XUnit;
 using Avalonia.Media;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
@@ -6,23 +10,21 @@ namespace Nova.Avalonia.UI.Tests.Controls;
 
 public class ScratcherTests
 {
-    [Fact]
+    [AvaloniaFact]
     public void BrushSize_DefaultValue_Is30()
     {
         var scratcher = new Scratcher();
-        
         Assert.Equal(30.0, scratcher.BrushSize);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Threshold_DefaultValue_Is50()
     {
         var scratcher = new Scratcher();
-        
         Assert.Equal(50.0, scratcher.Threshold);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Threshold_ClampedBetween0And100()
     {
         var scratcher = new Scratcher();
@@ -34,117 +36,193 @@ public class ScratcherTests
         Assert.Equal(0.0, scratcher.Threshold);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void OverlayBrush_DefaultValue_IsGray()
     {
         var scratcher = new Scratcher();
-        
         Assert.NotNull(scratcher.OverlayBrush);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void CornerRadius_DefaultValue_IsZero()
     {
         var scratcher = new Scratcher();
-        
         Assert.Equal(new CornerRadius(0), scratcher.CornerRadius);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void RebuildOnResize_DefaultValue_IsTrue()
     {
         var scratcher = new Scratcher();
-        
         Assert.True(scratcher.RebuildOnResize);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void ScratchProgress_InitialValue_IsZero()
     {
         var scratcher = new Scratcher();
-        
         Assert.Equal(0.0, scratcher.ScratchProgress);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void IsThresholdReached_InitialValue_IsFalse()
     {
         var scratcher = new Scratcher();
-        
         Assert.False(scratcher.IsThresholdReached);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void IsScratching_InitialValue_IsFalse()
     {
         var scratcher = new Scratcher();
-        
         Assert.False(scratcher.IsScratching);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void OverlayBrush_CanBeSet()
     {
         var scratcher = new Scratcher { OverlayBrush = Brushes.Red };
-        
         Assert.Equal(Brushes.Red, scratcher.OverlayBrush);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void BrushSize_CanBeSet()
     {
         var scratcher = new Scratcher { BrushSize = 50.0 };
-        
         Assert.Equal(50.0, scratcher.BrushSize);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void OverlayBrush_AcceptsGradient()
     {
         var gradient = new LinearGradientBrush();
         var scratcher = new Scratcher { OverlayBrush = gradient };
-        
         Assert.Equal(gradient, scratcher.OverlayBrush);
     }
 
-    }
-    }
-
-    [Fact]
+    [AvaloniaFact]
     public void Reset_ResetsProgress()
     {
-        var scratcher = new Scratcher();
-        // Simulate progress
-        // Note: In a real scenario we'd need to mock the internals or use reflection to set _scratchProgress
-        // But we can check that Reset doesn't throw and sets state
+        var scratcher = new Scratcher { Width = 100, Height = 100 };
+        var window = new global::Avalonia.Controls.Window { Content = scratcher };
+        window.Show();
+        
+        // Ensure layout passes and buffer creation
+        scratcher.Measure(new Size(100, 100));
+        scratcher.Arrange(new Rect(0, 0, 100, 100));
         
         scratcher.Reset();
+        
         Assert.Equal(0.0, scratcher.ScratchProgress);
         Assert.False(scratcher.IsThresholdReached);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Reveal_SetsProgressTo100()
     {
-        var scratcher = new Scratcher();
+        var scratcher = new Scratcher { Width = 100, Height = 100 };
+        var window = new global::Avalonia.Controls.Window { Content = scratcher };
+        window.Show();
         
-        // We can't fully test side effects without a window/renderer, 
-        // but we can verify the state changes if buffer exists.
-        // However, buffer is created on Measure/Arrange which requires a rooted visual tree.
-        // So for now we just verify it handles null buffer gracefully.
+        scratcher.Measure(new Size(100, 100));
+        scratcher.Arrange(new Rect(0, 0, 100, 100));
         
         scratcher.Reveal();
-        // Since there's no buffer in unit test environment, progress won't update to 100
-        // unless we mock the buffer creation. 
-        // But we can verify it doesn't crash.
-    }
-
+        
+        Assert.Equal(100.0, scratcher.ScratchProgress);
+        Assert.True(scratcher.IsThresholdReached);
     }
     
-    [Fact]
+    [AvaloniaFact]
     public void CornerRadius_CanBeSet()
     {
         var scratcher = new Scratcher { CornerRadius = new CornerRadius(5) };
         Assert.Equal(new CornerRadius(5), scratcher.CornerRadius);
+    }
+
+    [AvaloniaFact]
+    public void RebuildOnResize_CanBeToggled()
+    {
+        var scratcher = new Scratcher { RebuildOnResize = false };
+        Assert.False(scratcher.RebuildOnResize);
+        
+        scratcher.RebuildOnResize = true;
+        Assert.True(scratcher.RebuildOnResize);
+    }
+
+    [AvaloniaFact]
+    public void IsEnabled_DefaultValue_IsTrue()
+    {
+        var scratcher = new Scratcher();
+        Assert.True(scratcher.IsEnabled);
+    }
+
+    [AvaloniaFact]
+    public void ScratchProgress_IsReadOnly()
+    {
+        var property = typeof(Scratcher).GetProperty(nameof(Scratcher.ScratchProgress));
+        Assert.NotNull(property);
+        Assert.Null(property.GetSetMethod());
+    }
+
+    [AvaloniaFact]
+    public void IsThresholdReached_IsReadOnly()
+    {
+        var property = typeof(Scratcher).GetProperty(nameof(Scratcher.IsThresholdReached));
+        Assert.NotNull(property);
+        Assert.Null(property.GetSetMethod());
+    }
+
+    [AvaloniaFact]
+    public void Scratcher_IsFocusableByDefault()
+    {
+        var scratcher = new Scratcher();
+        Assert.True(scratcher.Focusable);
+    }
+
+    [AvaloniaFact]
+    public void ScratcherAutomationPeer_Returns_Correct_ClassName()
+    {
+        var scratcher = new Scratcher();
+        var peer = new ScratcherAutomationPeer(scratcher);
+        Assert.Equal("Scratcher", peer.GetClassName());
+    }
+
+    [AvaloniaFact]
+    public void ScratcherAutomationPeer_Returns_Correct_Name()
+    {
+        var scratcher = new Scratcher { Width = 100, Height = 100 };
+        var window = new global::Avalonia.Controls.Window { Content = scratcher };
+        window.Show();
+        
+        var peer = new ScratcherAutomationPeer(scratcher);
+        Assert.Equal("Scratcher", peer.GetName());
+        
+        scratcher.Reveal();
+        Assert.Equal("Scratcher: Content revealed", peer.GetName());
+    }
+
+    [AvaloniaFact]
+    public void ScratchPreservation_OnBrushChange()
+    {
+        var scratcher = new Scratcher
+        {
+            Width = 100,
+            Height = 100,
+            OverlayBrush = Brushes.Gray
+        };
+
+        // Initialize
+        scratcher.ApplyTemplate();
+        scratcher.Measure(new Size(100, 100));
+        scratcher.Arrange(new Rect(0, 0, 100, 100));
+
+        // Scratch some area (approx 100%)
+        scratcher.Reveal(); 
+        Assert.Equal(100, scratcher.ScratchProgress);
+
+        // Change brush - this should NOT reset progress to 0
+        scratcher.OverlayBrush = Brushes.Silver;
+        Assert.Equal(100, scratcher.ScratchProgress);
     }
 }
