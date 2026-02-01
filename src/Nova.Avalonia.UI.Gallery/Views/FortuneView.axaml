@@ -80,7 +80,10 @@
     <ScrollViewer Margin="20">
         <StackPanel Spacing="20">
             
-            <TextBlock Text="Fortune Controls" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBlock Text="Interactive spin-to-win wheel and scrolling bar controls for games and random selection." 
+                       Theme="{StaticResource BodyTextBlockStyle}" 
+                       Opacity="0.6" 
+                       TextWrapping="Wrap"/>
 
             <!-- Basic FortuneWheel -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
