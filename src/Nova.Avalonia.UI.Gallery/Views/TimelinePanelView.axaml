@@ -1,0 +1,148 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1200"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.TimelinePanelView"
+             x:DataType="vm:TimelinePanelViewModel">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="A layout panel for timeline-style step/process flows." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
+
+            <!-- Basic Vertical Timeline -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Vertical Timeline" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Items flow vertically with space for a connector line." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
+                        <controls:TimelinePanel Orientation="Vertical" ConnectorWidth="50" Spacing="15">
+                            <Border Background="#3498DB" CornerRadius="8" Padding="15">
+                                <StackPanel>
+                                    <TextBlock Text="Step 1: Planning" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="Define project scope and goals" Foreground="White" Opacity="0.8"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#2ECC71" CornerRadius="8" Padding="15">
+                                <StackPanel>
+                                    <TextBlock Text="Step 2: Design" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="Create wireframes and mockups" Foreground="White" Opacity="0.8"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#E74C3C" CornerRadius="8" Padding="15">
+                                <StackPanel>
+                                    <TextBlock Text="Step 3: Development" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="Build the application" Foreground="White" Opacity="0.8"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#9B59B6" CornerRadius="8" Padding="15">
+                                <StackPanel>
+                                    <TextBlock Text="Step 4: Launch" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="Deploy to production" Foreground="White" Opacity="0.8"/>
+                                </StackPanel>
+                            </Border>
+                        </controls:TimelinePanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Alternating Timeline -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Alternating Timeline" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Items alternate left and right of the connector." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
+                        <controls:TimelinePanel Orientation="Vertical" ConnectorWidth="40" Spacing="10" AlternateItems="True">
+                            <Border Width="150" Background="#FF6B6B" CornerRadius="8" Padding="10">
+                                <TextBlock Text="2020" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Width="150" Background="#4ECDC4" CornerRadius="8" Padding="10">
+                                <TextBlock Text="2021" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Width="150" Background="#45B7D1" CornerRadius="8" Padding="10">
+                                <TextBlock Text="2022" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Width="150" Background="#FFA07A" CornerRadius="8" Padding="10">
+                                <TextBlock Text="2023" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Width="150" Background="#98D8C8" CornerRadius="8" Padding="10">
+                                <TextBlock Text="2024" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                            </Border>
+                        </controls:TimelinePanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Configuration -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <Grid ColumnDefinitions="Auto, *, 50" RowDefinitions="Auto, Auto, Auto">
+                        <TextBlock Text="Item Spacing" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Slider Grid.Column="1" Minimum="5" Maximum="50" Value="{Binding Spacing}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Spacing, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                        <TextBlock Grid.Row="1" Text="Connector Width" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Slider Grid.Row="1" Grid.Column="1" Minimum="20" Maximum="80" Value="{Binding ConnectorWidth}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding ConnectorWidth, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                        <TextBlock Grid.Row="2" Text="Alternate Items" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding AlternateItems}"/>
+                    </Grid>
+
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
+                        <controls:TimelinePanel Orientation="Vertical" 
+                                                Spacing="{Binding Spacing}"
+                                                ConnectorWidth="{Binding ConnectorWidth}"
+                                                AlternateItems="{Binding AlternateItems}"
+                                                HorizontalAlignment="Center">
+                            <Border Width="120" Height="50" Background="#3498DB" CornerRadius="8"/>
+                            <Border Width="120" Height="50" Background="#2ECC71" CornerRadius="8"/>
+                            <Border Width="120" Height="50" Background="#E74C3C" CornerRadius="8"/>
+                            <Border Width="120" Height="50" Background="#F39C12" CornerRadius="8"/>
+                        </controls:TimelinePanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+            <!-- Dynamic Items -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Add or remove items to see timeline layout reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Add Item" Command="{Binding AddItemCommand}"/>
+                        <Button Content="Remove Item" Command="{Binding RemoveItemCommand}"/>
+                        <TextBlock Text="{Binding Items.Count, StringFormat='Count: {0}'}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
+                        <ItemsControl ItemsSource="{Binding Items}" HorizontalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:TimelinePanel Orientation="Vertical"
+                                                            Spacing="{Binding $parent[ItemsControl].DataContext.Spacing}"
+                                                            ConnectorWidth="{Binding $parent[ItemsControl].DataContext.ConnectorWidth}"
+                                                            AlternateItems="{Binding $parent[ItemsControl].DataContext.AlternateItems}"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="120" Height="50" Background="{Binding Brush}" CornerRadius="8" Padding="10">
+                                        <TextBlock Text="{Binding Title}" Foreground="White" FontWeight="Bold" 
+                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

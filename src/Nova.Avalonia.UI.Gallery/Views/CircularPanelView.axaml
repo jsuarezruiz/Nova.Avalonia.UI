@@ -1,0 +1,135 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1200"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.CircularPanelView"
+             x:DataType="vm:CircularPanelViewModel">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="A layout panel that arranges items in a circular pattern." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
+
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Items are automatically distributed around a circle." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="280">
+                        <controls:CircularPanel Radius="80" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="40" Height="40" Background="#FF6B6B" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#4ECDC4" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#45B7D1" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#FFA07A" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#98D8C8" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#F7DC6F" CornerRadius="20"/>
+                        </controls:CircularPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Layout Configuration -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Adjust Radius, StartAngle, and Orientation dynamically." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <!-- Controls -->
+                    <StackPanel Spacing="10" Margin="0,0,0,10">
+                        <Grid ColumnDefinitions="Auto, *, 50" RowDefinitions="Auto, Auto, Auto, Auto">
+                            <TextBlock Text="Radius" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Slider Grid.Column="1" Minimum="30" Maximum="150" Value="{Binding Radius}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Radius, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <TextBlock Grid.Row="1" Text="Start Angle" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="360" Value="{Binding StartAngle}" />
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding StartAngle, StringFormat='{}{0:0}°'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <TextBlock Grid.Row="2" Text="Angle Step" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Slider Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="90" Value="{Binding AngleStep}" />
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding AngleStep, StringFormat='{}{0:0}°'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <TextBlock Grid.Row="3" Text="Clockwise" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding IsClockwise}" />
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Preview -->
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="280" ClipToBounds="True">
+                        <controls:CircularPanel Radius="{Binding Radius}" StartAngle="{Binding StartAngle}" SweepDirection="{Binding SweepDirection}">
+                            <Border Width="50" Height="50" Background="#FF6B6B" CornerRadius="25"/>
+                            <Border Width="50" Height="50" Background="#4ECDC4" CornerRadius="25"/>
+                            <Border Width="50" Height="50" Background="#45B7D1" CornerRadius="25"/>
+                            <Border Width="50" Height="50" Background="#FFA07A" CornerRadius="25"/>
+                            <Border Width="50" Height="50" Background="#98D8C8" CornerRadius="25"/>
+                            <Border Width="50" Height="50" Background="#F7DC6F" CornerRadius="25"/>
+                            <Border Width="50" Height="50" Background="#BB8FCE" CornerRadius="25"/>
+                            <Border Width="50" Height="50" Background="#85C1E9" CornerRadius="25"/>
+                        </controls:CircularPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Dynamic Items -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Add or remove items to see the layout reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Add Item" Command="{Binding AddItemCommand}"/>
+                        <Button Content="Remove Item" Command="{Binding RemoveItemCommand}"/>
+                        <TextBlock Text="{Binding Items.Count, StringFormat='Count: {0}'}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="300" ClipToBounds="True">
+                        <ItemsControl ItemsSource="{Binding Items}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:CircularPanel Radius="100"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="40" Height="40" Background="{Binding Brush}" CornerRadius="20">
+                                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                   Foreground="White" FontSize="9"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Clock Example -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Clock Layout" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="StartAngle=-90 positions 12 at the top." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="280">
+                        <controls:CircularPanel Radius="100" StartAngle="-90" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="12" FontWeight="Bold"/>
+                            <TextBlock Text="1"/>
+                            <TextBlock Text="2"/>
+                            <TextBlock Text="3" FontWeight="Bold"/>
+                            <TextBlock Text="4"/>
+                            <TextBlock Text="5"/>
+                            <TextBlock Text="6" FontWeight="Bold"/>
+                            <TextBlock Text="7"/>
+                            <TextBlock Text="8"/>
+                            <TextBlock Text="9" FontWeight="Bold"/>
+                            <TextBlock Text="10"/>
+                            <TextBlock Text="11"/>
+                        </controls:CircularPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
