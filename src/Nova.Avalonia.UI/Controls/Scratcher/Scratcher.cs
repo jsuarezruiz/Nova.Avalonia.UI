@@ -415,7 +415,7 @@ public class Scratcher : ContentControl
         base.OnKeyDown(e);
         if (e.Key == Key.Space || e.Key == Key.Enter)
         {
-            Reveal();
+            _ = Reveal();
             e.Handled = true;
         }
     }
