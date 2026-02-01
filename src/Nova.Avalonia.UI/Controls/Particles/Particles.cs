@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Threading;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Nova.Avalonia.UI.Controls;
 
@@ -13,12 +16,18 @@ namespace Nova.Avalonia.UI.Controls;
 /// </summary>
 public class Particles : TemplatedControl
 {
+    private static readonly Dictionary<ParticleShape, StreamGeometry> ShapeGeometries = CreateShapeGeometries();
+    private readonly Dictionary<Color, IBrush> _brushCache = new();
+    private readonly ObservableCollection<ParticleAffector> _affectors = new();
     private readonly ObservableCollection<Particle> _items = new();
     private readonly ParticlePool _particlePool = new();
     private readonly DispatcherTimer _updateTimer;
-    private DateTime _lastUpdate;
+    private readonly Stopwatch _stopwatch = new();
+    private double _lastElapsedSeconds;
     private TimeSpan _totalElapsed;
     private Point _originPoint;
+    private ParticleUpdateEventArgs? _sharedArgs;
+    private ParticleSpriteSheet? _sharedSpriteSheet;
 
     /// <summary>
     /// Defines the <see cref="Items"/> property.
@@ -27,6 +36,14 @@ public class Particles : TemplatedControl
         AvaloniaProperty.RegisterDirect<Particles, ObservableCollection<Particle>>(
             nameof(Items),
             o => o.Items);
+
+    /// <summary>
+    /// Defines the <see cref="Affectors"/> property.
+    /// </summary>
+    public static readonly DirectProperty<Particles, ObservableCollection<ParticleAffector>> AffectorsProperty =
+        AvaloniaProperty.RegisterDirect<Particles, ObservableCollection<ParticleAffector>>(
+            nameof(Affectors),
+            o => o.Affectors);
 
     /// <summary>
     /// Defines the <see cref="Source"/> property.
@@ -101,7 +118,6 @@ public class Particles : TemplatedControl
             Interval = TimeSpan.FromMilliseconds(1000.0 / 60.0)
         };
         _updateTimer.Tick += OnUpdateTick;
-        _lastUpdate = DateTime.Now;
 
         AttachedToVisualTree += (s, e) =>
         {
@@ -121,6 +137,11 @@ public class Particles : TemplatedControl
     /// Gets the collection of particles.
     /// </summary>
     public ObservableCollection<Particle> Items => _items;
+
+    /// <summary>
+    /// Gets the collection of affectors that modify particles over time.
+    /// </summary>
+    public ObservableCollection<ParticleAffector> Affectors => _affectors;
 
     /// <summary>
     /// Gets or sets the sprite sheet image source for particles.
@@ -192,7 +213,8 @@ public class Particles : TemplatedControl
     {
         if (!_updateTimer.IsEnabled)
         {
-            _lastUpdate = DateTime.Now;
+            _stopwatch.Start();
+            _lastElapsedSeconds = _stopwatch.Elapsed.TotalSeconds;
             _updateTimer.Start();
         }
     }
@@ -203,6 +225,7 @@ public class Particles : TemplatedControl
     public void Stop()
     {
         _updateTimer.Stop();
+        _stopwatch.Stop();
     }
 
     /// <summary>
@@ -251,7 +274,7 @@ public class Particles : TemplatedControl
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
-
+        
         if (change.Property == IsRunningProperty)
         {
             if (IsRunning && VisualRoot != null)
@@ -282,7 +305,6 @@ public class Particles : TemplatedControl
     /// <inheritdoc/>
     public override void Render(DrawingContext context)
     {
-        // Draw background manually since we don't use a template
         if (Background != null)
         {
             context.DrawRectangle(Background, null, new Rect(Bounds.Size));
@@ -292,82 +314,215 @@ public class Particles : TemplatedControl
 
         if (_items.Count == 0) return;
 
-        var spriteSheet = new ParticleSpriteSheet
-        {
-            Image = Source,
-            FrameWidth = (int)FrameSize.Width,
-            FrameHeight = (int)FrameSize.Height,
-            Columns = FrameColumns
-        };
+        if (_sharedSpriteSheet == null)
+            _sharedSpriteSheet = new ParticleSpriteSheet();
 
-        RenderParticles(context, spriteSheet);
+        _sharedSpriteSheet.Image = Source;
+        _sharedSpriteSheet.FrameWidth = (int)FrameSize.Width;
+        _sharedSpriteSheet.FrameHeight = (int)FrameSize.Height;
+        _sharedSpriteSheet.Columns = FrameColumns;
+ 
+        var viewport = new Rect(Bounds.Size);
+        RenderParticles(context, _sharedSpriteSheet, viewport);
     }
 
     private void OnUpdateTick(object? sender, EventArgs e)
     {
-        if (!IsRunning) return;
-
-        var now = DateTime.Now;
-        var deltaTime = (now - _lastUpdate).TotalSeconds;
-        _lastUpdate = now;
+        if (!IsRunning || VisualRoot == null) return;
+ 
+        var currentElapsed = _stopwatch.Elapsed.TotalSeconds;
+        var deltaTime = currentElapsed - _lastElapsedSeconds;
+        
+        if (deltaTime <= 0) return;
+        if (deltaTime > 0.1) deltaTime = 0.1;
+        
+        _lastElapsedSeconds = currentElapsed;
         _totalElapsed += TimeSpan.FromSeconds(deltaTime);
-
-        // Update timer interval if frame rate changed
-        var targetInterval = 1000.0 / TargetFrameRate;
-        if (Math.Abs(_updateTimer.Interval.TotalMilliseconds - targetInterval) > 1)
+ 
+        foreach (var affector in _affectors)
         {
-            _updateTimer.Interval = TimeSpan.FromMilliseconds(targetInterval);
+            affector.Update(deltaTime);
+        }
+ 
+        // Update particles in parallel for high performance
+        if (_items.Count > 100)
+        {
+            Parallel.For(0, _items.Count, i =>
+            {
+                var particle = _items[i];
+                particle.LifeTime += deltaTime;
+                foreach (var affector in _affectors)
+                {
+                    affector.Apply(particle, deltaTime);
+                }
+                particle.UpdatePosition(deltaTime);
+            });
+        }
+        else
+        {
+            for (int i = 0; i < _items.Count; i++)
+            {
+                var particle = _items[i];
+                particle.LifeTime += deltaTime;
+                foreach (var affector in _affectors)
+                {
+                    affector.Apply(particle, deltaTime);
+                }
+                particle.UpdatePosition(deltaTime);
+            }
         }
 
-        // Update particle lifetimes
+        // Cleanup inactive particles
         for (int i = _items.Count - 1; i >= 0; i--)
         {
-            _items[i].LifeTime += deltaTime;
+            var particle = _items[i];
+            if (particle.Opacity <= 0 || !particle.IsActive)
+            {
+                _particlePool.Return(particle);
+                _items.RemoveAt(i);
+            }
+        }
+ 
+        if (Update != null)
+        {
+            if (_sharedArgs == null)
+            {
+                _sharedArgs = new ParticleUpdateEventArgs(_items, _totalElapsed, deltaTime, Bounds.Size);
+            }
+            else
+            {
+                // Internal update of existing args to avoid allocation
+                _sharedArgs.Update(deltaTime, _totalElapsed, Bounds.Size);
+            }
+            Update.Invoke(this, _sharedArgs);
+        }
+ 
+        InvalidateVisual();
+    }
+
+    private static Dictionary<ParticleShape, StreamGeometry> CreateShapeGeometries()
+    {
+        var geometries = new Dictionary<ParticleShape, StreamGeometry>();
+
+        // Circle and Square are better drawn with DrawEllipse/DrawRectangle for performance, 
+        // but for consistency we can also use geometries.
+        // However, we'll keep the specialized methods for Circle/Square/Rect and use geometries for Tri/Star.
+
+        geometries[ParticleShape.Triangle] = CreateTriangleGeometry();
+        geometries[ParticleShape.Star] = CreateStarGeometry();
+
+        // Freeze geometries for thread safety and performance
+        foreach (var g in geometries.Values)
+        {
+            // Avalonia geometries don't have a Freeze method like WPF, 
+            // but closing the StreamGeometry makes it immutable.
         }
 
-        // Raise update event for user-defined logic
-        var args = new ParticleUpdateEventArgs(
-            _items,
-            _totalElapsed,
-            deltaTime,
-            Bounds.Size);
+        return geometries;
+    }
 
-        Update?.Invoke(this, args);
+    private static StreamGeometry CreateTriangleGeometry()
+    {
+        var geometry = new StreamGeometry();
+        using (var ctx = geometry.Open())
+        {
+            const double size = 1.0;
+            const double halfSize = size / 2.0;
+            ctx.BeginFigure(new Point(0, -halfSize), true);
+            ctx.LineTo(new Point(halfSize, halfSize));
+            ctx.LineTo(new Point(-halfSize, halfSize));
+            ctx.EndFigure(true);
+        }
+        return geometry;
+    }
 
-        InvalidateVisual();
+    private static StreamGeometry CreateStarGeometry()
+    {
+        var geometry = new StreamGeometry();
+        using (var ctx = geometry.Open())
+        {
+            const double outerRadius = 0.5;
+            const double innerRadius = 0.25;
+            ctx.BeginFigure(new Point(0, -outerRadius), true);
+            ctx.LineTo(new Point(innerRadius * 0.7, -innerRadius * 0.7));
+            ctx.LineTo(new Point(outerRadius, 0));
+            ctx.LineTo(new Point(innerRadius * 0.7, innerRadius * 0.7));
+            ctx.LineTo(new Point(0, outerRadius));
+            ctx.LineTo(new Point(-innerRadius * 0.7, innerRadius * 0.7));
+            ctx.LineTo(new Point(-outerRadius, 0));
+            ctx.LineTo(new Point(-innerRadius * 0.7, -innerRadius * 0.7));
+            ctx.EndFigure(true);
+        }
+        return geometry;
+    }
+
+    private IBrush GetBrush(Color color)
+    {
+        if (!_brushCache.TryGetValue(color, out var brush))
+        {
+            if (_brushCache.Count > 100) _brushCache.Clear();
+            brush = new SolidColorBrush(color);
+            _brushCache[color] = brush;
+        }
+        return brush;
     }
 
     private void UpdateOriginPoint(Size size)
     {
         _originPoint = Origin.ToPixels(new Rect(size));
     }
-
-    private void RenderParticles(DrawingContext context, ParticleSpriteSheet spriteSheet)
+ 
+    private void RenderParticles(DrawingContext context, ParticleSpriteSheet spriteSheet, Rect viewport)
     {
         foreach (var particle in _items)
         {
             if (particle.Opacity <= 0) continue;
-
+ 
             var renderX = _originPoint.X + particle.X;
             var renderY = _originPoint.Y + particle.Y;
+            
+            // Viewport clipping (rough check)
+            var size = 16 * particle.Scale; // Heuristic size for clipping
+            if (renderX + size < viewport.Left || renderX - size > viewport.Right ||
+                renderY + size < viewport.Top || renderY - size > viewport.Bottom)
+            {
+                continue;
+            }
+
+            var hasOpacity = particle.Opacity < 0.999;
+            var hasRotation = Math.Abs(particle.Rotation) > 0.001;
 
             if (spriteSheet.Image != null)
             {
                 var sourceRect = spriteSheet.GetFrameRect(particle.Frame);
-
                 var destRect = new Rect(
                     renderX - sourceRect.Width * particle.Scale / 2,
                     renderY - sourceRect.Height * particle.Scale / 2,
                     sourceRect.Width * particle.Scale,
                     sourceRect.Height * particle.Scale);
 
-                using (context.PushOpacity(particle.Opacity))
+                if (hasOpacity)
                 {
-                    if (Math.Abs(particle.Rotation) > 0.001)
+                    using (context.PushOpacity(particle.Opacity))
                     {
-                        using (context.PushTransform(Matrix.CreateRotation(
-                            particle.Rotation * Math.PI / 180,
-                            new Point(renderX, renderY))))
+                        if (hasRotation)
+                        {
+                            using (context.PushTransform(Matrix.CreateRotation(particle.Rotation * Math.PI / 180, new Point(renderX, renderY))))
+                            {
+                                context.DrawImage(spriteSheet.Image, sourceRect, destRect);
+                            }
+                        }
+                        else
+                        {
+                            context.DrawImage(spriteSheet.Image, sourceRect, destRect);
+                        }
+                    }
+                }
+                else
+                {
+                    if (hasRotation)
+                    {
+                        using (context.PushTransform(Matrix.CreateRotation(particle.Rotation * Math.PI / 180, new Point(renderX, renderY))))
                         {
                             context.DrawImage(spriteSheet.Image, sourceRect, destRect);
                         }
@@ -380,17 +535,31 @@ public class Particles : TemplatedControl
             }
             else
             {
-                // Fallback: render shapes based on particle.Shape
-                var brush = new SolidColorBrush(particle.Color);
+                var brush = GetBrush(particle.Color);
                 var baseSize = 8 * particle.Scale;
 
-                using (context.PushOpacity(particle.Opacity))
+                if (hasOpacity)
                 {
-                    if (Math.Abs(particle.Rotation) > 0.001)
+                    using (context.PushOpacity(particle.Opacity))
                     {
-                        using (context.PushTransform(Matrix.CreateRotation(
-                            particle.Rotation * Math.PI / 180,
-                            new Point(renderX, renderY))))
+                        if (hasRotation)
+                        {
+                            using (context.PushTransform(Matrix.CreateRotation(particle.Rotation * Math.PI / 180, new Point(renderX, renderY))))
+                            {
+                                RenderShape(context, brush, renderX, renderY, baseSize, particle.Shape);
+                            }
+                        }
+                        else
+                        {
+                            RenderShape(context, brush, renderX, renderY, baseSize, particle.Shape);
+                        }
+                    }
+                }
+                else
+                {
+                    if (hasRotation)
+                    {
+                        using (context.PushTransform(Matrix.CreateRotation(particle.Rotation * Math.PI / 180, new Point(renderX, renderY))))
                         {
                             RenderShape(context, brush, renderX, renderY, baseSize, particle.Shape);
                         }
@@ -422,34 +591,14 @@ public class Particles : TemplatedControl
                 context.DrawRectangle(brush, null, rectRect);
                 break;
             case ParticleShape.Triangle:
-                var triangleGeometry = new StreamGeometry();
-                using (var ctx = triangleGeometry.Open())
-                {
-                    var halfSize = size / 2;
-                    ctx.BeginFigure(new Point(x, y - halfSize), true);
-                    ctx.LineTo(new Point(x + halfSize, y + halfSize));
-                    ctx.LineTo(new Point(x - halfSize, y + halfSize));
-                    ctx.EndFigure(true);
-                }
-                context.DrawGeometry(brush, null, triangleGeometry);
-                break;
             case ParticleShape.Star:
-                var starGeometry = new StreamGeometry();
-                using (var ctx = starGeometry.Open())
+                if (ShapeGeometries.TryGetValue(shape, out var geometry))
                 {
-                    var outerRadius = size / 2;
-                    var innerRadius = size / 4;
-                    ctx.BeginFigure(new Point(x, y - outerRadius), true);
-                    ctx.LineTo(new Point(x + innerRadius * 0.7, y - innerRadius * 0.7));
-                    ctx.LineTo(new Point(x + outerRadius, y));
-                    ctx.LineTo(new Point(x + innerRadius * 0.7, y + innerRadius * 0.7));
-                    ctx.LineTo(new Point(x, y + outerRadius));
-                    ctx.LineTo(new Point(x - innerRadius * 0.7, y + innerRadius * 0.7));
-                    ctx.LineTo(new Point(x - outerRadius, y));
-                    ctx.LineTo(new Point(x - innerRadius * 0.7, y - innerRadius * 0.7));
-                    ctx.EndFigure(true);
+                    using (context.PushTransform(Matrix.CreateTranslation(x, y) * Matrix.CreateScale(size, size)))
+                    {
+                        context.DrawGeometry(brush, null, geometry);
+                    }
                 }
-                context.DrawGeometry(brush, null, starGeometry);
                 break;
             case ParticleShape.Line:
                 var lineHeight = size * 2;

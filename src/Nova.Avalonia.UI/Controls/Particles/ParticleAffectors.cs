@@ -3,34 +3,30 @@ using System;
 namespace Nova.Avalonia.UI.Controls;
 
 /// <summary>
-/// Base class for particle affectors that modify particle properties over time.
+/// Base class for particle affectors.
 /// </summary>
 public abstract class ParticleAffector
 {
     /// <summary>
-    /// Applies the affector's effect to a particle.
+    /// Updates the affector's internal state.
     /// </summary>
-    /// <param name="particle">The particle to affect.</param>
-    /// <param name="deltaTime">Time elapsed since last update in seconds.</param>
+    public virtual void Update(double deltaTime) { }
+
+    /// <summary>
+    /// Applies the effect to a particle.
+    /// </summary>
     public abstract void Apply(Particle particle, double deltaTime);
 }
 
 /// <summary>
-/// Applies gravity force to particles.
+/// Applies gravity to particles.
 /// </summary>
 public class GravityAffector : ParticleAffector
 {
-    /// <summary>
-    /// Gets or sets the gravity force on the X axis.
-    /// </summary>
     public double GravityX { get; set; }
 
-    /// <summary>
-    /// Gets or sets the gravity force on the Y axis. Default is 100 (downward).
-    /// </summary>
     public double GravityY { get; set; } = 100;
 
-    /// <inheritdoc/>
     public override void Apply(Particle particle, double deltaTime)
     {
         particle.VelocityX += GravityX * deltaTime;
@@ -43,12 +39,8 @@ public class GravityAffector : ParticleAffector
 /// </summary>
 public class FadeAffector : ParticleAffector
 {
-    /// <summary>
-    /// Gets or sets the fade rate in opacity units per second.
-    /// </summary>
     public double FadeRate { get; set; } = 0.5;
 
-    /// <inheritdoc/>
     public override void Apply(Particle particle, double deltaTime)
     {
         particle.Opacity = Math.Max(0, particle.Opacity - FadeRate * deltaTime);
@@ -60,12 +52,8 @@ public class FadeAffector : ParticleAffector
 /// </summary>
 public class RotationAffector : ParticleAffector
 {
-    /// <summary>
-    /// Gets or sets the rotation speed in degrees per second.
-    /// </summary>
     public double RotationSpeed { get; set; } = 90;
 
-    /// <inheritdoc/>
     public override void Apply(Particle particle, double deltaTime)
     {
         particle.Rotation += RotationSpeed * deltaTime;
@@ -77,22 +65,12 @@ public class RotationAffector : ParticleAffector
 /// </summary>
 public class ScaleAffector : ParticleAffector
 {
-    /// <summary>
-    /// Gets or sets the scale change rate per second.
-    /// </summary>
     public double ScaleRate { get; set; } = -0.5;
 
-    /// <summary>
-    /// Gets or sets the minimum scale value.
-    /// </summary>
     public double MinScale { get; set; } = 0;
 
-    /// <summary>
-    /// Gets or sets the maximum scale value.
-    /// </summary>
     public double MaxScale { get; set; } = 10;
 
-    /// <inheritdoc/>
     public override void Apply(Particle particle, double deltaTime)
     {
         particle.Scale = Math.Clamp(
@@ -103,16 +81,12 @@ public class ScaleAffector : ParticleAffector
 }
 
 /// <summary>
-/// Applies drag/friction to particles, slowing them down.
+/// Applies drag to particles.
 /// </summary>
 public class DragAffector : ParticleAffector
 {
-    /// <summary>
-    /// Gets or sets the drag coefficient (0-1). Higher values = more drag.
-    /// </summary>
     public double Drag { get; set; } = 0.1;
 
-    /// <inheritdoc/>
     public override void Apply(Particle particle, double deltaTime)
     {
         var factor = Math.Max(0, 1 - Drag * deltaTime);
@@ -126,33 +100,23 @@ public class DragAffector : ParticleAffector
 /// </summary>
 public class WindAffector : ParticleAffector
 {
-    /// <summary>
-    /// Gets or sets the wind force on the X axis.
-    /// </summary>
     public double WindX { get; set; } = 20;
 
-    /// <summary>
-    /// Gets or sets the wind force on the Y axis.
-    /// </summary>
     public double WindY { get; set; }
 
-    /// <summary>
-    /// Gets or sets whether wind should oscillate (turbulence).
-    /// </summary>
     public bool Turbulent { get; set; }
 
-    /// <summary>
-    /// Gets or sets the turbulence frequency.
-    /// </summary>
     public double TurbulenceFrequency { get; set; } = 2;
 
     private double _time;
 
-    /// <inheritdoc/>
-    public override void Apply(Particle particle, double deltaTime)
+    public override void Update(double deltaTime)
     {
         _time += deltaTime;
-        
+    }
+
+    public override void Apply(Particle particle, double deltaTime)
+    {
         var windX = WindX;
         var windY = WindY;
 
@@ -164,5 +128,22 @@ public class WindAffector : ParticleAffector
 
         particle.VelocityX += windX * deltaTime;
         particle.VelocityY += windY * deltaTime;
+    }
+}
+
+/// <summary>
+/// Kills particles after a set amount of time.
+/// </summary>
+public class LifetimeAffector : ParticleAffector
+{
+    public double MaxLifeTime { get; set; } = 5.0;
+
+    public override void Apply(Particle particle, double deltaTime)
+    {
+        if (particle.LifeTime >= MaxLifeTime)
+        {
+            particle.Opacity = 0;
+            particle.IsActive = false;
+        }
     }
 }
