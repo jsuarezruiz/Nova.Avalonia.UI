@@ -21,7 +21,12 @@ Declare a `FortuneWheel` and populate its `Items` collection with `FortuneItem` 
         <nova:FortuneWheel.Items>
             <nova:FortuneItem Content="$100" />
             <nova:FortuneItem Content="$50" />
-            <nova:FortuneItem Content="$25" />
+            <!-- You can also use Images -->
+            <nova:FortuneItem>
+                <nova:FortuneItem.Content>
+                    <Image Source="/Assets/jackpot.png" />
+                </nova:FortuneItem.Content>
+            </nova:FortuneItem>
             <nova:FortuneItem Content="Try Again" />
         </nova:FortuneWheel.Items>
     </nova:FortuneWheel>
