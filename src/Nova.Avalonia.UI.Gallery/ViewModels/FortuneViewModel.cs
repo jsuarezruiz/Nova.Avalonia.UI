@@ -1,6 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Nova.Avalonia.UI.Controls;
@@ -12,6 +14,7 @@ public partial class FortuneViewModel : PageViewModel
     public ObservableCollection<FortuneItem> WheelItems { get; } = new();
     public ObservableCollection<FortuneItem> SmallWheelItems { get; } = new();
     public ObservableCollection<FortuneItem> BarItems { get; } = new();
+    public ObservableCollection<FortuneItem> ImageBarItems { get; } = new();
 
     [ObservableProperty]
     private int _wheelSelectedIndex;
@@ -20,10 +23,16 @@ public partial class FortuneViewModel : PageViewModel
     private int _barSelectedIndex;
 
     [ObservableProperty]
+    private int _imageBarSelectedIndex;
+
+    [ObservableProperty]
     private string _wheelResult = "Click to spin!";
 
     [ObservableProperty]
     private string _barResult = "Click to spin!";
+
+    [ObservableProperty]
+    private string _imageBarResult = "Click to spin!";
 
     [ObservableProperty]
     private string _verticalBarResult = "Click to spin!";
@@ -41,6 +50,7 @@ public partial class FortuneViewModel : PageViewModel
     [NotifyPropertyChangedFor(nameof(CanSpin))]
     [NotifyCanExecuteChangedFor(nameof(SpinWheelCommand))]
     [NotifyCanExecuteChangedFor(nameof(SpinBarCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SpinImageBarCommand))]
     [NotifyCanExecuteChangedFor(nameof(SpinVerticalBarCommand))]
     [NotifyCanExecuteChangedFor(nameof(SpinEventsWheelCommand))]
     private bool _isSpinning;
@@ -49,6 +59,7 @@ public partial class FortuneViewModel : PageViewModel
 
     public Func<Task>? WheelSpinProvider { get; set; }
     public Func<Task>? BarSpinProvider { get; set; }
+    public Func<Task>? ImageBarSpinProvider { get; set; }
     public Func<Task>? VerticalBarSpinProvider { get; set; }
     public Func<Task>? EventsWheelSpinProvider { get; set; }
 
@@ -120,6 +131,23 @@ public partial class FortuneViewModel : PageViewModel
         }
     }
 
+    [RelayCommand(CanExecute = nameof(CanSpin))]
+    private async Task SpinImageBar()
+    {
+        if (ImageBarSpinProvider != null)
+        {
+            try
+            {
+                IsSpinning = true;
+                await ImageBarSpinProvider();
+            }
+            finally
+            {
+                IsSpinning = false;
+            }
+        }
+    }
+
     public FortuneViewModel() : base("Fortune")
     {
         // Prize wheel items (8 items for larger wheels)
@@ -146,5 +174,36 @@ public partial class FortuneViewModel : PageViewModel
         BarItems.Add(new FortuneItem("Bell"));
         BarItems.Add(new FortuneItem("Bar"));
         BarItems.Add(new FortuneItem("Seven"));
+
+        // Image slot machine items
+        try
+        {
+            var cherryMsg = LoadBitmap("icon_cherry.png");
+            var lemonImg = LoadBitmap("icon_lemon.png");
+            var sevenImg = LoadBitmap("icon_seven.png");
+            var diamondImg = LoadBitmap("icon_diamond.png");
+
+            ImageBarItems.Add(new FortuneItem(cherryMsg) { Name = "Cherry" });
+            ImageBarItems.Add(new FortuneItem(lemonImg) { Name = "Lemon" });
+            ImageBarItems.Add(new FortuneItem(sevenImg) { Name = "Seven" });
+            ImageBarItems.Add(new FortuneItem(diamondImg) { Name = "Diamond" });
+            ImageBarItems.Add(new FortuneItem(cherryMsg) { Name = "Cherry" }); 
+            ImageBarItems.Add(new FortuneItem(lemonImg) { Name = "Lemon" });
+            ImageBarItems.Add(new FortuneItem(sevenImg) { Name = "Seven" });
+        }
+        catch
+        {
+            // Fallback if assets not found
+            ImageBarItems.Add(new FortuneItem("Cherry (Img)"));
+            ImageBarItems.Add(new FortuneItem("Lemon (Img)"));
+            ImageBarItems.Add(new FortuneItem("Seven (Img)"));
+            ImageBarItems.Add(new FortuneItem("Diamond (Img)"));
+        }
+    }
+
+    private static Bitmap LoadBitmap(string name)
+    {
+        var uri = new Uri($"avares://Nova.Avalonia.UI.Gallery/Assets/{name}");
+        return new Bitmap(AssetLoader.Open(uri));
     }
 }

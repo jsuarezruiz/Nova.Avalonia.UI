@@ -21,16 +21,24 @@ public partial class FortuneView : UserControl
         {
             vm.WheelSpinProvider = async () => await PrizeWheel.SpinAsync();
             vm.BarSpinProvider = async () => await SlotBar.SpinAsync();
+            vm.ImageBarSpinProvider = async () => await ImageSlotBar.SpinAsync();
             vm.VerticalBarSpinProvider = async () => await VerticalBar.SpinAsync();
             vm.EventsWheelSpinProvider = async () => await EventsWheel.SpinAsync();
         }
+    }
+
+    private string GetItemDisplay(FortuneItem? item)
+    {
+        if (item == null) return "Unknown";
+        if (!string.IsNullOrEmpty(item.Name)) return item.Name;
+        return item.Content?.ToString() ?? "Unknown";
     }
 
     private void OnWheelSpinCompleted(object? sender, FortuneSelectionEventArgs e)
     {
         if (DataContext is FortuneViewModel vm)
         {
-            var prize = e.SelectedItem?.Content?.ToString() ?? "Unknown";
+            var prize = GetItemDisplay(e.SelectedItem);
             vm.WheelResult = $"You won: {prize}!";
         }
     }
@@ -39,8 +47,17 @@ public partial class FortuneView : UserControl
     {
         if (DataContext is FortuneViewModel vm)
         {
-            var result = e.SelectedItem?.Content?.ToString() ?? "Unknown";
+            var result = GetItemDisplay(e.SelectedItem);
             vm.BarResult = $"Result: {result}";
+        }
+    }
+
+    private void OnImageBarSpinCompleted(object? sender, FortuneSelectionEventArgs e)
+    {
+        if (DataContext is FortuneViewModel vm)
+        {
+            var result = GetItemDisplay(e.SelectedItem);
+            vm.ImageBarResult = $"Result: {result}";
         }
     }
 
@@ -48,7 +65,7 @@ public partial class FortuneView : UserControl
     {
         if (DataContext is FortuneViewModel vm)
         {
-            var result = e.SelectedItem?.Content?.ToString() ?? "Unknown";
+            var result = GetItemDisplay(e.SelectedItem);
             vm.VerticalBarResult = $"Result: {result}";
         }
     }
@@ -66,7 +83,7 @@ public partial class FortuneView : UserControl
     {
         if (DataContext is FortuneViewModel vm)
         {
-            var prize = e.SelectedItem?.Content?.ToString() ?? "Unknown";
+            var prize = GetItemDisplay(e.SelectedItem);
             vm.EventCompleted = $"Completed: {prize}";
             vm.EventIsSpinning = false;
         }

@@ -226,6 +226,40 @@
                 </StackPanel>
             </Border>
 
+            <!-- FortuneBar Image -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Fortune Bar (Image)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Slot machine with image assets." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <StackPanel HorizontalAlignment="Center" Spacing="15">
+                        <nova:FortuneBar x:Name="ImageSlotBar"
+                                        Width="350"
+                                        Height="100"
+                                        Items="{Binding ImageBarItems}"
+                                        SelectedIndex="{Binding ImageBarSelectedIndex}"
+                                        ItemSize="100"
+                                        AnimationDuration="0:0:3"
+                                        SpinCompleted="OnImageBarSpinCompleted">
+                             <nova:FortuneBar.StyleStrategy>
+                                <nova:AlternatingStyleStrategy 
+                                    PrimaryBackground="{DynamicResource SimpleBlueColor}"
+                                    SecondaryBackground="{DynamicResource SimpleBlueOpacityBrush}"/>
+                            </nova:FortuneBar.StyleStrategy>
+                        </nova:FortuneBar>
+                        
+                        <Button Content="SPIN IMAGE BAR!" 
+                                HorizontalAlignment="Center"
+                                Padding="30,8"
+                                Command="{Binding SpinImageBarCommand}"/>
+                        
+                        <TextBlock Text="{Binding ImageBarResult}" 
+                                  HorizontalAlignment="Center"
+                                  FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
             <!-- FortuneBar Vertical -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
                 <StackPanel Spacing="15">

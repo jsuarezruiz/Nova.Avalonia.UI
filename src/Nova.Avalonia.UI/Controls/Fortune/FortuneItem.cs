@@ -13,6 +13,12 @@ public class FortuneItem
     public object? Content { get; set; }
 
     /// <summary>
+    /// Gets or sets a user-friendly name for this item.
+    /// Useful when Content is a complex object (like an Image).
+    /// </summary>
+    public string? Name { get; set; }
+
+    /// <summary>
     /// Gets or sets the template used to display the content.
     /// </summary>
     public IDataTemplate? ContentTemplate { get; set; }
