@@ -29,28 +29,22 @@
                 </StackPanel>
             </Border>
 
-            <!-- Vertical Orientation -->
+            <!-- Vertical Orientation (Image Comparison) -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Vertical Orientation" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
-                    <TextBlock Text="Compare content vertically." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    <TextBlock Text="Compare content vertically (e.g., photo editing effects)." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:CompareSlider Orientation="Vertical" Height="300">
                          <controls:CompareSlider.BeforeContent>
-                            <Border Background="LightBlue">
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock Text="BEFORE" FontSize="32" FontWeight="Black" Opacity="0.3" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Wireframe" HorizontalAlignment="Center" FontWeight="Bold"/>
-                                </StackPanel>
-                            </Border>
+                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg" Stretch="UniformToFill">
+                                 <Image.Effect>
+                                     <BlurEffect Radius="15"/>
+                                 </Image.Effect>
+                             </Image>
                         </controls:CompareSlider.BeforeContent>
                         <controls:CompareSlider.AfterContent>
-                             <Border Background="LightCoral">
-                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock Text="AFTER" FontSize="32" FontWeight="Black" Opacity="0.3" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Final Design" HorizontalAlignment="Center" FontWeight="Bold"/>
-                                </StackPanel>
-                            </Border>
+                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg" Stretch="UniformToFill" />
                         </controls:CompareSlider.AfterContent>
                     </controls:CompareSlider>
                 </StackPanel>

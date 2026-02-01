@@ -39,12 +39,18 @@ namespace Nova.Avalonia.UI.Controls
         private Line? _divider;
         private Thumb? _thumb;
         private CancellationTokenSource? _animationCts;
+        private readonly RectangleGeometry _beforeClip = new();
+        private readonly RectangleGeometry _afterClip = new();
 
         static CompareSlider()
         {
             ValueProperty.Changed.AddClassHandler<CompareSlider>((x, e) => x.UpdateClipping());
             BoundsProperty.Changed.AddClassHandler<CompareSlider>((x, e) => x.UpdateClipping());
-            OrientationProperty.Changed.AddClassHandler<CompareSlider>((x, e) => x.UpdateClipping());
+            OrientationProperty.Changed.AddClassHandler<CompareSlider>((x, e) =>
+            {
+                x.UpdateClipping();
+                x.UpdateOrientationPseudoClasses(e.GetNewValue<Orientation>());
+            });
         }
 
         public CompareSlider()
@@ -54,170 +60,93 @@ namespace Nova.Avalonia.UI.Controls
             Maximum = 1.0;
             SmallChange = 0.01;
             LargeChange = 0.1;
+            
+            UpdateOrientationPseudoClasses(Orientation);
         }
 
-        /// <summary>
-        /// Defines the <see cref="BeforeContent"/> property.
-        /// </summary>
+        private void UpdateOrientationPseudoClasses(Orientation orientation)
+        {
+            PseudoClasses.Set(":horizontal", orientation == Orientation.Horizontal);
+            PseudoClasses.Set(":vertical", orientation == Orientation.Vertical);
+        }
+
         public static readonly StyledProperty<object?> BeforeContentProperty =
             AvaloniaProperty.Register<CompareSlider, object?>(nameof(BeforeContent));
 
-        /// <summary>
-        /// Gets or sets the content to display before the slider (left or top).
-        /// </summary>
+        public static readonly StyledProperty<IDataTemplate?> BeforeContentTemplateProperty =
+            AvaloniaProperty.Register<CompareSlider, IDataTemplate?>(nameof(BeforeContentTemplate));
+
+        public static readonly StyledProperty<object?> AfterContentProperty =
+            AvaloniaProperty.Register<CompareSlider, object?>(nameof(AfterContent));
+
+        public static readonly StyledProperty<IDataTemplate?> AfterContentTemplateProperty =
+            AvaloniaProperty.Register<CompareSlider, IDataTemplate?>(nameof(AfterContentTemplate));
+
+        public static readonly StyledProperty<Orientation> OrientationProperty =
+            AvaloniaProperty.Register<CompareSlider, Orientation>(nameof(Orientation), Orientation.Horizontal);
+
+        public static readonly StyledProperty<bool> IsDirectionReversedProperty =
+            AvaloniaProperty.Register<CompareSlider, bool>(nameof(IsDirectionReversed));
+
+        public static readonly StyledProperty<bool> IsMoveToPointEnabledProperty =
+            AvaloniaProperty.Register<CompareSlider, bool>(nameof(IsMoveToPointEnabled), true);
+
+        public static readonly DirectProperty<CompareSlider, bool> IsDraggingProperty =
+            AvaloniaProperty.RegisterDirect<CompareSlider, bool>(nameof(IsDragging), o => o.IsDragging);
+
+        public static readonly RoutedEvent<VectorEventArgs> DragStartedEvent =
+            RoutedEvent.Register<CompareSlider, VectorEventArgs>(nameof(DragStarted), RoutingStrategies.Bubble);
+
+        public static readonly RoutedEvent<VectorEventArgs> DragDeltaEvent =
+            RoutedEvent.Register<CompareSlider, VectorEventArgs>(nameof(DragDelta), RoutingStrategies.Bubble);
+
+        public static readonly RoutedEvent<VectorEventArgs> DragCompletedEvent =
+            RoutedEvent.Register<CompareSlider, VectorEventArgs>(nameof(DragCompleted), RoutingStrategies.Bubble);
+
         public object? BeforeContent
         {
             get => GetValue(BeforeContentProperty);
             set => SetValue(BeforeContentProperty, value);
         }
 
-        /// <summary>
-        /// Defines the <see cref="BeforeContentTemplate"/> property.
-        /// </summary>
-        public static readonly StyledProperty<IDataTemplate?> BeforeContentTemplateProperty =
-            AvaloniaProperty.Register<CompareSlider, IDataTemplate?>(nameof(BeforeContentTemplate));
-
-        /// <summary>
-        /// Gets or sets the data template used to display the <see cref="BeforeContent"/>.
-        /// </summary>
         public IDataTemplate? BeforeContentTemplate
         {
             get => GetValue(BeforeContentTemplateProperty);
             set => SetValue(BeforeContentTemplateProperty, value);
         }
 
-        /// <summary>
-        /// Defines the <see cref="AfterContent"/> property.
-        /// </summary>
-        public static readonly StyledProperty<object?> AfterContentProperty =
-            AvaloniaProperty.Register<CompareSlider, object?>(nameof(AfterContent));
-
-        /// <summary>
-        /// Gets or sets the content to display after the slider (right or bottom).
-        /// </summary>
         public object? AfterContent
         {
             get => GetValue(AfterContentProperty);
             set => SetValue(AfterContentProperty, value);
         }
 
-        /// <summary>
-        /// Defines the <see cref="AfterContentTemplate"/> property.
-        /// </summary>
-        public static readonly StyledProperty<IDataTemplate?> AfterContentTemplateProperty =
-            AvaloniaProperty.Register<CompareSlider, IDataTemplate?>(nameof(AfterContentTemplate));
-
-        /// <summary>
-        /// Gets or sets the data template used to display the <see cref="AfterContent"/>.
-        /// </summary>
         public IDataTemplate? AfterContentTemplate
         {
             get => GetValue(AfterContentTemplateProperty);
             set => SetValue(AfterContentTemplateProperty, value);
         }
 
-        /// <summary>
-        /// Defines the <see cref="Orientation"/> property.
-        /// </summary>
-        public static readonly StyledProperty<Orientation> OrientationProperty =
-            AvaloniaProperty.Register<CompareSlider, Orientation>(nameof(Orientation), Orientation.Horizontal);
-
-        /// <summary>
-        /// Gets or sets the orientation of the slider.
-        /// </summary>
         public Orientation Orientation
         {
             get => GetValue(OrientationProperty);
             set => SetValue(OrientationProperty, value);
         }
 
-        /// <summary>
-        /// Defines the <see cref="IsDirectionReversed"/> property.
-        /// </summary>
-        public static readonly StyledProperty<bool> IsDirectionReversedProperty =
-            AvaloniaProperty.Register<CompareSlider, bool>(nameof(IsDirectionReversed));
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the direction of increasing value is reversed.
-        /// </summary>
         public bool IsDirectionReversed
         {
             get => GetValue(IsDirectionReversedProperty);
             set => SetValue(IsDirectionReversedProperty, value);
         }
 
-        /// <summary>
-        /// Defines the <see cref="IsMoveToPointEnabled"/> property.
-        /// </summary>
-        public static readonly StyledProperty<bool> IsMoveToPointEnabledProperty =
-            AvaloniaProperty.Register<CompareSlider, bool>(nameof(IsMoveToPointEnabled), true);
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the thumb moves to the location of the pointer click.
-        /// </summary>
         public bool IsMoveToPointEnabled
         {
             get => GetValue(IsMoveToPointEnabledProperty);
             set => SetValue(IsMoveToPointEnabledProperty, value);
         }
 
-        /// <summary>
-        /// Defines the <see cref="DragStarted"/> event.
-        /// </summary>
-        public static readonly RoutedEvent<VectorEventArgs> DragStartedEvent =
-            RoutedEvent.Register<CompareSlider, VectorEventArgs>(nameof(DragStarted), RoutingStrategies.Bubble);
-
-        /// <summary>
-        /// Occurs when the user starts dragging the slider thumb.
-        /// </summary>
-        public event EventHandler<VectorEventArgs> DragStarted
-        {
-            add => AddHandler(DragStartedEvent, value);
-            remove => RemoveHandler(DragStartedEvent, value);
-        }
-
-        /// <summary>
-        /// Defines the <see cref="DragDelta"/> event.
-        /// </summary>
-        public static readonly RoutedEvent<VectorEventArgs> DragDeltaEvent =
-            RoutedEvent.Register<CompareSlider, VectorEventArgs>(nameof(DragDelta), RoutingStrategies.Bubble);
-
-        /// <summary>
-        /// Occurs when the user drags the slider thumb.
-        /// </summary>
-        public event EventHandler<VectorEventArgs> DragDelta
-        {
-            add => AddHandler(DragDeltaEvent, value);
-            remove => RemoveHandler(DragDeltaEvent, value);
-        }
-
-        /// <summary>
-        /// Defines the <see cref="DragCompleted"/> event.
-        /// </summary>
-        public static readonly RoutedEvent<VectorEventArgs> DragCompletedEvent =
-            RoutedEvent.Register<CompareSlider, VectorEventArgs>(nameof(DragCompleted), RoutingStrategies.Bubble);
-
-        /// <summary>
-        /// Occurs when the user stops dragging the slider thumb.
-        /// </summary>
-        public event EventHandler<VectorEventArgs> DragCompleted
-        {
-            add => AddHandler(DragCompletedEvent, value);
-            remove => RemoveHandler(DragCompletedEvent, value);
-        }
-        
-        // Define Direct Property for IsDragging to be ReadOnly
         private bool _isDragging;
 
-        /// <summary>
-        /// Defines the <see cref="IsDragging"/> property.
-        /// </summary>
-        public static readonly DirectProperty<CompareSlider, bool> IsDraggingProperty =
-            AvaloniaProperty.RegisterDirect<CompareSlider, bool>(nameof(IsDragging), o => o.IsDragging);
-
-        /// <summary>
-        /// Gets a value indicating whether the slider thumb is currently being dragged.
-        /// </summary>
         public bool IsDragging
         {
             get => _isDragging;
@@ -230,6 +159,24 @@ namespace Nova.Avalonia.UI.Controls
             }
         }
 
+        public event EventHandler<VectorEventArgs> DragStarted
+        {
+            add => AddHandler(DragStartedEvent, value);
+            remove => RemoveHandler(DragStartedEvent, value);
+        }
+
+        public event EventHandler<VectorEventArgs> DragDelta
+        {
+            add => AddHandler(DragDeltaEvent, value);
+            remove => RemoveHandler(DragDeltaEvent, value);
+        }
+
+        public event EventHandler<VectorEventArgs> DragCompleted
+        {
+            add => AddHandler(DragCompletedEvent, value);
+            remove => RemoveHandler(DragCompletedEvent, value);
+        }
+
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new CompareSliderAutomationPeer(this);
@@ -239,7 +186,6 @@ namespace Nova.Avalonia.UI.Controls
         {
             base.OnApplyTemplate(e);
 
-            // Unsubscribe from previous thumb if exists
             if (_thumb != null)
             {
                 _thumb.DragStarted -= OnThumbDragStarted;
@@ -261,20 +207,20 @@ namespace Nova.Avalonia.UI.Controls
                 _thumb.DragCompleted += OnThumbDragCompleted;
             }
 
+            if (_beforePanel != null) _beforePanel.Clip = _beforeClip;
+            if (_afterPanel != null) _afterPanel.Clip = _afterClip;
+
             UpdateClipping();
         }
 
-        /// <inheritdoc />
         protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
         {
             base.OnDetachedFromVisualTree(e);
 
-            // Cancel any running animation
             _animationCts?.Cancel();
             _animationCts?.Dispose();
             _animationCts = null;
 
-            // Unsubscribe from thumb events
             if (_thumb != null)
             {
                 _thumb.DragStarted -= OnThumbDragStarted;
@@ -346,11 +292,6 @@ namespace Nova.Avalonia.UI.Controls
             if (e.Handled) return;
 
             double change = 0;
-            // Adjust keys based on orientation if needed, but standard logic usually:
-            // Right/Up = Increase
-            // Left/Down = Decrease
-            // But spec says: Left/Down Decrease, Right/Up Increase.
-            
             switch (e.Key)
             {
                 case Key.Left:
@@ -393,25 +334,21 @@ namespace Nova.Avalonia.UI.Controls
             var val = Value;
             if (IsDirectionReversed) val = 1.0 - val;
             
-            // Ensure visual consistency for 0 and 1
             val = Math.Clamp(val, 0.0, 1.0);
 
             if (Orientation == Orientation.Horizontal)
             {
                 var position = val * Bounds.Width;
 
-                _beforePanel.Clip = new RectangleGeometry(new Rect(0, 0, position, Bounds.Height));
-                _afterPanel.Clip = new RectangleGeometry(new Rect(position, 0, Bounds.Width - position, Bounds.Height));
+                _beforeClip.Rect = new Rect(0, 0, position, Bounds.Height);
+                _afterClip.Rect = new Rect(position, 0, Bounds.Width - position, Bounds.Height);
 
                 Canvas.SetLeft(_divider, position);
-                // Center thumb on position
                 Canvas.SetLeft(_thumb, position - (_thumb.Bounds.Width / 2));
                 
-                // Reset Vertical properties
                 Canvas.SetTop(_divider, 0);
                 Canvas.SetTop(_thumb, (Bounds.Height / 2) - (_thumb.Bounds.Height / 2)); 
                 
-                // Adjust divider line
                 _divider.StartPoint = new Point(0, 0);
                 _divider.EndPoint = new Point(0, Bounds.Height);
             }
@@ -419,32 +356,34 @@ namespace Nova.Avalonia.UI.Controls
             {
                 var position = val * Bounds.Height;
 
-                _beforePanel.Clip = new RectangleGeometry(new Rect(0, 0, Bounds.Width, position));
-                _afterPanel.Clip = new RectangleGeometry(new Rect(0, position, Bounds.Width, Bounds.Height - position));
+                _beforeClip.Rect = new Rect(0, 0, Bounds.Width, position);
+                _afterClip.Rect = new Rect(0, position, Bounds.Width, Bounds.Height - position);
 
                 Canvas.SetTop(_divider, position);
                 Canvas.SetTop(_thumb, position - (_thumb.Bounds.Height / 2));
                 
-                 // Reset Horizontal properties
                 Canvas.SetLeft(_divider, 0);
                 Canvas.SetLeft(_thumb, (Bounds.Width / 2) - (_thumb.Bounds.Width / 2));
 
-                // Adjust divider line
                 _divider.StartPoint = new Point(0, 0);
                 _divider.EndPoint = new Point(Bounds.Width, 0);
             }
+
+            // Force clip update by re-assigning (some Avalonia versions need this for Geometry mutations)
+            _beforePanel.Clip = null;
+            _beforePanel.Clip = _beforeClip;
+            _afterPanel.Clip = null;
+            _afterPanel.Clip = _afterClip;
+
+            _beforePanel.InvalidateVisual();
+            _afterPanel.InvalidateVisual();
         }
         
         /// <summary>
         /// Animates the slider value to the specified target position.
         /// </summary>
-        /// <param name="value">The target value between Minimum and Maximum.</param>
-        /// <param name="duration">Optional duration for the animation. Default is 300ms.</param>
-        /// <param name="cancellationToken">Optional cancellation token to cancel the animation.</param>
-        /// <returns>A task representing the animation operation.</returns>
         public async Task AnimateTo(double value, TimeSpan? duration = null, CancellationToken cancellationToken = default)
         {
-            // Cancel any previous animation
             _animationCts?.Cancel();
             _animationCts?.Dispose();
             _animationCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
@@ -455,28 +394,33 @@ namespace Nova.Avalonia.UI.Controls
                 var start = Value;
                 var end = Math.Clamp(value, Minimum, Maximum);
                 var time = duration ?? TimeSpan.FromMilliseconds(300);
-                var refreshRate = TimeSpan.FromMilliseconds(16);
-                var totalSteps = time.TotalMilliseconds / refreshRate.TotalMilliseconds;
-                var stepSize = (end - start) / totalSteps;
-
-                for (int i = 0; i < totalSteps; i++)
+                var startTime = DateTime.UtcNow;
+                
+                while (true)
                 {
                     token.ThrowIfCancellationRequested();
-                    Value += stepSize;
-                    await Task.Delay(refreshRate, token);
+                    
+                    var elapsed = DateTime.UtcNow - startTime;
+                    var progress = Math.Min(1.0, elapsed.TotalMilliseconds / time.TotalMilliseconds);
+                    
+                    // EaseOutCubic
+                    var factor = 1.0 - Math.Pow(1.0 - progress, 3);
+                    
+                    Value = start + (end - start) * factor;
+
+                    if (progress >= 1.0) break;
+                    
+                    await Task.Delay(16, token);
                 }
-                Value = end;
             }
             catch (OperationCanceledException)
             {
-                // Animation was cancelled, which is expected behavior
             }
         }
 
         /// <summary>
         /// Resets the slider value to the center (0.5).
         /// </summary>
-        /// <param name="animate">Whether to animate the change.</param>
         public void Reset(bool animate = true)
         {
             if (animate)

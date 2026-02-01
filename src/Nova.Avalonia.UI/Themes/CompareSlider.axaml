@@ -37,7 +37,7 @@
                             </Panel>
                             
                             <!-- Divider & Thumb Layer -->
-                            <Canvas Name="PART_Track">
+                            <Canvas Name="PART_Track" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Line Name="PART_Divider" />
                                 <Thumb Name="PART_Thumb" />
                             </Canvas>
@@ -49,13 +49,13 @@
     </Styles.Resources>
 
     <Style Selector="controls|CompareSlider">
-        <!-- Divider styling -->
+        <Setter Property="Background" Value="Transparent" />
+        
         <Style Selector="^ /template/ Line#PART_Divider">
             <Setter Property="Stroke" Value="{DynamicResource CompareSliderDividerStroke}" />
             <Setter Property="StrokeThickness" Value="2" />
         </Style>
         
-        <!-- Thumb styling -->
         <Style Selector="^ /template/ Thumb#PART_Thumb">
             <Setter Property="Width" Value="40" />
             <Setter Property="Height" Value="40" />
@@ -63,23 +63,48 @@
             <Setter Property="CornerRadius" Value="20" />
             <Setter Property="BorderThickness" Value="2" />
             <Setter Property="BorderBrush" Value="{DynamicResource CompareSliderThumbBorderBrush}" />
+            <Setter Property="ClipToBounds" Value="False" />
             <Setter Property="Template">
                  <Setter.Value>
                     <ControlTemplate>
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}" />
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                BoxShadow="0 2 10 0 #40000000">
+                             <Path Fill="{TemplateBinding BorderBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Data="M 12,0 L 0,8 L 12,16 L 12,0 Z M 16,0 L 28,8 L 16,16 L 16,0 Z"
+                                   Stretch="Uniform"
+                                   Width="16"
+                                   Height="8" />
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
+            <Style Selector="^:pointerover /template/ Border">
+                <Setter Property="Background" Value="{DynamicResource CompareSliderDividerStroke}" />
+            </Style>
+
+            <Style Selector="^:pressed /template/ Border">
+                <Setter Property="RenderTransform" Value="scale(0.95)" />
+            </Style>
         </Style>
         
-        <!-- Dragging State PseudoClass -->
-        <Style Selector="^:dragging /template/ Thumb#PART_Thumb">
+        <Style Selector="^:dragging /template/ Thumb#PART_Thumb /template/ Border">
              <Setter Property="RenderTransform" Value="scale(1.1)" />
-             <!-- Optional: Change visual state when dragging -->
-             <!-- <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" /> --> 
+             <Setter Property="BoxShadow" Value="0 4 15 0 #60000000" />
+        </Style>
+
+        <Style Selector="^:focus-visible /template/ Thumb#PART_Thumb /template/ Border">
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColor}" />
+            <Setter Property="BorderThickness" Value="3" />
+        </Style>
+
+        <Style Selector="^:vertical /template/ Thumb#PART_Thumb /template/ Path">
+            <Setter Property="RenderTransform" Value="rotate(90deg)" />
         </Style>
     </Style>
 </Styles>
