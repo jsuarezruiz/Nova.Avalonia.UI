@@ -46,6 +46,8 @@ The `Shimmer` control shows a lightweight skeleton while your content is loading
 
 The `Watermark` control renders repeating text or image patterns as a tiled overlay. Useful for marking documents as confidential, draft, or adding branding.
 
+<img src="images/novaui_watermark_light.gif" alt="Watermark" width="250" />
+
 ## Layout Panels
 
 ### ArcPanel
@@ -137,7 +139,6 @@ The `VirtualizedStaggeredPanel` is a high-performance staggered grid optimized f
 The `VirtualizedVariableSizeWrapPanel` is a high-performance variable-size tile grid optimized for large datasets. Supports `ColumnSpan` and `RowSpan` attached properties for tiles spanning multiple cells.
 
 <img src="images/novaui_virtualizedvariablesizewrappanel_light.gif" alt="VirtualizedVariableSizeWrapPanel" width="250" />
->>>>>>> main
 
 ## Contribute
 
