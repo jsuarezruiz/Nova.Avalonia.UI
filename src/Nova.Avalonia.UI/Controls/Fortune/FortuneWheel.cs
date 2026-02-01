@@ -1,15 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 
 namespace Nova.Avalonia.UI.Controls;
@@ -125,6 +128,10 @@ public class FortuneWheel : TemplatedControl
         AvaloniaProperty.Register<FortuneWheel, IBrush?>(
             nameof(CenterFill),
             defaultValue: Brushes.White);
+
+    private const double ContentRadiusRatio = 0.65;
+    private const double ImageSizeRatio = 0.25;
+    private const double TextMaxWidthRatio = 0.35;
 
     private bool _isSpinning;
 
@@ -276,17 +283,34 @@ public class FortuneWheel : TemplatedControl
     {
         base.OnPropertyChanged(change);
 
-        if (change.Property == StyleStrategyProperty)
+        if (change.Property == StyleStrategyProperty || change.Property == ItemsProperty)
         {
-            if (change.OldValue is System.ComponentModel.INotifyPropertyChanged oldStrategy)
+            InvalidateCaches();
+            if (change.Property == StyleStrategyProperty)
             {
-                oldStrategy.PropertyChanged -= OnStrategyPropertyChanged;
-            }
-            if (change.NewValue is System.ComponentModel.INotifyPropertyChanged newStrategy)
-            {
-                newStrategy.PropertyChanged += OnStrategyPropertyChanged;
+                if (change.OldValue is System.ComponentModel.INotifyPropertyChanged oldStrategy)
+                {
+                    oldStrategy.PropertyChanged -= OnStrategyPropertyChanged;
+                }
+                if (change.NewValue is System.ComponentModel.INotifyPropertyChanged newStrategy)
+                {
+                    newStrategy.PropertyChanged += OnStrategyPropertyChanged;
+                }
             }
         }
+
+        if (change.Property == IsSpinningProperty || change.Property == SelectedIndexProperty)
+        {
+            UpdateAutomationName();
+        }
+    }
+
+    private void UpdateAutomationName()
+    {
+        var name = IsSpinning 
+            ? "Spinning wheel..." 
+            : $"Wheel selected {SelectedIndex + 1}. {(SelectedIndex >= 0 && SelectedIndex < Items.Count ? Items[SelectedIndex].Content : "")}";
+        AutomationProperties.SetName(this, name);
     }
 
     private void OnStrategyPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -306,6 +330,8 @@ public class FortuneWheel : TemplatedControl
         {
             strategy.PropertyChanged += OnStrategyPropertyChanged;
         }
+
+        AutomationProperties.SetLiveSetting(this, AutomationLiveSetting.Polite);
     }
 
     /// <inheritdoc/>
@@ -328,6 +354,10 @@ public class FortuneWheel : TemplatedControl
     {
         base.OnDetachedFromVisualTree(e);
         CancelAnimation();
+        if (StyleStrategy is System.ComponentModel.INotifyPropertyChanged strategy)
+        {
+            strategy.PropertyChanged -= OnStrategyPropertyChanged;
+        }
     }
 
     /// <summary>
@@ -387,6 +417,17 @@ public class FortuneWheel : TemplatedControl
         }
     }
 
+    private readonly List<StreamGeometry> _cachedGeometries = new();
+    private readonly List<object?> _cachedContent = new(); // Stores FormattedText or IImage
+    private double _lastRadius;
+
+    private void InvalidateCaches()
+    {
+        _cachedGeometries.Clear();
+        _cachedContent.Clear();
+        _lastRadius = 0;
+    }
+
     /// <inheritdoc/>
     public override void Render(DrawingContext context)
     {
@@ -403,6 +444,12 @@ public class FortuneWheel : TemplatedControl
 
         if (radius <= 0) return;
 
+        if (Math.Abs(radius - _lastRadius) > 0.01 || _cachedGeometries.Count != Items.Count)
+        {
+            UpdateCaches(center, radius);
+            _lastRadius = radius;
+        }
+
         // Draw wheel slices with rotation
         var itemCount = Items.Count;
         var anglePerSlice = 360.0 / itemCount;
@@ -413,13 +460,55 @@ public class FortuneWheel : TemplatedControl
             {
                 var item = Items[i];
                 var style = StyleStrategy.GetStyle(i, itemCount, item.Style);
-                var startAngle = i * anglePerSlice - 90; // Start from top
+                
+                var pen = style.BorderThickness > 0 && style.BorderBrush != null
+                    ? new Pen(style.BorderBrush, style.BorderThickness)
+                    : null;
 
-                DrawSlice(context, center, radius, startAngle, anglePerSlice, style);
-                DrawSliceContent(context, center, radius, startAngle, anglePerSlice, item, style);
+                context.DrawGeometry(style.Background, pen, _cachedGeometries[i]);
+                
+                if (i < _cachedContent.Count)
+                {
+                    var midAngle = (i * anglePerSlice - 90) * Math.PI / 180;
+                    var contentRadius = radius * ContentRadiusRatio;
+                    var contentPos = new Point(
+                        center.X + contentRadius * Math.Cos(midAngle),
+                        center.Y + contentRadius * Math.Sin(midAngle));
+
+                        var textAngle = midAngle;
+                        var normalizedMid = (midAngle * 180 / Math.PI + 360) % 360;
+                        if (normalizedMid > 90 && normalizedMid < 270)
+                        {
+                            textAngle += Math.PI;
+                        }
+
+                        using (context.PushTransform(Matrix.CreateRotation(textAngle, contentPos)))
+                    {
+                        if (_cachedContent[i] is FormattedText formattedText)
+                        {
+                            var textOffset = new Point(
+                                contentPos.X - formattedText.Width / 2,
+                                contentPos.Y - formattedText.Height / 2);
+
+                            context.DrawText(formattedText, textOffset);
+                        }
+                        else if (_cachedContent[i] is IImage image)
+                        {
+                            var imgSize = Math.Min(radius * ImageSizeRatio, Math.Min(image.Size.Width, image.Size.Height));
+                            if (imgSize <= 0) imgSize = radius * ImageSizeRatio;
+
+                            var destRect = new Rect(
+                                contentPos.X - imgSize / 2,
+                                contentPos.Y - imgSize / 2,
+                                imgSize,
+                                imgSize);
+
+                            context.DrawImage(image, destRect);
+                        }
+                    }
+                }
             }
 
-            // Draw center circle (rotates with wheel, though it's circular so no visual difference)
             if (CenterRadius > 0 && CenterFill != null)
             {
                 context.DrawEllipse(CenterFill, null, center, CenterRadius, CenterRadius);
@@ -433,98 +522,81 @@ public class FortuneWheel : TemplatedControl
         }
     }
 
-    /// <inheritdoc/>
-    protected override AutomationPeer OnCreateAutomationPeer()
+    private void UpdateCaches(Point center, double radius)
     {
-        return new FortuneWheelAutomationPeer(this);
-    }
+        _cachedGeometries.Clear();
+        _cachedContent.Clear();
 
-    private void DrawSlice(DrawingContext context, Point center, double radius,
-        double startAngle, double sweepAngle, FortuneItemStyle style)
-    {
-        var geometry = new StreamGeometry();
-        using (var ctx = geometry.Open())
+        var itemCount = Items.Count;
+        var anglePerSlice = 360.0 / itemCount;
+        var typeface = new Typeface(FontFamily, FontStyle, FontWeight.Bold);
+
+        for (int i = 0; i < itemCount; i++)
         {
-            var startRad = startAngle * Math.PI / 180;
-            var endRad = (startAngle + sweepAngle) * Math.PI / 180;
+            var item = Items[i];
+            var style = StyleStrategy.GetStyle(i, itemCount, item.Style);
+            var startAngle = i * anglePerSlice - 90 - anglePerSlice / 2;
 
-            var startPoint = new Point(
-                center.X + radius * Math.Cos(startRad),
-                center.Y + radius * Math.Sin(startRad));
-
-            var endPoint = new Point(
-                center.X + radius * Math.Cos(endRad),
-                center.Y + radius * Math.Sin(endRad));
-
-            ctx.BeginFigure(center, true);
-            ctx.LineTo(startPoint);
-            ctx.ArcTo(endPoint, new Size(radius, radius), 0, sweepAngle > 180, SweepDirection.Clockwise);
-            ctx.LineTo(center);
-            ctx.EndFigure(true);
-        }
-
-        var pen = style.BorderThickness > 0 && style.BorderBrush != null
-            ? new Pen(style.BorderBrush, style.BorderThickness)
-            : null;
-
-        context.DrawGeometry(style.Background, pen, geometry);
-    }
-
-    private void DrawSliceContent(DrawingContext context, Point center, double radius,
-        double startAngle, double sweepAngle, FortuneItem item, FortuneItemStyle style)
-    {
-        if (item.Content == null) return;
-
-        var midAngle = (startAngle + sweepAngle / 2) * Math.PI / 180;
-        var contentRadius = radius * 0.65;
-
-        var contentPos = new Point(
-            center.X + contentRadius * Math.Cos(midAngle),
-            center.Y + contentRadius * Math.Sin(midAngle));
-
-        if (item.Content is string text)
-        {
-            // Calculate available width based on slice arc length at content radius
-            var sliceArcLength = contentRadius * sweepAngle * Math.PI / 180;
-            var maxWidth = Math.Min(sliceArcLength * 0.8, radius * 0.35);
-
-            // Choose font size based on available space
-            var fontSize = Math.Max(8, Math.Min(14, maxWidth / 4));
-
-            var typeface = new Typeface(FontFamily, FontStyle, FontWeight.Bold);
-            
-            // Truncate text if needed
-            var displayText = text;
-            var formattedText = new FormattedText(
-                displayText,
-                CultureInfo.CurrentCulture,
-                FlowDirection.LeftToRight,
-                typeface,
-                fontSize,
-                style.Foreground ?? Brushes.White);
-
-            // Truncate with ellipsis if too wide
-            while (formattedText.Width > maxWidth && displayText.Length > 1)
+            // Geometry Cache
+            var geometry = new StreamGeometry();
+            using (var ctx = geometry.Open())
             {
-                displayText = displayText[..^1];
-                formattedText = new FormattedText(
-                    displayText + "…",
+                var startRad = startAngle * Math.PI / 180;
+                var endRad = (startAngle + anglePerSlice) * Math.PI / 180;
+
+                var startPoint = new Point(
+                    center.X + radius * Math.Cos(startRad),
+                    center.Y + radius * Math.Sin(startRad));
+
+                var endPoint = new Point(
+                    center.X + radius * Math.Cos(endRad),
+                    center.Y + radius * Math.Sin(endRad));
+
+                ctx.BeginFigure(center, true);
+                ctx.LineTo(startPoint);
+                ctx.ArcTo(endPoint, new Size(radius, radius), 0, anglePerSlice > 180, SweepDirection.Clockwise);
+                ctx.LineTo(center);
+                ctx.EndFigure(true);
+            }
+            _cachedGeometries.Add(geometry);
+
+            // Text Cache
+            if (item.Content is string text)
+            {
+                var contentRadius = radius * ContentRadiusRatio;
+                var sliceArcLength = contentRadius * anglePerSlice * Math.PI / 180;
+                var maxWidth = Math.Min(sliceArcLength * 0.8, radius * TextMaxWidthRatio);
+                var fontSize = Math.Max(8, Math.Min(14, maxWidth / 4));
+
+                var displayText = text;
+                var formattedText = new FormattedText(
+                    displayText,
                     CultureInfo.CurrentCulture,
                     FlowDirection.LeftToRight,
                     typeface,
                     fontSize,
                     style.Foreground ?? Brushes.White);
+
+                while (formattedText.Width > maxWidth && displayText.Length > 1)
+                {
+                    displayText = displayText[..^1];
+                    formattedText = new FormattedText(
+                        displayText + "…",
+                        CultureInfo.CurrentCulture,
+                        FlowDirection.LeftToRight,
+                        typeface,
+                        fontSize,
+                        style.Foreground ?? Brushes.White);
+                }
+                _cachedContent.Add(formattedText);
             }
-
-            // Rotate text radially (pointing outward from center)
-            var textAngle = midAngle + Math.PI / 2;
-            using (context.PushTransform(Matrix.CreateRotation(textAngle, contentPos)))
+            else if (item.Content is IImage image)
             {
-                var textOffset = new Point(
-                    contentPos.X - formattedText.Width / 2,
-                    contentPos.Y - formattedText.Height / 2);
-
-                context.DrawText(formattedText, textOffset);
+                _cachedContent.Add(image);
+            }
+            else
+            {
+                _cachedContent.Add(null);
             }
         }
     }
@@ -605,22 +677,33 @@ public class FortuneWheel : TemplatedControl
         var itemCount = Items.Count;
         var anglePerItem = 360.0 / itemCount;
 
-        // Target angle should place the item at the indicator position
-        // For top indicator, item center should be at 270 degrees (top)
-        var targetCenterAngle = targetIndex * anglePerItem + anglePerItem / 2;
+        // Calculate rotation target based on IndicatorPosition
+        var targetIndicatorAngle = IndicatorPosition switch
+        {
+            IndicatorPosition.Top => 270.0,
+            IndicatorPosition.Right => 0.0,
+            IndicatorPosition.Bottom => 90.0,
+            IndicatorPosition.Left => 180.0,
+            _ => 270.0
+        };
 
-        // Calculate how much to rotate so target is at top
-        var rotationToTop = 360 - targetCenterAngle;
+        var startCenterAngle = targetIndex * anglePerItem - 90;
 
-        // Add minimum full rotations plus random extra
-        var extraRotations = MinimumSpins + _random.NextDouble() * 2;
-        var totalRotation = RotationAngle + (extraRotations * 360) + rotationToTop;
+        // Current rotation normalized to [0, 360)
+        var currentRotation = RotationAngle;
+        var currentNormalized = currentRotation % 360;
+        if (currentNormalized < 0) currentNormalized += 360;
 
-        // Adjust for current position
-        var currentNormalizedAngle = RotationAngle % 360;
-        if (currentNormalizedAngle < 0) currentNormalizedAngle += 360;
+        var targetRotationNormalized = (targetIndicatorAngle - startCenterAngle + 360) % 360;
 
-        return totalRotation;
+        // Amount of rotation needed to reach targetNormalized from currentNormalized
+        var deltaRotation = (targetRotationNormalized - currentNormalized + 360) % 360;
+
+        // Add minimum spins
+        var extraFullSpins = (int)Math.Max(MinimumSpins, 1) + _random.Next(0, 3);
+        var totalTargetRotation = currentRotation + deltaRotation + (extraFullSpins * 360);
+
+        return totalTargetRotation;
     }
 
     private async Task AnimateRotationAsync(double targetAngle, CancellationToken ct)
@@ -640,7 +723,6 @@ public class FortuneWheel : TemplatedControl
 
             RotationAngle = startAngle + totalDistance * easedProgress;
 
-            await Dispatcher.UIThread.InvokeAsync(() => InvalidateVisual());
             await Task.Delay(16, ct);
         }
 

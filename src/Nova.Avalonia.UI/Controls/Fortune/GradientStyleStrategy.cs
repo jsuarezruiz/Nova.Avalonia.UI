@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Media;
 
@@ -83,23 +84,48 @@ public class GradientStyleStrategy : AvaloniaObject, IStyleStrategy
         set => SetValue(ForegroundProperty, value);
     }
 
+    private readonly Dictionary<int, SolidColorBrush> _brushCache = new();
+
     /// <inheritdoc/>
     public FortuneItemStyle GetStyle(int index, int totalCount, FortuneItemStyle? itemStyle)
     {
         if (itemStyle != null)
             return itemStyle;
 
+        if (_brushCache.TryGetValue(index, out var cachedBrush))
+        {
+            return CreateStyle(cachedBrush);
+        }
+
         var ratio = totalCount > 1 ? (double)index / (totalCount - 1) : 0;
         var r = (byte)(StartColor.R + (EndColor.R - StartColor.R) * ratio);
         var g = (byte)(StartColor.G + (EndColor.G - StartColor.G) * ratio);
         var b = (byte)(StartColor.B + (EndColor.B - StartColor.B) * ratio);
 
+        var brush = new SolidColorBrush(Color.FromRgb(r, g, b));
+        _brushCache[index] = brush;
+
+        return CreateStyle(brush);
+    }
+
+    private FortuneItemStyle CreateStyle(IBrush background)
+    {
         return new FortuneItemStyle
         {
-            Background = new SolidColorBrush(Color.FromRgb(r, g, b)),
+            Background = background,
             BorderBrush = BorderBrush,
             BorderThickness = BorderThickness,
             Foreground = Foreground
         };
+    }
+
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+
+        if (change.Property == StartColorProperty || change.Property == EndColorProperty)
+        {
+            _brushCache.Clear();
+        }
     }
 }

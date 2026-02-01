@@ -1,3 +1,4 @@
+using Avalonia.Automation;
 using Avalonia.Automation.Peers;
 
 namespace Nova.Avalonia.UI.Controls;
@@ -28,20 +29,6 @@ public class FortuneWheelAutomationPeer : ControlAutomationPeer
     protected override string GetClassNameCore()
     {
         return "FortuneWheel";
-    }
-
-    /// <inheritdoc/>
-    protected override string? GetNameCore()
-    {
-        if (_owner.Items == null || _owner.Items.Count == 0)
-            return "Fortune Wheel (empty)";
-
-        var count = _owner.Items.Count;
-        var current = _owner.SelectedIndex >= 0 && _owner.SelectedIndex < count
-            ? _owner.Items[_owner.SelectedIndex].Content?.ToString() ?? "Unknown"
-            : "None";
-
-        return $"Fortune Wheel with {count} items. Currently selected: {current}";
     }
 
     /// <inheritdoc/>

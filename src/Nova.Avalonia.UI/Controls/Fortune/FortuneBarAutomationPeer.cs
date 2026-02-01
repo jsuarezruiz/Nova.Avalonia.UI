@@ -1,3 +1,4 @@
+using Avalonia.Automation;
 using Avalonia.Automation.Peers;
 
 namespace Nova.Avalonia.UI.Controls;
@@ -28,21 +29,6 @@ public class FortuneBarAutomationPeer : ControlAutomationPeer
     protected override string GetClassNameCore()
     {
         return "FortuneBar";
-    }
-
-    /// <inheritdoc/>
-    protected override string? GetNameCore()
-    {
-        if (_owner.Items == null || _owner.Items.Count == 0)
-            return "Fortune Bar (empty)";
-
-        var count = _owner.Items.Count;
-        var orientation = _owner.Orientation.ToString().ToLower();
-        var current = _owner.SelectedIndex >= 0 && _owner.SelectedIndex < count
-            ? _owner.Items[_owner.SelectedIndex].Content?.ToString() ?? "Unknown"
-            : "None";
-
-        return $"{orientation} Fortune Bar with {count} items. Currently selected: {current}";
     }
 
     /// <inheritdoc/>

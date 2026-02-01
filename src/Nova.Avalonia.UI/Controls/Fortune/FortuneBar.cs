@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -11,6 +13,7 @@ using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 
 namespace Nova.Avalonia.UI.Controls;
@@ -118,6 +121,9 @@ public class FortuneBar : TemplatedControl
         AvaloniaProperty.Register<FortuneBar, double>(
             nameof(IndicatorThickness),
             defaultValue: 4.0);
+
+    private const double ImageSizeRatio = 0.8;
+    private const double IndicatorTriangleSize = 12.0;
 
     private bool _isSpinning;
 
@@ -255,26 +261,51 @@ public class FortuneBar : TemplatedControl
         FocusableProperty.OverrideDefaultValue<FortuneBar>(true);
     }
 
+    private readonly List<object?> _cachedContent = new();
+
+    private void InvalidateCaches()
+    {
+        _cachedContent.Clear();
+    }
+
     /// <inheritdoc/>
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
 
-        if (change.Property == StyleStrategyProperty)
+        if (change.Property == StyleStrategyProperty || change.Property == ItemsProperty)
         {
-            if (change.OldValue is System.ComponentModel.INotifyPropertyChanged oldStrategy)
+            InvalidateCaches();
+            if (change.Property == StyleStrategyProperty)
             {
-                oldStrategy.PropertyChanged -= OnStrategyPropertyChanged;
-            }
-            if (change.NewValue is System.ComponentModel.INotifyPropertyChanged newStrategy)
-            {
-                newStrategy.PropertyChanged += OnStrategyPropertyChanged;
+                if (change.OldValue is System.ComponentModel.INotifyPropertyChanged oldStrategy)
+                {
+                    oldStrategy.PropertyChanged -= OnStrategyPropertyChanged;
+                }
+                if (change.NewValue is System.ComponentModel.INotifyPropertyChanged newStrategy)
+                {
+                    newStrategy.PropertyChanged += OnStrategyPropertyChanged;
+                }
             }
         }
+
+        if (change.Property == IsSpinningProperty || change.Property == SelectedIndexProperty)
+        {
+            UpdateAutomationName();
+        }
+    }
+
+    private void UpdateAutomationName()
+    {
+        var name = IsSpinning 
+            ? "Spinning bar..." 
+            : $"Bar selected {SelectedIndex + 1}. {(SelectedIndex >= 0 && SelectedIndex < Items.Count ? Items[SelectedIndex].Content : "")}";
+        AutomationProperties.SetName(this, name);
     }
 
     private void OnStrategyPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
+        InvalidateCaches();
         InvalidateVisual();
     }
 
@@ -290,6 +321,8 @@ public class FortuneBar : TemplatedControl
         {
             strategy.PropertyChanged += OnStrategyPropertyChanged;
         }
+
+        AutomationProperties.SetLiveSetting(this, AutomationLiveSetting.Polite);
     }
 
     /// <inheritdoc/>
@@ -312,6 +345,10 @@ public class FortuneBar : TemplatedControl
     {
         base.OnDetachedFromVisualTree(e);
         CancelAnimation();
+        if (StyleStrategy is System.ComponentModel.INotifyPropertyChanged strategy)
+        {
+            strategy.PropertyChanged -= OnStrategyPropertyChanged;
+        }
     }
 
     /// <summary>
@@ -358,7 +395,6 @@ public class FortuneBar : TemplatedControl
             var targetScroll = CalculateTargetScroll(targetIndex);
             await AnimateScrollAsync(targetScroll, ct);
 
-            // Get the actual item that ended up at the center (should match targetIndex)
             var actualIndex = GetCenteredItemIndex();
             SelectedIndex = actualIndex;
             SpinCompleted?.Invoke(this, new FortuneSelectionEventArgs(actualIndex, Items[actualIndex]));
@@ -382,6 +418,11 @@ public class FortuneBar : TemplatedControl
         var isHorizontal = Orientation == Orientation.Horizontal;
         var itemSize = ItemSize;
         var totalSize = Items.Count * itemSize;
+
+        if (_cachedContent.Count != Items.Count)
+        {
+            UpdateCaches();
+        }
 
         // Calculate visible range
         var viewSize = isHorizontal ? bounds.Width : bounds.Height;
@@ -407,7 +448,7 @@ public class FortuneBar : TemplatedControl
             if ((isHorizontal && itemBounds.Right > 0 && itemBounds.Left < bounds.Width) ||
                 (!isHorizontal && itemBounds.Bottom > 0 && itemBounds.Top < bounds.Height))
             {
-                DrawItem(context, itemBounds, item, style);
+                DrawItem(context, itemBounds, item, style, wrappedIndex);
             }
         }
 
@@ -418,13 +459,45 @@ public class FortuneBar : TemplatedControl
         }
     }
 
+    private void UpdateCaches()
+    {
+        _cachedContent.Clear();
+        var typeface = new Typeface(FontFamily, FontStyle, FontWeight);
+
+        for (int i = 0; i < Items.Count; i++)
+        {
+            var item = Items[i];
+            var style = StyleStrategy.GetStyle(i, Items.Count, item.Style);
+            
+            if (item.Content is string text)
+            {
+                var formattedText = new FormattedText(
+                    text,
+                    CultureInfo.CurrentCulture,
+                    FlowDirection.LeftToRight,
+                    typeface,
+                    16,
+                    style.Foreground ?? Brushes.White);
+                _cachedContent.Add(formattedText);
+            }
+            else if (item.Content is IImage image)
+            {
+                _cachedContent.Add(image);
+            }
+            else
+            {
+                _cachedContent.Add(null);
+            }
+        }
+    }
+
     /// <inheritdoc/>
     protected override AutomationPeer OnCreateAutomationPeer()
     {
         return new FortuneBarAutomationPeer(this);
     }
 
-    private void DrawItem(DrawingContext context, Rect bounds, FortuneItem item, FortuneItemStyle style)
+    private void DrawItem(DrawingContext context, Rect bounds, FortuneItem item, FortuneItemStyle style, int index)
     {
         // Draw background
         if (style.Background != null)
@@ -439,22 +512,31 @@ public class FortuneBar : TemplatedControl
         }
 
         // Draw content
-        if (item.Content is string text)
+        if (index < _cachedContent.Count)
         {
-            var typeface = new Typeface(FontFamily, FontStyle, FontWeight);
-            var formattedText = new FormattedText(
-                text,
-                CultureInfo.CurrentCulture,
-                FlowDirection.LeftToRight,
-                typeface,
-                16,
-                style.Foreground ?? Brushes.White);
+            var content = _cachedContent[index];
+            if (content is FormattedText formattedText)
+            {
+                var textPos = new Point(
+                    bounds.Center.X - formattedText.Width / 2,
+                    bounds.Center.Y - formattedText.Height / 2);
 
-            var textPos = new Point(
-                bounds.Center.X - formattedText.Width / 2,
-                bounds.Center.Y - formattedText.Height / 2);
+                context.DrawText(formattedText, textPos);
+            }
+            else if (content is IImage image)
+            {
+                var imgSize = Math.Min(Math.Min(bounds.Width, bounds.Height) * ImageSizeRatio, 
+                                       Math.Min(image.Size.Width, image.Size.Height));
+                if (imgSize <= 0) imgSize = Math.Min(bounds.Width, bounds.Height) * ImageSizeRatio;
 
-            context.DrawText(formattedText, textPos);
+                var destRect = new Rect(
+                    bounds.Center.X - imgSize / 2,
+                    bounds.Center.Y - imgSize / 2,
+                    imgSize,
+                    imgSize);
+
+                context.DrawImage(image, destRect);
+            }
         }
     }
 
@@ -469,8 +551,8 @@ public class FortuneBar : TemplatedControl
             context.DrawLine(pen, new Point(centerX, 0), new Point(centerX, bounds.Height));
 
             // Draw triangles at top and bottom
-            DrawIndicatorTriangle(context, new Point(centerX, 0), 12, true);
-            DrawIndicatorTriangle(context, new Point(centerX, bounds.Height), 12, false);
+            DrawIndicatorTriangle(context, new Point(centerX, 0), IndicatorTriangleSize, true);
+            DrawIndicatorTriangle(context, new Point(centerX, bounds.Height), IndicatorTriangleSize, false);
         }
         else
         {
@@ -478,8 +560,8 @@ public class FortuneBar : TemplatedControl
             context.DrawLine(pen, new Point(0, centerY), new Point(bounds.Width, centerY));
 
             // Draw triangles at left and right
-            DrawIndicatorTriangle(context, new Point(0, centerY), 12, true, false);
-            DrawIndicatorTriangle(context, new Point(bounds.Width, centerY), 12, false, false);
+            DrawIndicatorTriangle(context, new Point(0, centerY), IndicatorTriangleSize, true, false);
+            DrawIndicatorTriangle(context, new Point(bounds.Width, centerY), IndicatorTriangleSize, false, false);
         }
     }
 
@@ -550,11 +632,6 @@ public class FortuneBar : TemplatedControl
         var offset = ScrollOffset % totalSize;
         if (offset < 0) offset += totalSize;
 
-        // Find which item is at the center
-        // An item at virtual index i starts at position: i * itemSize - offset
-        // We want to find i where: i * itemSize - offset <= centerPosition < (i+1) * itemSize - offset
-        // Simplifying: i * itemSize <= centerPosition + offset < (i+1) * itemSize
-        // i <= (centerPosition + offset) / itemSize < i + 1
         var virtualIndex = (int)Math.Floor((centerPosition + offset) / itemSize);
 
         // Wrap to actual item index
@@ -567,14 +644,9 @@ public class FortuneBar : TemplatedControl
         var totalItems = Items.Count;
         var totalSize = totalItems * itemSize;
 
-        // Calculate scroll offset to center the target item under the indicator
+        // Calculate scroll offset to center the target item
         var viewSize = Orientation == Orientation.Horizontal ? Bounds.Width : Bounds.Height;
         var centerPosition = viewSize / 2;
-
-        // For an item to be centered, its left edge should be at: centerPosition - itemSize/2
-        // Item at index i has left edge at: i * itemSize - scrollOffset (when normalized)
-        // So: i * itemSize - scrollOffset = centerPosition - itemSize/2
-        // scrollOffset = i * itemSize - centerPosition + itemSize/2
         var targetScrollBase = targetIndex * itemSize - centerPosition + itemSize / 2;
 
         // Normalize to positive value
@@ -583,18 +655,23 @@ public class FortuneBar : TemplatedControl
             targetScrollBase += totalSize;
         }
 
-        // Add full cycles for visual spinning effect
-        var currentCycles = Math.Floor(ScrollOffset / totalSize);
-        var extraCycles = MinimumCycles + _random.NextDouble();
-        var finalScroll = (currentCycles + extraCycles) * totalSize + targetScrollBase;
+        // Calculate current offset relative to totalSize
+        var currentOffset = ScrollOffset % totalSize;
+        if (currentOffset < 0) currentOffset += totalSize;
+
+        // Delta to target
+        var deltaOffset = targetScrollBase - currentOffset;
+
+        var extraSpins = Math.Max(MinimumCycles, 1) + _random.Next(0, 3);
+        var totalTargetOffset = ScrollOffset + deltaOffset + (extraSpins * totalSize);
 
         // Ensure we're always scrolling forward
-        while (finalScroll <= ScrollOffset)
+        while (totalTargetOffset <= ScrollOffset)
         {
-            finalScroll += totalSize;
+            totalTargetOffset += totalSize;
         }
 
-        return finalScroll;
+        return totalTargetOffset;
     }
 
     private async Task AnimateScrollAsync(double targetScroll, CancellationToken ct)
@@ -614,7 +691,6 @@ public class FortuneBar : TemplatedControl
 
             ScrollOffset = startScroll + totalDistance * easedProgress;
 
-            await Dispatcher.UIThread.InvokeAsync(() => InvalidateVisual());
             await Task.Delay(16, ct);
         }
 
