@@ -1,7 +1,7 @@
 ---
 title: Watermark
 description: A control that renders tiled text or image watermarks as an overlay.
-ms.date: 2026-01-02
+ms.date: 2026-02-01
 ---
 
 # Watermark
@@ -34,8 +34,10 @@ The `Watermark` control renders repeating text or image patterns as a tiled over
 | `WatermarkOpacity` | `double` | `0.15` | Watermark transparency (0.0-1.0). |
 | `WatermarkFontSize` | `double` | `14` | Font size for text watermarks. |
 | `WatermarkFontFamily` | `FontFamily` | `Default` | Font family for text watermarks. |
-| `WatermarkForeground` | `IBrush` | `#808080` | Text color brush. |
-| `WatermarkFlowDirection` | `FlowDirection` | `LeftToRight` | Text direction for RTL languages. |
+| `WatermarkFontWeight` | `FontWeight` | `Normal` | Font weight for text watermarks (e.g. Bold). |
+| `WatermarkFontStyle` | `FontStyle` | `Normal` | Font style for text watermarks (e.g. Italic). |
+| `WatermarkForeground` | `IBrush` | `Gray` | Text color brush. |
+| `WatermarkFlowDirection` | `FlowDirection` | `LeftToRight` | Text direction for RTL languages. Supporting complex script shaping (CTL). |
 
 ## Custom Angle and Spacing
 
@@ -85,9 +87,14 @@ The `Watermark` control renders repeating text or image patterns as a tiled over
 </nova:Watermark>
 ```
 
+## Accessibility
+
+The `Watermark` control implements `WatermarkAutomationPeer`, allowing screen readers to perceive the watermark content. This is essential for documents where "Confidential" or "Draft" status is critical information.
+
 ## Notes
 
 - The control uses `ContentControl` with a `ContentPresenter` template.
 - Watermark is rendered behind the content using `Render` override.
 - `ClipToBounds` is enabled by default to prevent overflow.
 - Pure Avalonia rendering works on all backends.
+

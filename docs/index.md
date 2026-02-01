@@ -1,7 +1,7 @@
 ---
 title: Welcome to Nova.Avalonia.UI
 description: Overview of the Nova.Avalonia.UI control suite and how to get started.
-ms.date: 2026-01-02
+ms.date: 2026-02-01
 ---
 
 # Welcome to Nova.Avalonia.UI
