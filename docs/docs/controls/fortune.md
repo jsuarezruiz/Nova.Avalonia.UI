@@ -22,7 +22,7 @@ Declare a `FortuneWheel` and populate its `Items` collection with `FortuneItem` 
             <nova:FortuneItem Content="$100" />
             <nova:FortuneItem Content="$50" />
             <!-- You can also use Images -->
-            <nova:FortuneItem>
+            <nova:FortuneItem Name="Jackpot">
                 <nova:FortuneItem.Content>
                     <Image Source="/Assets/jackpot.png" />
                 </nova:FortuneItem.Content>
@@ -168,6 +168,7 @@ Control the spin animation with `AnimationDuration` and `MinimumSpins` (for whee
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `Items` | `ObservableCollection<FortuneItem>` | Empty | Items displayed on the wheel |
+| `Name` | `string` | null | Display name for the item (useful for non-text content) |
 | `SelectedIndex` | `int` | 0 | Index of the selected item (two-way) |
 | `StyleStrategy` | `IStyleStrategy` | `AlternatingStyleStrategy` | Strategy for styling items |
 | `AnimationDuration` | `TimeSpan` | 3 seconds | Duration of spin animation |
