@@ -7,17 +7,16 @@
              x:Class="Nova.Avalonia.UI.Gallery.Views.BadgeView">
     <ScrollViewer>
         <StackPanel Spacing="20" Margin="20">
-            <TextBlock Text="Badge"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center" />
+
+            <TextBlock Text="A notification badge for displaying counts or status indicators." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
 
             <!-- Basic Badges (Standalone) -->
-            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
-                <StackPanel Spacing="15">
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
                     <TextBlock Text="Basic Badges"
-                               FontSize="18"
-                               FontWeight="Bold" />
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     
                     <WrapPanel>
                         <controls:Badge BadgeContent="Primary" 
@@ -55,11 +54,12 @@
             </Border>
 
             <!-- Outline Badges -->
-            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
-                <StackPanel Spacing="15">
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
                     <TextBlock Text="Outline Badges"
-                               FontSize="18"
-                               FontWeight="Bold" />
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     
                     <WrapPanel>
                         <controls:Badge BadgeContent="Primary" 
@@ -82,11 +82,12 @@
             </Border>
 
             <!-- Sizes -->
-            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
-                <StackPanel Spacing="15">
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
                     <TextBlock Text="Different Sizes"
-                               FontSize="18"
-                               FontWeight="Bold" />
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     
                     <WrapPanel>
                         <controls:Badge BadgeContent="Small" 
@@ -104,11 +105,12 @@
             </Border>
 
             <!-- Number Badges -->
-            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
-                <StackPanel Spacing="15">
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
                     <TextBlock Text="Number Badges"
-                               FontSize="18"
-                               FontWeight="Bold" />
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     
                     <WrapPanel>
                         <controls:Badge BadgeContent="1" 
@@ -134,11 +136,12 @@
             </Border>
 
             <!-- Dot Indicators -->
-            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
-                <StackPanel Spacing="15">
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
                     <TextBlock Text="Dot Indicators"
-                               FontSize="18"
-                               FontWeight="Bold" />
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     
                     <WrapPanel>
                         <controls:Badge Kind="Dot"
@@ -168,11 +171,12 @@
             </Border>
 
             <!-- All Placements -->
-            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
-                <StackPanel Spacing="15">
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
                     <TextBlock Text="All Placements"
-                               FontSize="18"
-                               FontWeight="Bold" />
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     
                     <UniformGrid Rows="3" Columns="3" Margin="0,10">
                         <UniformGrid.Styles>
@@ -259,11 +263,12 @@
             </Border>
 
             <!-- Badges on Buttons -->
-            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
-                <StackPanel Spacing="15">
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
                     <TextBlock Text="Badges on Buttons"
-                               FontSize="18"
-                               FontWeight="Bold" />
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     
                     <WrapPanel>
                         <controls:Badge BadgePlacement="TopRight" Margin="10" BadgeContent="5" Theme="{StaticResource DangerBadge}">
@@ -283,11 +288,12 @@
             </Border>
 
             <!-- Shape Variants -->
-            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
-                <StackPanel Spacing="15">
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
                     <TextBlock Text="Shape Variants"
-                               FontSize="18"
-                               FontWeight="Bold" />
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
             
                     <WrapPanel>
                         <controls:Badge BadgeContent="Pill Badge" 
@@ -305,11 +311,12 @@
             </Border>
 
             <!-- Interactive -->
-            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
-                <StackPanel Spacing="15">
-                    <TextBlock Text="Interactive"
-                               FontSize="18"
-                               FontWeight="Bold" />
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Playground"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     
                     <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
                         <TextBlock Grid.Column="0" Grid.Row="0" Text="Badge Content:" VerticalAlignment="Center" />
@@ -333,11 +340,12 @@
             </Border>
             
             <!-- Max Count & Cutout Effect -->
-            <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="20" CornerRadius="8">
-                <StackPanel Spacing="15">
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
                     <TextBlock Text="Max Count &amp; Cutout Effect"
-                               FontSize="18"
-                               FontWeight="Bold" />
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     
                     <WrapPanel>
                         <!-- Max Count Example (99 default limit) -->

@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: RatingShape
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
@@ -47,7 +47,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Star
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Heart
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
@@ -103,7 +103,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Circle
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
@@ -131,7 +131,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Diamond
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
@@ -159,7 +159,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Custom
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingShape.cs

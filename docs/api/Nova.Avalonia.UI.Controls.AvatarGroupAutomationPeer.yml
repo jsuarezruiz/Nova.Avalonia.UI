@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarGroupAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: AvatarGroupAutomationPeer
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarGroupAutomationPeer.cs
@@ -119,7 +119,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarGroupAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: .ctor
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarGroupAutomationPeer.cs
@@ -151,7 +151,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarGroupAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: GetAutomationControlTypeCore
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarGroupAutomationPeer.cs
@@ -181,7 +181,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarGroupAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: GetClassNameCore
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarGroupAutomationPeer.cs
@@ -211,7 +211,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarGroupAutomationPeer.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: GetChildrenCore
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarGroupAutomationPeer.cs
