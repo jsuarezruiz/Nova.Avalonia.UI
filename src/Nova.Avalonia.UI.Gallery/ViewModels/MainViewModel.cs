@@ -31,6 +31,7 @@ public partial class MainViewModel : ViewModelBase
                 new("Fortune", new FortuneViewModel(), "Spin-to-win wheel and bar controls"),
                 new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
                 new("Shimmer", new ShimmerViewModel(), "Loading placeholders with animated shimmer"),
+                new("Watermark", new WatermarkViewModel(), "Tiled text or image overlay watermarks"),
             }),
             new("Panels", new ObservableCollection<NavigationSample>
             {

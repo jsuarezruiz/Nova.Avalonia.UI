@@ -1,7 +1,7 @@
 ---
 title: Welcome to Nova.Avalonia.UI
 description: Overview of the Nova.Avalonia.UI control suite and how to get started.
-ms.date: 2026-01-02
+ms.date: 2026-02-01
 ---
 
 # Welcome to Nova.Avalonia.UI
@@ -20,6 +20,7 @@ ms.date: 2026-01-02
 - **[FortuneWheel](xref:Nova.Avalonia.UI.Controls.FortuneWheel)**: Circular prize wheel with smooth spin animations, weighted selection, and customizable styling strategies.
 - **[RatingControl](docs/controls/ratingcontrol.md)**: Allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes.
 - **[Shimmer](docs/controls/shimmer.md)**: Skeleton loading effect that detects your content layout to create matching placeholders.
+- **[Watermark](docs/controls/watermark.md)**: Tiled text or image overlay for marking documents as confidential, draft, or adding branding.
 
 ### Panels
 

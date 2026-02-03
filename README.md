@@ -30,6 +30,12 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 <img src="images/novaui_barcodegenerator_light.gif" alt="BarcodeGenerator" width="250" />
 
+### Fortune
+
+The `FortuneWheel` and `FortuneBar` controls provide interactive spin-to-win functionality for games, raffles, and random selection scenarios. Features include smooth animations, weighted selection, customizable styling strategies, and configurable indicators.
+
+<img src="images/novaui_fortune_light.gif" alt="Fortune" width="250" />
+
 ### RatingControl
 
 The `RatingControl` allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
@@ -42,11 +48,11 @@ The `Shimmer` control shows a lightweight skeleton while your content is loading
 
 <img src="images/novaui_shimmer_light.gif" alt="Shimmer" width="250" />
 
-### Fortune
+### Watermark
 
-The `FortuneWheel` and `FortuneBar` controls provide interactive spin-to-win functionality for games, raffles, and random selection scenarios. Features include smooth animations, weighted selection, customizable styling strategies, and configurable indicators.
+The `Watermark` control renders repeating text or image patterns as a tiled overlay. Useful for marking documents as confidential, draft, or adding branding.
 
-<img src="images/novaui_fortune_light.gif" alt="Fortune" width="250" />
+<img src="images/novaui_watermark_light.gif" alt="Watermark" width="250" />
 
 ## Layout Panels
 

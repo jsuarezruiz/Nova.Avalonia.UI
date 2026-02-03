@@ -46,3 +46,5 @@
     href: controls/staggeredpanel.md
   - name: VirtualizedVariableSizeWrapPanel
     href: controls/variablesizewrappanel.md
+  - name: Watermark
+    href: controls/watermark.md
