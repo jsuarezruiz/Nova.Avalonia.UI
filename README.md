@@ -42,6 +42,12 @@ The `Shimmer` control shows a lightweight skeleton while your content is loading
 
 <img src="images/novaui_shimmer_light.gif" alt="Shimmer" width="250" />
 
+### Watermark
+
+The `Watermark` control renders repeating text or image patterns as a tiled overlay. Useful for marking documents as confidential, draft, or adding branding.
+
+<img src="images/novaui_watermark_light.gif" alt="Watermark" width="250" />
+
 ## Layout Panels
 
 ### ArcPanel

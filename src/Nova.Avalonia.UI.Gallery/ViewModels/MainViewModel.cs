@@ -30,6 +30,7 @@ public partial class MainViewModel : ViewModelBase
                 new("BarcodeGenerator", new BarcodeGeneratorViewModel(), "QR codes, barcodes, and 2D symbologies"),
                 new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
                 new("Shimmer", new ShimmerViewModel(), "Loading placeholders with animated shimmer"),
+                new("Watermark", new WatermarkViewModel(), "Tiled text or image overlay watermarks"),
             }),
             new("Panels", new ObservableCollection<NavigationSample>
             {
