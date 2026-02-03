@@ -16,6 +16,8 @@ ms.date: 2026-01-02
 - **[Avatar](docs/controls/avatar.md)**: Identity control supporting images, initials, icons, and status indicators with auto-generated backgrounds.
 - **[Badge](docs/controls/badge.md)**: Notification indicator for counts, status, or dot indicators with configurable placement and overflow handling.
 - **[BarcodeGenerator](docs/controls/barcodegenerator.md)**: Generates QR codes, Data Matrix, Code 128, and other barcode formats with customizable colors and logo support.
+- **[FortuneBar](xref:Nova.Avalonia.UI.Controls.FortuneBar)**: Slot machine style horizontal or vertical scrolling bar for random selection.
+- **[FortuneWheel](xref:Nova.Avalonia.UI.Controls.FortuneWheel)**: Circular prize wheel with smooth spin animations, weighted selection, and customizable styling strategies.
 - **[RatingControl](docs/controls/ratingcontrol.md)**: Allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes.
 - **[Shimmer](docs/controls/shimmer.md)**: Skeleton loading effect that detects your content layout to create matching placeholders.
 
@@ -38,11 +40,6 @@ ms.date: 2026-01-02
 - **[VariableSizeWrapPanel](docs/controls/variablesizewrappanel.md)**: Arranges varying-sized items in a wrapping grid.
 - **[VirtualizingStaggeredPanel](docs/controls/staggeredpanel.md)**: High-performance staggered grid for large datasets.
 - **[VirtualizingVariableSizeWrapPanel](docs/controls/variablesizewrappanel.md)**: High-performance variable-size tile grid for large datasets.
-
-### Games and entertainment
-
-- **[FortuneWheel](xref:Nova.Avalonia.UI.Controls.FortuneWheel)**: Circular prize wheel with smooth spin animations, weighted selection, and customizable styling strategies.
-- **[FortuneBar](xref:Nova.Avalonia.UI.Controls.FortuneBar)**: Slot machine style horizontal or vertical scrolling bar for random selection.
 
 ## Requirements
 
