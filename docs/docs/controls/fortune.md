@@ -8,6 +8,8 @@ ms.date: 2025-12-26
 
 The Fortune controls provide interactive spin-to-win functionality for games, raffles, and random selection scenarios. The library includes two main controls: `FortuneWheel` for circular prize wheels and `FortuneBar` for slot machine style scrolling bars.
 
+<img src="../../images/novaui_fortune_light.gif" alt="Fortune" width="300" />
+
 ## Create a FortuneWheel
 
 Declare a `FortuneWheel` and populate its `Items` collection with `FortuneItem` objects.
