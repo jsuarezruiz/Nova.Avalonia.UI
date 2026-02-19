@@ -59,10 +59,19 @@ The control supports programmatic reset and reveal, with optional timed animatio
 
 ## Mask Management
 
-For advanced scenarios like saving or loading the scratch state, you can use the mask methods:
+The mask methods let you save and restore the scratch state, for example to resume progress after navigating away:
 
-- `GetScratchMask()`: Returns a `WriteableBitmap` copy of the current scratch mask.
-- `SetScratchMask(WriteableBitmap mask)`: Applies a pre defined scratch mask to the control.
+- `GetScratchMask()`: Returns a `WriteableBitmap` snapshot of the current scratch state.
+- `SetScratchMask(WriteableBitmap mask)`: Applies a previously saved mask, restoring the scratch state exactly.
+
+```csharp
+// Save
+_savedMask = scratcher.GetScratchMask();
+
+// Restore
+if (_savedMask != null)
+    scratcher.SetScratchMask(_savedMask);
+```
 
 ## Accessibility
 

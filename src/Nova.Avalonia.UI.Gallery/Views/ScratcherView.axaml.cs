@@ -1,12 +1,15 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media.Imaging;
 using Nova.Avalonia.UI.Controls;
 
 namespace Nova.Avalonia.UI.Gallery.Views;
 
 public partial class ScratcherView : UserControl
 {
+    private WriteableBitmap? _savedMask;
+
     public ScratcherView()
     {
         InitializeComponent();
@@ -100,10 +103,42 @@ public partial class ScratcherView : UserControl
     {
         var scratcher = this.FindControl<Scratcher>("BasicScratcher");
         if (scratcher != null)
-        {
             await scratcher.Reveal();
-        }
     }
-    
 
+    private void OnSaveStateClick(object? sender, RoutedEventArgs e)
+    {
+        var scratcher = this.FindControl<Scratcher>("StateScratcher");
+        var statusText = this.FindControl<TextBlock>("StateStatusText");
+
+        _savedMask = scratcher?.GetScratchMask();
+
+        if (statusText != null)
+            statusText.Text = _savedMask != null ? "State saved." : "Nothing to save yet.";
+    }
+
+    private async void OnResetStateClick(object? sender, RoutedEventArgs e)
+    {
+        var scratcher = this.FindControl<Scratcher>("StateScratcher");
+        if (scratcher != null)
+            await scratcher.Reset();
+    }
+
+    private void OnRestoreStateClick(object? sender, RoutedEventArgs e)
+    {
+        var scratcher = this.FindControl<Scratcher>("StateScratcher");
+        var statusText = this.FindControl<TextBlock>("StateStatusText");
+
+        if (scratcher == null || _savedMask == null)
+        {
+            if (statusText != null)
+                statusText.Text = "No state saved yet.";
+            return;
+        }
+
+        scratcher.SetScratchMask(_savedMask);
+
+        if (statusText != null)
+            statusText.Text = "State restored.";
+    }
 }

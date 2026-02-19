@@ -208,6 +208,53 @@
                 </StackPanel>
             </Border>
             
+            <!-- Save / Restore State -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}"
+                    BorderThickness="2"
+                    Padding="15"
+                    CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Save / Restore State"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Scratch partially, save the state, reset, then restore to continue where you left off."
+                               Foreground="{DynamicResource SecondaryTextBrush}" />
+
+                    <controls:Scratcher x:Name="StateScratcher"
+                                        Width="300"
+                                        Height="150"
+                                        OverlayBrush="{DynamicResource ScratcherOverlayBrush}"
+                                        BrushSize="40"
+                                        Threshold="60"
+                                        CornerRadius="8"
+                                        HorizontalAlignment="Left">
+                        <Border Background="#2196F3" CornerRadius="8">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="State Restored!"
+                                           FontSize="22"
+                                           FontWeight="Bold"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Your progress was saved."
+                                           FontSize="14"
+                                           Foreground="#BBDEFB"
+                                           HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                    </controls:Scratcher>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Save State" Click="OnSaveStateClick" />
+                        <Button Content="Reset" Click="OnResetStateClick" />
+                        <Button Content="Restore State" Click="OnRestoreStateClick" />
+                    </StackPanel>
+                    <TextBlock x:Name="StateStatusText"
+                               Text="No state saved yet."
+                               Foreground="{DynamicResource SecondaryTextBrush}" />
+                </StackPanel>
+            </Border>
+
             <!-- Disabled State -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
                     BorderThickness="2" 

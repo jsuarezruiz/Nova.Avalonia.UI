@@ -11,6 +11,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using AvaloniaPixelFormats = Avalonia.Platform.PixelFormats;
 using AvaloniaAlphaFormat = Avalonia.Platform.AlphaFormat;
 
@@ -27,11 +28,16 @@ public class Scratcher : ContentControl
     private Point _lastPoint;
     private double _scratchProgress;
     private bool _isThresholdReached;
+    private bool _isParentHandlerActive;
     private Image? _overlayImage;
     private int _totalPixels;
     private int _scratchedPixels;
     private readonly DispatcherTimer _progressTimer;
+    private readonly DispatcherTimer _scrollLockTimer;
     private bool _progressDirty;
+    private IPointer? _activePointer;
+    private readonly System.Collections.Generic.List<ScrollViewer> _activeParentScrollViewers = new();
+    private readonly System.Collections.Generic.Dictionary<ScrollViewer, Vector> _lockedScrollOffsets = new();
 
     static Scratcher()
     {
@@ -58,7 +64,31 @@ public class Scratcher : ContentControl
     {
         _progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
         _progressTimer.Tick += OnProgressTimerTick;
+
+        _scrollLockTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(8) };
+        _scrollLockTimer.Tick += OnScrollLockTimerTick;
+
         Focusable = true;
+
+        // Tunnel phase ensures we see events before ancestor ScrollViewers do.
+        AddHandler(PointerPressedEvent, OnPointerPressedTunnel, RoutingStrategies.Tunnel, true);
+        AddHandler(PointerMovedEvent, OnPointerMovedTunnel, RoutingStrategies.Tunnel, true);
+        AddHandler(PointerReleasedEvent, OnPointerReleasedTunnel, RoutingStrategies.Tunnel, true);
+
+        AddHandler(Gestures.ScrollGestureEvent, OnScratcherScrollGesture, RoutingStrategies.Bubble, true);
+        AddHandler(PointerWheelChangedEvent, OnScratcherPointerWheel, RoutingStrategies.Bubble, true);
+    }
+
+    private void OnScratcherPointerWheel(object? sender, PointerWheelEventArgs e)
+    {
+        if (_isScratching)
+            e.Handled = true;
+    }
+
+    private void OnScratcherScrollGesture(object? sender, ScrollGestureEventArgs e)
+    {
+        if (_isScratching)
+            e.Handled = true;
     }
 
     /// <summary>
@@ -237,13 +267,12 @@ public class Scratcher : ContentControl
         _isThresholdReached = false;
         _scratchProgress = 0;
         _scratchedPixels = 0;
-        
+
         if (duration.HasValue && duration.Value > TimeSpan.Zero && _overlayImage != null)
         {
-            // Animate opacity from 0 to 1
             _overlayImage.Opacity = 0;
             RebuildScratchBuffer();
-            
+
             var animation = new Animation
             {
                 Duration = duration.Value,
@@ -256,6 +285,9 @@ public class Scratcher : ContentControl
         {
             RebuildScratchBuffer();
         }
+
+        if (_overlayImage != null)
+            _overlayImage.Opacity = 1;
     }
 
     /// <summary>
@@ -268,10 +300,9 @@ public class Scratcher : ContentControl
 
         _scratchProgress = 100;
         _isThresholdReached = true;
-        
+
         if (duration.HasValue && duration.Value > TimeSpan.Zero && _overlayImage != null)
         {
-            // Animate opacity from current to 0
             var animation = new Animation
             {
                 Duration = duration.Value,
@@ -280,18 +311,19 @@ public class Scratcher : ContentControl
             };
             await animation.RunAsync(_overlayImage);
             ClearBuffer();
-            _overlayImage.Opacity = 1; // Reset opacity for next use
+            _overlayImage.Opacity = 1;
         }
         else
         {
             ClearBuffer();
         }
-        
+
         _overlayImage?.InvalidateVisual();
     }
 
     /// <summary>
     /// Returns a copy of the current scratch mask as a <see cref="WriteableBitmap"/>.
+    /// Can be stored and later passed to <see cref="SetScratchMask"/> to restore the scratch state.
     /// </summary>
     public WriteableBitmap? GetScratchMask()
     {
@@ -338,8 +370,9 @@ public class Scratcher : ContentControl
                 srcLock.RowBytes * srcLock.Size.Height);
         }
 
-        _progressDirty = true;
-        InvalidateVisual();
+        _scratchedPixels = CountZeroPixels(_scratchBuffer);
+        UpdateProgress();
+        _overlayImage?.InvalidateVisual();
     }
 
     /// <inheritdoc/>
@@ -349,64 +382,54 @@ public class Scratcher : ContentControl
     }
 
     /// <inheritdoc/>
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        AttachInterceptors();
+    }
+
+    /// <inheritdoc/>
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnDetachedFromVisualTree(e);
+        DetachInterceptors();
+    }
+
+    /// <inheritdoc/>
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
         _overlayImage = e.NameScope.Find<Image>("PART_OverlayImage");
-        // Buffer will be built in OnSizeChanged when we have actual dimensions
+        UpdateOverlayImage();
     }
 
     /// <inheritdoc/>
     protected override void OnSizeChanged(SizeChangedEventArgs e)
     {
         base.OnSizeChanged(e);
-        // Always rebuild when size changes and we have valid dimensions
-        if (e.NewSize.Width > 0 && e.NewSize.Height > 0)
-        {
+
+        var newWidth = (int)Math.Max(1, e.NewSize.Width);
+        var newHeight = (int)Math.Max(1, e.NewSize.Height);
+
+        // Guard against sub-pixel jitter triggering unnecessary resets.
+        var currentWidth = _scratchBuffer?.PixelSize.Width ?? 0;
+        var currentHeight = _scratchBuffer?.PixelSize.Height ?? 0;
+
+        if (newWidth > 0 && newHeight > 0 && (newWidth != currentWidth || newHeight != currentHeight))
             RebuildScratchBuffer();
+    }
+
+    /// <inheritdoc/>
+    protected override void OnPointerCaptureLost(PointerCaptureLostEventArgs e)
+    {
+        base.OnPointerCaptureLost(e);
+
+        if (_isScratching && _activePointer != null)
+        {
+            // ScrollGestureRecognizer steals capture on scroll detection. Re-capturing here
+            // keeps the scratch session alive until the pointer is actually released.
+            _activePointer.Capture(this);
         }
-    }
-
-    /// <inheritdoc/>
-    protected override void OnPointerPressed(PointerPressedEventArgs e)
-    {
-        base.OnPointerPressed(e);
-        if (!IsEnabled) return;
-
-        _isScratching = true;
-        _lastPoint = e.GetPosition(this);
-        _progressTimer.Start();
-
-        RaiseEvent(new ScratchEventArgs(ScratchStartedEvent, _lastPoint, BrushSize));
-        e.Pointer.Capture(this);
-    }
-
-    /// <inheritdoc/>
-    protected override void OnPointerMoved(PointerEventArgs e)
-    {
-        base.OnPointerMoved(e);
-        if (!_isScratching) return;
-
-        var currentPoint = e.GetPosition(this);
-        ScratchLine(_lastPoint, currentPoint);
-        _lastPoint = currentPoint;
-
-        RaiseEvent(new ScratchEventArgs(ScratchUpdatedEvent, currentPoint, BrushSize));
-    }
-
-    /// <inheritdoc/>
-    protected override void OnPointerReleased(PointerReleasedEventArgs e)
-    {
-        base.OnPointerReleased(e);
-        if (!_isScratching) return;
-
-        _isScratching = false;
-        var finalPoint = e.GetPosition(this);
-        _progressTimer.Stop();
-        UpdateProgress();
-
-        RaiseEvent(new ScratchEventArgs(ScratchEndedEvent, finalPoint, BrushSize));
-        e.Pointer.Capture(null);
     }
 
     /// <inheritdoc/>
@@ -420,11 +443,65 @@ public class Scratcher : ContentControl
         }
     }
 
+    private void OnPointerPressedTunnel(object? sender, PointerPressedEventArgs e)
+    {
+        if (!IsEnabled) return;
+
+        _activePointer = e.Pointer;
+        _isScratching = true;
+        _lastPoint = e.GetPosition(this);
+        _progressTimer.Start();
+        _scrollLockTimer.Start();
+
+        LockParentScroll();
+        RaiseEvent(new ScratchEventArgs(ScratchStartedEvent, _lastPoint, BrushSize));
+
+        e.Pointer.Capture(this);
+        e.Handled = true;
+    }
+
+    private void OnPointerMovedTunnel(object? sender, PointerEventArgs e)
+    {
+        if (!_isScratching) return;
+
+        var currentPoint = e.GetPosition(this);
+        ScratchLine(_lastPoint, currentPoint);
+        _lastPoint = currentPoint;
+
+        RaiseEvent(new ScratchEventArgs(ScratchUpdatedEvent, currentPoint, BrushSize));
+        e.Handled = true;
+    }
+
+    private void OnPointerReleasedTunnel(object? sender, PointerReleasedEventArgs e)
+    {
+        if (!_isScratching) return;
+
+        EndScratchSession(e.GetPosition(this));
+        e.Pointer.Capture(null);
+        e.Handled = true;
+    }
+
+    private void EndScratchSession(Point finalPoint)
+    {
+        if (!_isScratching) return;
+
+        _isScratching = false;
+        _activePointer = null;
+        _progressTimer.Stop();
+        _scrollLockTimer.Stop();
+        UpdateProgress();
+        RestoreParentScroll();
+        RaiseEvent(new ScratchEventArgs(ScratchEndedEvent, finalPoint, BrushSize));
+    }
+
     private void UpdateOverlayImage()
     {
         if (_overlayImage != null && _scratchBuffer != null)
         {
             _overlayImage.Source = _scratchBuffer;
+            _overlayImage.Opacity = 1.0;
+            _overlayImage.IsVisible = true;
+            _overlayImage.InvalidateVisual();
         }
     }
 
@@ -438,7 +515,7 @@ public class Scratcher : ContentControl
         _scratchBuffer = new WriteableBitmap(
             new PixelSize(width, height),
             new Vector(96, 96),
-            AvaloniaPixelFormats.Bgra8888,
+            AvaloniaPixelFormats.Rgba8888,
             AvaloniaAlphaFormat.Premul);
 
         _totalPixels = width * height;
@@ -457,64 +534,66 @@ public class Scratcher : ContentControl
         var width = _scratchBuffer.PixelSize.Width;
         var height = _scratchBuffer.PixelSize.Height;
 
-        using (var fb = _scratchBuffer.Lock())
+        using var fb = _scratchBuffer.Lock();
+        unsafe
         {
-            unsafe
+            var ptr = (byte*)fb.Address;
+            var stride = fb.RowBytes;
+            var brush = OverlayBrush ?? Brushes.Gray;
+
+            if (brush is ISolidColorBrush scb)
             {
-                var ptr = (uint*)fb.Address;
-                var total = width * height;
-                var brush = OverlayBrush ?? Brushes.Gray;
+                var color = scb.Color;
+                // Rgba8888 (LE): byte 0=R, 1=G, 2=B, 3=A → uint 0xAABBGGRR
+                uint pixel = (uint)((0xFFU << 24) | ((uint)color.B << 16) | ((uint)color.G << 8) | (uint)color.R);
 
-                if (brush is ISolidColorBrush scb)
+                for (int y = 0; y < height; y++)
                 {
-                    var color = scb.Color;
-                    uint pixel = (0xFFU << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | (uint)color.B;
-
-                    for (int i = 0; i < total; i++)
+                    uint* rowPtr = (uint*)(ptr + y * stride);
+                    for (int x = 0; x < width; x++)
                     {
-                        if (!preserveScratches || ptr[i] != 0)
+                        if (!preserveScratches || rowPtr[x] != 0)
+                            rowPtr[x] = pixel;
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    using var rtb = new RenderTargetBitmap(new PixelSize(width, height), new Vector(96, 96));
+                    using (var context = rtb.CreateDrawingContext())
+                        context.FillRectangle(brush, new Rect(0, 0, width, height));
+
+                    using var temp = new WriteableBitmap(new PixelSize(width, height), new Vector(96, 96), AvaloniaPixelFormats.Rgba8888, AvaloniaAlphaFormat.Premul);
+                    using var tempLock = temp.Lock();
+                    rtb.CopyPixels(new PixelRect(rtb.PixelSize), tempLock.Address, tempLock.RowBytes * tempLock.Size.Height, tempLock.RowBytes);
+
+                    var tempPtr = (byte*)tempLock.Address;
+                    var tempStride = tempLock.RowBytes;
+
+                    for (int y = 0; y < height; y++)
+                    {
+                        uint* rowPtr = (uint*)(ptr + y * stride);
+                        uint* tempRowPtr = (uint*)(tempPtr + y * tempStride);
+                        for (int x = 0; x < width; x++)
                         {
-                            ptr[i] = pixel;
+                            if (!preserveScratches || rowPtr[x] != 0)
+                                rowPtr[x] = tempRowPtr[x] | 0xFF000000;
                         }
                     }
                 }
-                else
+                catch (Exception)
                 {
-                    // For complex brushes, try to render to a temporary buffer we can read
-                    try
+                    // Fallback for headless environments.
+                    const uint fallbackPixel = 0xFF808080;
+                    for (int y = 0; y < height; y++)
                     {
-                        using var rtb = new RenderTargetBitmap(new PixelSize(width, height), new Vector(96, 96));
-                        using (var context = rtb.CreateDrawingContext())
+                        uint* rowPtr = (uint*)(ptr + y * stride);
+                        for (int x = 0; x < width; x++)
                         {
-                            context.FillRectangle(brush, new Rect(0, 0, width, height));
-                        }
-
-                        // We can't Lock RTB, so we copy it to a temporary WriteableBitmap
-                        using var temp = new WriteableBitmap(new PixelSize(width, height), new Vector(96, 96), AvaloniaPixelFormats.Bgra8888, AvaloniaAlphaFormat.Premul);
-                        using (var tempLock = temp.Lock())
-                        {
-                            rtb.CopyPixels(new PixelRect(rtb.PixelSize), tempLock.Address, tempLock.RowBytes * tempLock.Size.Height, tempLock.RowBytes);
-                            
-                            var tempPtr = (uint*)tempLock.Address;
-                            for (int i = 0; i < total; i++)
-                            {
-                                if (!preserveScratches || ptr[i] != 0)
-                                {
-                                    ptr[i] = tempPtr[i] | 0xFF000000;
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        // Fallback to a safe gray if RTB/CopyPixels fails (common in headless tests)
-                        uint fallbackPixel = 0xFF808080;
-                        for (int i = 0; i < total; i++)
-                        {
-                            if (!preserveScratches || ptr[i] != 0)
-                            {
-                                ptr[i] = fallbackPixel;
-                            }
+                            if (!preserveScratches || rowPtr[x] != 0)
+                                rowPtr[x] = fallbackPixel;
                         }
                     }
                 }
@@ -532,14 +611,43 @@ public class Scratcher : ContentControl
 
         unsafe
         {
-            var ptr = (uint*)fb.Address;
-            for (int i = 0; i < width * height; i++)
+            var ptr = (byte*)fb.Address;
+            var stride = fb.RowBytes;
+
+            for (int y = 0; y < height; y++)
             {
-                ptr[i] = 0;
+                uint* rowPtr = (uint*)(ptr + y * stride);
+                for (int x = 0; x < width; x++)
+                    rowPtr[x] = 0;
             }
         }
 
         _scratchedPixels = _totalPixels;
+    }
+
+    private static int CountZeroPixels(WriteableBitmap bitmap)
+    {
+        int count = 0;
+        using var fb = bitmap.Lock();
+        var width = fb.Size.Width;
+        var height = fb.Size.Height;
+
+        unsafe
+        {
+            var ptr = (byte*)fb.Address;
+            var stride = fb.RowBytes;
+            for (int y = 0; y < height; y++)
+            {
+                uint* rowPtr = (uint*)(ptr + y * stride);
+                for (int x = 0; x < width; x++)
+                {
+                    if (rowPtr[x] == 0)
+                        count++;
+                }
+            }
+        }
+
+        return count;
     }
 
     private void ScratchLine(Point from, Point to)
@@ -562,19 +670,6 @@ public class Scratcher : ContentControl
         }
 
         _overlayImage?.InvalidateVisual();
-        
-        // Ensure immediate threshold detection
-        UpdateProgress();
-    }
-
-    private void ScratchCircle(int cx, int cy, int radius)
-    {
-        if (_scratchBuffer == null) return;
-
-        using var fb = _scratchBuffer.Lock();
-        ScratchCircleInternal(fb, cx, cy, radius);
-        
-        _overlayImage?.InvalidateVisual();
         UpdateProgress();
     }
 
@@ -583,7 +678,8 @@ public class Scratcher : ContentControl
         var width = fb.Size.Width;
         var height = fb.Size.Height;
         var radiusSq = radius * radius;
-        var ptr = (uint*)fb.Address;
+        var ptr = (byte*)fb.Address;
+        var stride = fb.RowBytes;
 
         var minX = Math.Max(0, cx - radius);
         var maxX = Math.Min(width - 1, cx + radius);
@@ -592,19 +688,15 @@ public class Scratcher : ContentControl
 
         for (int y = minY; y <= maxY; y++)
         {
-            var rowOffset = y * width;
+            uint* rowPtr = (uint*)(ptr + y * stride);
             for (int x = minX; x <= maxX; x++)
             {
                 var dx = x - cx;
                 var dy = y - cy;
-                if (dx * dx + dy * dy <= radiusSq)
+                if (dx * dx + dy * dy <= radiusSq && rowPtr[x] != 0)
                 {
-                    var idx = rowOffset + x;
-                    if (ptr[idx] != 0)
-                    {
-                        ptr[idx] = 0;
-                        _scratchedPixels++;
-                    }
+                    rowPtr[x] = 0;
+                    _scratchedPixels++;
                 }
             }
         }
@@ -613,8 +705,17 @@ public class Scratcher : ContentControl
     private void OnProgressTimerTick(object? sender, EventArgs e)
     {
         if (_progressDirty)
-        {
             UpdateProgress();
+    }
+
+    private void OnScrollLockTimerTick(object? sender, EventArgs e)
+    {
+        if (!_isScratching || !_isParentHandlerActive) return;
+
+        foreach (var kvp in _lockedScrollOffsets)
+        {
+            if (kvp.Key.Offset != kvp.Value)
+                kvp.Key.Offset = kvp.Value;
         }
     }
 
@@ -627,9 +728,7 @@ public class Scratcher : ContentControl
         _progressDirty = false;
 
         if (Math.Abs(_scratchProgress - previousProgress) >= 0.1)
-        {
             RaiseEvent(new ScratchProgressEventArgs(ProgressChangedEvent, _scratchProgress, previousProgress));
-        }
 
         if (!_isThresholdReached && _scratchProgress >= Threshold)
         {
@@ -639,8 +738,140 @@ public class Scratcher : ContentControl
         }
 
         if (previousProgress != _scratchProgress)
-        {
             RaisePropertyChanged(ScratchProgressProperty, previousProgress, _scratchProgress);
+    }
+
+    private void AttachInterceptors()
+    {
+        DetachInterceptors();
+
+        foreach (var ancestor in this.GetVisualAncestors())
+        {
+            if (ancestor is not ScrollViewer sv) continue;
+
+            sv.AddHandler(PointerPressedEvent, OnAncestorPointerPressed, RoutingStrategies.Tunnel, true);
+            sv.AddHandler(PointerMovedEvent, OnAncestorPointerMoved, RoutingStrategies.Tunnel, true);
+            sv.AddHandler(PointerReleasedEvent, OnAncestorPointerReleased, RoutingStrategies.Tunnel, true);
+            sv.AddHandler(PointerWheelChangedEvent, OnAncestorPointerWheel, RoutingStrategies.Tunnel, true);
+            sv.AddHandler(Gestures.ScrollGestureEvent, OnAncestorScrollGesture, RoutingStrategies.Tunnel, true);
+            sv.AddHandler(PointerPressedEvent, OnAncestorPointerPressedBubble, RoutingStrategies.Bubble, true);
+            sv.AddHandler(Gestures.ScrollGestureEvent, OnAncestorScrollGestureBubble, RoutingStrategies.Bubble, true);
+            _activeParentScrollViewers.Add(sv);
         }
+    }
+
+    private void DetachInterceptors()
+    {
+        foreach (var sv in _activeParentScrollViewers)
+        {
+            sv.RemoveHandler(PointerPressedEvent, OnAncestorPointerPressed);
+            sv.RemoveHandler(PointerMovedEvent, OnAncestorPointerMoved);
+            sv.RemoveHandler(PointerReleasedEvent, OnAncestorPointerReleased);
+            sv.RemoveHandler(PointerWheelChangedEvent, OnAncestorPointerWheel);
+            sv.RemoveHandler(Gestures.ScrollGestureEvent, OnAncestorScrollGesture);
+            sv.RemoveHandler(PointerPressedEvent, OnAncestorPointerPressedBubble);
+            sv.RemoveHandler(Gestures.ScrollGestureEvent, OnAncestorScrollGestureBubble);
+        }
+        _activeParentScrollViewers.Clear();
+        _lockedScrollOffsets.Clear();
+    }
+
+    private void OnAncestorPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (new Rect(Bounds.Size).Contains(e.GetPosition(this)))
+            e.Handled = true;
+    }
+
+    private void OnAncestorPointerMoved(object? sender, PointerEventArgs e)
+    {
+        if (_isScratching && _isParentHandlerActive)
+        {
+            foreach (var kvp in _lockedScrollOffsets)
+            {
+                if (kvp.Key.Offset != kvp.Value)
+                    kvp.Key.Offset = kvp.Value;
+            }
+        }
+
+        var pos = e.GetPosition(this);
+        if (new Rect(Bounds.Size).Contains(pos))
+        {
+            e.Handled = true;
+            if (e.Pointer.Captured != this)
+                e.Pointer.Capture(this);
+        }
+    }
+
+    private void OnAncestorPointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        // If the gesture recognizer held capture when the pointer lifted,
+        // OnPointerReleasedTunnel won't reach us, end the session here instead.
+        if (_isScratching)
+        {
+            EndScratchSession(e.GetPosition(this));
+            e.Pointer.Capture(null);
+            e.Handled = true;
+        }
+    }
+
+    private void OnAncestorScrollGesture(object? sender, ScrollGestureEventArgs e)
+    {
+        if (!_isScratching) return;
+
+        foreach (var kvp in _lockedScrollOffsets)
+        {
+            if (kvp.Key.Offset != kvp.Value)
+                kvp.Key.Offset = kvp.Value;
+        }
+
+        e.Handled = true;
+    }
+
+    private void OnAncestorPointerWheel(object? sender, PointerWheelEventArgs e)
+    {
+        if (_isScratching && new Rect(Bounds.Size).Contains(e.GetPosition(this)))
+            e.Handled = true;
+    }
+
+    private void OnAncestorPointerPressedBubble(object? sender, PointerPressedEventArgs e)
+    {
+        if (!e.Handled && new Rect(Bounds.Size).Contains(e.GetPosition(this)))
+            e.Handled = true;
+    }
+
+    private void OnAncestorScrollGestureBubble(object? sender, ScrollGestureEventArgs e)
+    {
+        if (!_isScratching) return;
+
+        foreach (var kvp in _lockedScrollOffsets)
+            kvp.Key.Offset = kvp.Value;
+
+        e.Handled = true;
+    }
+
+    private void LockParentScroll()
+    {
+        if (_isParentHandlerActive) return;
+
+        // Visual tree may have changed since OnAttachedToVisualTree; re-scan if needed.
+        if (_activeParentScrollViewers.Count == 0)
+            AttachInterceptors();
+
+        _lockedScrollOffsets.Clear();
+        foreach (var sv in _activeParentScrollViewers)
+            _lockedScrollOffsets[sv] = sv.Offset;
+
+        _isParentHandlerActive = true;
+    }
+
+    private void RestoreParentScroll()
+    {
+        if (!_isParentHandlerActive) return;
+
+        foreach (var kvp in _lockedScrollOffsets)
+            kvp.Key.Offset = kvp.Value;
+
+        _lockedScrollOffsets.Clear();
+        _isParentHandlerActive = false;
     }
 }
