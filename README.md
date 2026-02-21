@@ -34,6 +34,8 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 The `CompareSlider` control enables users to compare two pieces of content side-by-side. A draggable divider allows the user to reveal more of the "before" or "after" content interactively.
 
+<img src="images/novaui_compareslider_light.gif" alt="CompareSlider" width="250" />
+
 ### RatingControl
 
 The `RatingControl` allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
