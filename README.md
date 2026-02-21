@@ -34,6 +34,8 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 The `CircularSlider` control allows users to select a value by dragging around a circular arc. It supports customizable angles, step frequencies, color themes, and center content.
 
+<img src="images/novaui_circularslider_light.gif" alt="CircularSlider" width="250" />
+
 ### Fortune
 
 The `FortuneWheel` and `FortuneBar` controls provide interactive spin-to-win functionality for games, raffles, and random selection scenarios. Features include smooth animations, weighted selection, customizable styling strategies, and configurable indicators.
