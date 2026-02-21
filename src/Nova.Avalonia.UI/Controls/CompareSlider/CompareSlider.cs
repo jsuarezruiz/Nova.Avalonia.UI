@@ -15,8 +15,8 @@ using Avalonia.Threading;
 using Avalonia.Automation.Peers;
 using Nova.Avalonia.UI.Controls.AutomationPeers;
 using System.Threading;
-
-namespace Nova.Avalonia.UI.Controls
+using Avalonia.Animation;
+using Avalonia.Animation.Easings;namespace Nova.Avalonia.UI.Controls
 {
     /// <summary>
     /// A control that allows comparing two pieces of content side-by-side with a draggable slider.
@@ -191,6 +191,7 @@ namespace Nova.Avalonia.UI.Controls
                 _thumb.DragStarted -= OnThumbDragStarted;
                 _thumb.DragDelta -= OnThumbDragDelta;
                 _thumb.DragCompleted -= OnThumbDragCompleted;
+                _thumb.PropertyChanged -= OnThumbPropertyChanged;
             }
 
             _container = e.NameScope.Find<Grid>("PART_Container");
@@ -205,6 +206,7 @@ namespace Nova.Avalonia.UI.Controls
                 _thumb.DragStarted += OnThumbDragStarted;
                 _thumb.DragDelta += OnThumbDragDelta;
                 _thumb.DragCompleted += OnThumbDragCompleted;
+                _thumb.PropertyChanged += OnThumbPropertyChanged;
             }
 
             if (_beforePanel != null) _beforePanel.Clip = _beforeClip;
@@ -226,6 +228,15 @@ namespace Nova.Avalonia.UI.Controls
                 _thumb.DragStarted -= OnThumbDragStarted;
                 _thumb.DragDelta -= OnThumbDragDelta;
                 _thumb.DragCompleted -= OnThumbDragCompleted;
+                _thumb.PropertyChanged -= OnThumbPropertyChanged;
+            }
+        }
+
+        private void OnThumbPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.Property == BoundsProperty)
+            {
+                UpdateClipping();
             }
         }
 
@@ -239,22 +250,25 @@ namespace Nova.Avalonia.UI.Controls
         {
             if (_thumb == null) return;
 
-            double change = 0;
+            var range = Maximum - Minimum;
+            if (range <= 0) return;
+
+            double changeRatio = 0;
             if (Orientation == Orientation.Horizontal)
             {
-                change = e.Vector.X / Bounds.Width;
+                changeRatio = Bounds.Width > 0 ? e.Vector.X / Bounds.Width : 0;
             }
             else
             {
-                change = e.Vector.Y / Bounds.Height;
+                changeRatio = Bounds.Height > 0 ? e.Vector.Y / Bounds.Height : 0;
             }
             
             if (IsDirectionReversed)
             {
-                 change = -change;
+                 changeRatio = -changeRatio;
             }
 
-            Value = Math.Clamp(Value + change, Minimum, Maximum);
+            Value = Math.Clamp(Value + (changeRatio * range), Minimum, Maximum);
             
             RaiseEvent(new VectorEventArgs { RoutedEvent = DragDeltaEvent, Vector = e.Vector });
         }
@@ -271,17 +285,20 @@ namespace Nova.Avalonia.UI.Controls
 
             if (!IsMoveToPointEnabled || e.Handled || _thumb?.IsPointerOver == true) return;
 
+            var range = Maximum - Minimum;
+            if (range <= 0) return;
+
             var point = e.GetPosition(this);
-            var targetValue = Orientation == Orientation.Horizontal
-                ? point.X / Bounds.Width
-                : point.Y / Bounds.Height;
+            var targetRatio = Orientation == Orientation.Horizontal
+                ? (Bounds.Width > 0 ? point.X / Bounds.Width : 0)
+                : (Bounds.Height > 0 ? point.Y / Bounds.Height : 0);
 
             if (IsDirectionReversed)
             {
-                targetValue = 1.0 - targetValue;
+                targetRatio = 1.0 - targetRatio;
             }
 
-            Value = Math.Clamp(targetValue, Minimum, Maximum);
+            Value = Math.Clamp(Minimum + (targetRatio * range), Minimum, Maximum);
             e.Handled = true;
         }
 
@@ -331,14 +348,16 @@ namespace Nova.Avalonia.UI.Controls
             if (_beforePanel == null || _afterPanel == null || _divider == null || _thumb == null) return;
             if (Bounds.Width <= 0 || Bounds.Height <= 0) return;
 
-            var val = Value;
-            if (IsDirectionReversed) val = 1.0 - val;
+            var range = Maximum - Minimum;
+            var ratio = range > 0 ? (Value - Minimum) / range : 0;
+
+            if (IsDirectionReversed) ratio = 1.0 - ratio;
             
-            val = Math.Clamp(val, 0.0, 1.0);
+            ratio = Math.Clamp(ratio, 0.0, 1.0);
 
             if (Orientation == Orientation.Horizontal)
             {
-                var position = val * Bounds.Width;
+                var position = ratio * Bounds.Width;
 
                 _beforeClip.Rect = new Rect(0, 0, position, Bounds.Height);
                 _afterClip.Rect = new Rect(position, 0, Bounds.Width - position, Bounds.Height);
@@ -354,7 +373,7 @@ namespace Nova.Avalonia.UI.Controls
             }
             else
             {
-                var position = val * Bounds.Height;
+                var position = ratio * Bounds.Height;
 
                 _beforeClip.Rect = new Rect(0, 0, Bounds.Width, position);
                 _afterClip.Rect = new Rect(0, position, Bounds.Width, Bounds.Height - position);
@@ -368,12 +387,6 @@ namespace Nova.Avalonia.UI.Controls
                 _divider.StartPoint = new Point(0, 0);
                 _divider.EndPoint = new Point(Bounds.Width, 0);
             }
-
-            // Force clip update by re-assigning (some Avalonia versions need this for Geometry mutations)
-            _beforePanel.Clip = null;
-            _beforePanel.Clip = _beforeClip;
-            _afterPanel.Clip = null;
-            _afterPanel.Clip = _afterClip;
 
             _beforePanel.InvalidateVisual();
             _afterPanel.InvalidateVisual();
@@ -391,26 +404,29 @@ namespace Nova.Avalonia.UI.Controls
 
             try
             {
-                var start = Value;
                 var end = Math.Clamp(value, Minimum, Maximum);
                 var time = duration ?? TimeSpan.FromMilliseconds(300);
-                var startTime = DateTime.UtcNow;
-                
-                while (true)
-                {
-                    token.ThrowIfCancellationRequested();
-                    
-                    var elapsed = DateTime.UtcNow - startTime;
-                    var progress = Math.Min(1.0, elapsed.TotalMilliseconds / time.TotalMilliseconds);
-                    
-                    // EaseOutCubic
-                    var factor = 1.0 - Math.Pow(1.0 - progress, 3);
-                    
-                    Value = start + (end - start) * factor;
 
-                    if (progress >= 1.0) break;
-                    
-                    await Task.Delay(16, token);
+                var animation = new global::Avalonia.Animation.Animation
+                {
+                    Duration = time,
+                    FillMode = FillMode.Forward,
+                    Easing = new CubicEaseOut(),
+                    Children =
+                    {
+                        new KeyFrame
+                        {
+                            Cue = new Cue(1d),
+                            Setters = { new global::Avalonia.Styling.Setter { Property = ValueProperty, Value = end } }
+                        }
+                    }
+                };
+
+                await animation.RunAsync(this, token);
+                
+                if (!token.IsCancellationRequested)
+                {
+                    Value = end;
                 }
             }
             catch (OperationCanceledException)
@@ -423,13 +439,15 @@ namespace Nova.Avalonia.UI.Controls
         /// </summary>
         public void Reset(bool animate = true)
         {
+            var targetValue = Minimum + (Maximum - Minimum) * 0.5;
+
             if (animate)
             {
-                _ = AnimateTo(0.5);
+                _ = AnimateTo(targetValue);
             }
             else
             {
-                Value = 0.5;
+                Value = targetValue;
             }
         }
     }

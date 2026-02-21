@@ -90,19 +90,18 @@ public class CompareSliderTests
     }
     
     [AvaloniaTheory]
-    [InlineData(Key.Left, 0.5, 0.49)] // 0.5 - 0.01
-    [InlineData(Key.Right, 0.5, 0.51)] // 0.5 + 0.01
-    [InlineData(Key.Down, 0.5, 0.49)] // 0.5 - 0.01
-    [InlineData(Key.Up, 0.5, 0.51)] // 0.5 + 0.01
-    [InlineData(Key.PageDown, 0.5, 0.4)] // 0.5 - 0.1
-    [InlineData(Key.PageUp, 0.5, 0.6)] // 0.5 + 0.1
+    [InlineData(Key.Left, 0.5, 0.49)]
+    [InlineData(Key.Right, 0.5, 0.51)]
+    [InlineData(Key.Down, 0.5, 0.49)]
+    [InlineData(Key.Up, 0.5, 0.51)]
+    [InlineData(Key.PageDown, 0.5, 0.4)]
+    [InlineData(Key.PageUp, 0.5, 0.6)]
     [InlineData(Key.Home, 0.5, 0.0)]
     [InlineData(Key.End, 0.5, 1.0)]
     public void KeyNavigation_ChangesValue(Key key, double startValue, double expectedValue)
     {
         var control = new TestableCompareSlider { Value = startValue };
         
-        // Simulate key press
         control.SimulateKeyDown(key);
 
         Assert.Equal(expectedValue, control.Value, 4);
@@ -117,13 +116,11 @@ public class CompareSliderTests
             IsDirectionReversed = true
         };
 
-        // Right key -> change = +SmallChange -> Inverted -> -SmallChange
         control.SimulateKeyDown(Key.Right);
         Assert.Equal(0.49, control.Value, 4);
         
-        // Left key -> change = -SmallChange -> Inverted -> +SmallChange
         control.SimulateKeyDown(Key.Left);
-        Assert.Equal(0.50, control.Value, 4); // Back to 0.5
+        Assert.Equal(0.50, control.Value, 4);
     }
     
     [AvaloniaFact]
@@ -137,7 +134,50 @@ public class CompareSliderTests
         Assert.True(changed);
     }
     
-    // Testable subclass to access protected members
+    [AvaloniaFact]
+    public void CustomRange_ValueMapping_IsCorrect()
+    {
+        var control = new CompareSlider
+        {
+            Minimum = 100,
+            Maximum = 200,
+            Value = 150
+        };
+
+        Assert.Equal(150, control.Value);
+    }
+
+    [AvaloniaTheory]
+    [InlineData(100, 200, 150)]
+    [InlineData(0, 100, 50)]
+    [InlineData(-100, 100, 0)]
+    public void CustomRange_Reset_SetsValueToCenter(double min, double max, double expected)
+    {
+        var control = new CompareSlider
+        {
+            Minimum = min,
+            Maximum = max,
+            Value = max
+        };
+
+        control.Reset(animate: false);
+        Assert.Equal(expected, control.Value, 4);
+    }
+
+    [AvaloniaFact]
+    public void OrientationChange_UpdatesPseudoClasses()
+    {
+        var control = new CompareSlider { Orientation = Orientation.Horizontal };
+        
+        Assert.Contains(":horizontal", control.Classes);
+        Assert.DoesNotContain(":vertical", control.Classes);
+
+        control.Orientation = Orientation.Vertical;
+
+        Assert.DoesNotContain(":horizontal", control.Classes);
+        Assert.Contains(":vertical", control.Classes);
+    }
+
     private class TestableCompareSlider : CompareSlider
     {
         public void SimulateKeyDown(Key key)

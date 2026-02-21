@@ -20,10 +20,10 @@
                     
                     <controls:CompareSlider Height="300">
                         <controls:CompareSlider.BeforeContent>
-                            <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg" Stretch="UniformToFill" />
+                            <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/summer.png" Stretch="UniformToFill" />
                         </controls:CompareSlider.BeforeContent>
                         <controls:CompareSlider.AfterContent>
-                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/pizza.jpg" Stretch="UniformToFill" />
+                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/winter.png" Stretch="UniformToFill" />
                         </controls:CompareSlider.AfterContent>
                     </controls:CompareSlider>
                 </StackPanel>
@@ -37,14 +37,14 @@
                     
                     <controls:CompareSlider Orientation="Vertical" Height="300">
                          <controls:CompareSlider.BeforeContent>
-                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg" Stretch="UniformToFill">
+                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/cyberpunk.png" Stretch="UniformToFill">
                                  <Image.Effect>
                                      <BlurEffect Radius="15"/>
                                  </Image.Effect>
                              </Image>
                         </controls:CompareSlider.BeforeContent>
                         <controls:CompareSlider.AfterContent>
-                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg" Stretch="UniformToFill" />
+                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/cyberpunk.png" Stretch="UniformToFill" />
                         </controls:CompareSlider.AfterContent>
                     </controls:CompareSlider>
                 </StackPanel>
@@ -124,7 +124,7 @@
                 </StackPanel>
             </Border>
             
-             <!-- Custom Styling -->
+            <!-- Custom Styling -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Custom Styling" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
@@ -146,16 +146,87 @@
                         </controls:CompareSlider.Styles>
 
                         <controls:CompareSlider.BeforeContent>
-                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg" Stretch="UniformToFill">
+                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/summer.png" Stretch="UniformToFill">
                                 <Image.Effect>
                                     <BlurEffect Radius="20"/>
                                 </Image.Effect>
                              </Image>
                         </controls:CompareSlider.BeforeContent>
                         <controls:CompareSlider.AfterContent>
-                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/javier.jpeg" Stretch="UniformToFill" />
+                             <Image Source="avares://Nova.Avalonia.UI.Gallery/Assets/summer.png" Stretch="UniformToFill" />
                         </controls:CompareSlider.AfterContent>
                     </controls:CompareSlider>
+                </StackPanel>
+            </Border>
+
+            <!-- Custom Range Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Custom Range Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Map values to a specific domain (e.g., timeline progression)." Foreground="{DynamicResource SecondaryTextBrush}" />
+                    
+                    <controls:CompareSlider Height="300" 
+                                            Minimum="1990" 
+                                            Maximum="2026" 
+                                            Value="2003"
+                                            SmallChange="1"
+                                            LargeChange="5"
+                                            x:Name="RangeSlider">
+                        <controls:CompareSlider.BeforeContent>
+                             <Border Background="#1A1B26">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
+                                    <TextBlock Text="1990" 
+                                               FontSize="56" 
+                                               FontWeight="Black" 
+                                               Foreground="White" 
+                                               HorizontalAlignment="Center"
+                                               Opacity="0.8"/>
+                                    <TextBlock Text="THE PAST" 
+                                               FontSize="16" 
+                                               FontWeight="Medium"
+                                               LetterSpacing="4"
+                                               Foreground="#7AA2F7" 
+                                               HorizontalAlignment="Center"
+                                               Opacity="0.6"/>
+                                </StackPanel>
+                             </Border>
+                        </controls:CompareSlider.BeforeContent>
+                        <controls:CompareSlider.AfterContent>
+                             <Border Background="#F7768E">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
+                                    <TextBlock Text="2026" 
+                                               FontSize="56" 
+                                               FontWeight="Black" 
+                                               Foreground="White" 
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Text="THE FUTURE" 
+                                               FontSize="16" 
+                                               FontWeight="Medium"
+                                               LetterSpacing="4"
+                                               Foreground="#FFF" 
+                                               HorizontalAlignment="Center"
+                                               Opacity="0.8"/>
+                                </StackPanel>
+                             </Border>
+                        </controls:CompareSlider.AfterContent>
+                    </controls:CompareSlider>
+
+                    <Border Background="{DynamicResource CardBackgroundBrush}" 
+                            CornerRadius="6" 
+                            Padding="12,8" 
+                            HorizontalAlignment="Center"
+                            Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="Current Year:" 
+                                       VerticalAlignment="Center" 
+                                       Foreground="{DynamicResource SecondaryTextBrush}"/>
+                            <TextBlock Text="{Binding #RangeSlider.Value, StringFormat=\{0:F0\}}" 
+                                       FontWeight="Black" 
+                                       Foreground="{DynamicResource AccentBrush}"
+                                       FontSize="22"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </Border>
         </StackPanel>
