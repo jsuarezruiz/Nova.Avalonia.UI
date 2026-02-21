@@ -1,0 +1,117 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.ArcPanelView"
+             x:DataType="vm:ArcPanelViewModel">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="A layout panel that arranges items along an arc (partial circle)." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
+
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Usage - Semi Circle" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Items distributed along a 180° arc starting from the top." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="280" ClipToBounds="True">
+                        <controls:ArcPanel Radius="100" StartAngle="-90" SweepAngle="180" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="40" Height="40" Background="#FF6B6B" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#4ECDC4" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#45B7D1" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#FFA07A" CornerRadius="20"/>
+                            <Border Width="40" Height="40" Background="#98D8C8" CornerRadius="20"/>
+                        </controls:ArcPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Configuration -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    
+                    <Grid ColumnDefinitions="Auto, *, 50" RowDefinitions="Auto, Auto, Auto">
+                        <TextBlock Text="Radius" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Slider Grid.Column="1" Minimum="50" Maximum="150" Value="{Binding Radius}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Radius, StringFormat='{}{0:0}'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                        <TextBlock Grid.Row="1" Text="Start Angle" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Slider Grid.Row="1" Grid.Column="1" Minimum="-180" Maximum="180" Value="{Binding StartAngle}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding StartAngle, StringFormat='{}{0:0}°'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                        <TextBlock Grid.Row="2" Text="Sweep Angle" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Slider Grid.Row="2" Grid.Column="1" Minimum="30" Maximum="360" Value="{Binding SweepAngle}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SweepAngle, StringFormat='{}{0:0}°'}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="420" ClipToBounds="True">
+                        <controls:ArcPanel Radius="{Binding Radius}" 
+                                           StartAngle="{Binding StartAngle}" 
+                                           SweepAngle="{Binding SweepAngle}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="35" Height="35" Background="#3498DB" CornerRadius="17"/>
+                            <Border Width="35" Height="35" Background="#2ECC71" CornerRadius="17"/>
+                            <Border Width="35" Height="35" Background="#E74C3C" CornerRadius="17"/>
+                            <Border Width="35" Height="35" Background="#F39C12" CornerRadius="17"/>
+                            <Border Width="35" Height="35" Background="#9B59B6" CornerRadius="17"/>
+                            <Border Width="35" Height="35" Background="#1ABC9C" CornerRadius="17"/>
+                            <Border Width="35" Height="35" Background="#E91E63" CornerRadius="17"/>
+                        </controls:ArcPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Quarter Arc -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Quarter Arc" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="90° sweep for corner menus or gauges." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="250" ClipToBounds="True">
+                        <controls:ArcPanel Radius="80" StartAngle="-45" SweepAngle="90" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="40" Height="40" Background="#FF6B6B" CornerRadius="8"/>
+                            <Border Width="40" Height="40" Background="#4ECDC4" CornerRadius="8"/>
+                            <Border Width="40" Height="40" Background="#45B7D1" CornerRadius="8"/>
+                        </controls:ArcPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+            <!-- Dynamic Items -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Add or remove items to see the arc layout reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Add Item" Command="{Binding AddItemCommand}"/>
+                        <Button Content="Remove Item" Command="{Binding RemoveItemCommand}"/>
+                        <TextBlock Text="{Binding Items.Count, StringFormat='Count: {0}'}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="300" ClipToBounds="True">
+                        <ItemsControl ItemsSource="{Binding Items}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:ArcPanel Radius="80" StartAngle="0" SweepAngle="360"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="40" Height="40" Background="{Binding Brush}" CornerRadius="20">
+                                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                   Foreground="White" FontWeight="Bold" FontSize="12"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

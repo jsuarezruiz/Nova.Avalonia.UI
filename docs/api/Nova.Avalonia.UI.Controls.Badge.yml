@@ -39,7 +39,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Badge
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -421,7 +421,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeContentProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -450,7 +450,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgePlacementProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -479,7 +479,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: IsBadgeVisibleProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -508,7 +508,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeOffsetProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -537,7 +537,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: KindProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -566,7 +566,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeBackgroundProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -595,7 +595,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeForegroundProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -624,7 +624,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeBorderBrushProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -653,7 +653,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeBorderThicknessProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -682,7 +682,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: MaxCountProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -711,7 +711,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: DisplayContentProperty
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -740,7 +740,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: DisplayContent
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -771,7 +771,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeContent
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -802,7 +802,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgePlacement
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -833,7 +833,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: IsBadgeVisible
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -864,7 +864,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeOffset
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -895,7 +895,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Kind
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -926,7 +926,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeBackground
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -957,7 +957,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeForeground
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -988,7 +988,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeBorderBrush
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -1019,7 +1019,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: BadgeBorderThickness
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -1050,7 +1050,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: MaxCount
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -1081,7 +1081,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OnCreateAutomationPeer
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
@@ -1113,7 +1113,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Badge/Badge.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: OnApplyTemplate
     path: ../src/Nova.Avalonia.UI/Controls/Badge/Badge.cs

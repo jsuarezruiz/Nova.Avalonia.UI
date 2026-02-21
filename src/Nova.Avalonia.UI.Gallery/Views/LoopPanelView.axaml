@@ -1,0 +1,228 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.LoopPanelView"
+             x:DataType="vm:LoopPanelViewModel">
+
+  <ScrollViewer>
+    <StackPanel Spacing="20" Margin="20">
+
+
+      <TextBlock Text="A panel that provides infinite scrolling capabilities for its items." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
+
+      <!-- Basic Usage Section -->
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="15">
+          <TextBlock Text="Basic Usage" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+          <TextBlock Text="Drag or scroll to navigate infinitely through items." TextWrapping="Wrap" Opacity="0.7" />
+
+          <controls:LoopPanel x:Name="BasicLoopPanel" Height="120" Background="#1AFFFFFF" Spacing="10">
+            <Border Width="120" Height="100" Background="#3366FF" CornerRadius="8">
+              <TextBlock Text="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="120" Height="100" Background="#FF6633" CornerRadius="8">
+              <TextBlock Text="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="120" Height="100" Background="#33CC66" CornerRadius="8">
+              <TextBlock Text="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="120" Height="100" Background="#CC33FF" CornerRadius="8">
+              <TextBlock Text="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="120" Height="100" Background="#FFCC33" CornerRadius="8">
+              <TextBlock Text="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="120" Height="100" Background="#33CCFF" CornerRadius="8">
+              <TextBlock Text="6" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="120" Height="100" Background="#FF3399" CornerRadius="8">
+              <TextBlock Text="7" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="120" Height="100" Background="#99FF33" CornerRadius="8">
+              <TextBlock Text="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+          </controls:LoopPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Vertical Orientation -->
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="15">
+          <TextBlock Text="Vertical Orientation" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+
+          <controls:LoopPanel Orientation="Vertical" Height="250" Width="200" Background="#1AFFFFFF" Spacing="10">
+            <Border Height="70" Background="#3366FF" CornerRadius="8">
+              <TextBlock Text="A" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Height="70" Background="#FF6633" CornerRadius="8">
+              <TextBlock Text="B" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Height="70" Background="#33CC66" CornerRadius="8">
+              <TextBlock Text="C" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Height="70" Background="#CC33FF" CornerRadius="8">
+              <TextBlock Text="D" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Height="70" Background="#FFCC33" CornerRadius="8">
+              <TextBlock Text="E" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Height="70" Background="#33CCFF" CornerRadius="8">
+              <TextBlock Text="F" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+          </controls:LoopPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Spacing and Anchor -->
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="15">
+          <TextBlock Text="Spacing and Anchor Position" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+          <TextBlock Text="AnchorPosition=0.0 (items anchor at left edge), Spacing=20" TextWrapping="Wrap" Opacity="0.7" />
+
+          <controls:LoopPanel Height="100" Background="#1AFFFFFF" Spacing="20" AnchorPosition="0">
+            <Border Width="100" Height="80" Background="#3366FF" CornerRadius="8">
+              <TextBlock Text="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#FF6633" CornerRadius="8">
+              <TextBlock Text="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#33CC66" CornerRadius="8">
+              <TextBlock Text="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#CC33FF" CornerRadius="8">
+              <TextBlock Text="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#FFCC33" CornerRadius="8">
+              <TextBlock Text="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#33CCFF" CornerRadius="8">
+              <TextBlock Text="6" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+          </controls:LoopPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Dynamic Items -->
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="15">
+          <TextBlock Text="Dynamic Items" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+          <TextBlock Text="Add or remove items dynamically at runtime." TextWrapping="Wrap" Opacity="0.7" />
+
+          <controls:LoopPanel x:Name="DynamicLoopPanel" Height="100" Background="#1AFFFFFF" Spacing="10">
+            <Border Width="100" Height="80" Background="#3366FF" CornerRadius="8">
+              <TextBlock Text="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#FF6633" CornerRadius="8">
+              <TextBlock Text="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#33CC66" CornerRadius="8">
+              <TextBlock Text="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+          </controls:LoopPanel>
+
+          <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+            <Button Content="Add Item" Click="OnAddItemClick" />
+            <Button Content="Remove Last" Click="OnRemoveItemClick" />
+            <TextBlock x:Name="DynamicItemCount" Text="Items: 3" VerticalAlignment="Center" Margin="10,0,0,0" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Programmatic Control -->
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="15">
+          <TextBlock Text="Programmatic Scrolling" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+          <TextBlock Text="Use buttons to scroll programmatically via ScrollBy and ScrollToIndex methods." TextWrapping="Wrap" Opacity="0.7" />
+
+          <controls:LoopPanel x:Name="ProgrammaticLoopPanel" Height="100" Background="#1AFFFFFF" Spacing="10">
+            <Border Width="100" Height="80" Background="#3366FF" CornerRadius="8">
+              <TextBlock Text="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#FF6633" CornerRadius="8">
+              <TextBlock Text="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#33CC66" CornerRadius="8">
+              <TextBlock Text="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#CC33FF" CornerRadius="8">
+              <TextBlock Text="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#FFCC33" CornerRadius="8">
+              <TextBlock Text="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#33CCFF" CornerRadius="8">
+              <TextBlock Text="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#FF3399" CornerRadius="8">
+              <TextBlock Text="6" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+            <Border Width="100" Height="80" Background="#99FF33" CornerRadius="8">
+              <TextBlock Text="7" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" />
+            </Border>
+          </controls:LoopPanel>
+
+          <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <WrapPanel.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+            </WrapPanel.Styles>
+            <Button Content="ScrollBy(-50)" Click="OnScrollLeftClick" />
+            <Button Content="ScrollBy(+50)" Click="OnScrollRightClick" />
+            <Button Content="Go To Index 0" Click="OnGoToIndex0Click" />
+            <Button Content="Go To Index 5" Click="OnGoToIndex3Click" />
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Interactive Playground -->
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="15">
+          <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+
+          <Grid ColumnDefinitions="*, AUTO" Margin="0,0,0,10">
+            <StackPanel Spacing="10" Margin="0,0,20,0">
+              <TextBlock Text="Spacing" FontWeight="SemiBold"/>
+              <Slider x:Name="SpacingSlider" Minimum="0" Maximum="50" Value="10" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Spacing="10" VerticalAlignment="Center">
+              <TextBlock x:Name="CurrentIndexDisplay" Text="Current Index: 0" FontWeight="SemiBold" />
+            </StackPanel>
+          </Grid>
+
+          <controls:LoopPanel x:Name="PlaygroundLoopPanel" Height="120" Background="#1AFFFFFF"
+                              Spacing="{Binding #SpacingSlider.Value}"
+                              CurrentIndexChanged="OnCurrentIndexChanged">
+            <Border Width="110" Height="100" Background="#3366FF" CornerRadius="8">
+              <TextBlock Text="Alpha" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="White" />
+            </Border>
+            <Border Width="110" Height="100" Background="#FF6633" CornerRadius="8">
+              <TextBlock Text="Beta" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="White" />
+            </Border>
+            <Border Width="110" Height="100" Background="#33CC66" CornerRadius="8">
+              <TextBlock Text="Gamma" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="White" />
+            </Border>
+            <Border Width="110" Height="100" Background="#CC33FF" CornerRadius="8">
+              <TextBlock Text="Delta" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="White" />
+            </Border>
+            <Border Width="110" Height="100" Background="#FFCC33" CornerRadius="8">
+              <TextBlock Text="Epsilon" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="White" />
+            </Border>
+            <Border Width="110" Height="100" Background="#33CCFF" CornerRadius="8">
+              <TextBlock Text="Zeta" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="White" />
+            </Border>
+            <Border Width="110" Height="100" Background="#FF3399" CornerRadius="8">
+              <TextBlock Text="Eta" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="White" />
+            </Border>
+            <Border Width="110" Height="100" Background="#99FF33" CornerRadius="8">
+              <TextBlock Text="Theta" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="White" />
+            </Border>
+          </controls:LoopPanel>
+        </StackPanel>
+      </Border>
+
+    </StackPanel>
+  </ScrollViewer>
+
+</UserControl>

@@ -1,0 +1,1826 @@
+### YamlMime:ManagedReference
+items:
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+  id: BarcodeGeneratorAutomationPeer
+  parent: Nova.Avalonia.UI.BarcodeGenerator
+  children:
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.#ctor(Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator)
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetAutomationControlTypeCore
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetClassNameCore
+  langs:
+  - csharp
+  - vb
+  name: BarcodeGeneratorAutomationPeer
+  nameWithType: BarcodeGeneratorAutomationPeer
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+  type: Class
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeGeneratorAutomationPeer.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: BarcodeGeneratorAutomationPeer
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeGeneratorAutomationPeer.cs
+    startLine: 8
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  summary: >-
+    Exposes the <xref href="Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator" data-throw-if-not-resolved="false"></xref> to UI automation (accessibility).
+
+    Defines the control as an "Image" type so screen readers treat it appropriately.
+  example: []
+  syntax:
+    content: 'public class BarcodeGeneratorAutomationPeer : ControlAutomationPeer'
+    content.vb: Public Class BarcodeGeneratorAutomationPeer Inherits ControlAutomationPeer
+  inheritance:
+  - System.Object
+  - Avalonia.Automation.Peers.AutomationPeer
+  - Avalonia.Automation.Peers.ControlAutomationPeer
+  inheritedMembers:
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreate(Avalonia.Controls.Control)
+  - Avalonia.Automation.Peers.ControlAutomationPeer.CreatePeerForElement(Avalonia.Controls.Control)
+  - Avalonia.Automation.Peers.ControlAutomationPeer.FromElement(Avalonia.Controls.Control)
+  - Avalonia.Automation.Peers.ControlAutomationPeer.BringIntoViewCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreateChildrenCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetChildrenCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetLabeledByCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetNameCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetHelpTextCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetHeadingLevelCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetParentCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetVisualRootCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateChildren
+  - Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateParent
+  - Avalonia.Automation.Peers.ControlAutomationPeer.ShowContextMenuCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.TrySetParent(Avalonia.Automation.Peers.AutomationPeer)
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetAcceleratorKeyCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetAccessKeyCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationIdCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetBoundingRectangleCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.HasKeyboardFocusCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.IsEnabledCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.IsKeyboardFocusableCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.SetFocusCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.GetControlTypeOverrideCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementOverrideCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementOverrideCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.IsOffscreenCore
+  - Avalonia.Automation.Peers.ControlAutomationPeer.Owner
+  - Avalonia.Automation.Peers.AutomationPeer.BringIntoView
+  - Avalonia.Automation.Peers.AutomationPeer.GetAcceleratorKey
+  - Avalonia.Automation.Peers.AutomationPeer.GetAccessKey
+  - Avalonia.Automation.Peers.AutomationPeer.GetAutomationControlType
+  - Avalonia.Automation.Peers.AutomationPeer.GetAutomationId
+  - Avalonia.Automation.Peers.AutomationPeer.GetBoundingRectangle
+  - Avalonia.Automation.Peers.AutomationPeer.GetChildren
+  - Avalonia.Automation.Peers.AutomationPeer.GetClassName
+  - Avalonia.Automation.Peers.AutomationPeer.GetLabeledBy
+  - Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlType
+  - Avalonia.Automation.Peers.AutomationPeer.GetName
+  - Avalonia.Automation.Peers.AutomationPeer.GetHelpText
+  - Avalonia.Automation.Peers.AutomationPeer.GetHeadingLevel
+  - Avalonia.Automation.Peers.AutomationPeer.GetParent
+  - Avalonia.Automation.Peers.AutomationPeer.GetVisualRoot
+  - Avalonia.Automation.Peers.AutomationPeer.HasKeyboardFocus
+  - Avalonia.Automation.Peers.AutomationPeer.IsContentElement
+  - Avalonia.Automation.Peers.AutomationPeer.IsControlElement
+  - Avalonia.Automation.Peers.AutomationPeer.IsEnabled
+  - Avalonia.Automation.Peers.AutomationPeer.IsKeyboardFocusable
+  - Avalonia.Automation.Peers.AutomationPeer.IsOffscreen
+  - Avalonia.Automation.Peers.AutomationPeer.SetFocus
+  - Avalonia.Automation.Peers.AutomationPeer.ShowContextMenu
+  - Avalonia.Automation.Peers.AutomationPeer.GetProvider``1
+  - Avalonia.Automation.Peers.AutomationPeer.RaiseChildrenChangedEvent
+  - Avalonia.Automation.Peers.AutomationPeer.RaisePropertyChangedEvent(Avalonia.Automation.AutomationProperty,System.Object,System.Object)
+  - Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlTypeCore
+  - Avalonia.Automation.Peers.AutomationPeer.GetProviderCore(System.Type)
+  - Avalonia.Automation.Peers.AutomationPeer.EnsureEnabled
+  - Avalonia.Automation.Peers.AutomationPeer.ChildrenChanged
+  - Avalonia.Automation.Peers.AutomationPeer.PropertyChanged
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.#ctor(Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator)
+  commentId: M:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.#ctor(Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator)
+  id: '#ctor(Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator)'
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+  langs:
+  - csharp
+  - vb
+  name: BarcodeGeneratorAutomationPeer(BarcodeGenerator)
+  nameWithType: BarcodeGeneratorAutomationPeer.BarcodeGeneratorAutomationPeer(BarcodeGenerator)
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.BarcodeGeneratorAutomationPeer(Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator)
+  type: Constructor
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeGeneratorAutomationPeer.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: .ctor
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeGeneratorAutomationPeer.cs
+    startLine: 10
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: public BarcodeGeneratorAutomationPeer(BarcodeGenerator owner)
+    parameters:
+    - id: owner
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator
+    content.vb: Public Sub New(owner As BarcodeGenerator)
+  overload: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.#ctor*
+  nameWithType.vb: BarcodeGeneratorAutomationPeer.New(BarcodeGenerator)
+  fullName.vb: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.New(Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator)
+  name.vb: New(BarcodeGenerator)
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetAutomationControlTypeCore
+  commentId: M:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetAutomationControlTypeCore
+  id: GetAutomationControlTypeCore
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+  langs:
+  - csharp
+  - vb
+  name: GetAutomationControlTypeCore()
+  nameWithType: BarcodeGeneratorAutomationPeer.GetAutomationControlTypeCore()
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetAutomationControlTypeCore()
+  type: Method
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeGeneratorAutomationPeer.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: GetAutomationControlTypeCore
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeGeneratorAutomationPeer.cs
+    startLine: 12
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  example: []
+  syntax:
+    content: protected override AutomationControlType GetAutomationControlTypeCore()
+    return:
+      type: Avalonia.Automation.Peers.AutomationControlType
+    content.vb: Protected Overrides Function GetAutomationControlTypeCore() As AutomationControlType
+  overridden: Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationControlTypeCore
+  overload: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetAutomationControlTypeCore*
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetClassNameCore
+  commentId: M:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetClassNameCore
+  id: GetClassNameCore
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer
+  langs:
+  - csharp
+  - vb
+  name: GetClassNameCore()
+  nameWithType: BarcodeGeneratorAutomationPeer.GetClassNameCore()
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetClassNameCore()
+  type: Method
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeGeneratorAutomationPeer.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: GetClassNameCore
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeGeneratorAutomationPeer.cs
+    startLine: 18
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  example: []
+  syntax:
+    content: protected override string GetClassNameCore()
+    return:
+      type: System.String
+    content.vb: Protected Overrides Function GetClassNameCore() As String
+  overridden: Avalonia.Automation.Peers.ControlAutomationPeer.GetClassNameCore
+  overload: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetClassNameCore*
+references:
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator
+  parent: Nova.Avalonia.UI.BarcodeGenerator
+  href: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator.html
+  name: BarcodeGenerator
+  nameWithType: BarcodeGenerator
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator
+- uid: Nova.Avalonia.UI.BarcodeGenerator
+  commentId: N:Nova.Avalonia.UI.BarcodeGenerator
+  href: Nova.html
+  name: Nova.Avalonia.UI.BarcodeGenerator
+  nameWithType: Nova.Avalonia.UI.BarcodeGenerator
+  fullName: Nova.Avalonia.UI.BarcodeGenerator
+  spec.csharp:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.BarcodeGenerator
+    name: BarcodeGenerator
+    href: Nova.Avalonia.UI.BarcodeGenerator.html
+  spec.vb:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.BarcodeGenerator
+    name: BarcodeGenerator
+    href: Nova.Avalonia.UI.BarcodeGenerator.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Avalonia.Automation.Peers.AutomationPeer
+  commentId: T:Avalonia.Automation.Peers.AutomationPeer
+  parent: Avalonia.Automation.Peers
+  isExternal: true
+  name: AutomationPeer
+  nameWithType: AutomationPeer
+  fullName: Avalonia.Automation.Peers.AutomationPeer
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer
+  commentId: T:Avalonia.Automation.Peers.ControlAutomationPeer
+  parent: Avalonia.Automation.Peers
+  isExternal: true
+  name: ControlAutomationPeer
+  nameWithType: ControlAutomationPeer
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreate(Avalonia.Controls.Control)
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreate(Avalonia.Controls.Control)
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetOrCreate(Control)
+  nameWithType: ControlAutomationPeer.GetOrCreate(Control)
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreate(Avalonia.Controls.Control)
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreate(Avalonia.Controls.Control)
+    name: GetOrCreate
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreate(Avalonia.Controls.Control)
+    name: GetOrCreate
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.CreatePeerForElement(Avalonia.Controls.Control)
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.CreatePeerForElement(Avalonia.Controls.Control)
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: CreatePeerForElement(Control)
+  nameWithType: ControlAutomationPeer.CreatePeerForElement(Control)
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.CreatePeerForElement(Avalonia.Controls.Control)
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.CreatePeerForElement(Avalonia.Controls.Control)
+    name: CreatePeerForElement
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.CreatePeerForElement(Avalonia.Controls.Control)
+    name: CreatePeerForElement
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.FromElement(Avalonia.Controls.Control)
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.FromElement(Avalonia.Controls.Control)
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: FromElement(Control)
+  nameWithType: ControlAutomationPeer.FromElement(Control)
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.FromElement(Avalonia.Controls.Control)
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.FromElement(Avalonia.Controls.Control)
+    name: FromElement
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.FromElement(Avalonia.Controls.Control)
+    name: FromElement
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.BringIntoViewCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.BringIntoViewCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: BringIntoViewCore()
+  nameWithType: ControlAutomationPeer.BringIntoViewCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.BringIntoViewCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.BringIntoViewCore
+    name: BringIntoViewCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.BringIntoViewCore
+    name: BringIntoViewCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreateChildrenCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreateChildrenCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetOrCreateChildrenCore()
+  nameWithType: ControlAutomationPeer.GetOrCreateChildrenCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreateChildrenCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreateChildrenCore
+    name: GetOrCreateChildrenCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetOrCreateChildrenCore
+    name: GetOrCreateChildrenCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetChildrenCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetChildrenCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetChildrenCore()
+  nameWithType: ControlAutomationPeer.GetChildrenCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetChildrenCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetChildrenCore
+    name: GetChildrenCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetChildrenCore
+    name: GetChildrenCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetLabeledByCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetLabeledByCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetLabeledByCore()
+  nameWithType: ControlAutomationPeer.GetLabeledByCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetLabeledByCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetLabeledByCore
+    name: GetLabeledByCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetLabeledByCore
+    name: GetLabeledByCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetNameCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetNameCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetNameCore()
+  nameWithType: ControlAutomationPeer.GetNameCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetNameCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetNameCore
+    name: GetNameCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetNameCore
+    name: GetNameCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetHelpTextCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetHelpTextCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetHelpTextCore()
+  nameWithType: ControlAutomationPeer.GetHelpTextCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetHelpTextCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetHelpTextCore
+    name: GetHelpTextCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetHelpTextCore
+    name: GetHelpTextCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetHeadingLevelCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetHeadingLevelCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetHeadingLevelCore()
+  nameWithType: ControlAutomationPeer.GetHeadingLevelCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetHeadingLevelCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetHeadingLevelCore
+    name: GetHeadingLevelCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetHeadingLevelCore
+    name: GetHeadingLevelCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetParentCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetParentCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetParentCore()
+  nameWithType: ControlAutomationPeer.GetParentCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetParentCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetParentCore
+    name: GetParentCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetParentCore
+    name: GetParentCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetVisualRootCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetVisualRootCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetVisualRootCore()
+  nameWithType: ControlAutomationPeer.GetVisualRootCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetVisualRootCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetVisualRootCore
+    name: GetVisualRootCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetVisualRootCore
+    name: GetVisualRootCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateChildren
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateChildren
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: InvalidateChildren()
+  nameWithType: ControlAutomationPeer.InvalidateChildren()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateChildren()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateChildren
+    name: InvalidateChildren
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateChildren
+    name: InvalidateChildren
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateParent
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateParent
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: InvalidateParent()
+  nameWithType: ControlAutomationPeer.InvalidateParent()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateParent()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateParent
+    name: InvalidateParent
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.InvalidateParent
+    name: InvalidateParent
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.ShowContextMenuCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.ShowContextMenuCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: ShowContextMenuCore()
+  nameWithType: ControlAutomationPeer.ShowContextMenuCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.ShowContextMenuCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.ShowContextMenuCore
+    name: ShowContextMenuCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.ShowContextMenuCore
+    name: ShowContextMenuCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.TrySetParent(Avalonia.Automation.Peers.AutomationPeer)
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.TrySetParent(Avalonia.Automation.Peers.AutomationPeer)
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: TrySetParent(AutomationPeer)
+  nameWithType: ControlAutomationPeer.TrySetParent(AutomationPeer)
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.TrySetParent(Avalonia.Automation.Peers.AutomationPeer)
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.TrySetParent(Avalonia.Automation.Peers.AutomationPeer)
+    name: TrySetParent
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Automation.Peers.AutomationPeer
+    name: AutomationPeer
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.TrySetParent(Avalonia.Automation.Peers.AutomationPeer)
+    name: TrySetParent
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Automation.Peers.AutomationPeer
+    name: AutomationPeer
+    isExternal: true
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAcceleratorKeyCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetAcceleratorKeyCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetAcceleratorKeyCore()
+  nameWithType: ControlAutomationPeer.GetAcceleratorKeyCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetAcceleratorKeyCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAcceleratorKeyCore
+    name: GetAcceleratorKeyCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAcceleratorKeyCore
+    name: GetAcceleratorKeyCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAccessKeyCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetAccessKeyCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetAccessKeyCore()
+  nameWithType: ControlAutomationPeer.GetAccessKeyCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetAccessKeyCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAccessKeyCore
+    name: GetAccessKeyCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAccessKeyCore
+    name: GetAccessKeyCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationIdCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationIdCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetAutomationIdCore()
+  nameWithType: ControlAutomationPeer.GetAutomationIdCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationIdCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationIdCore
+    name: GetAutomationIdCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationIdCore
+    name: GetAutomationIdCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetBoundingRectangleCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetBoundingRectangleCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetBoundingRectangleCore()
+  nameWithType: ControlAutomationPeer.GetBoundingRectangleCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetBoundingRectangleCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetBoundingRectangleCore
+    name: GetBoundingRectangleCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetBoundingRectangleCore
+    name: GetBoundingRectangleCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.HasKeyboardFocusCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.HasKeyboardFocusCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: HasKeyboardFocusCore()
+  nameWithType: ControlAutomationPeer.HasKeyboardFocusCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.HasKeyboardFocusCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.HasKeyboardFocusCore
+    name: HasKeyboardFocusCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.HasKeyboardFocusCore
+    name: HasKeyboardFocusCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: IsContentElementCore()
+  nameWithType: ControlAutomationPeer.IsContentElementCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementCore
+    name: IsContentElementCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementCore
+    name: IsContentElementCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: IsControlElementCore()
+  nameWithType: ControlAutomationPeer.IsControlElementCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementCore
+    name: IsControlElementCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementCore
+    name: IsControlElementCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsEnabledCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.IsEnabledCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: IsEnabledCore()
+  nameWithType: ControlAutomationPeer.IsEnabledCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.IsEnabledCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsEnabledCore
+    name: IsEnabledCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsEnabledCore
+    name: IsEnabledCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsKeyboardFocusableCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.IsKeyboardFocusableCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: IsKeyboardFocusableCore()
+  nameWithType: ControlAutomationPeer.IsKeyboardFocusableCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.IsKeyboardFocusableCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsKeyboardFocusableCore
+    name: IsKeyboardFocusableCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsKeyboardFocusableCore
+    name: IsKeyboardFocusableCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.SetFocusCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.SetFocusCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: SetFocusCore()
+  nameWithType: ControlAutomationPeer.SetFocusCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.SetFocusCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.SetFocusCore
+    name: SetFocusCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.SetFocusCore
+    name: SetFocusCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetControlTypeOverrideCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetControlTypeOverrideCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetControlTypeOverrideCore()
+  nameWithType: ControlAutomationPeer.GetControlTypeOverrideCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetControlTypeOverrideCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetControlTypeOverrideCore
+    name: GetControlTypeOverrideCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetControlTypeOverrideCore
+    name: GetControlTypeOverrideCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementOverrideCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementOverrideCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: IsContentElementOverrideCore()
+  nameWithType: ControlAutomationPeer.IsContentElementOverrideCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementOverrideCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementOverrideCore
+    name: IsContentElementOverrideCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsContentElementOverrideCore
+    name: IsContentElementOverrideCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementOverrideCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementOverrideCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: IsControlElementOverrideCore()
+  nameWithType: ControlAutomationPeer.IsControlElementOverrideCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementOverrideCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementOverrideCore
+    name: IsControlElementOverrideCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsControlElementOverrideCore
+    name: IsControlElementOverrideCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsOffscreenCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.IsOffscreenCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: IsOffscreenCore()
+  nameWithType: ControlAutomationPeer.IsOffscreenCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.IsOffscreenCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsOffscreenCore
+    name: IsOffscreenCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.IsOffscreenCore
+    name: IsOffscreenCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.Owner
+  commentId: P:Avalonia.Automation.Peers.ControlAutomationPeer.Owner
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: Owner
+  nameWithType: ControlAutomationPeer.Owner
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.Owner
+- uid: Avalonia.Automation.Peers.AutomationPeer.BringIntoView
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.BringIntoView
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: BringIntoView()
+  nameWithType: AutomationPeer.BringIntoView()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.BringIntoView()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.BringIntoView
+    name: BringIntoView
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.BringIntoView
+    name: BringIntoView
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetAcceleratorKey
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetAcceleratorKey
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetAcceleratorKey()
+  nameWithType: AutomationPeer.GetAcceleratorKey()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetAcceleratorKey()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetAcceleratorKey
+    name: GetAcceleratorKey
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetAcceleratorKey
+    name: GetAcceleratorKey
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetAccessKey
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetAccessKey
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetAccessKey()
+  nameWithType: AutomationPeer.GetAccessKey()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetAccessKey()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetAccessKey
+    name: GetAccessKey
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetAccessKey
+    name: GetAccessKey
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetAutomationControlType
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetAutomationControlType
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetAutomationControlType()
+  nameWithType: AutomationPeer.GetAutomationControlType()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetAutomationControlType()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetAutomationControlType
+    name: GetAutomationControlType
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetAutomationControlType
+    name: GetAutomationControlType
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetAutomationId
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetAutomationId
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetAutomationId()
+  nameWithType: AutomationPeer.GetAutomationId()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetAutomationId()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetAutomationId
+    name: GetAutomationId
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetAutomationId
+    name: GetAutomationId
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetBoundingRectangle
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetBoundingRectangle
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetBoundingRectangle()
+  nameWithType: AutomationPeer.GetBoundingRectangle()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetBoundingRectangle()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetBoundingRectangle
+    name: GetBoundingRectangle
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetBoundingRectangle
+    name: GetBoundingRectangle
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetChildren
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetChildren
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetChildren()
+  nameWithType: AutomationPeer.GetChildren()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetChildren()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetChildren
+    name: GetChildren
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetChildren
+    name: GetChildren
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetClassName
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetClassName
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetClassName()
+  nameWithType: AutomationPeer.GetClassName()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetClassName()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetClassName
+    name: GetClassName
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetClassName
+    name: GetClassName
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetLabeledBy
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetLabeledBy
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetLabeledBy()
+  nameWithType: AutomationPeer.GetLabeledBy()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetLabeledBy()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetLabeledBy
+    name: GetLabeledBy
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetLabeledBy
+    name: GetLabeledBy
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlType
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlType
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetLocalizedControlType()
+  nameWithType: AutomationPeer.GetLocalizedControlType()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlType()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlType
+    name: GetLocalizedControlType
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlType
+    name: GetLocalizedControlType
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetName
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetName
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetName()
+  nameWithType: AutomationPeer.GetName()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetName()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetName
+    name: GetName
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetName
+    name: GetName
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetHelpText
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetHelpText
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetHelpText()
+  nameWithType: AutomationPeer.GetHelpText()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetHelpText()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetHelpText
+    name: GetHelpText
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetHelpText
+    name: GetHelpText
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetHeadingLevel
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetHeadingLevel
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetHeadingLevel()
+  nameWithType: AutomationPeer.GetHeadingLevel()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetHeadingLevel()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetHeadingLevel
+    name: GetHeadingLevel
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetHeadingLevel
+    name: GetHeadingLevel
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetParent
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetParent
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetParent()
+  nameWithType: AutomationPeer.GetParent()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetParent()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetParent
+    name: GetParent
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetParent
+    name: GetParent
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetVisualRoot
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetVisualRoot
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetVisualRoot()
+  nameWithType: AutomationPeer.GetVisualRoot()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetVisualRoot()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetVisualRoot
+    name: GetVisualRoot
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetVisualRoot
+    name: GetVisualRoot
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.HasKeyboardFocus
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.HasKeyboardFocus
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: HasKeyboardFocus()
+  nameWithType: AutomationPeer.HasKeyboardFocus()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.HasKeyboardFocus()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.HasKeyboardFocus
+    name: HasKeyboardFocus
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.HasKeyboardFocus
+    name: HasKeyboardFocus
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.IsContentElement
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.IsContentElement
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: IsContentElement()
+  nameWithType: AutomationPeer.IsContentElement()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.IsContentElement()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.IsContentElement
+    name: IsContentElement
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.IsContentElement
+    name: IsContentElement
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.IsControlElement
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.IsControlElement
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: IsControlElement()
+  nameWithType: AutomationPeer.IsControlElement()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.IsControlElement()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.IsControlElement
+    name: IsControlElement
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.IsControlElement
+    name: IsControlElement
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.IsEnabled
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.IsEnabled
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: IsEnabled()
+  nameWithType: AutomationPeer.IsEnabled()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.IsEnabled()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.IsEnabled
+    name: IsEnabled
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.IsEnabled
+    name: IsEnabled
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.IsKeyboardFocusable
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.IsKeyboardFocusable
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: IsKeyboardFocusable()
+  nameWithType: AutomationPeer.IsKeyboardFocusable()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.IsKeyboardFocusable()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.IsKeyboardFocusable
+    name: IsKeyboardFocusable
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.IsKeyboardFocusable
+    name: IsKeyboardFocusable
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.IsOffscreen
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.IsOffscreen
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: IsOffscreen()
+  nameWithType: AutomationPeer.IsOffscreen()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.IsOffscreen()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.IsOffscreen
+    name: IsOffscreen
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.IsOffscreen
+    name: IsOffscreen
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.SetFocus
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.SetFocus
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: SetFocus()
+  nameWithType: AutomationPeer.SetFocus()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.SetFocus()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.SetFocus
+    name: SetFocus
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.SetFocus
+    name: SetFocus
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.ShowContextMenu
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.ShowContextMenu
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: ShowContextMenu()
+  nameWithType: AutomationPeer.ShowContextMenu()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.ShowContextMenu()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.ShowContextMenu
+    name: ShowContextMenu
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.ShowContextMenu
+    name: ShowContextMenu
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetProvider``1
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetProvider``1
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetProvider<T>()
+  nameWithType: AutomationPeer.GetProvider<T>()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetProvider<T>()
+  nameWithType.vb: AutomationPeer.GetProvider(Of T)()
+  fullName.vb: Avalonia.Automation.Peers.AutomationPeer.GetProvider(Of T)()
+  name.vb: GetProvider(Of T)()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetProvider``1
+    name: GetProvider
+    isExternal: true
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetProvider``1
+    name: GetProvider
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.RaiseChildrenChangedEvent
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.RaiseChildrenChangedEvent
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: RaiseChildrenChangedEvent()
+  nameWithType: AutomationPeer.RaiseChildrenChangedEvent()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.RaiseChildrenChangedEvent()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.RaiseChildrenChangedEvent
+    name: RaiseChildrenChangedEvent
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.RaiseChildrenChangedEvent
+    name: RaiseChildrenChangedEvent
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.RaisePropertyChangedEvent(Avalonia.Automation.AutomationProperty,System.Object,System.Object)
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.RaisePropertyChangedEvent(Avalonia.Automation.AutomationProperty,System.Object,System.Object)
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: RaisePropertyChangedEvent(AutomationProperty, object, object)
+  nameWithType: AutomationPeer.RaisePropertyChangedEvent(AutomationProperty, object, object)
+  fullName: Avalonia.Automation.Peers.AutomationPeer.RaisePropertyChangedEvent(Avalonia.Automation.AutomationProperty, object, object)
+  nameWithType.vb: AutomationPeer.RaisePropertyChangedEvent(AutomationProperty, Object, Object)
+  fullName.vb: Avalonia.Automation.Peers.AutomationPeer.RaisePropertyChangedEvent(Avalonia.Automation.AutomationProperty, Object, Object)
+  name.vb: RaisePropertyChangedEvent(AutomationProperty, Object, Object)
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.RaisePropertyChangedEvent(Avalonia.Automation.AutomationProperty,System.Object,System.Object)
+    name: RaisePropertyChangedEvent
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Automation.AutomationProperty
+    name: AutomationProperty
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.RaisePropertyChangedEvent(Avalonia.Automation.AutomationProperty,System.Object,System.Object)
+    name: RaisePropertyChangedEvent
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Automation.AutomationProperty
+    name: AutomationProperty
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlTypeCore
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlTypeCore
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: GetLocalizedControlTypeCore()
+  nameWithType: AutomationPeer.GetLocalizedControlTypeCore()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlTypeCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlTypeCore
+    name: GetLocalizedControlTypeCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetLocalizedControlTypeCore
+    name: GetLocalizedControlTypeCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.GetProviderCore(System.Type)
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.GetProviderCore(System.Type)
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: GetProviderCore(Type)
+  nameWithType: AutomationPeer.GetProviderCore(Type)
+  fullName: Avalonia.Automation.Peers.AutomationPeer.GetProviderCore(System.Type)
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetProviderCore(System.Type)
+    name: GetProviderCore
+    isExternal: true
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.GetProviderCore(System.Type)
+    name: GetProviderCore
+    isExternal: true
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.EnsureEnabled
+  commentId: M:Avalonia.Automation.Peers.AutomationPeer.EnsureEnabled
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: EnsureEnabled()
+  nameWithType: AutomationPeer.EnsureEnabled()
+  fullName: Avalonia.Automation.Peers.AutomationPeer.EnsureEnabled()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.EnsureEnabled
+    name: EnsureEnabled
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.AutomationPeer.EnsureEnabled
+    name: EnsureEnabled
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Automation.Peers.AutomationPeer.ChildrenChanged
+  commentId: E:Avalonia.Automation.Peers.AutomationPeer.ChildrenChanged
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: ChildrenChanged
+  nameWithType: AutomationPeer.ChildrenChanged
+  fullName: Avalonia.Automation.Peers.AutomationPeer.ChildrenChanged
+- uid: Avalonia.Automation.Peers.AutomationPeer.PropertyChanged
+  commentId: E:Avalonia.Automation.Peers.AutomationPeer.PropertyChanged
+  parent: Avalonia.Automation.Peers.AutomationPeer
+  isExternal: true
+  name: PropertyChanged
+  nameWithType: AutomationPeer.PropertyChanged
+  fullName: Avalonia.Automation.Peers.AutomationPeer.PropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Avalonia.Automation.Peers
+  commentId: N:Avalonia.Automation.Peers
+  isExternal: true
+  name: Avalonia.Automation.Peers
+  nameWithType: Avalonia.Automation.Peers
+  fullName: Avalonia.Automation.Peers
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Automation
+    name: Automation
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Automation.Peers
+    name: Peers
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Automation
+    name: Automation
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Automation.Peers
+    name: Peers
+    isExternal: true
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.#ctor*
+  commentId: Overload:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.#ctor
+  href: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.html#Nova_Avalonia_UI_BarcodeGenerator_BarcodeGeneratorAutomationPeer__ctor_Nova_Avalonia_UI_BarcodeGenerator_BarcodeGenerator_
+  name: BarcodeGeneratorAutomationPeer
+  nameWithType: BarcodeGeneratorAutomationPeer.BarcodeGeneratorAutomationPeer
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.BarcodeGeneratorAutomationPeer
+  nameWithType.vb: BarcodeGeneratorAutomationPeer.New
+  fullName.vb: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.New
+  name.vb: New
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationControlTypeCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationControlTypeCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetAutomationControlTypeCore()
+  nameWithType: ControlAutomationPeer.GetAutomationControlTypeCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationControlTypeCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationControlTypeCore
+    name: GetAutomationControlTypeCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetAutomationControlTypeCore
+    name: GetAutomationControlTypeCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetAutomationControlTypeCore*
+  commentId: Overload:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetAutomationControlTypeCore
+  href: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.html#Nova_Avalonia_UI_BarcodeGenerator_BarcodeGeneratorAutomationPeer_GetAutomationControlTypeCore
+  name: GetAutomationControlTypeCore
+  nameWithType: BarcodeGeneratorAutomationPeer.GetAutomationControlTypeCore
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetAutomationControlTypeCore
+- uid: Avalonia.Automation.Peers.AutomationControlType
+  commentId: T:Avalonia.Automation.Peers.AutomationControlType
+  parent: Avalonia.Automation.Peers
+  isExternal: true
+  name: AutomationControlType
+  nameWithType: AutomationControlType
+  fullName: Avalonia.Automation.Peers.AutomationControlType
+- uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetClassNameCore
+  commentId: M:Avalonia.Automation.Peers.ControlAutomationPeer.GetClassNameCore
+  parent: Avalonia.Automation.Peers.ControlAutomationPeer
+  isExternal: true
+  name: GetClassNameCore()
+  nameWithType: ControlAutomationPeer.GetClassNameCore()
+  fullName: Avalonia.Automation.Peers.ControlAutomationPeer.GetClassNameCore()
+  spec.csharp:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetClassNameCore
+    name: GetClassNameCore
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Automation.Peers.ControlAutomationPeer.GetClassNameCore
+    name: GetClassNameCore
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetClassNameCore*
+  commentId: Overload:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetClassNameCore
+  href: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.html#Nova_Avalonia_UI_BarcodeGenerator_BarcodeGeneratorAutomationPeer_GetClassNameCore
+  name: GetClassNameCore
+  nameWithType: BarcodeGeneratorAutomationPeer.GetClassNameCore
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.GetClassNameCore
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String

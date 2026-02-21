@@ -1,0 +1,427 @@
+### YamlMime:ManagedReference
+items:
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  id: BarcodeSymbology
+  parent: Nova.Avalonia.UI.BarcodeGenerator
+  children:
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Aztec
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Codabar
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code128
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code39
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code93
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.DataMatrix
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.EAN13
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.EAN8
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.ITF
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.PDF417
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.QRCode
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.UPCA
+  - Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.UPCE
+  langs:
+  - csharp
+  - vb
+  name: BarcodeSymbology
+  nameWithType: BarcodeSymbology
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  type: Enum
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: BarcodeSymbology
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 5
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  summary: Supported barcode formats.
+  example: []
+  syntax:
+    content: public enum BarcodeSymbology
+    content.vb: Public Enum BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.QRCode
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.QRCode
+  id: QRCode
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: QRCode
+  nameWithType: BarcodeSymbology.QRCode
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.QRCode
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: QRCode
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: QRCode = 0
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.DataMatrix
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.DataMatrix
+  id: DataMatrix
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: DataMatrix
+  nameWithType: BarcodeSymbology.DataMatrix
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.DataMatrix
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: DataMatrix
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: DataMatrix = 1
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code128
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code128
+  id: Code128
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: Code128
+  nameWithType: BarcodeSymbology.Code128
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code128
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Code128
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: Code128 = 2
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code39
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code39
+  id: Code39
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: Code39
+  nameWithType: BarcodeSymbology.Code39
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code39
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Code39
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: Code39 = 3
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code93
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code93
+  id: Code93
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: Code93
+  nameWithType: BarcodeSymbology.Code93
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Code93
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Code93
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: Code93 = 4
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.EAN8
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.EAN8
+  id: EAN8
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: EAN8
+  nameWithType: BarcodeSymbology.EAN8
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.EAN8
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: EAN8
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: EAN8 = 5
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.EAN13
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.EAN13
+  id: EAN13
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: EAN13
+  nameWithType: BarcodeSymbology.EAN13
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.EAN13
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: EAN13
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: EAN13 = 6
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.UPCA
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.UPCA
+  id: UPCA
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: UPCA
+  nameWithType: BarcodeSymbology.UPCA
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.UPCA
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: UPCA
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: UPCA = 7
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.UPCE
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.UPCE
+  id: UPCE
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: UPCE
+  nameWithType: BarcodeSymbology.UPCE
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.UPCE
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: UPCE
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: UPCE = 8
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Codabar
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Codabar
+  id: Codabar
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: Codabar
+  nameWithType: BarcodeSymbology.Codabar
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Codabar
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Codabar
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: Codabar = 9
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.PDF417
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.PDF417
+  id: PDF417
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: PDF417
+  nameWithType: BarcodeSymbology.PDF417
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.PDF417
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: PDF417
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: PDF417 = 10
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Aztec
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Aztec
+  id: Aztec
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: Aztec
+  nameWithType: BarcodeSymbology.Aztec
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.Aztec
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: Aztec
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: Aztec = 11
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.ITF
+  commentId: F:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.ITF
+  id: ITF
+  parent: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  langs:
+  - csharp
+  - vb
+  name: ITF
+  nameWithType: BarcodeSymbology.ITF
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.ITF
+  type: Field
+  source:
+    remote:
+      path: src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+      branch: panels
+      repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
+    id: ITF
+    path: ../src/Nova.Avalonia.UI.BarcodeGenerator/Controls/BarcodeGenerator/BarcodeSymbology.cs
+    startLine: 7
+  assemblies:
+  - Nova.Avalonia.UI.BarcodeGenerator
+  namespace: Nova.Avalonia.UI.BarcodeGenerator
+  syntax:
+    content: ITF = 12
+    return:
+      type: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+references:
+- uid: Nova.Avalonia.UI.BarcodeGenerator
+  commentId: N:Nova.Avalonia.UI.BarcodeGenerator
+  href: Nova.html
+  name: Nova.Avalonia.UI.BarcodeGenerator
+  nameWithType: Nova.Avalonia.UI.BarcodeGenerator
+  fullName: Nova.Avalonia.UI.BarcodeGenerator
+  spec.csharp:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.BarcodeGenerator
+    name: BarcodeGenerator
+    href: Nova.Avalonia.UI.BarcodeGenerator.html
+  spec.vb:
+  - uid: Nova
+    name: Nova
+    href: Nova.html
+  - name: .
+  - uid: Nova.Avalonia
+    name: Avalonia
+    href: Nova.Avalonia.html
+  - name: .
+  - uid: Nova.Avalonia.UI
+    name: UI
+    href: Nova.Avalonia.UI.html
+  - name: .
+  - uid: Nova.Avalonia.UI.BarcodeGenerator
+    name: BarcodeGenerator
+    href: Nova.Avalonia.UI.BarcodeGenerator.html
+- uid: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  commentId: T:Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology
+  parent: Nova.Avalonia.UI.BarcodeGenerator
+  href: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.html
+  name: BarcodeSymbology
+  nameWithType: BarcodeSymbology
+  fullName: Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology

@@ -18,7 +18,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarShape.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: AvatarShape
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarShape.cs
@@ -45,7 +45,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarShape.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Circle
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarShape.cs
@@ -73,7 +73,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarShape.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Square
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarShape.cs
@@ -101,7 +101,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/Avatar/AvatarShape.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Rectangle
     path: ../src/Nova.Avalonia.UI/Controls/Avatar/AvatarShape.cs
