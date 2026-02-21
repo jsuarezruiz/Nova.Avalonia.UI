@@ -386,13 +386,12 @@ public class CircularSlider : TemplatedControl
     static CircularSlider()
     {
         AffectsRender<CircularSlider>(
-            ValueProperty, StartAngleProperty, EndAngleProperty,
+            ValueProperty, MinValueProperty, MaxValueProperty,
+            StartAngleProperty, EndAngleProperty,
             TrackBrushProperty, InactiveBrushProperty, ActiveBrushProperty,
             InnerBackgroundProperty, InactiveThicknessProperty, ActiveThicknessProperty,
             InactiveStrokeLineCapProperty, ActiveStrokeLineCapProperty, ActiveRadiusDeltaProperty,
             ThumbSizeProperty);
-
-        AffectsArrange<CircularSlider>(ThumbSizeProperty, ValueProperty, StartAngleProperty, EndAngleProperty);
 
         MinValueProperty.Changed.AddClassHandler<CircularSlider>((o, _) => o.CoerceValue(ValueProperty));
         MaxValueProperty.Changed.AddClassHandler<CircularSlider>((o, _) => o.CoerceValue(ValueProperty));
@@ -495,9 +494,19 @@ public class CircularSlider : TemplatedControl
             if (ValueChangedCommand?.CanExecute(ValueChangedCommandParameter ?? args) == true)
                 ValueChangedCommand.Execute(ValueChangedCommandParameter ?? args);
         }
-        else if (change.Property == BoundsProperty)
+        else if (change.Property == BoundsProperty || 
+                 change.Property == StartAngleProperty || 
+                 change.Property == EndAngleProperty ||
+                 change.Property == ThumbSizeProperty ||
+                 change.Property == InactiveThicknessProperty ||
+                 change.Property == ActiveThicknessProperty ||
+                 change.Property == ActiveRadiusDeltaProperty ||
+                 change.Property == MinValueProperty ||
+                 change.Property == MaxValueProperty)
         {
             UpdateThumbPosition();
+            if (change.Property == MinValueProperty || change.Property == MaxValueProperty)
+                UpdatePseudoClasses();
         }
         else if (change.Property == CenterContentProperty || change.Property == CenterContentTemplateProperty)
         {
