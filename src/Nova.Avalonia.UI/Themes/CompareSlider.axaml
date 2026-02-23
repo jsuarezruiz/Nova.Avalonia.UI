@@ -7,11 +7,13 @@
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="CompareSliderDividerStroke" Color="White" />
                     <SolidColorBrush x:Key="CompareSliderThumbBackground" Color="White" />
+                    <SolidColorBrush x:Key="CompareSliderThumbBackgroundPointerOver" Color="#E0E0E0" />
                     <SolidColorBrush x:Key="CompareSliderThumbBorderBrush" Color="#333333" />
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
                     <SolidColorBrush x:Key="CompareSliderDividerStroke" Color="White" />
                     <SolidColorBrush x:Key="CompareSliderThumbBackground" Color="#E0E0E0" />
+                    <SolidColorBrush x:Key="CompareSliderThumbBackgroundPointerOver" Color="White" />
                     <SolidColorBrush x:Key="CompareSliderThumbBorderBrush" Color="Black" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
@@ -84,7 +86,7 @@
             </Setter>
             
             <Style Selector="^:pointerover /template/ Border">
-                <Setter Property="Background" Value="{DynamicResource CompareSliderDividerStroke}" />
+                <Setter Property="Background" Value="{DynamicResource CompareSliderThumbBackgroundPointerOver}" />
             </Style>
 
             <Style Selector="^:pressed /template/ Border">

@@ -16,7 +16,10 @@ using Avalonia.Automation.Peers;
 using Nova.Avalonia.UI.Controls.AutomationPeers;
 using System.Threading;
 using Avalonia.Animation;
-using Avalonia.Animation.Easings;namespace Nova.Avalonia.UI.Controls
+using Avalonia.Animation.Easings;
+using Avalonia.Styling;
+
+namespace Nova.Avalonia.UI.Controls
 {
     /// <summary>
     /// A control that allows comparing two pieces of content side-by-side with a draggable slider.
@@ -29,7 +32,7 @@ using Avalonia.Animation.Easings;namespace Nova.Avalonia.UI.Controls
     [TemplatePart("PART_Track", typeof(Canvas))]
     [TemplatePart("PART_Divider", typeof(Line))]
     [TemplatePart("PART_Thumb", typeof(Thumb))]
-    [PseudoClasses(":dragging")]
+    [PseudoClasses(":dragging", ":horizontal", ":vertical")]
     public class CompareSlider : RangeBase
     {
         private Grid? _container;
@@ -248,8 +251,6 @@ using Avalonia.Animation.Easings;namespace Nova.Avalonia.UI.Controls
 
         private void OnThumbDragDelta(object? sender, VectorEventArgs e)
         {
-            if (_thumb == null) return;
-
             var range = Maximum - Minimum;
             if (range <= 0) return;
 
@@ -407,7 +408,7 @@ using Avalonia.Animation.Easings;namespace Nova.Avalonia.UI.Controls
                 var end = Math.Clamp(value, Minimum, Maximum);
                 var time = duration ?? TimeSpan.FromMilliseconds(300);
 
-                var animation = new global::Avalonia.Animation.Animation
+                var animation = new Animation
                 {
                     Duration = time,
                     FillMode = FillMode.Forward,
@@ -417,7 +418,7 @@ using Avalonia.Animation.Easings;namespace Nova.Avalonia.UI.Controls
                         new KeyFrame
                         {
                             Cue = new Cue(1d),
-                            Setters = { new global::Avalonia.Styling.Setter { Property = ValueProperty, Value = end } }
+                            Setters = { new Setter { Property = ValueProperty, Value = end } }
                         }
                     }
                 };
@@ -435,7 +436,7 @@ using Avalonia.Animation.Easings;namespace Nova.Avalonia.UI.Controls
         }
 
         /// <summary>
-        /// Resets the slider value to the center (0.5).
+        /// Resets the slider value to the center.
         /// </summary>
         public void Reset(bool animate = true)
         {
