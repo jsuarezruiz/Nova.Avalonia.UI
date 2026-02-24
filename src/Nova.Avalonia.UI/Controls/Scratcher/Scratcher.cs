@@ -32,9 +32,7 @@ public class Scratcher : ContentControl
     private Image? _overlayImage;
     private int _totalPixels;
     private int _scratchedPixels;
-    private readonly DispatcherTimer _progressTimer;
     private readonly DispatcherTimer _scrollLockTimer;
-    private bool _progressDirty;
     private IPointer? _activePointer;
     private readonly System.Collections.Generic.List<ScrollViewer> _activeParentScrollViewers = new();
     private readonly System.Collections.Generic.Dictionary<ScrollViewer, Vector> _lockedScrollOffsets = new();
@@ -62,9 +60,6 @@ public class Scratcher : ContentControl
     /// </summary>
     public Scratcher()
     {
-        _progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
-        _progressTimer.Tick += OnProgressTimerTick;
-
         _scrollLockTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(8) };
         _scrollLockTimer.Tick += OnScrollLockTimerTick;
 
@@ -131,6 +126,11 @@ public class Scratcher : ContentControl
         AvaloniaProperty.RegisterDirect<Scratcher, bool>(
             nameof(IsThresholdReached),
             o => o.IsThresholdReached);
+
+    public static readonly DirectProperty<Scratcher, bool> IsScratchingProperty =
+        AvaloniaProperty.RegisterDirect<Scratcher, bool>(
+            nameof(IsScratching),
+            o => o.IsScratching);
 
     /// <summary>
     /// Defines the <see cref="ProgressChanged"/> routed event.
@@ -211,7 +211,11 @@ public class Scratcher : ContentControl
     /// <summary>
     /// Gets whether the user is currently scratching.
     /// </summary>
-    public bool IsScratching => _isScratching;
+    public bool IsScratching
+    {
+        get => _isScratching;
+        private set => SetAndRaise(IsScratchingProperty, ref _isScratching, value);
+    }
 
     /// <summary>
     /// Occurs when scratch progress changes (minimum 0.1% difference).
@@ -264,9 +268,13 @@ public class Scratcher : ContentControl
     /// <param name="duration">Animation duration for reset. If null, resets instantly.</param>
     public async Task Reset(TimeSpan? duration = null)
     {
-        _isThresholdReached = false;
+        var previousProgress = _scratchProgress;
         _scratchProgress = 0;
         _scratchedPixels = 0;
+        _isThresholdReached = false;
+
+        RaisePropertyChanged(ScratchProgressProperty, previousProgress, 0.0);
+        RaisePropertyChanged(IsThresholdReachedProperty, true, false);
 
         if (duration.HasValue && duration.Value > TimeSpan.Zero && _overlayImage != null)
         {
@@ -298,8 +306,12 @@ public class Scratcher : ContentControl
     {
         if (_scratchBuffer == null) return;
 
+        var previousProgress = _scratchProgress;
         _scratchProgress = 100;
         _isThresholdReached = true;
+
+        RaisePropertyChanged(ScratchProgressProperty, previousProgress, 100.0);
+        RaisePropertyChanged(IsThresholdReachedProperty, false, true);
 
         if (duration.HasValue && duration.Value > TimeSpan.Zero && _overlayImage != null)
         {
@@ -415,7 +427,7 @@ public class Scratcher : ContentControl
         var currentWidth = _scratchBuffer?.PixelSize.Width ?? 0;
         var currentHeight = _scratchBuffer?.PixelSize.Height ?? 0;
 
-        if (newWidth > 0 && newHeight > 0 && (newWidth != currentWidth || newHeight != currentHeight))
+        if (RebuildOnResize && newWidth > 0 && newHeight > 0 && (newWidth != currentWidth || newHeight != currentHeight))
             RebuildScratchBuffer();
     }
 
@@ -448,9 +460,8 @@ public class Scratcher : ContentControl
         if (!IsEnabled) return;
 
         _activePointer = e.Pointer;
-        _isScratching = true;
+        IsScratching = true;
         _lastPoint = e.GetPosition(this);
-        _progressTimer.Start();
         _scrollLockTimer.Start();
 
         LockParentScroll();
@@ -485,9 +496,8 @@ public class Scratcher : ContentControl
     {
         if (!_isScratching) return;
 
-        _isScratching = false;
+        IsScratching = false;
         _activePointer = null;
-        _progressTimer.Stop();
         _scrollLockTimer.Stop();
         UpdateProgress();
         RestoreParentScroll();
@@ -512,6 +522,7 @@ public class Scratcher : ContentControl
 
         if (width <= 0 || height <= 0) return;
 
+        _scratchBuffer?.Dispose();
         _scratchBuffer = new WriteableBitmap(
             new PixelSize(width, height),
             new Vector(96, 96),
@@ -702,12 +713,6 @@ public class Scratcher : ContentControl
         }
     }
 
-    private void OnProgressTimerTick(object? sender, EventArgs e)
-    {
-        if (_progressDirty)
-            UpdateProgress();
-    }
-
     private void OnScrollLockTimerTick(object? sender, EventArgs e)
     {
         if (!_isScratching || !_isParentHandlerActive) return;
@@ -725,7 +730,6 @@ public class Scratcher : ContentControl
 
         var previousProgress = _scratchProgress;
         _scratchProgress = (_scratchedPixels * 100.0) / _totalPixels;
-        _progressDirty = false;
 
         if (Math.Abs(_scratchProgress - previousProgress) >= 0.1)
             RaiseEvent(new ScratchProgressEventArgs(ProgressChangedEvent, _scratchProgress, previousProgress));

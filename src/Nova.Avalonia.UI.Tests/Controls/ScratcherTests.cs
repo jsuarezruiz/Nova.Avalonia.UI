@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Automation.Peers;
 using Avalonia.Automation.Provider;
@@ -101,34 +102,33 @@ public class ScratcherTests
     }
 
     [AvaloniaFact]
-    public void Reset_ResetsProgress()
+    public async Task Reset_ResetsProgress()
     {
         var scratcher = new Scratcher { Width = 100, Height = 100 };
         var window = new global::Avalonia.Controls.Window { Content = scratcher };
         window.Show();
-        
-        // Ensure layout passes and buffer creation
+
         scratcher.Measure(new Size(100, 100));
         scratcher.Arrange(new Rect(0, 0, 100, 100));
-        
-        scratcher.Reset();
-        
+
+        await scratcher.Reset();
+
         Assert.Equal(0.0, scratcher.ScratchProgress);
         Assert.False(scratcher.IsThresholdReached);
     }
 
     [AvaloniaFact]
-    public void Reveal_SetsProgressTo100()
+    public async Task Reveal_SetsProgressTo100()
     {
         var scratcher = new Scratcher { Width = 100, Height = 100 };
         var window = new global::Avalonia.Controls.Window { Content = scratcher };
         window.Show();
-        
+
         scratcher.Measure(new Size(100, 100));
         scratcher.Arrange(new Rect(0, 0, 100, 100));
-        
-        scratcher.Reveal();
-        
+
+        await scratcher.Reveal();
+
         Assert.Equal(100.0, scratcher.ScratchProgress);
         Assert.True(scratcher.IsThresholdReached);
     }
@@ -189,21 +189,21 @@ public class ScratcherTests
     }
 
     [AvaloniaFact]
-    public void ScratcherAutomationPeer_Returns_Correct_Name()
+    public async Task ScratcherAutomationPeer_Returns_Correct_Name()
     {
         var scratcher = new Scratcher { Width = 100, Height = 100 };
         var window = new global::Avalonia.Controls.Window { Content = scratcher };
         window.Show();
-        
+
         var peer = new ScratcherAutomationPeer(scratcher);
         Assert.Equal("Scratcher", peer.GetName());
-        
-        scratcher.Reveal();
+
+        await scratcher.Reveal();
         Assert.Equal("Scratcher: Content revealed", peer.GetName());
     }
 
     [AvaloniaFact]
-    public void ScratchPreservation_OnBrushChange()
+    public async Task ScratchPreservation_OnBrushChange()
     {
         var scratcher = new Scratcher
         {
@@ -212,13 +212,11 @@ public class ScratcherTests
             OverlayBrush = Brushes.Gray
         };
 
-        // Initialize
         scratcher.ApplyTemplate();
         scratcher.Measure(new Size(100, 100));
         scratcher.Arrange(new Rect(0, 0, 100, 100));
 
-        // Scratch some area (approx 100%)
-        scratcher.Reveal(); 
+        await scratcher.Reveal();
         Assert.Equal(100, scratcher.ScratchProgress);
 
         // Change brush - this should NOT reset progress to 0
