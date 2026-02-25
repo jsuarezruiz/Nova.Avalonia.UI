@@ -239,7 +239,6 @@ public class ScratcherTests
         scratcher.Measure(new Size(100, 100));
         scratcher.Arrange(new Rect(0, 0, 100, 100));
 
-        // In headless testing, OnSizeChanged might not fire immediately. 
         // Force RebuildScratchBuffer to initialize the WriteableBitmap
         var rebuildMethod = typeof(Scratcher).GetMethod("RebuildScratchBuffer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         rebuildMethod?.Invoke(scratcher, null);
@@ -262,7 +261,7 @@ public class ScratcherTests
         // Restore
         scratcher.SetScratchMask(mask);
         
-        // Due to precision loss when transferring back to `byte[]` arrays, we allow a tiny tolerance.
+        // Allow a tiny tolerance
         Assert.True(System.Math.Abs(progressAfterScratch - scratcher.ScratchProgress) < 1.0, 
             $"Expected ~{progressAfterScratch} but got {scratcher.ScratchProgress}");
     }
