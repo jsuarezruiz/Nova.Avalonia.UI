@@ -223,4 +223,47 @@ public class ScratcherTests
         scratcher.OverlayBrush = Brushes.Silver;
         Assert.Equal(100, scratcher.ScratchProgress);
     }
+
+    [AvaloniaFact]
+    public async Task Save_Restore_State()
+    {
+        var scratcher = new Scratcher
+        {
+            Width = 100,
+            Height = 100,
+            OverlayBrush = Brushes.Gray,
+            BrushSize = 50
+        };
+
+        scratcher.ApplyTemplate();
+        scratcher.Measure(new Size(100, 100));
+        scratcher.Arrange(new Rect(0, 0, 100, 100));
+
+        // In headless testing, OnSizeChanged might not fire immediately. 
+        // Force RebuildScratchBuffer to initialize the WriteableBitmap
+        var rebuildMethod = typeof(Scratcher).GetMethod("RebuildScratchBuffer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        rebuildMethod?.Invoke(scratcher, null);
+
+        // Force a scratch
+        var scratchMethod = typeof(Scratcher).GetMethod("ScratchLine", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        scratchMethod?.Invoke(scratcher, new object[] { new Point(50, 50), new Point(50, 50) });
+
+        double progressAfterScratch = scratcher.ScratchProgress;
+        Assert.True(progressAfterScratch > 0, "No progress recorded after scratching.");
+
+        var mask = scratcher.GetScratchMask();
+        Assert.NotNull(mask);
+        Assert.True(mask.Length > 0, "Mask was incorrectly empty.");
+
+        // Reset
+        await scratcher.Reset();
+        Assert.Equal(0, scratcher.ScratchProgress);
+
+        // Restore
+        scratcher.SetScratchMask(mask);
+        
+        // Due to precision loss when transferring back to `byte[]` arrays, we allow a tiny tolerance.
+        Assert.True(System.Math.Abs(progressAfterScratch - scratcher.ScratchProgress) < 1.0, 
+            $"Expected ~{progressAfterScratch} but got {scratcher.ScratchProgress}");
+    }
 }

@@ -8,7 +8,7 @@ namespace Nova.Avalonia.UI.Gallery.Views;
 
 public partial class ScratcherView : UserControl
 {
-    private WriteableBitmap? _savedMask;
+    private byte[]? _savedMask;
 
     public ScratcherView()
     {

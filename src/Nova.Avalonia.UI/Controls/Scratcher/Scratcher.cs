@@ -334,55 +334,51 @@ public class Scratcher : ContentControl
     }
 
     /// <summary>
-    /// Returns a copy of the current scratch mask as a <see cref="WriteableBitmap"/>.
+    /// Returns a copy of the current scratch mask as a byte array.
     /// Can be stored and later passed to <see cref="SetScratchMask"/> to restore the scratch state.
     /// </summary>
-    public WriteableBitmap? GetScratchMask()
+    public byte[]? GetScratchMask()
     {
         if (_scratchBuffer == null) return null;
 
-        var copy = new WriteableBitmap(
-            _scratchBuffer.PixelSize,
-            _scratchBuffer.Dpi,
-            _scratchBuffer.Format,
-            _scratchBuffer.AlphaFormat);
-
         using var srcLock = _scratchBuffer.Lock();
-        using var dstLock = copy.Lock();
-
-        unsafe
-        {
-            Buffer.MemoryCopy(
-                srcLock.Address.ToPointer(),
-                dstLock.Address.ToPointer(),
-                dstLock.RowBytes * dstLock.Size.Height,
-                srcLock.RowBytes * srcLock.Size.Height);
-        }
-
+        int size = srcLock.RowBytes * srcLock.Size.Height;
+        var copy = new byte[size];
+        
+        System.Runtime.InteropServices.Marshal.Copy(srcLock.Address, copy, 0, size);
         return copy;
     }
 
     /// <summary>
-    /// Applies a pre-defined scratch mask to the control.
+    /// Applies a pre-defined scratch mask byte array to the control.
     /// </summary>
-    /// <param name="mask">Bitmap to use as scratch mask.</param>
-    public void SetScratchMask(WriteableBitmap mask)
+    /// <param name="mask">Byte array representing the scratch mask.</param>
+    public void SetScratchMask(byte[] mask)
     {
-        if (_scratchBuffer == null || mask.PixelSize != _scratchBuffer.PixelSize) return;
+        if (_scratchBuffer == null) return;
 
-        using var srcLock = mask.Lock();
         using var dstLock = _scratchBuffer.Lock();
+        int expectedSize = dstLock.RowBytes * dstLock.Size.Height;
+        if (mask.Length != expectedSize) return;
 
+        System.Runtime.InteropServices.Marshal.Copy(mask, 0, dstLock.Address, expectedSize);
+
+        // Calculate ScratchedPixels directly from the copied byte array.
+        int count = 0;
         unsafe
         {
-            Buffer.MemoryCopy(
-                srcLock.Address.ToPointer(),
-                dstLock.Address.ToPointer(),
-                dstLock.RowBytes * dstLock.Size.Height,
-                srcLock.RowBytes * srcLock.Size.Height);
+            fixed (byte* pMask = mask)
+            {
+                uint* pUint = (uint*)pMask;
+                int len = mask.Length / 4;
+                for (int i = 0; i < len; i++)
+                {
+                    if (pUint[i] == 0) count++;
+                }
+            }
         }
-
-        _scratchedPixels = CountZeroPixels(_scratchBuffer);
+        _scratchedPixels = count;
+        
         UpdateProgress();
         _overlayImage?.InvalidateVisual();
     }
