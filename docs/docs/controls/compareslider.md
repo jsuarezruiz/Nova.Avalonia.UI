@@ -67,7 +67,7 @@ You can control the slider programmatically using the `AnimateTo` and `Reset` me
 await MySlider.AnimateTo(0.75, TimeSpan.FromMilliseconds(500));
 
 // Reset to center (0.5)
-MySlider.Reset(animate: true);
+await MySlider.Reset(animate: true);
 ```
 
 ## Customizing Templates
@@ -95,6 +95,8 @@ The control consists of a divider (`Line`) and a thumb (`Thumb`). You can custom
 
 ### Pseudo Classes
 - `:dragging`: Applied when the user is actively dragging the thumb.
+- `:horizontal`: Applied when `Orientation` is `Horizontal`.
+- `:vertical`: Applied when `Orientation` is `Vertical`.
 
 ## Properties
 
@@ -103,7 +105,9 @@ The control consists of a divider (`Line`) and a thumb (`Thumb`). You can custom
 | `Value` | `double` | `0.5` | The current position of the divider (0.0 to 1.0). |
 | `Orientation` | `Orientation` | `Horizontal` | The orientation of the slider. |
 | `BeforeContent` | `object` | `null` | Content displayed before/above the divider. |
+| `BeforeContentTemplate` | `IDataTemplate` | `null` | Data template used to display `BeforeContent`. |
 | `AfterContent` | `object` | `null` | Content displayed after/below the divider. |
+| `AfterContentTemplate` | `IDataTemplate` | `null` | Data template used to display `AfterContent`. |
 | `IsMoveToPointEnabled` | `bool` | `true` | Whether clicking the track moves the thumb. |
 | `IsDirectionReversed` | `bool` | `false` | Reverses the direction of value increase. |
 | `SmallChange` | `double` | `0.01` | Value change for arrow keys. |

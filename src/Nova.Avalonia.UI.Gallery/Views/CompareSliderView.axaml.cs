@@ -22,8 +22,8 @@ public partial class CompareSliderView : UserControl
         await InteractiveSlider.AnimateTo(1.0, TimeSpan.FromMilliseconds(500));
     }
 
-    private void OnResetClick(object? sender, RoutedEventArgs e)
+    private async void OnResetClick(object? sender, RoutedEventArgs e)
     {
-        InteractiveSlider.Reset(animate: true);
+        await InteractiveSlider.Reset(animate: true);
     }
 }
