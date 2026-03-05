@@ -34,6 +34,8 @@
     href: controls/ratingcontrol.md
   - name: ResponsivePanel
     href: controls/responsivepanel.md
+  - name: Scratcher
+    href: controls/scratcher.md
   - name: Shimmer
     href: controls/shimmer.md
   - name: StaggeredPanel
