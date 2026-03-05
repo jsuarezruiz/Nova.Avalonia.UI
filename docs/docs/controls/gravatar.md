@@ -1,7 +1,7 @@
 ---
 title: Gravatar
 description: A control that displays a GitHub-style identicon avatar from an identifier.
-ms.date: 2026-01-02
+ms.date: 2026-03-05
 ---
 
 # Gravatar
@@ -59,8 +59,11 @@ Functionality can be customized by implementing `IGravatarGenerator`.
 ```csharp
 public class MyCustomGenerator : IGravatarGenerator
 {
-    public object GenerateAvatar(string id)
+    public object? GenerateAvatar(string? id)
     {
+        if (string.IsNullOrEmpty(id))
+            return null;
+
         // Return any Avalonia control or geometry
         return new TextBlock { Text = id[0].ToString() };
     }

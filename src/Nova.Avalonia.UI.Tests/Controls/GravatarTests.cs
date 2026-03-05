@@ -48,7 +48,6 @@ public class GravatarTests
         var avatar = generator.GenerateAvatar("test@example.com");
 
         Assert.NotNull(avatar);
-        // It returns a Path with GeometryGroup
         Assert.IsType<global::Avalonia.Controls.Shapes.Path>(avatar);
     }
 
@@ -57,21 +56,23 @@ public class GravatarTests
     {
         var generator = new GithubGravatarGenerator();
         var id = "consistent@test.com";
-        
+
         var avatar1 = generator.GenerateAvatar(id);
         var avatar2 = generator.GenerateAvatar(id);
 
         Assert.NotNull(avatar1);
         Assert.NotNull(avatar2);
-        
-        // We can't easily compare visual objects for equality, but we can check properties
+
         var path1 = (global::Avalonia.Controls.Shapes.Path)avatar1!;
         var path2 = (global::Avalonia.Controls.Shapes.Path)avatar2!;
 
         var brush1 = (SolidColorBrush)path1.Fill!;
         var brush2 = (SolidColorBrush)path2.Fill!;
-
         Assert.Equal(brush1.Color, brush2.Color);
+
+        var geo1 = (GeometryGroup)path1.Data!;
+        var geo2 = (GeometryGroup)path2.Data!;
+        Assert.Equal(geo1.Children.Count, geo2.Children.Count);
     }
 
     [AvaloniaFact]
@@ -103,5 +104,116 @@ public class GravatarTests
         Assert.Equal("accessible@test.com", peer.GetName());
         Assert.Equal(global::Avalonia.Automation.Peers.AutomationControlType.Image, peer.GetAutomationControlType());
         Assert.Equal("Gravatar", peer.GetClassName());
+    }
+
+    [AvaloniaFact]
+    public void GithubGravatarGenerator_Handles_Unicode_Identifiers()
+    {
+        var generator = new GithubGravatarGenerator();
+
+        var avatar1 = generator.GenerateAvatar("josé@email.com");
+        var avatar2 = generator.GenerateAvatar("jos?@email.com");
+
+        Assert.NotNull(avatar1);
+        Assert.NotNull(avatar2);
+
+        // Unicode and ASCII-replaced versions must produce different avatars
+        var color1 = ((SolidColorBrush)((global::Avalonia.Controls.Shapes.Path)avatar1!).Fill!).Color;
+        var color2 = ((SolidColorBrush)((global::Avalonia.Controls.Shapes.Path)avatar2!).Fill!).Color;
+
+        Assert.NotEqual(color1, color2);
+    }
+
+    [AvaloniaFact]
+    public void GithubGravatarGenerator_Different_Ids_Produce_Different_Avatars()
+    {
+        var generator = new GithubGravatarGenerator();
+
+        var avatar1 = generator.GenerateAvatar("alice@example.com");
+        var avatar2 = generator.GenerateAvatar("bob@example.com");
+
+        var color1 = ((SolidColorBrush)((global::Avalonia.Controls.Shapes.Path)avatar1!).Fill!).Color;
+        var color2 = ((SolidColorBrush)((global::Avalonia.Controls.Shapes.Path)avatar2!).Fill!).Color;
+
+        Assert.NotEqual(color1, color2);
+    }
+
+    [AvaloniaFact]
+    public void GithubGravatarGenerator_Produces_Symmetric_Pattern()
+    {
+        var generator = new GithubGravatarGenerator();
+        var avatar = generator.GenerateAvatar("symmetry@test.com");
+
+        var path = (global::Avalonia.Controls.Shapes.Path)avatar!;
+        var geo = (GeometryGroup)path.Data!;
+
+        // Build a 5x5 grid from the geometry
+        var grid = new bool[5, 5];
+        foreach (var child in geo.Children)
+        {
+            var rect = ((RectangleGeometry)child).Rect;
+            grid[(int)rect.X, (int)rect.Y] = true;
+        }
+
+        // Verify left-right symmetry: column 0 == column 4, column 1 == column 3
+        for (var row = 0; row < 5; row++)
+        {
+            Assert.Equal(grid[0, row], grid[4, row]);
+            Assert.Equal(grid[1, row], grid[3, row]);
+        }
+    }
+
+    [AvaloniaFact]
+    public void GithubGravatarGenerator_Only_Creates_Visible_Cells()
+    {
+        var generator = new GithubGravatarGenerator();
+        var avatar = generator.GenerateAvatar("test@example.com");
+
+        var path = (global::Avalonia.Controls.Shapes.Path)avatar!;
+        var geo = (GeometryGroup)path.Data!;
+
+        // All geometry children should have non-zero size (no hidden zero-size rectangles)
+        foreach (var child in geo.Children)
+        {
+            var rect = ((RectangleGeometry)child).Rect;
+            Assert.True(rect.Width > 0);
+            Assert.True(rect.Height > 0);
+        }
+
+        // Should have fewer than 25 cells (some are hidden)
+        Assert.True(geo.Children.Count <= 25);
+        Assert.True(geo.Children.Count > 0);
+    }
+
+    [AvaloniaFact]
+    public void Gravatar_Source_Property_Can_Be_Set()
+    {
+        var gravatar = new Gravatar();
+        Assert.Null(gravatar.Source);
+
+        // Just verify the property is settable — actual rendering requires a live visual tree
+        gravatar.Source = null;
+        Assert.Null(gravatar.Source);
+    }
+
+    [AvaloniaFact]
+    public void Gravatar_Generator_Property_Can_Be_Changed()
+    {
+        var gravatar = new Gravatar();
+        var customGenerator = new GithubGravatarGenerator();
+
+        gravatar.Generator = customGenerator;
+        Assert.Same(customGenerator, gravatar.Generator);
+    }
+
+    [AvaloniaFact]
+    public void GithubGravatarGenerator_Handles_Long_Identifiers()
+    {
+        var generator = new GithubGravatarGenerator();
+        var longId = new string('a', 10000) + "@example.com";
+
+        var avatar = generator.GenerateAvatar(longId);
+        Assert.NotNull(avatar);
+        Assert.IsType<global::Avalonia.Controls.Shapes.Path>(avatar);
     }
 }

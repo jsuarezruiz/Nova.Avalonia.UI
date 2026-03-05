@@ -80,6 +80,30 @@
                 </StackPanel>
             </Border>
 
+            <!-- Custom Image Override -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Custom Image Override"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="When Source is set, the custom image takes priority over the generated identicon."
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+
+                    <StackPanel Orientation="Horizontal" Spacing="32">
+                        <StackPanel Spacing="8" HorizontalAlignment="Center">
+                            <controls:Gravatar Id="javier@example.com" Size="64" HorizontalAlignment="Center" />
+                            <TextBlock Text="Generated" Opacity="0.7" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Spacing="8" HorizontalAlignment="Center">
+                            <controls:Gravatar x:Name="ImageGravatar" Id="javier@example.com" Size="64" HorizontalAlignment="Center" />
+                            <TextBlock Text="With Source" Opacity="0.7" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
             <!-- Interactive Input -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
                 <StackPanel Spacing="15">
@@ -92,8 +116,8 @@
                                Opacity="0.7" />
 
                     <StackPanel Orientation="Horizontal" Spacing="16">
-                        <TextBox x:Name="EmailInput" 
-                                 Width="300" 
+                        <TextBox x:Name="EmailInput"
+                                 Width="300"
                                  VerticalAlignment="Center"
                                  Watermark="Enter email or username..."
                                  Text="hello@world.com" />

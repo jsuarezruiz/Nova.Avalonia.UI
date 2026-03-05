@@ -3,6 +3,9 @@ using Avalonia.Controls;
 
 namespace Nova.Avalonia.UI.Controls;
 
+/// <summary>
+/// Automation peer for the <see cref="Gravatar"/> control.
+/// </summary>
 public class GravatarAutomationPeer : ControlAutomationPeer
 {
     public GravatarAutomationPeer(Gravatar owner) : base(owner)

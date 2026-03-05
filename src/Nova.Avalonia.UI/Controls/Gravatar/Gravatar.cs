@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls;
+using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
@@ -10,6 +11,8 @@ namespace Nova.Avalonia.UI.Controls;
 /// <summary>
 /// A control that displays an avatar generated from an identifier or a custom image.
 /// </summary>
+[TemplatePart("PART_ContentPresenter", typeof(ContentPresenter))]
+[TemplatePart("PART_ImagePresenter", typeof(Image))]
 public class Gravatar : TemplatedControl
 {
     /// <summary>
@@ -65,11 +68,6 @@ public class Gravatar : TemplatedControl
     {
         get => GetValue(SizeProperty);
         set => SetValue(SizeProperty, value);
-    }
-
-    static Gravatar()
-    {
-        AffectsRender<Gravatar>(IdProperty, SourceProperty, GeneratorProperty, SizeProperty);
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
