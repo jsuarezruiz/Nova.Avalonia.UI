@@ -1,7 +1,7 @@
 ---
 title: CompareSlider
 description: A control that allows side-by-side comparison of two pieces of content with a draggable divider.
-ms.date: 2025-12-30
+ms.date: 2026-03-05
 ---
 
 # CompareSlider
