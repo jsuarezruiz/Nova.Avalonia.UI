@@ -14,6 +14,8 @@
     href: controls/badge.md
   - name: BarcodeGenerator
     href: controls/barcodegenerator.md
+  - name: Fortune
+    href: controls/fortune.md
   - name: BubblePanel
     href: controls/bubblepanel.md
   - name: CircularPanel
@@ -34,6 +36,8 @@
     href: controls/ratingcontrol.md
   - name: ResponsivePanel
     href: controls/responsivepanel.md
+  - name: Scratcher
+    href: controls/scratcher.md
   - name: Shimmer
     href: controls/shimmer.md
   - name: StaggeredPanel
@@ -46,3 +50,5 @@
     href: controls/staggeredpanel.md
   - name: VirtualizedVariableSizeWrapPanel
     href: controls/variablesizewrappanel.md
+  - name: Watermark
+    href: controls/watermark.md

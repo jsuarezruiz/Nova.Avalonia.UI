@@ -29,8 +29,11 @@ public partial class MainViewModel : ViewModelBase
                 new("Badge", new BadgeViewModel(), "Notification badge control"),
                 new("BarcodeGenerator", new BarcodeGeneratorViewModel(), "QR codes, barcodes, and 2D symbologies"),
                 new("CompareSlider", new CompareSliderViewModel(), "Side-by-side content comparison with slider"),
+                new("Fortune", new FortuneViewModel(), "Spin-to-win wheel and bar controls"),
                 new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
+                new("Scratcher", new ScratcherViewModel(), "Interactive scratch card overlay"),
                 new("Shimmer", new ShimmerViewModel(), "Loading placeholders with animated shimmer"),
+                new("Watermark", new WatermarkViewModel(), "Tiled text or image overlay watermarks"),
             }),
             new("Panels", new ObservableCollection<NavigationSample>
             {

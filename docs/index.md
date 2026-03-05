@@ -1,7 +1,7 @@
 ---
 title: Welcome to Nova.Avalonia.UI
 description: Overview of the Nova.Avalonia.UI control suite and how to get started.
-ms.date: 2026-01-02
+ms.date: 2026-02-01
 ---
 
 # Welcome to Nova.Avalonia.UI
@@ -17,8 +17,12 @@ ms.date: 2026-01-02
 - **[Badge](docs/controls/badge.md)**: Notification indicator for counts, status, or dot indicators with configurable placement and overflow handling.
 - **[BarcodeGenerator](docs/controls/barcodegenerator.md)**: Generates QR codes, Data Matrix, Code 128, and other barcode formats with customizable colors and logo support.
 - **[CompareSlider](docs/controls/compareslider.md)**: A control that allows side-by-side comparison of two pieces of content with a draggable divider.
-- **[RatingControl](docs/controls/ratingcontrol.md)**: Allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes.
+- **[FortuneBar](xref:Nova.Avalonia.UI.Controls.FortuneBar)**: Slot machine style horizontal or vertical scrolling bar for random selection.
+- **[FortuneWheel](xref:Nova.Avalonia.UI.Controls.FortuneWheel)**: Circular prize wheel with smooth spin animations, weighted selection, and customizable styling strategies.
+- **[RatingControl](docs/controls/ratingcontrol.md)**: Allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
 - **[Shimmer](docs/controls/shimmer.md)**: Skeleton loading effect that detects your content layout to create matching placeholders.
+- **[Scratcher](docs/controls/scratcher.md)**: Interactive control that hides content beneath a scratchable overlay.
+- **[Watermark](docs/controls/watermark.md)**: Tiled text or image overlay for marking documents as confidential, draft, or adding branding.
 
 ### Panels
 
