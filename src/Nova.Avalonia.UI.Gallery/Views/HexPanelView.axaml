@@ -1,0 +1,132 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Nova.Avalonia.UI.Controls"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1200"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.HexPanelView"
+             x:DataType="vm:HexPanelViewModel">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Spacing="20" Margin="20">
+            <TextBlock Text="A layout panel that arranges items in a honeycomb pattern." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
+
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Items positioned using Row and Column attached properties. Using Ellipses to show circle packing." Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="400" ClipToBounds="True">
+                        <controls:HexPanel ColumnCount="3" RowCount="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <!-- Flower Pattern matching reference image colors, but with Ellipses -->
+                            <!-- Hexagon side S=46 -> Width=80. Using 80x80 ellipses for touching packing. -->
+
+                            <!-- Red (Top) - Col 1, Row 0 -->
+                            <Ellipse Width="80" Height="80" Fill="#FF0000" controls:HexPanel.Column="1" controls:HexPanel.Row="0"/>
+
+                            <!-- Green (Top-Left) - Col 0, Row 1 -->
+                            <Ellipse Width="80" Height="80" Fill="#008000" controls:HexPanel.Column="0" controls:HexPanel.Row="1"/>
+
+                            <!-- Yellow (Top-Right) - Col 2, Row 1 -->
+                            <Ellipse Width="80" Height="80" Fill="#FFFF00" controls:HexPanel.Column="2" controls:HexPanel.Row="1"/>
+
+                            <!-- Blue (Center) - Col 1, Row 1 -->
+                            <Ellipse Width="80" Height="80" Fill="#0000FF" controls:HexPanel.Column="1" controls:HexPanel.Row="1"/>
+
+                            <!-- Orange (Bot-Left) - Col 0, Row 2 -->
+                            <Ellipse Width="80" Height="80" Fill="#FFA500" controls:HexPanel.Column="0" controls:HexPanel.Row="2"/>
+
+                            <!-- Pink (Bot-Right) - Col 2, Row 2 -->
+                            <Ellipse Width="80" Height="80" Fill="#FFC0CB" controls:HexPanel.Column="2" controls:HexPanel.Row="2"/>
+                            
+                            <!-- Purple (Bottom) - Col 1, Row 2 -->
+                            <Ellipse Width="80" Height="80" Fill="#800080" controls:HexPanel.Column="1" controls:HexPanel.Row="2"/>
+
+                        </controls:HexPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Layout Configuration -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Adjust RowCount, ColumnCount, and Orientation." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <!-- Controls -->
+                    <StackPanel Spacing="10" Margin="0,0,0,10">
+                        <Grid ColumnDefinitions="Auto, *, 50" RowDefinitions="Auto, Auto, Auto">
+                            <TextBlock Text="Column Count" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Slider Grid.Column="1" Minimum="1" Maximum="5" Value="{Binding ColumnCount}" />
+                            <TextBlock Grid.Column="2" Text="{Binding ColumnCount}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <TextBlock Grid.Row="1" Text="Row Count" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Slider Grid.Row="1" Grid.Column="1" Minimum="1" Maximum="5" Value="{Binding RowCount}" />
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding RowCount}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <TextBlock Grid.Row="2" Text="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding IsHorizontal}" />
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Preview -->
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="400" ClipToBounds="True">
+                        <controls:HexPanel ColumnCount="{Binding ColumnCount}" 
+                                           RowCount="{Binding RowCount}"
+                                           Orientation="{Binding Orientation}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <!-- Ellipse items -->
+                            <Ellipse Width="60" Height="60" Fill="#228B22" controls:HexPanel.Row="0" controls:HexPanel.Column="0"/>
+                            <Ellipse Width="60" Height="60" Fill="#FF0000" controls:HexPanel.Row="0" controls:HexPanel.Column="1"/>
+                            <Ellipse Width="60" Height="60" Fill="#FFFF00" controls:HexPanel.Row="0" controls:HexPanel.Column="2"/>
+                            <Ellipse Width="60" Height="60" Fill="#FFA500" controls:HexPanel.Row="1" controls:HexPanel.Column="0"/>
+                            <Ellipse Width="60" Height="60" Fill="#0000FF" controls:HexPanel.Row="1" controls:HexPanel.Column="1"/>
+                            <Ellipse Width="60" Height="60" Fill="#FFB6C1" controls:HexPanel.Row="1" controls:HexPanel.Column="2"/>
+                            <Ellipse Width="60" Height="60" Fill="#800080" controls:HexPanel.Row="2" controls:HexPanel.Column="0"/>
+                            <Ellipse Width="60" Height="60" Fill="#00CED1" controls:HexPanel.Row="2" controls:HexPanel.Column="1"/>
+                            <Ellipse Width="60" Height="60" Fill="#FF4500" controls:HexPanel.Row="2" controls:HexPanel.Column="2"/>
+                        </controls:HexPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Dynamic Items -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Add or remove items to see the hex grid reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Add Item" Command="{Binding AddItemCommand}"/>
+                        <Button Content="Remove Item" Command="{Binding RemoveItemCommand}"/>
+                        <TextBlock Text="{Binding Items.Count, StringFormat='Count: {0}'}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="350" ClipToBounds="True">
+                        <ItemsControl ItemsSource="{Binding Items}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:HexPanel ColumnCount="4" RowCount="5"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.Styles>
+                                <Style Selector="ContentPresenter" x:DataType="vm:HexItem">
+                                    <Setter Property="controls:HexPanel.Row" Value="{Binding Row}"/>
+                                    <Setter Property="controls:HexPanel.Column" Value="{Binding Column}"/>
+                                </Style>
+                            </ItemsControl.Styles>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:HexItem">
+                                    <Ellipse Width="60" Height="60" Fill="{Binding Brush}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

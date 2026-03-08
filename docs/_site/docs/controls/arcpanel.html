@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ArcPanel | Nova.Avalonia.UI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ArcPanel | Nova.Avalonia.UI ">
+      
+      <meta name="description" content="A layout panel that arranges items along an arc (partial circle).">
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/jsuarezruiz/Nova.Avalonia.UI/blob/panels/docs/docs/controls/arcpanel.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="Nova.Avalonia.UI">
+            Nova.Avalonia.UI
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="arcpanel">ArcPanel</h1>
+
+<p>The <code>ArcPanel</code> arranges child elements along an arc, which is a portion of a circle. This is useful for creating semi-circular menus, dial interfaces, or decorative layouts.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<pre><code class="lang-xaml">&lt;UserControl xmlns=&quot;https://github.com/avaloniaui&quot;
+             xmlns:nova=&quot;using:Nova.Avalonia.UI.Controls&quot;&gt;
+
+    &lt;nova:ArcPanel Radius=&quot;100&quot; StartAngle=&quot;-90&quot; SweepAngle=&quot;180&quot;&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;Red&quot; CornerRadius=&quot;20&quot;/&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;Green&quot; CornerRadius=&quot;20&quot;/&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;Blue&quot; CornerRadius=&quot;20&quot;/&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;Orange&quot; CornerRadius=&quot;20&quot;/&gt;
+        &lt;Border Width=&quot;40&quot; Height=&quot;40&quot; Background=&quot;Purple&quot; CornerRadius=&quot;20&quot;/&gt;
+    &lt;/nova:ArcPanel&gt;
+&lt;/UserControl&gt;
+</code></pre>
+<h2 id="positioning">Positioning</h2>
+<ul>
+<li><strong>StartAngle</strong>: The angle (in degrees) where the arc begins. 0° is at the 3 o'clock position, and angles increase clockwise.</li>
+<li><strong>SweepAngle</strong>: The total arc length in degrees. Use 180 for a semi-circle, 90 for a quarter-circle.</li>
+</ul>
+<p>Items are distributed evenly along the arc based on the number of children.</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Radius</code></td>
+<td><code>double</code></td>
+<td><code>100</code></td>
+<td>The radius of the arc from center to item centers.</td>
+</tr>
+<tr>
+<td><code>StartAngle</code></td>
+<td><code>double</code></td>
+<td><code>0</code></td>
+<td>The starting angle in degrees (0° = 3 o'clock).</td>
+</tr>
+<tr>
+<td><code>SweepAngle</code></td>
+<td><code>double</code></td>
+<td><code>180</code></td>
+<td>The arc span in degrees.</td>
+</tr>
+<tr>
+<td><code>RotateItems</code></td>
+<td><code>bool</code></td>
+<td><code>false</code></td>
+<td>Whether items rotate to follow the arc tangent.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="semi-circle-menu-top">Semi-Circle Menu (Top)</h3>
+<pre><code class="lang-xaml">&lt;nova:ArcPanel Radius=&quot;120&quot; StartAngle=&quot;-90&quot; SweepAngle=&quot;180&quot; 
+               HorizontalAlignment=&quot;Center&quot; VerticalAlignment=&quot;Center&quot;&gt;
+    &lt;Button Content=&quot;1&quot;/&gt;
+    &lt;Button Content=&quot;2&quot;/&gt;
+    &lt;Button Content=&quot;3&quot;/&gt;
+    &lt;Button Content=&quot;4&quot;/&gt;
+    &lt;Button Content=&quot;5&quot;/&gt;
+&lt;/nova:ArcPanel&gt;
+</code></pre>
+<h3 id="quarter-arc">Quarter Arc</h3>
+<pre><code class="lang-xaml">&lt;nova:ArcPanel Radius=&quot;80&quot; StartAngle=&quot;0&quot; SweepAngle=&quot;90&quot;&gt;
+    &lt;Ellipse Width=&quot;30&quot; Height=&quot;30&quot; Fill=&quot;Coral&quot;/&gt;
+    &lt;Ellipse Width=&quot;30&quot; Height=&quot;30&quot; Fill=&quot;Teal&quot;/&gt;
+    &lt;Ellipse Width=&quot;30&quot; Height=&quot;30&quot; Fill=&quot;Gold&quot;/&gt;
+&lt;/nova:ArcPanel&gt;
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/jsuarezruiz/Nova.Avalonia.UI/blob/panels/docs/docs/controls/arcpanel.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

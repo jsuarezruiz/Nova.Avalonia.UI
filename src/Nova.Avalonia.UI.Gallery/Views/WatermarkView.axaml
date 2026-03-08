@@ -1,0 +1,252 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls;assembly=Nova.Avalonia.UI"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.WatermarkView"
+             x:DataType="vm:WatermarkViewModel">
+    <UserControl.Styles>
+        <Style Selector="controls|Watermark.bold">
+            <Setter Property="WatermarkFontWeight" Value="Bold" />
+        </Style>
+        <Style Selector="controls|Watermark.italic">
+            <Setter Property="WatermarkFontStyle" Value="Italic" />
+        </Style>
+    </UserControl.Styles>
+    
+    <ScrollViewer>
+        <StackPanel Spacing="20" Margin="20">
+
+            <!-- Basic Text Watermark -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Basic Text Watermark"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="A simple text watermark overlay with default settings."
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+
+                    <controls:Watermark Text="CONFIDENTIAL" Height="150">
+                        <Border Background="{DynamicResource CardBackgroundBrush}"
+                                BorderBrush="{DynamicResource CardBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="20">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="Document Content" FontSize="18" FontWeight="SemiBold" />
+                                <TextBlock Text="This area contains sensitive information." Opacity="0.7" />
+                            </StackPanel>
+                        </Border>
+                    </controls:Watermark>
+                </StackPanel>
+            </Border>
+
+            <!-- Custom Angle and Spacing -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Custom Angle and Spacing"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Angle=-45, HorizontalSpacing=100, VerticalSpacing=50"
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+
+                    <controls:Watermark Text="DRAFT" 
+                                        Angle="-45" 
+                                        HorizontalSpacing="100" 
+                                        VerticalSpacing="50"
+                                        WatermarkOpacity="0.2"
+                                        WatermarkFontSize="18"
+                                        Height="150">
+                        <Border Background="{DynamicResource CardBackgroundBrush}"
+                                BorderBrush="{DynamicResource CardBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="20">
+                            <TextBlock Text="Draft Document" 
+                                       FontSize="16" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                    </controls:Watermark>
+                </StackPanel>
+            </Border>
+
+            <!-- High Opacity Watermark -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Higher Opacity"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="WatermarkOpacity=0.3 for more visible watermarks."
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+
+                    <controls:Watermark Text="SAMPLE" 
+                                        WatermarkOpacity="0.3"
+                                        Angle="0"
+                                        HorizontalSpacing="80"
+                                        VerticalSpacing="40"
+                                        Height="120">
+                        <Border Background="{DynamicResource CardBackgroundBrush}"
+                                BorderBrush="{DynamicResource CardBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="20">
+                            <TextBlock Text="Sample Content Area" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                    </controls:Watermark>
+                </StackPanel>
+            </Border>
+
+            <!-- Interactive Playground -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Interactive Playground"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto" Margin="0,0,0,10">
+                        <StackPanel Grid.Column="0" Spacing="5" Margin="0,0,10,0">
+                            <TextBlock Text="Angle" FontWeight="SemiBold"/>
+                            <Slider x:Name="AngleSlider" Minimum="-90" Maximum="90" Value="-30" />
+                            <TextBlock Text="{Binding #AngleSlider.Value, StringFormat={}{0:F0}}" Opacity="0.7" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="5" Margin="0,0,10,0">
+                            <TextBlock Text="Opacity" FontWeight="SemiBold"/>
+                            <Slider x:Name="OpacitySlider" Minimum="0.05" Maximum="0.5" Value="0.15" />
+                            <TextBlock Text="{Binding #OpacitySlider.Value, StringFormat={}{0:F2}}" Opacity="0.7" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Spacing="5">
+                            <TextBlock Text="Font Size" FontWeight="SemiBold"/>
+                            <Slider x:Name="FontSizeSlider" Minimum="10" Maximum="30" Value="14" />
+                            <TextBlock Text="{Binding #FontSizeSlider.Value, StringFormat={}{0:F0}}" Opacity="0.7" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0" Spacing="5" Margin="0,10,10,0">
+                            <TextBlock Text="H Spacing" FontWeight="SemiBold"/>
+                            <Slider x:Name="HSpacingSlider" Minimum="20" Maximum="150" Value="50" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Spacing="5" Margin="0,10,10,0">
+                            <TextBlock Text="V Spacing" FontWeight="SemiBold"/>
+                            <Slider x:Name="VSpacingSlider" Minimum="10" Maximum="80" Value="30" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2" Spacing="5" Margin="0,10,0,0">
+                            <TextBlock Text="Style" FontWeight="SemiBold"/>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <CheckBox x:Name="BoldCheck" Content="Bold" />
+                                <CheckBox x:Name="ItalicCheck" Content="Italic" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0" Spacing="5" Margin="0,10,10,0">
+                            <TextBlock Text="Foreground" FontWeight="SemiBold"/>
+                            <ComboBox x:Name="ColorCombo" SelectedIndex="0" HorizontalAlignment="Stretch">
+                                <x:String>Gray</x:String>
+                                <x:String>Red</x:String>
+                                <x:String>Blue</x:String>
+                                <x:String>Green</x:String>
+                                <x:String>Orange</x:String>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <controls:Watermark Text="WATERMARK"
+                                        Angle="{Binding #AngleSlider.Value}"
+                                        WatermarkOpacity="{Binding #OpacitySlider.Value}"
+                                        WatermarkFontSize="{Binding #FontSizeSlider.Value}"
+                                        HorizontalSpacing="{Binding #HSpacingSlider.Value}"
+                                        VerticalSpacing="{Binding #VSpacingSlider.Value}"
+                                        WatermarkForeground="{Binding #ColorCombo.SelectedItem}"
+                                        Classes.bold="{Binding #BoldCheck.IsChecked}"
+                                        Classes.italic="{Binding #ItalicCheck.IsChecked}"
+                                        Height="200">
+                        <Border Background="{DynamicResource CardBackgroundBrush}"
+                                BorderBrush="{DynamicResource CardBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="30">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+                                <TextBlock Text="Protected Content" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" />
+                                <TextBlock Text="Adjust the sliders above to customize the watermark appearance." 
+                                           TextWrapping="Wrap" 
+                                           TextAlignment="Center"
+                                           Opacity="0.7" />
+                            </StackPanel>
+                        </Border>
+                    </controls:Watermark>
+                </StackPanel>
+            </Border>
+
+            <!-- Spaced Text -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Spaced Text"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Use spaces in text for spaced-out effect."
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+
+                    <controls:Watermark Text="S P A C E D" 
+                                        Angle="-20"
+                                        WatermarkOpacity="0.2"
+                                        WatermarkFontSize="16"
+                                        Height="120">
+                        <Border Background="{DynamicResource CardBackgroundBrush}"
+                                BorderBrush="{DynamicResource CardBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="20">
+                            <TextBlock Text="Wide letter spacing watermark" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                    </controls:Watermark>
+                </StackPanel>
+            </Border>
+
+            <!-- Image Pattern Watermark -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Image Pattern Watermark"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Use Source property with an image for image-based watermarks."
+                               TextWrapping="Wrap"
+                               Opacity="0.7" />
+
+                    <controls:Watermark x:Name="ImageWatermark"
+                                        Angle="-15"
+                                        WatermarkOpacity="0.15"
+                                        HorizontalSpacing="80"
+                                        VerticalSpacing="60"
+                                        Height="150">
+                        <Border Background="{DynamicResource CardBackgroundBrush}"
+                                BorderBrush="{DynamicResource CardBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="20">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="Image Watermark" FontSize="18" FontWeight="SemiBold" />
+                                <TextBlock Text="Logo pattern overlay" Opacity="0.7" />
+                            </StackPanel>
+                        </Border>
+                    </controls:Watermark>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

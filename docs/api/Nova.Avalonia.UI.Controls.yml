@@ -4,6 +4,9 @@ items:
   commentId: N:Nova.Avalonia.UI.Controls
   id: Nova.Avalonia.UI.Controls
   children:
+  - Nova.Avalonia.UI.Controls.ArcPanel
+  - Nova.Avalonia.UI.Controls.AutoLayout
+  - Nova.Avalonia.UI.Controls.AutoLayoutJustify
   - Nova.Avalonia.UI.Controls.Avatar
   - Nova.Avalonia.UI.Controls.AvatarAutomationPeer
   - Nova.Avalonia.UI.Controls.AvatarDisplayMode
@@ -17,12 +20,27 @@ items:
   - Nova.Avalonia.UI.Controls.BadgeAutomationPeer
   - Nova.Avalonia.UI.Controls.BadgeKind
   - Nova.Avalonia.UI.Controls.BadgePlacement
+  - Nova.Avalonia.UI.Controls.BubblePanel
+  - Nova.Avalonia.UI.Controls.CircularAlignment
+  - Nova.Avalonia.UI.Controls.CircularPanel
+  - Nova.Avalonia.UI.Controls.HexPanel
+  - Nova.Avalonia.UI.Controls.LoopPanel
+  - Nova.Avalonia.UI.Controls.OrbitPanel
+  - Nova.Avalonia.UI.Controls.OverlapPanel
+  - Nova.Avalonia.UI.Controls.RadialPanel
   - Nova.Avalonia.UI.Controls.RatingControl
   - Nova.Avalonia.UI.Controls.RatingItem
   - Nova.Avalonia.UI.Controls.RatingPrecision
   - Nova.Avalonia.UI.Controls.RatingShape
+  - Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  - Nova.Avalonia.UI.Controls.ResponsivePanel
   - Nova.Avalonia.UI.Controls.Shimmer
   - Nova.Avalonia.UI.Controls.ShimmerAutomationPeer
+  - Nova.Avalonia.UI.Controls.StaggeredPanel
+  - Nova.Avalonia.UI.Controls.TimelinePanel
+  - Nova.Avalonia.UI.Controls.VariableSizeWrapPanel
+  - Nova.Avalonia.UI.Controls.VirtualizingStaggeredPanel
+  - Nova.Avalonia.UI.Controls.VirtualizingVariableSizeWrapPanel
   langs:
   - csharp
   - vb
@@ -33,6 +51,25 @@ items:
   assemblies:
   - Nova.Avalonia.UI
 references:
+- uid: Nova.Avalonia.UI.Controls.ArcPanel
+  commentId: T:Nova.Avalonia.UI.Controls.ArcPanel
+  href: Nova.Avalonia.UI.Controls.ArcPanel.html
+  name: ArcPanel
+  nameWithType: ArcPanel
+  fullName: Nova.Avalonia.UI.Controls.ArcPanel
+- uid: Nova.Avalonia.UI.Controls.AutoLayoutJustify
+  commentId: T:Nova.Avalonia.UI.Controls.AutoLayoutJustify
+  parent: Nova.Avalonia.UI.Controls
+  href: Nova.Avalonia.UI.Controls.AutoLayoutJustify.html
+  name: AutoLayoutJustify
+  nameWithType: AutoLayoutJustify
+  fullName: Nova.Avalonia.UI.Controls.AutoLayoutJustify
+- uid: Nova.Avalonia.UI.Controls.AutoLayout
+  commentId: T:Nova.Avalonia.UI.Controls.AutoLayout
+  href: Nova.Avalonia.UI.Controls.AutoLayout.html
+  name: AutoLayout
+  nameWithType: AutoLayout
+  fullName: Nova.Avalonia.UI.Controls.AutoLayout
 - uid: Nova.Avalonia.UI.Controls.Avatar
   commentId: T:Nova.Avalonia.UI.Controls.Avatar
   parent: Nova.Avalonia.UI.Controls
@@ -120,6 +157,55 @@ references:
   name: BadgePlacement
   nameWithType: BadgePlacement
   fullName: Nova.Avalonia.UI.Controls.BadgePlacement
+- uid: Nova.Avalonia.UI.Controls.BubblePanel
+  commentId: T:Nova.Avalonia.UI.Controls.BubblePanel
+  href: Nova.Avalonia.UI.Controls.BubblePanel.html
+  name: BubblePanel
+  nameWithType: BubblePanel
+  fullName: Nova.Avalonia.UI.Controls.BubblePanel
+- uid: Nova.Avalonia.UI.Controls.CircularAlignment
+  commentId: T:Nova.Avalonia.UI.Controls.CircularAlignment
+  parent: Nova.Avalonia.UI.Controls
+  href: Nova.Avalonia.UI.Controls.CircularAlignment.html
+  name: CircularAlignment
+  nameWithType: CircularAlignment
+  fullName: Nova.Avalonia.UI.Controls.CircularAlignment
+- uid: Nova.Avalonia.UI.Controls.CircularPanel
+  commentId: T:Nova.Avalonia.UI.Controls.CircularPanel
+  href: Nova.Avalonia.UI.Controls.CircularPanel.html
+  name: CircularPanel
+  nameWithType: CircularPanel
+  fullName: Nova.Avalonia.UI.Controls.CircularPanel
+- uid: Nova.Avalonia.UI.Controls.HexPanel
+  commentId: T:Nova.Avalonia.UI.Controls.HexPanel
+  href: Nova.Avalonia.UI.Controls.HexPanel.html
+  name: HexPanel
+  nameWithType: HexPanel
+  fullName: Nova.Avalonia.UI.Controls.HexPanel
+- uid: Nova.Avalonia.UI.Controls.LoopPanel
+  commentId: T:Nova.Avalonia.UI.Controls.LoopPanel
+  href: Nova.Avalonia.UI.Controls.LoopPanel.html
+  name: LoopPanel
+  nameWithType: LoopPanel
+  fullName: Nova.Avalonia.UI.Controls.LoopPanel
+- uid: Nova.Avalonia.UI.Controls.OrbitPanel
+  commentId: T:Nova.Avalonia.UI.Controls.OrbitPanel
+  href: Nova.Avalonia.UI.Controls.OrbitPanel.html
+  name: OrbitPanel
+  nameWithType: OrbitPanel
+  fullName: Nova.Avalonia.UI.Controls.OrbitPanel
+- uid: Nova.Avalonia.UI.Controls.OverlapPanel
+  commentId: T:Nova.Avalonia.UI.Controls.OverlapPanel
+  href: Nova.Avalonia.UI.Controls.OverlapPanel.html
+  name: OverlapPanel
+  nameWithType: OverlapPanel
+  fullName: Nova.Avalonia.UI.Controls.OverlapPanel
+- uid: Nova.Avalonia.UI.Controls.RadialPanel
+  commentId: T:Nova.Avalonia.UI.Controls.RadialPanel
+  href: Nova.Avalonia.UI.Controls.RadialPanel.html
+  name: RadialPanel
+  nameWithType: RadialPanel
+  fullName: Nova.Avalonia.UI.Controls.RadialPanel
 - uid: Nova.Avalonia.UI.Controls.RatingControl
   commentId: T:Nova.Avalonia.UI.Controls.RatingControl
   href: Nova.Avalonia.UI.Controls.RatingControl.html
@@ -146,6 +232,19 @@ references:
   name: RatingShape
   nameWithType: RatingShape
   fullName: Nova.Avalonia.UI.Controls.RatingShape
+- uid: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  commentId: T:Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+  parent: Nova.Avalonia.UI.Controls
+  href: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.html
+  name: ResponsiveBreakpoint
+  nameWithType: ResponsiveBreakpoint
+  fullName: Nova.Avalonia.UI.Controls.ResponsiveBreakpoint
+- uid: Nova.Avalonia.UI.Controls.ResponsivePanel
+  commentId: T:Nova.Avalonia.UI.Controls.ResponsivePanel
+  href: Nova.Avalonia.UI.Controls.ResponsivePanel.html
+  name: ResponsivePanel
+  nameWithType: ResponsivePanel
+  fullName: Nova.Avalonia.UI.Controls.ResponsivePanel
 - uid: Nova.Avalonia.UI.Controls.Shimmer
   commentId: T:Nova.Avalonia.UI.Controls.Shimmer
   parent: Nova.Avalonia.UI.Controls
@@ -159,6 +258,36 @@ references:
   name: ShimmerAutomationPeer
   nameWithType: ShimmerAutomationPeer
   fullName: Nova.Avalonia.UI.Controls.ShimmerAutomationPeer
+- uid: Nova.Avalonia.UI.Controls.StaggeredPanel
+  commentId: T:Nova.Avalonia.UI.Controls.StaggeredPanel
+  href: Nova.Avalonia.UI.Controls.StaggeredPanel.html
+  name: StaggeredPanel
+  nameWithType: StaggeredPanel
+  fullName: Nova.Avalonia.UI.Controls.StaggeredPanel
+- uid: Nova.Avalonia.UI.Controls.TimelinePanel
+  commentId: T:Nova.Avalonia.UI.Controls.TimelinePanel
+  href: Nova.Avalonia.UI.Controls.TimelinePanel.html
+  name: TimelinePanel
+  nameWithType: TimelinePanel
+  fullName: Nova.Avalonia.UI.Controls.TimelinePanel
+- uid: Nova.Avalonia.UI.Controls.VariableSizeWrapPanel
+  commentId: T:Nova.Avalonia.UI.Controls.VariableSizeWrapPanel
+  href: Nova.Avalonia.UI.Controls.VariableSizeWrapPanel.html
+  name: VariableSizeWrapPanel
+  nameWithType: VariableSizeWrapPanel
+  fullName: Nova.Avalonia.UI.Controls.VariableSizeWrapPanel
+- uid: Nova.Avalonia.UI.Controls.VirtualizingStaggeredPanel
+  commentId: T:Nova.Avalonia.UI.Controls.VirtualizingStaggeredPanel
+  href: Nova.Avalonia.UI.Controls.VirtualizingStaggeredPanel.html
+  name: VirtualizingStaggeredPanel
+  nameWithType: VirtualizingStaggeredPanel
+  fullName: Nova.Avalonia.UI.Controls.VirtualizingStaggeredPanel
+- uid: Nova.Avalonia.UI.Controls.VirtualizingVariableSizeWrapPanel
+  commentId: T:Nova.Avalonia.UI.Controls.VirtualizingVariableSizeWrapPanel
+  href: Nova.Avalonia.UI.Controls.VirtualizingVariableSizeWrapPanel.html
+  name: VirtualizingVariableSizeWrapPanel
+  nameWithType: VirtualizingVariableSizeWrapPanel
+  fullName: Nova.Avalonia.UI.Controls.VirtualizingVariableSizeWrapPanel
 - uid: Nova.Avalonia.UI.Controls
   commentId: N:Nova.Avalonia.UI.Controls
   href: Nova.html

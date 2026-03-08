@@ -32,6 +32,46 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "../images/novaui_arcpanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_arcpanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_arcpanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_arcpanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_autolayout_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_autolayout_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_autolayout_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_autolayout_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "../images/novaui_avatar_dark.gif",
       "output": {
         "resource": {
@@ -92,6 +132,146 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "../images/novaui_bubblepanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_bubblepanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_bubblepanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_bubblepanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_circularpanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_circularpanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_circularpanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_circularpanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_hexpanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_hexpanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_hexpanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_hexpanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_looppanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_looppanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_looppanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_looppanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_orbitpanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_orbitpanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_orbitpanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_orbitpanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_overlappanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_overlappanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_overlappanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_overlappanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_radialpanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_radialpanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_radialpanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_radialpanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "../images/novaui_ratingcontrol_dark.gif",
       "output": {
         "resource": {
@@ -106,6 +286,26 @@
       "output": {
         "resource": {
           "relative_path": "images/novaui_ratingcontrol_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_responsivepanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_responsivepanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_responsivepanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_responsivepanel_light.gif"
         }
       },
       "version": ""
@@ -132,6 +332,106 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "../images/novaui_staggeredpanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_staggeredpanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_staggeredpanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_staggeredpanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_timelinepanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_timelinepanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_timelinepanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_timelinepanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_variablesizewrappanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_variablesizewrappanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_variablesizewrappanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_variablesizewrappanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_virtualizedstaggeredpanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_virtualizedstaggeredpanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_virtualizedstaggeredpanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_virtualizedstaggeredpanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_virtualizedvariablesizewrappanel_dark.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_virtualizedvariablesizewrappanel_dark.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "../images/novaui_virtualizedvariablesizewrappanel_light.gif",
+      "output": {
+        "resource": {
+          "relative_path": "images/novaui_virtualizedvariablesizewrappanel_light.gif"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "../images/promo-banner.png",
       "output": {
         "resource": {
@@ -139,6 +439,146 @@
         }
       },
       "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeErrorEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeErrorEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.BarcodeGenerator.BarcodeErrorEventArgs",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeErrorEventArgs.yml\" sourcestartlinenumber=\"1\">Event arguments for failed barcode generation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratedEventArgs",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratedEventArgs.yml\" sourcestartlinenumber=\"1\">Event arguments for successful barcode generation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator.yml\" sourcestartlinenumber=\"1\">A templated control that generates and renders various barcode symbologies (QR Code, EAN-13, Code 128, etc.)\nusing the ZXing library. Optimized for performance via BitMatrix/Bitmap caching and supports\nfull accessibility as a semantic Image.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeGeneratorAutomationPeer.yml\" sourcestartlinenumber=\"1\">Exposes the <xref href=\"Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator\" data-throw-if-not-resolved=\"false\"></xref> to UI automation (accessibility).\nDefines the control as an &quot;Image&quot; type so screen readers treat it appropriately.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.BarcodeGenerator.BarcodeSymbology.yml\" sourcestartlinenumber=\"1\">Supported barcode formats.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.BarcodeGenerator.QRErrorCorrectionLevel.yml\" sourcestartlinenumber=\"1\">Error correction levels for QR codes. Higher levels allow more damage recovery but reduce data capacity.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.BarcodeGenerator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.BarcodeGenerator",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.ArcPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.ArcPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.ArcPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.ArcPanel.yml\" sourcestartlinenumber=\"1\">A panel that arranges child elements along an arc (partial circle).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.AutoLayout.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.AutoLayout.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.AutoLayout",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.AutoLayout.yml\" sourcestartlinenumber=\"1\">A layout panel inspired by Figma's Auto Layout, allowing simple direction-based stacking\nwith easy control over spacing, alignment, and distribution.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.AutoLayoutJustify.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.AutoLayoutJustify.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.AutoLayoutJustify",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.AutoLayoutJustify.yml\" sourcestartlinenumber=\"1\">Defines how items are distributed in the <xref href=\"Nova.Avalonia.UI.Controls.AutoLayout\" data-throw-if-not-resolved=\"false\"></xref> panel.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -324,6 +764,118 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.BubblePanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.BubblePanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.BubblePanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.BubblePanel.yml\" sourcestartlinenumber=\"1\">A panel that arranges child elements using a circle packing algorithm.\nLarger items are placed first and smaller items fill the gaps.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.CircularAlignment.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.CircularAlignment.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.CircularAlignment",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.CircularAlignment.yml\" sourcestartlinenumber=\"1\">Specifies how a child element is aligned relative to its position on the circle.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.CircularPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.CircularPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.CircularPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.CircularPanel.yml\" sourcestartlinenumber=\"1\">A layout panel that arranges child elements in a circular pattern around a center point.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.HexPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.HexPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.HexPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.HexPanel.yml\" sourcestartlinenumber=\"1\">A panel that arranges child elements in a honeycomb (hexagonal grid) pattern.\nBased on <a href=\"https://github.com/AlexanderSharykin/HexGrid\" sourcefile=\"api/Nova.Avalonia.UI.Controls.HexPanel.yml\" sourcestartlinenumber=\"2\">https://github.com/AlexanderSharykin/HexGrid</a> by Alexander Sharykin.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.LoopPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.LoopPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.LoopPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.LoopPanel.yml\" sourcestartlinenumber=\"1\">An infinite/looping scrolling panel that wraps its children seamlessly.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.OrbitPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.OrbitPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.OrbitPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.OrbitPanel.yml\" sourcestartlinenumber=\"1\">A panel that arranges child elements in concentric orbit rings around a center point.\nEach child can be assigned to a specific orbit (ring) and will be distributed evenly within that orbit.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.OverlapPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.OverlapPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.OverlapPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.OverlapPanel.yml\" sourcestartlinenumber=\"1\">A panel that stacks children with configurable X/Y offsets, creating an overlapping card effect.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.RadialPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.RadialPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.RadialPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.RadialPanel.yml\" sourcestartlinenumber=\"1\">A panel that arranges child elements in a radial fan pattern emanating from a center point.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Nova.Avalonia.UI.Controls.RatingControl.yml",
       "output": {
         ".html": {
@@ -380,6 +932,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.ResponsiveBreakpoint",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.ResponsiveBreakpoint.yml\" sourcestartlinenumber=\"1\">Defines the size classes (breakpoints) for responsive layouts.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.ResponsivePanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.ResponsivePanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.ResponsivePanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.ResponsivePanel.yml\" sourcestartlinenumber=\"1\">A panel that selectively shows its children based on the current width breakpoint.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Nova.Avalonia.UI.Controls.Shimmer.yml",
       "output": {
         ".html": {
@@ -408,6 +988,76 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.StaggeredPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.StaggeredPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.StaggeredPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.StaggeredPanel.yml\" sourcestartlinenumber=\"1\">A panel that arranges child elements into a staggered grid pattern, usually\nadding items to the column with the least amount of space used.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.TimelinePanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.TimelinePanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.TimelinePanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.TimelinePanel.yml\" sourcestartlinenumber=\"1\">A panel that arranges child elements in a timeline pattern with spacing for connectors.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.VariableSizeWrapPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.VariableSizeWrapPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.VariableSizeWrapPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.VariableSizeWrapPanel.yml\" sourcestartlinenumber=\"1\">A panel that arranges child elements in a grid with variable-size tiles using RowSpan and ColumnSpan.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.VirtualizingStaggeredPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.VirtualizingStaggeredPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.VirtualizingStaggeredPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.VirtualizingStaggeredPanel.yml\" sourcestartlinenumber=\"1\">A virtualizing panel that arranges children in a staggered grid (masonry) layout.\nItems are placed in the shortest column, creating an efficient Pinterest-style layout.\nOnly items within the visible viewport (plus buffer) are materialized for optimal performance.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Nova.Avalonia.UI.Controls.VirtualizingVariableSizeWrapPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nova.Avalonia.UI.Controls.VirtualizingVariableSizeWrapPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nova.Avalonia.UI.Controls.VirtualizingVariableSizeWrapPanel",
+      "Summary": "<p sourcefile=\"api/Nova.Avalonia.UI.Controls.VirtualizingVariableSizeWrapPanel.yml\" sourcestartlinenumber=\"1\">A virtualizing panel that arranges children in a variable-size grid layout.\nItems can span multiple columns and rows, creating flexible tile-based layouts.\nOnly items within the visible viewport (plus buffer) are materialized for optimal performance.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Nova.Avalonia.UI.Controls.yml",
       "output": {
         ".html": {
@@ -429,6 +1079,26 @@
         },
         ".json": {
           "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/arcpanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/arcpanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/autolayout.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/autolayout.html"
         }
       },
       "version": ""
@@ -465,6 +1135,76 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/controls/bubblepanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/bubblepanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/circularpanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/circularpanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/hexpanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/hexpanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/looppanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/looppanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/orbitpanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/orbitpanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/overlappanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/overlappanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/radialpanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/radialpanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs/controls/ratingcontrol.md",
       "output": {
         ".html": {
@@ -475,10 +1215,50 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/controls/responsivepanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/responsivepanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs/controls/shimmer.md",
       "output": {
         ".html": {
           "relative_path": "docs/controls/shimmer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/staggeredpanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/staggeredpanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/timelinepanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/timelinepanel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/controls/variablesizewrappanel.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/controls/variablesizewrappanel.html"
         }
       },
       "version": ""
