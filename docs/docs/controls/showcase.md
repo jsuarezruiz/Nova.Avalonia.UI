@@ -1,7 +1,7 @@
 ---
 title: Showcase
 description: Create interactive tutorials and onboarding experiences with the Showcase control.
-ms.date: 2025-12-26
+ms.date: 2026-03-08
 ---
 
 # Showcase
@@ -19,7 +19,7 @@ Add `Showcase.Key` attached properties to target elements, create a `ShowcaseCon
         <!-- Your UI with showcase keys -->
         <Button nova:Showcase.Key="StartButton" Content="Get Started" />
         <TextBox nova:Showcase.Key="SearchBox" Watermark="Search..." />
-        
+
         <!-- Showcase control -->
         <nova:Showcase x:Name="ShowcaseControl" />
     </Panel>
@@ -101,7 +101,7 @@ controller.Previous();
 controller.Skip();
 
 // Handle events
-controller.StepChanged += (s, e) => Console.WriteLine($"Step: {e.NewStep?.Title}");
+controller.StepChanged += (s, e) => Console.WriteLine($"Step: {e.CurrentStep?.Title}");
 controller.Completed += (s, e) => Console.WriteLine("Tutorial finished!");
 controller.Skipped += (s, e) => Console.WriteLine("User skipped tutorial");
 ```
@@ -110,6 +110,42 @@ Users can also navigate using keyboard:
 - **Arrow Right / Space / Enter**: Next step
 - **Arrow Left**: Previous step
 - **Escape**: Skip tutorial
+
+## Custom tooltip templates
+
+Override the tooltip content per-step or per-element.
+
+**Per-step** — set `CustomTooltipTemplate` on the step:
+
+```csharp
+new ShowcaseStep
+{
+    Key = "ProfileButton",
+    Title = "Your Profile",
+    CustomTooltipTemplate = new FuncDataTemplate<ShowcaseStep>((step, _) =>
+        new StackPanel
+        {
+            Children = { new TextBlock { Text = step.Title, FontWeight = FontWeight.Bold } }
+        })
+}
+```
+
+**Per-element** — set the `Showcase.TooltipTemplate` attached property on the target control. This takes priority over the step-level template:
+
+```xaml
+<Button nova:Showcase.Key="HelpButton" Content="Help">
+    <nova:Showcase.TooltipTemplate>
+        <DataTemplate>
+            <StackPanel>
+                <TextBlock Text="Need Help?" FontWeight="Bold" />
+                <TextBlock Text="Click here for support." />
+            </StackPanel>
+        </DataTemplate>
+    </nova:Showcase.TooltipTemplate>
+</Button>
+```
+
+Template resolution order: element-level `Showcase.TooltipTemplate` > step-level `CustomTooltipTemplate` > default template.
 
 ## Customize appearance
 
@@ -121,7 +157,23 @@ Set the overlay color and animation duration on the `Showcase` control:
                AnimationDuration="0:0:0.3" />
 ```
 
+The `AnimationDuration` controls the fade-in animation when transitioning between steps. Set to `0:0:0` to disable animations.
+
 The tooltip automatically adapts to light and dark themes using system resources.
+
+## Localization
+
+Customize the button texts via `ShowcaseController` properties:
+
+```csharp
+var controller = new ShowcaseController
+{
+    NextButtonText = "Siguiente",
+    FinishButtonText = "Finalizar",
+    PreviousButtonText = "Anterior",
+    SkipButtonText = "Omitir"
+};
+```
 
 ## ShowcaseStep properties
 
@@ -134,3 +186,13 @@ The tooltip automatically adapts to light and dark themes using system resources
 | `HighlightShape` | `ShowcaseHighlightShape` | Cutout shape around target |
 | `HighlightPadding` | `Thickness` | Padding around the highlight |
 | `CornerRadius` | `double` | Corner radius for rounded shapes |
+| `CustomTooltipTemplate` | `IDataTemplate?` | Custom tooltip template for this step |
+
+## ShowcaseController properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `NextButtonText` | `string` | Text for the Next button (default: "Next") |
+| `FinishButtonText` | `string` | Text for the last-step button (default: "Finish") |
+| `PreviousButtonText` | `string` | Text for the Previous button (default: "Previous") |
+| `SkipButtonText` | `string` | Text for the Skip button (default: "Skip") |

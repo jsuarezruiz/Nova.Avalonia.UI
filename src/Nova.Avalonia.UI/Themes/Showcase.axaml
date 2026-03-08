@@ -29,41 +29,40 @@
                                    FontWeight="SemiBold"
                                    TextWrapping="Wrap"
                                    IsVisible="{TemplateBinding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
-                        
+
                         <TextBlock Text="{TemplateBinding Description}"
                                    FontSize="14"
                                    TextWrapping="Wrap"
                                    Opacity="0.8"
                                    IsVisible="{TemplateBinding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
-                        
-                        <ContentPresenter Content="{TemplateBinding Content}" />
+
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" />
                     </StackPanel>
                 </Border>
             </ControlTemplate>
         </Setter>
     </Style>
-    
+
     <!-- Showcase Style -->
     <Style Selector="nova|Showcase">
         <Setter Property="Focusable" Value="True" />
         <Setter Property="Template">
             <ControlTemplate TargetType="nova:Showcase">
                 <Panel IsVisible="{TemplateBinding IsActive}">
-                    <!-- Overlay with cutout - does not block mouse -->
                     <nova:ShowcaseOverlay Name="PART_Overlay"
                                           OverlayBrush="{TemplateBinding OverlayBrush}"
                                           IsHitTestVisible="False" />
-                    
-                    <!-- Tooltip container -->
+
                     <Canvas>
                         <nova:ShowcaseTooltip Name="PART_Tooltip">
                             <StackPanel Orientation="Horizontal"
                                         Spacing="8"
                                         HorizontalAlignment="Right"
                                         Margin="0,8,0,0">
-                                <Button Name="PART_SkipButton" Content="Skip" />
-                                <Button Name="PART_PreviousButton" Content="Previous" />
-                                <Button Name="PART_NextButton" Content="Next" Classes="accent" />
+                                <Button Name="PART_SkipButton" />
+                                <Button Name="PART_PreviousButton" />
+                                <Button Name="PART_NextButton" Classes="accent" />
                             </StackPanel>
                         </nova:ShowcaseTooltip>
                     </Canvas>

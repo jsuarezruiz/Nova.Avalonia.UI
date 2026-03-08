@@ -7,11 +7,11 @@ namespace Nova.Avalonia.UI.Gallery.Views;
 public partial class ShowcaseView : UserControl
 {
     private readonly ShowcaseController _controller;
-    
+
     public ShowcaseView()
     {
         InitializeComponent();
-        
+
         // Create controller and add steps
         _controller = new ShowcaseController();
         _controller.Steps.Add(new ShowcaseStep
@@ -49,14 +49,14 @@ public partial class ShowcaseView : UserControl
             Description = "Use this search box to quickly find what you're looking for.",
             TooltipPosition = ShowcaseTooltipPosition.Top
         });
-        
+
         // Bind controller to showcase
         ShowcaseControl.Controller = _controller;
-        
+
         // Start button triggers the showcase
         StartButton.Click += OnStartButtonClick;
     }
-    
+
     private void OnStartButtonClick(object? sender, RoutedEventArgs e)
     {
         _controller.Start();

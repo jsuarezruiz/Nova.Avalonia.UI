@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Avalonia;
 
 namespace Nova.Avalonia.UI.Controls;
