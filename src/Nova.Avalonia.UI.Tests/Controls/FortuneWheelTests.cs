@@ -1,4 +1,5 @@
 using System;
+using Avalonia.Headless.XUnit;
 using Avalonia.Media;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
@@ -7,7 +8,7 @@ namespace Nova.Avalonia.UI.Tests.Controls;
 
 public class FortuneWheelTests
 {
-    [Fact]
+    [AvaloniaFact]
     public void DefaultProperties_AreCorrect()
     {
         var wheel = new FortuneWheel();
@@ -25,7 +26,7 @@ public class FortuneWheelTests
         Assert.Equal(30.0, wheel.CenterRadius);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Items_CanBePopulated()
     {
         var wheel = new FortuneWheel();
@@ -37,7 +38,7 @@ public class FortuneWheelTests
         Assert.Equal("A", wheel.Items[0].Content);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void SelectedIndex_CanBeSet()
     {
         var wheel = new FortuneWheel();
@@ -49,7 +50,7 @@ public class FortuneWheelTests
         Assert.Equal(1, wheel.SelectedIndex);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void StyleStrategy_DefaultsToAlternating()
     {
         var wheel = new FortuneWheel();
@@ -57,7 +58,7 @@ public class FortuneWheelTests
         Assert.IsType<AlternatingStyleStrategy>(wheel.StyleStrategy);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void StyleStrategy_CanBeChanged()
     {
         var wheel = new FortuneWheel();
@@ -68,7 +69,7 @@ public class FortuneWheelTests
         Assert.Same(gradient, wheel.StyleStrategy);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void IndicatorPosition_CanBeChanged()
     {
         var wheel = new FortuneWheel();
@@ -78,7 +79,7 @@ public class FortuneWheelTests
         Assert.Equal(IndicatorPosition.Right, wheel.IndicatorPosition);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void AnimationDuration_CanBeChanged()
     {
         var wheel = new FortuneWheel();
@@ -88,7 +89,7 @@ public class FortuneWheelTests
         Assert.Equal(TimeSpan.FromSeconds(5), wheel.AnimationDuration);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void MinimumSpins_CanBeChanged()
     {
         var wheel = new FortuneWheel();
@@ -98,7 +99,7 @@ public class FortuneWheelTests
         Assert.Equal(5, wheel.MinimumSpins);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void CenterRadius_CanBeChanged()
     {
         var wheel = new FortuneWheel();
@@ -108,7 +109,7 @@ public class FortuneWheelTests
         Assert.Equal(50.0, wheel.CenterRadius);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void ShowIndicator_CanBeDisabled()
     {
         var wheel = new FortuneWheel();
@@ -118,7 +119,7 @@ public class FortuneWheelTests
         Assert.False(wheel.ShowIndicator);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void RotationAngle_CanBeSet()
     {
         var wheel = new FortuneWheel();
@@ -128,7 +129,7 @@ public class FortuneWheelTests
         Assert.Equal(45.0, wheel.RotationAngle);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void IndicatorSize_CanBeChanged()
     {
         var wheel = new FortuneWheel();
@@ -138,7 +139,7 @@ public class FortuneWheelTests
         Assert.Equal(32.0, wheel.IndicatorSize);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void IndicatorFill_CanBeChanged()
     {
         var wheel = new FortuneWheel();
@@ -149,7 +150,7 @@ public class FortuneWheelTests
         Assert.Same(brush, wheel.IndicatorFill);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void CenterFill_CanBeChanged()
     {
         var wheel = new FortuneWheel();
@@ -160,7 +161,7 @@ public class FortuneWheelTests
         Assert.Same(brush, wheel.CenterFill);
     }
 
-    [Theory]
+    [AvaloniaTheory]
     [InlineData(IndicatorPosition.Top)]
     [InlineData(IndicatorPosition.Bottom)]
     [InlineData(IndicatorPosition.Left)]
@@ -174,7 +175,7 @@ public class FortuneWheelTests
         Assert.Equal(position, wheel.IndicatorPosition);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void MultipleWheels_HaveSeparateItemCollections()
     {
         var wheel1 = new FortuneWheel();
@@ -186,7 +187,7 @@ public class FortuneWheelTests
         Assert.Empty(wheel2.Items);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Items_CanBeCleared()
     {
         var wheel = new FortuneWheel();
@@ -198,7 +199,7 @@ public class FortuneWheelTests
         Assert.Empty(wheel.Items);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Items_CanBeRemoved()
     {
         var wheel = new FortuneWheel();
@@ -215,7 +216,7 @@ public class FortuneWheelTests
 
 public class FortuneItemTests
 {
-    [Fact]
+    [AvaloniaFact]
     public void Constructor_SetsContent()
     {
         var item = new FortuneItem("Test");
@@ -223,7 +224,7 @@ public class FortuneItemTests
         Assert.Equal("Test", item.Content);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Weight_DefaultsToOne()
     {
         var item = new FortuneItem("Test");
@@ -231,7 +232,7 @@ public class FortuneItemTests
         Assert.Equal(1.0, item.Weight);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Weight_CanBeChanged()
     {
         var item = new FortuneItem("Test");
@@ -241,7 +242,7 @@ public class FortuneItemTests
         Assert.Equal(2.5, item.Weight);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Style_DefaultsToNull()
     {
         var item = new FortuneItem("Test");
@@ -249,7 +250,7 @@ public class FortuneItemTests
         Assert.Null(item.Style);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Style_CanBeSet()
     {
         var item = new FortuneItem("Test");
@@ -260,7 +261,7 @@ public class FortuneItemTests
         Assert.Same(style, item.Style);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void ContentTemplate_DefaultsToNull()
     {
         var item = new FortuneItem("Test");
@@ -268,7 +269,7 @@ public class FortuneItemTests
         Assert.Null(item.ContentTemplate);
     }
 
-    [Theory]
+    [AvaloniaTheory]
     [InlineData(0.0)]
     [InlineData(0.5)]
     [InlineData(1.0)]
@@ -280,7 +281,7 @@ public class FortuneItemTests
         Assert.Equal(weight, item.Weight);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Content_CanBeNull()
     {
         var item = new FortuneItem(null!);
@@ -291,7 +292,7 @@ public class FortuneItemTests
 
 public class FortuneItemStyleTests
 {
-    [Fact]
+    [AvaloniaFact]
     public void Background_CanBeSet()
     {
         var style = new FortuneItemStyle();
@@ -301,7 +302,7 @@ public class FortuneItemStyleTests
         Assert.Same(Brushes.Red, style.Background);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Foreground_CanBeSet()
     {
         var style = new FortuneItemStyle();
@@ -311,7 +312,7 @@ public class FortuneItemStyleTests
         Assert.Same(Brushes.White, style.Foreground);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void BorderBrush_CanBeSet()
     {
         var style = new FortuneItemStyle();
@@ -321,7 +322,7 @@ public class FortuneItemStyleTests
         Assert.Same(Brushes.Black, style.BorderBrush);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void BorderThickness_CanBeSet()
     {
         var style = new FortuneItemStyle();
@@ -331,7 +332,7 @@ public class FortuneItemStyleTests
         Assert.Equal(3.0, style.BorderThickness);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void AllProperties_CanBeSetTogether()
     {
         var style = new FortuneItemStyle
@@ -351,7 +352,7 @@ public class FortuneItemStyleTests
 
 public class AlternatingStyleStrategyTests
 {
-    [Fact]
+    [AvaloniaFact]
     public void GetStyle_ReturnsItemStyleWhenProvided()
     {
         var strategy = new AlternatingStyleStrategy();
@@ -362,7 +363,7 @@ public class AlternatingStyleStrategyTests
         Assert.Same(itemStyle, result);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void GetStyle_ReturnsPrimaryForEvenIndex()
     {
         var strategy = new AlternatingStyleStrategy
@@ -376,7 +377,7 @@ public class AlternatingStyleStrategyTests
         Assert.Same(Brushes.Red, result.Background);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void GetStyle_ReturnsSecondaryForOddIndex()
     {
         var strategy = new AlternatingStyleStrategy
@@ -390,7 +391,7 @@ public class AlternatingStyleStrategyTests
         Assert.Same(Brushes.Blue, result.Background);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void GetStyle_AlternatesCorrectly()
     {
         var strategy = new AlternatingStyleStrategy
@@ -406,7 +407,7 @@ public class AlternatingStyleStrategyTests
         Assert.Same(Brushes.Blue, odd.Background);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void DefaultColors_AreSet()
     {
         var strategy = new AlternatingStyleStrategy();
@@ -420,7 +421,7 @@ public class AlternatingStyleStrategyTests
 
 public class GradientStyleStrategyTests
 {
-    [Fact]
+    [AvaloniaFact]
     public void GetStyle_ReturnsItemStyleWhenProvided()
     {
         var strategy = new GradientStyleStrategy();
@@ -431,7 +432,7 @@ public class GradientStyleStrategyTests
         Assert.Same(itemStyle, result);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void GetStyle_ReturnsStartColorForFirstItem()
     {
         var strategy = new GradientStyleStrategy
@@ -445,7 +446,7 @@ public class GradientStyleStrategyTests
         Assert.NotNull(result.Background);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void GetStyle_ReturnsEndColorForLastItem()
     {
         var strategy = new GradientStyleStrategy
@@ -459,7 +460,7 @@ public class GradientStyleStrategyTests
         Assert.NotNull(result.Background);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void GetStyle_ReturnsSameColorForSingleItem()
     {
         var strategy = new GradientStyleStrategy
@@ -473,7 +474,7 @@ public class GradientStyleStrategyTests
         Assert.NotNull(result.Background);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void DefaultColors_AreSet()
     {
         var strategy = new GradientStyleStrategy();
@@ -487,7 +488,7 @@ public class GradientStyleStrategyTests
 
 public class FortuneSelectionEventArgsTests
 {
-    [Fact]
+    [AvaloniaFact]
     public void Constructor_SetsProperties()
     {
         var item = new FortuneItem("Test");
@@ -497,7 +498,7 @@ public class FortuneSelectionEventArgsTests
         Assert.Same(item, args.SelectedItem);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void SelectedIndex_CanBeZero()
     {
         var item = new FortuneItem("First");
@@ -506,7 +507,7 @@ public class FortuneSelectionEventArgsTests
         Assert.Equal(0, args.SelectedIndex);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void SelectedItem_CanBeNull()
     {
         var args = new FortuneSelectionEventArgs(0, null!);
@@ -514,4 +515,3 @@ public class FortuneSelectionEventArgsTests
         Assert.Null(args.SelectedItem);
     }
 }
-

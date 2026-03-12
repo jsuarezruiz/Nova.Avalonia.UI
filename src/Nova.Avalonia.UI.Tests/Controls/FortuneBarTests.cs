@@ -1,4 +1,5 @@
 using System;
+using Avalonia.Headless.XUnit;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Nova.Avalonia.UI.Controls;
@@ -8,7 +9,7 @@ namespace Nova.Avalonia.UI.Tests.Controls;
 
 public class FortuneBarTests
 {
-    [Fact]
+    [AvaloniaFact]
     public void DefaultProperties_AreCorrect()
     {
         var bar = new FortuneBar();
@@ -26,7 +27,7 @@ public class FortuneBarTests
         Assert.Equal(4.0, bar.IndicatorThickness);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Items_CanBePopulated()
     {
         var bar = new FortuneBar();
@@ -38,7 +39,7 @@ public class FortuneBarTests
         Assert.Equal("Cherry", bar.Items[0].Content);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void SelectedIndex_CanBeSet()
     {
         var bar = new FortuneBar();
@@ -50,7 +51,7 @@ public class FortuneBarTests
         Assert.Equal(1, bar.SelectedIndex);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Orientation_CanBeChanged()
     {
         var bar = new FortuneBar();
@@ -60,7 +61,7 @@ public class FortuneBarTests
         Assert.Equal(Orientation.Vertical, bar.Orientation);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void ItemSize_CanBeChanged()
     {
         var bar = new FortuneBar();
@@ -70,7 +71,7 @@ public class FortuneBarTests
         Assert.Equal(150.0, bar.ItemSize);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void StyleStrategy_DefaultsToAlternating()
     {
         var bar = new FortuneBar();
@@ -78,7 +79,7 @@ public class FortuneBarTests
         Assert.IsType<AlternatingStyleStrategy>(bar.StyleStrategy);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void StyleStrategy_CanBeChanged()
     {
         var bar = new FortuneBar();
@@ -89,7 +90,7 @@ public class FortuneBarTests
         Assert.Same(gradient, bar.StyleStrategy);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void AnimationDuration_CanBeChanged()
     {
         var bar = new FortuneBar();
@@ -99,7 +100,7 @@ public class FortuneBarTests
         Assert.Equal(TimeSpan.FromSeconds(5), bar.AnimationDuration);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void MinimumCycles_CanBeChanged()
     {
         var bar = new FortuneBar();
@@ -109,7 +110,7 @@ public class FortuneBarTests
         Assert.Equal(4, bar.MinimumCycles);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void ScrollOffset_CanBeSet()
     {
         var bar = new FortuneBar();
@@ -119,7 +120,7 @@ public class FortuneBarTests
         Assert.Equal(250.0, bar.ScrollOffset);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void ShowIndicator_CanBeDisabled()
     {
         var bar = new FortuneBar();
@@ -129,7 +130,7 @@ public class FortuneBarTests
         Assert.False(bar.ShowIndicator);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void IndicatorThickness_CanBeChanged()
     {
         var bar = new FortuneBar();
@@ -139,7 +140,7 @@ public class FortuneBarTests
         Assert.Equal(6.0, bar.IndicatorThickness);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void IndicatorFill_CanBeChanged()
     {
         var bar = new FortuneBar();
@@ -150,7 +151,7 @@ public class FortuneBarTests
         Assert.Same(brush, bar.IndicatorFill);
     }
 
-    [Theory]
+    [AvaloniaTheory]
     [InlineData(Orientation.Horizontal)]
     [InlineData(Orientation.Vertical)]
     public void Orientation_AllValuesValid(Orientation orientation)
@@ -162,7 +163,7 @@ public class FortuneBarTests
         Assert.Equal(orientation, bar.Orientation);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void MultipleBars_HaveSeparateItemCollections()
     {
         var bar1 = new FortuneBar();
@@ -174,7 +175,7 @@ public class FortuneBarTests
         Assert.Empty(bar2.Items);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Items_CanBeCleared()
     {
         var bar = new FortuneBar();
@@ -186,7 +187,7 @@ public class FortuneBarTests
         Assert.Empty(bar.Items);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Items_CanBeRemoved()
     {
         var bar = new FortuneBar();
@@ -200,7 +201,7 @@ public class FortuneBarTests
         Assert.Equal("B", bar.Items[0].Content);
     }
 
-    [Theory]
+    [AvaloniaTheory]
     [InlineData(50.0)]
     [InlineData(100.0)]
     [InlineData(200.0)]
@@ -213,7 +214,7 @@ public class FortuneBarTests
         Assert.Equal(size, bar.ItemSize);
     }
 
-    [Theory]
+    [AvaloniaTheory]
     [InlineData(0.0)]
     [InlineData(100.0)]
     [InlineData(-100.0)]
@@ -227,7 +228,7 @@ public class FortuneBarTests
         Assert.Equal(offset, bar.ScrollOffset);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void MinimumCycles_CanBeZero()
     {
         var bar = new FortuneBar();
@@ -237,7 +238,7 @@ public class FortuneBarTests
         Assert.Equal(0, bar.MinimumCycles);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void AnimationDuration_CanBeZero()
     {
         var bar = new FortuneBar();
@@ -247,7 +248,7 @@ public class FortuneBarTests
         Assert.Equal(TimeSpan.Zero, bar.AnimationDuration);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void IndicatorThickness_CanBeZero()
     {
         var bar = new FortuneBar();
@@ -257,7 +258,7 @@ public class FortuneBarTests
         Assert.Equal(0.0, bar.IndicatorThickness);
     }
 
-    [Fact]
+    [AvaloniaFact]
     public void Items_WithWeights_AreStored()
     {
         var bar = new FortuneBar();
@@ -268,4 +269,3 @@ public class FortuneBarTests
         Assert.Equal(1.0, bar.Items[1].Weight);
     }
 }
-
