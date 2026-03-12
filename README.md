@@ -30,6 +30,12 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 <img src="images/novaui_barcodegenerator_light.gif" alt="BarcodeGenerator" width="250" />
 
+### CompareSlider
+
+The `CompareSlider` control enables users to compare two pieces of content side-by-side. A draggable divider allows the user to reveal more of the "before" or "after" content interactively.
+
+<img src="images/novaui_compareslider_light.gif" alt="CompareSlider" width="250" />
+
 ### Fortune
 
 The `FortuneWheel` and `FortuneBar` controls provide interactive spin-to-win functionality for games, raffles, and random selection scenarios. Features include smooth animations, weighted selection, customizable styling strategies, and configurable indicators.

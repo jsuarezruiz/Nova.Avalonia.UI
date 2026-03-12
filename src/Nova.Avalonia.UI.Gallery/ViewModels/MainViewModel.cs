@@ -28,6 +28,7 @@ public partial class MainViewModel : ViewModelBase
                 new("Avatar", new AvatarViewModel(), "Profile avatar control and styling"),
                 new("Badge", new BadgeViewModel(), "Notification badge control"),
                 new("BarcodeGenerator", new BarcodeGeneratorViewModel(), "QR codes, barcodes, and 2D symbologies"),
+                new("CompareSlider", new CompareSliderViewModel(), "Side-by-side content comparison with slider"),
                 new("Fortune", new FortuneViewModel(), "Spin-to-win wheel and bar controls"),
                 new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
                 new("Scratcher", new ScratcherViewModel(), "Interactive scratch card overlay"),

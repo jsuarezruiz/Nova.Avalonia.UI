@@ -14,12 +14,14 @@
     href: controls/badge.md
   - name: BarcodeGenerator
     href: controls/barcodegenerator.md
-  - name: Fortune
-    href: controls/fortune.md
   - name: BubblePanel
     href: controls/bubblepanel.md
   - name: CircularPanel
     href: controls/circularpanel.md
+  - name: CompareSlider
+    href: controls/compareslider.md
+  - name: Fortune
+    href: controls/fortune.md
   - name: HexPanel
     href: controls/hexpanel.md
   - name: LoopPanel
