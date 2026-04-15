@@ -8,7 +8,7 @@ namespace Nova.Avalonia.UI.Controls;
 /// <summary>
 /// Converts a value to half its value (for circular corner radius).
 /// </summary>
-public class HalfValueConverter : IValueConverter
+internal class HalfValueConverter : IValueConverter
 {
     /// <summary>
     /// Singleton instance of the converter.
@@ -18,7 +18,10 @@ public class HalfValueConverter : IValueConverter
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is double d)
+        {
             return new CornerRadius(d / 2);
+        }
+
         return new CornerRadius(0);
     }
 

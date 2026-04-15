@@ -32,7 +32,7 @@
                         <ContentPresenter Name="PART_ContentPresenter"
                                           HorizontalContentAlignment="Stretch"
                                           VerticalContentAlignment="Stretch"
-                                          Padding="8"
+                                          Margin="4"
                                           IsVisible="False" />
                     </Panel>
                 </Border>

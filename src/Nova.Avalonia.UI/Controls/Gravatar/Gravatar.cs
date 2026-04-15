@@ -100,7 +100,9 @@ public class Gravatar : TemplatedControl
     private void UpdateContent()
     {
         if (_contentPresenter == null || _imagePresenter == null)
+        {
             return;
+        }
 
         if (Source != null)
         {

@@ -26,7 +26,9 @@ public class GravatarAutomationPeer : ControlAutomationPeer
     {
         var name = base.GetNameCore();
         if (!string.IsNullOrEmpty(name))
+        {
             return name;
+        }
 
         if (Owner is Gravatar gravatar)
         {

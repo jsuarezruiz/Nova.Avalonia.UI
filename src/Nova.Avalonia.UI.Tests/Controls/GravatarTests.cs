@@ -117,7 +117,6 @@ public class GravatarTests
         Assert.NotNull(avatar1);
         Assert.NotNull(avatar2);
 
-        // Unicode and ASCII-replaced versions must produce different avatars
         var color1 = ((SolidColorBrush)((global::Avalonia.Controls.Shapes.Path)avatar1!).Fill!).Color;
         var color2 = ((SolidColorBrush)((global::Avalonia.Controls.Shapes.Path)avatar2!).Fill!).Color;
 
@@ -147,7 +146,6 @@ public class GravatarTests
         var path = (global::Avalonia.Controls.Shapes.Path)avatar!;
         var geo = (GeometryGroup)path.Data!;
 
-        // Build a 5x5 grid from the geometry
         var grid = new bool[5, 5];
         foreach (var child in geo.Children)
         {
@@ -155,7 +153,6 @@ public class GravatarTests
             grid[(int)rect.X, (int)rect.Y] = true;
         }
 
-        // Verify left-right symmetry: column 0 == column 4, column 1 == column 3
         for (var row = 0; row < 5; row++)
         {
             Assert.Equal(grid[0, row], grid[4, row]);
@@ -172,7 +169,6 @@ public class GravatarTests
         var path = (global::Avalonia.Controls.Shapes.Path)avatar!;
         var geo = (GeometryGroup)path.Data!;
 
-        // All geometry children should have non-zero size (no hidden zero-size rectangles)
         foreach (var child in geo.Children)
         {
             var rect = ((RectangleGeometry)child).Rect;
@@ -180,7 +176,6 @@ public class GravatarTests
             Assert.True(rect.Height > 0);
         }
 
-        // Should have fewer than 25 cells (some are hidden)
         Assert.True(geo.Children.Count <= 25);
         Assert.True(geo.Children.Count > 0);
     }
@@ -191,7 +186,6 @@ public class GravatarTests
         var gravatar = new Gravatar();
         Assert.Null(gravatar.Source);
 
-        // Just verify the property is settable — actual rendering requires a live visual tree
         gravatar.Source = null;
         Assert.Null(gravatar.Source);
     }

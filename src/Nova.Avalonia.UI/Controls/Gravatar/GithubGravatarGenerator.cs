@@ -14,13 +14,15 @@ namespace Nova.Avalonia.UI.Controls;
 public class GithubGravatarGenerator : IGravatarGenerator
 {
     private const int GridSize = 5;
-    private const int CellCount = 15; // 2 left columns (10) + 1 center column (5)
+    private const int CellCount = 15;
 
     /// <inheritdoc />
     public object? GenerateAvatar(string? id)
     {
         if (string.IsNullOrEmpty(id))
+        {
             return null;
+        }
 
         id = id.Trim().ToLowerInvariant();
 
@@ -31,8 +33,6 @@ public class GithubGravatarGenerator : IGravatarGenerator
 
         for (var col = 0; col < GridSize; col++)
         {
-            // Left two columns use own data, center is column 2,
-            // right two columns mirror left for symmetry.
             var dataCol = col < 3 ? col : 4 - col;
 
             for (var row = 0; row < GridSize; row++)
