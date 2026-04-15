@@ -7,61 +7,121 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="Nova.Avalonia.UI.Gallery.Views.ShowcaseView"
              x:DataType="vm:ShowcaseViewModel">
+    <UserControl.Styles>
+        <Style Selector="WrapPanel.sample-actions > Button">
+            <Setter Property="MinWidth" Value="160" />
+            <Setter Property="Margin" Value="0,0,12,12" />
+            <Setter Property="Padding" Value="16,10" />
+        </Style>
+    </UserControl.Styles>
+
     <Design.DataContext>
         <vm:ShowcaseViewModel />
     </Design.DataContext>
 
     <Panel>
-        <!-- Sample UI to showcase -->
         <Grid Margin="24">
-            <StackPanel Spacing="24" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="600">
+            <StackPanel Spacing="24"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        MaxWidth="560">
                 <TextBlock Text="Welcome to Nova.Avalonia.UI"
                            FontSize="28"
                            FontWeight="Bold"
                            HorizontalAlignment="Center"
                            nova:Showcase.Key="WelcomeTitle" />
-                
-                <TextBlock Text="This is a sample application demonstrating the Showcase control. Click the button below to start an interactive tutorial."
+
+                <TextBlock Text="A minimal Showcase sample: validated start, interaction modes, highlight shapes, and live search preview."
                            TextWrapping="Wrap"
                            TextAlignment="Center"
                            Opacity="0.8" />
-                
-                <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
-                    <Button x:Name="StartButton"
-                            Content="Start Tutorial"
-                            Classes="accent"
-                            Padding="16,10"
-                            nova:Showcase.Key="StartButton" />
-                    
-                    <Button Content="Settings"
-                            Padding="16,10"
-                            nova:Showcase.Key="SettingsButton" />
-                </StackPanel>
-                
+
                 <Border Background="{DynamicResource CardBackgroundBrush}"
                         BorderBrush="{DynamicResource CardBorderBrush}"
                         BorderThickness="1"
                         CornerRadius="12"
                         Padding="20"
-                        nova:Showcase.Key="InfoCard">
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="Sample Card"
+                        HorizontalAlignment="Center"
+                        MaxWidth="500">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="Tour Controls"
                                    FontWeight="SemiBold"
                                    FontSize="16" />
-                        <TextBlock Text="This is a sample information card that could be highlighted in your tutorial."
+
+                        <WrapPanel Classes="sample-actions"
+                                   HorizontalAlignment="Left"
+                                   Orientation="Horizontal">
+                            <Button x:Name="StartButton"
+                                    Content="Start Tutorial"
+                                    Classes="accent" />
+
+                            <Button x:Name="ValidateButton"
+                                    Content="Validate Tour"
+                                    nova:Showcase.Key="ValidationButton" />
+                        </WrapPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="12"
+                                    HorizontalAlignment="Left"
+                                    nova:Showcase.Key="InteractionModeSelector">
+                            <TextBlock Text="Interaction mode:"
+                                       VerticalAlignment="Center" />
+                            <ComboBox x:Name="InteractionModeComboBox"
+                                      Width="180"
+                                      SelectedIndex="0" />
+                        </StackPanel>
+
+                        <TextBlock Text="All steps use the selected interaction mode. Switch it during the tour to compare Modal, TargetOnly, and Passthrough."
+                                   TextWrapping="Wrap"
+                                   Opacity="0.7" />
+
+                        <TextBlock x:Name="StatusTextBlock"
+                                   Text="Ready. Start the tutorial or validate the current configuration."
                                    TextWrapping="Wrap"
                                    Opacity="0.8" />
                     </StackPanel>
                 </Border>
-                
-                <TextBox Watermark="Search..."
-                         Width="300"
+
+                <Border Background="{DynamicResource CardBackgroundBrush}"
+                        BorderBrush="{DynamicResource CardBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="12"
+                        Padding="20"
+                        HorizontalAlignment="Center"
+                        MaxWidth="500"
+                        nova:Showcase.Key="SearchCard">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Search Preview"
+                                   FontWeight="SemiBold"
+                                   FontSize="16" />
+                        <TextBlock x:Name="SearchPreviewTextBlock"
+                                   Text="Type in the search box below to see a live preview here."
+                                   TextWrapping="Wrap"
+                                   Opacity="0.8" />
+                    </StackPanel>
+                </Border>
+
+                <TextBox x:Name="SearchBox"
+                         Watermark="Search..."
+                         Width="320"
                          HorizontalAlignment="Center"
-                         nova:Showcase.Key="SearchBox" />
+                         nova:Showcase.Key="SearchBox">
+                    <nova:Showcase.TooltipTemplate>
+                        <DataTemplate>
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Custom Tooltip"
+                                           FontSize="16"
+                                           FontWeight="SemiBold" />
+                                <TextBlock Text="This tooltip uses an element-level template that overrides the step's title and description."
+                                           TextWrapping="Wrap"
+                                           Opacity="0.8" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </nova:Showcase.TooltipTemplate>
+                </TextBox>
             </StackPanel>
         </Grid>
-        
-        <!-- Showcase control - just bind Controller and set IsActive -->
+
         <nova:Showcase x:Name="ShowcaseControl"
                        OverlayBrush="#CC000000" />
     </Panel>

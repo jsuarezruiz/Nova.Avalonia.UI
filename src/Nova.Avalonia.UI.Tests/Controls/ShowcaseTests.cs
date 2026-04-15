@@ -27,71 +27,22 @@ public class ShowcaseTests
         Assert.False(showcase.IsActive);
         Assert.Null(showcase.Controller);
         Assert.NotNull(showcase.OverlayBrush);
-    }
-
-    [AvaloniaFact]
-    public void Showcase_IsActive_Can_Be_Set()
-    {
-        var showcase = new Showcase();
-        showcase.Controller = new ShowcaseController();
-        showcase.Controller.Steps.Add(new ShowcaseStep { Key = "Test" });
-
-        Assert.False(showcase.IsActive);
-
-        showcase.IsActive = true;
-
-        Assert.True(showcase.IsActive);
+        Assert.Equal(ShowcaseInteractionMode.Modal, showcase.InteractionMode);
     }
 
     [AvaloniaFact]
     public void ShowcaseStep_Should_Have_Default_Values()
     {
-        var step = new ShowcaseStep();
+        var step = new ShowcaseStep { Key = "Defaults" };
 
-        Assert.Equal(string.Empty, step.Key);
         Assert.Equal(string.Empty, step.Title);
         Assert.Equal(string.Empty, step.Description);
         Assert.Equal(ShowcaseTooltipPosition.Auto, step.TooltipPosition);
+        Assert.Null(step.InteractionMode);
         Assert.Equal(ShowcaseHighlightShape.RoundedRectangle, step.HighlightShape);
         Assert.Equal(new Thickness(8), step.HighlightPadding);
-        Assert.Equal(8, step.CornerRadius);
-        Assert.Null(step.CustomTooltipTemplate);
-    }
-
-    [AvaloniaFact]
-    public void ShowcaseStep_Properties_Should_Be_Settable()
-    {
-        var step = new ShowcaseStep
-        {
-            Key = "MyKey",
-            Title = "My Title",
-            Description = "My Description",
-            TooltipPosition = ShowcaseTooltipPosition.Left,
-            HighlightShape = ShowcaseHighlightShape.Circle,
-            HighlightPadding = new Thickness(16),
-            CornerRadius = 12
-        };
-
-        Assert.Equal("MyKey", step.Key);
-        Assert.Equal("My Title", step.Title);
-        Assert.Equal("My Description", step.Description);
-        Assert.Equal(ShowcaseTooltipPosition.Left, step.TooltipPosition);
-        Assert.Equal(ShowcaseHighlightShape.Circle, step.HighlightShape);
-        Assert.Equal(new Thickness(16), step.HighlightPadding);
-        Assert.Equal(12, step.CornerRadius);
-    }
-
-    [AvaloniaFact]
-    public void ShowcaseStep_CustomTooltipTemplate_Can_Be_Set()
-    {
-        var template = new FuncDataTemplate<ShowcaseStep>((s, _) => new TextBlock { Text = s.Title });
-        var step = new ShowcaseStep
-        {
-            Key = "Test",
-            CustomTooltipTemplate = template
-        };
-
-        Assert.Same(template, step.CustomTooltipTemplate);
+        Assert.Equal(8, step.HighlightCornerRadius);
+        Assert.Null(step.TooltipTemplate);
     }
 
     [AvaloniaFact]
@@ -107,32 +58,82 @@ public class ShowcaseTests
     }
 
     [AvaloniaFact]
-    public void ShowcaseOverlay_Properties_Should_Be_Settable()
+    public void ShowcaseTooltip_ShowDefaultBody_Should_Be_True_By_Default()
     {
-        var overlay = new ShowcaseOverlay
-        {
-            TargetBounds = new Rect(10, 20, 100, 50),
-            HighlightShape = ShowcaseHighlightShape.Circle,
-            HighlightPadding = new Thickness(12),
-            HighlightCornerRadius = 16
-        };
+        var tooltip = new ShowcaseTooltip();
 
-        Assert.Equal(new Rect(10, 20, 100, 50), overlay.TargetBounds);
-        Assert.Equal(ShowcaseHighlightShape.Circle, overlay.HighlightShape);
-        Assert.Equal(new Thickness(12), overlay.HighlightPadding);
-        Assert.Equal(16, overlay.HighlightCornerRadius);
+        Assert.True(tooltip.ShowDefaultBody);
+        Assert.False(tooltip.ShowCustomBody);
     }
 
     [AvaloniaFact]
-    public void ShowcaseTooltip_Should_Have_Title_And_Description()
+    public void ShowcaseTooltip_Setting_ContentTemplate_Should_Toggle_CustomTemplate_PseudoClass()
     {
-        var tooltip = new ShowcaseTooltip
-        {
-            Title = "Test Title",
-            Description = "Test Description"
-        };
+        var tooltip = new ShowcaseTooltip();
+        var template = new FuncDataTemplate<ShowcaseStep>((s, _) => new TextBlock { Text = s.Title });
 
-        Assert.Equal("Test Title", tooltip.Title);
-        Assert.Equal("Test Description", tooltip.Description);
+        tooltip.ContentTemplate = template;
+
+        Assert.True(tooltip.ShowCustomBody);
+        Assert.False(tooltip.ShowDefaultBody);
+        Assert.Contains(":custom-template", tooltip.Classes);
+
+        tooltip.ContentTemplate = null;
+
+        Assert.False(tooltip.ShowCustomBody);
+        Assert.True(tooltip.ShowDefaultBody);
+        Assert.DoesNotContain(":custom-template", tooltip.Classes);
+    }
+
+    [AvaloniaFact]
+    public void ValidationIssue_ToString_Should_Include_Severity_And_Message()
+    {
+        var issue = new ShowcaseValidationIssue(
+            ShowcaseValidationIssueCode.MissingTarget,
+            ShowcaseValidationSeverity.Error,
+            "Target not found.");
+
+        Assert.Equal("[Error] Target not found.", issue.ToString());
+    }
+
+    [AvaloniaFact]
+    public void ValidationResult_ToString_Should_Summarize_Issues()
+    {
+        var valid = new ShowcaseValidationResult([]);
+        Assert.Equal("Valid", valid.ToString());
+
+        var withError = new ShowcaseValidationResult(
+        [
+            new ShowcaseValidationIssue(
+                ShowcaseValidationIssueCode.MissingTarget,
+                ShowcaseValidationSeverity.Error,
+                "Missing target.")
+        ]);
+        Assert.Contains("1 error", withError.ToString());
+
+        var withWarning = new ShowcaseValidationResult(
+        [
+            new ShowcaseValidationIssue(
+                ShowcaseValidationIssueCode.TargetUnavailable,
+                ShowcaseValidationSeverity.Warning,
+                "Target not visible.")
+        ]);
+        Assert.Contains("1 warning", withWarning.ToString());
+    }
+
+    [AvaloniaFact]
+    public void StartResult_ToString_Should_Indicate_Outcome()
+    {
+        var started = new ShowcaseStartResult(true, new ShowcaseValidationResult([]));
+        Assert.Equal("Started", started.ToString());
+
+        var notStarted = new ShowcaseStartResult(false, new ShowcaseValidationResult(
+        [
+            new ShowcaseValidationIssue(
+                ShowcaseValidationIssueCode.NoSteps,
+                ShowcaseValidationSeverity.Error,
+                "No steps.")
+        ]));
+        Assert.StartsWith("Not started", notStarted.ToString());
     }
 }

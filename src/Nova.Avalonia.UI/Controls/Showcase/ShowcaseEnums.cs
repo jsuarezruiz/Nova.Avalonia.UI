@@ -52,7 +52,28 @@ public enum ShowcaseHighlightShape
     RoundedRectangle,
     
     /// <summary>
-    /// Circular/elliptical highlight.
+    /// Circular highlight.
     /// </summary>
     Circle
+}
+
+/// <summary>
+/// Specifies how the underlying UI remains interactive while the showcase is active.
+/// </summary>
+public enum ShowcaseInteractionMode
+{
+    /// <summary>
+    /// Block interaction with the underlying UI. Only showcase chrome remains interactive.
+    /// </summary>
+    Modal,
+
+    /// <summary>
+    /// Allow interaction with the highlighted target while blocking the rest of the UI.
+    /// </summary>
+    TargetOnly,
+
+    /// <summary>
+    /// Keep the underlying UI interactive while the showcase acts as a visual guide.
+    /// </summary>
+    Passthrough
 }

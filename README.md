@@ -158,7 +158,7 @@ The `VirtualizedVariableSizeWrapPanel` is a high-performance variable-size tile 
 
 ## Contribute
 
-Do you want to contribute?.
+Do you want to contribute?
 
 **Found a Bug?**
 
@@ -168,7 +168,7 @@ If you find a bug, you can help me by submitting an [issue](https://github.com/j
 
 For every contribution, you must:
 - Test your code.
-- target main branch (or an appropriate release branch if appropriate for a bug fix).
+- Target main branch (or an appropriate release branch if appropriate for a bug fix).
 
 ## Feedback or Requests
 

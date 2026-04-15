@@ -24,20 +24,29 @@
                         Padding="{TemplateBinding Padding}"
                         BoxShadow="0 4 16 0 #40000000">
                     <StackPanel Spacing="12">
-                        <TextBlock Text="{TemplateBinding Title}"
-                                   FontSize="18"
-                                   FontWeight="SemiBold"
-                                   TextWrapping="Wrap"
-                                   IsVisible="{TemplateBinding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                        <StackPanel Name="PART_DefaultBody"
+                                    Spacing="12"
+                                    IsVisible="{TemplateBinding ShowDefaultBody}">
+                            <TextBlock Text="{TemplateBinding Title}"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       TextWrapping="Wrap"
+                                       IsVisible="{TemplateBinding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
 
-                        <TextBlock Text="{TemplateBinding Description}"
-                                   FontSize="14"
-                                   TextWrapping="Wrap"
-                                   Opacity="0.8"
-                                   IsVisible="{TemplateBinding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                            <TextBlock Text="{TemplateBinding Description}"
+                                       FontSize="14"
+                                       TextWrapping="Wrap"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                       IsVisible="{TemplateBinding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                        </StackPanel>
 
-                        <ContentPresenter Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        <ContentPresenter Name="PART_CustomBody"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          IsVisible="{TemplateBinding ShowCustomBody}" />
+
+                        <ContentPresenter Content="{TemplateBinding FooterContent}"
+                                          ContentTemplate="{TemplateBinding FooterContentTemplate}" />
                     </StackPanel>
                 </Border>
             </ControlTemplate>
@@ -49,21 +58,45 @@
         <Setter Property="Focusable" Value="True" />
         <Setter Property="Template">
             <ControlTemplate TargetType="nova:Showcase">
-                <Panel IsVisible="{TemplateBinding IsActive}">
+                <Panel IsVisible="{Binding IsActive, RelativeSource={RelativeSource TemplatedParent}}">
                     <nova:ShowcaseOverlay Name="PART_Overlay"
                                           OverlayBrush="{TemplateBinding OverlayBrush}"
                                           IsHitTestVisible="False" />
 
-                    <Canvas>
-                        <nova:ShowcaseTooltip Name="PART_Tooltip">
-                            <StackPanel Orientation="Horizontal"
-                                        Spacing="8"
-                                        HorizontalAlignment="Right"
-                                        Margin="0,8,0,0">
-                                <Button Name="PART_SkipButton" />
-                                <Button Name="PART_PreviousButton" />
-                                <Button Name="PART_NextButton" Classes="accent" />
-                            </StackPanel>
+                    <Canvas HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                        <Border Name="PART_ModalBlocker"
+                                IsVisible="False"
+                                Background="Transparent" />
+                        <Border Name="PART_TopBlocker"
+                                IsVisible="False"
+                                Background="Transparent" />
+                        <Border Name="PART_LeftBlocker"
+                                IsVisible="False"
+                                Background="Transparent" />
+                        <Border Name="PART_RightBlocker"
+                                IsVisible="False"
+                                Background="Transparent" />
+                        <Border Name="PART_BottomBlocker"
+                                IsVisible="False"
+                                Background="Transparent" />
+                    </Canvas>
+
+                    <Canvas HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                        <nova:ShowcaseTooltip Name="PART_Tooltip"
+                                              AutomationProperties.AutomationId="ShowcaseTooltip"
+                                              AutomationProperties.LiveSetting="Assertive">
+                            <nova:ShowcaseTooltip.FooterContent>
+                                <StackPanel Orientation="Horizontal"
+                                            Spacing="8"
+                                            HorizontalAlignment="Right"
+                                            Margin="0,8,0,0">
+                                    <Button Name="PART_SkipButton" />
+                                    <Button Name="PART_PreviousButton" />
+                                    <Button Name="PART_NextButton" Classes="accent" />
+                                </StackPanel>
+                            </nova:ShowcaseTooltip.FooterContent>
                         </nova:ShowcaseTooltip>
                     </Canvas>
                 </Panel>

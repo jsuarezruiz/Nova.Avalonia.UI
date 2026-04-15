@@ -7,8 +7,51 @@ namespace Nova.Avalonia.UI.Controls;
 /// </summary>
 public class ShowcaseTooltipPositioner
 {
-    private const double Margin = 16;
-    
+    /// <summary>
+    /// Gap between the target highlight edge and the tooltip.
+    /// </summary>
+    internal const double TooltipGap = 16;
+
+    private static readonly ShowcaseTooltipPosition[] AutoOrder =
+    {
+        ShowcaseTooltipPosition.Bottom,
+        ShowcaseTooltipPosition.Top,
+        ShowcaseTooltipPosition.Right,
+        ShowcaseTooltipPosition.Left
+    };
+
+    private static readonly ShowcaseTooltipPosition[] TopFallback =
+    {
+        ShowcaseTooltipPosition.Top,
+        ShowcaseTooltipPosition.Bottom,
+        ShowcaseTooltipPosition.Right,
+        ShowcaseTooltipPosition.Left
+    };
+
+    private static readonly ShowcaseTooltipPosition[] BottomFallback =
+    {
+        ShowcaseTooltipPosition.Bottom,
+        ShowcaseTooltipPosition.Top,
+        ShowcaseTooltipPosition.Right,
+        ShowcaseTooltipPosition.Left
+    };
+
+    private static readonly ShowcaseTooltipPosition[] LeftFallback =
+    {
+        ShowcaseTooltipPosition.Left,
+        ShowcaseTooltipPosition.Right,
+        ShowcaseTooltipPosition.Top,
+        ShowcaseTooltipPosition.Bottom
+    };
+
+    private static readonly ShowcaseTooltipPosition[] RightFallback =
+    {
+        ShowcaseTooltipPosition.Right,
+        ShowcaseTooltipPosition.Left,
+        ShowcaseTooltipPosition.Top,
+        ShowcaseTooltipPosition.Bottom
+    };
+
     /// <summary>
     /// Calculates the optimal position for a tooltip.
     /// </summary>
@@ -29,12 +72,11 @@ public class ShowcaseTooltipPositioner
                 (containerBounds.Width - tooltipSize.Width) / 2,
                 (containerBounds.Height - tooltipSize.Height) / 2);
         }
-        
+
         var positionsToTry = preferredPosition == ShowcaseTooltipPosition.Auto
-            ? new[] { ShowcaseTooltipPosition.Bottom, ShowcaseTooltipPosition.Top, 
-                      ShowcaseTooltipPosition.Right, ShowcaseTooltipPosition.Left }
+            ? AutoOrder
             : GetFallbackOrder(preferredPosition);
-        
+
         foreach (var position in positionsToTry)
         {
             var point = TryPosition(targetBounds, tooltipSize, position);
@@ -43,87 +85,56 @@ public class ShowcaseTooltipPositioner
                 return point;
             }
         }
-        
-        
+
         return new Point(
             (containerBounds.Width - tooltipSize.Width) / 2,
             (containerBounds.Height - tooltipSize.Height) / 2);
     }
-    
-    private Point TryPosition(Rect targetBounds, Size tooltipSize, ShowcaseTooltipPosition position)
+
+    private static Point TryPosition(Rect targetBounds, Size tooltipSize, ShowcaseTooltipPosition position)
     {
         return position switch
         {
             ShowcaseTooltipPosition.Top => new Point(
                 targetBounds.Center.X - tooltipSize.Width / 2,
-                targetBounds.Top - tooltipSize.Height - Margin),
-                
+                targetBounds.Top - tooltipSize.Height - TooltipGap),
+
             ShowcaseTooltipPosition.Bottom => new Point(
                 targetBounds.Center.X - tooltipSize.Width / 2,
-                targetBounds.Bottom + Margin),
-                
+                targetBounds.Bottom + TooltipGap),
+
             ShowcaseTooltipPosition.Left => new Point(
-                targetBounds.Left - tooltipSize.Width - Margin,
+                targetBounds.Left - tooltipSize.Width - TooltipGap,
                 targetBounds.Center.Y - tooltipSize.Height / 2),
-                
+
             ShowcaseTooltipPosition.Right => new Point(
-                targetBounds.Right + Margin,
+                targetBounds.Right + TooltipGap,
                 targetBounds.Center.Y - tooltipSize.Height / 2),
-                
+
             _ => new Point(
                 targetBounds.Center.X - tooltipSize.Width / 2,
-                targetBounds.Bottom + Margin)
+                targetBounds.Bottom + TooltipGap)
         };
     }
-    
-    private bool IsPositionValid(Point position, Size tooltipSize, Rect containerBounds)
+
+    private static bool IsPositionValid(Point position, Size tooltipSize, Rect containerBounds)
     {
         var tooltipBounds = new Rect(position, tooltipSize);
-        return position.X >= 0 && 
-               position.Y >= 0 && 
+        return position.X >= 0 &&
+               position.Y >= 0 &&
                tooltipBounds.Right <= containerBounds.Width &&
                tooltipBounds.Bottom <= containerBounds.Height;
     }
-    
-    private ShowcaseTooltipPosition[] GetFallbackOrder(ShowcaseTooltipPosition preferred)
+
+    private static ShowcaseTooltipPosition[] GetFallbackOrder(ShowcaseTooltipPosition preferred)
     {
         return preferred switch
         {
-            ShowcaseTooltipPosition.Top => new[] 
-            { 
-                ShowcaseTooltipPosition.Top,
-                ShowcaseTooltipPosition.Bottom, 
-                ShowcaseTooltipPosition.Right, 
-                ShowcaseTooltipPosition.Left 
-            },
-            ShowcaseTooltipPosition.Bottom => new[] 
-            { 
-                ShowcaseTooltipPosition.Bottom,
-                ShowcaseTooltipPosition.Top, 
-                ShowcaseTooltipPosition.Right, 
-                ShowcaseTooltipPosition.Left 
-            },
-            ShowcaseTooltipPosition.Left => new[] 
-            { 
-                ShowcaseTooltipPosition.Left,
-                ShowcaseTooltipPosition.Right, 
-                ShowcaseTooltipPosition.Top, 
-                ShowcaseTooltipPosition.Bottom 
-            },
-            ShowcaseTooltipPosition.Right => new[] 
-            { 
-                ShowcaseTooltipPosition.Right,
-                ShowcaseTooltipPosition.Left, 
-                ShowcaseTooltipPosition.Top, 
-                ShowcaseTooltipPosition.Bottom 
-            },
-            _ => new[] 
-            { 
-                ShowcaseTooltipPosition.Bottom, 
-                ShowcaseTooltipPosition.Top, 
-                ShowcaseTooltipPosition.Right, 
-                ShowcaseTooltipPosition.Left 
-            }
+            ShowcaseTooltipPosition.Top => TopFallback,
+            ShowcaseTooltipPosition.Bottom => BottomFallback,
+            ShowcaseTooltipPosition.Left => LeftFallback,
+            ShowcaseTooltipPosition.Right => RightFallback,
+            _ => AutoOrder
         };
     }
 }
