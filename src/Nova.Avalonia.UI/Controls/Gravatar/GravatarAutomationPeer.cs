@@ -30,11 +30,6 @@ public class GravatarAutomationPeer : ControlAutomationPeer
             return name;
         }
 
-        if (Owner is Gravatar gravatar)
-        {
-            return gravatar.Id ?? "Avatar";
-        }
-
         return "Avatar";
     }
 }

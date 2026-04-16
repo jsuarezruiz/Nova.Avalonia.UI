@@ -16,10 +16,10 @@ The `Gravatar` control generates a unique, consistent identicon avatar based on 
 
     <!-- Generate from email -->
     <nova:Gravatar Id="user@example.com" />
-    
+
     <!-- Generate from username -->
     <nova:Gravatar Id="username123" />
-    
+
 </UserControl>
 ```
 

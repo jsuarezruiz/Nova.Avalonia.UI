@@ -42,28 +42,36 @@ public class Gravatar : TemplatedControl
     private ContentPresenter? _contentPresenter;
     private Image? _imagePresenter;
 
-    /// <inheritdoc cref="IdProperty"/>
+    /// <summary>
+    /// Gets or sets the identifier used to generate the avatar when <see cref="Source"/> is not provided.
+    /// </summary>
     public string? Id
     {
         get => GetValue(IdProperty);
         set => SetValue(IdProperty, value);
     }
 
-    /// <inheritdoc cref="SourceProperty"/>
+    /// <summary>
+    /// Gets or sets the image displayed instead of the generated avatar.
+    /// </summary>
     public IImage? Source
     {
         get => GetValue(SourceProperty);
         set => SetValue(SourceProperty, value);
     }
 
-    /// <inheritdoc cref="GeneratorProperty"/>
+    /// <summary>
+    /// Gets or sets the generator that creates the avatar visual from <see cref="Id"/>.
+    /// </summary>
     public IGravatarGenerator Generator
     {
         get => GetValue(GeneratorProperty);
         set => SetValue(GeneratorProperty, value);
     }
 
-    /// <inheritdoc cref="SizeProperty"/>
+    /// <summary>
+    /// Gets or sets the rendered width and height of the avatar.
+    /// </summary>
     public double Size
     {
         get => GetValue(SizeProperty);

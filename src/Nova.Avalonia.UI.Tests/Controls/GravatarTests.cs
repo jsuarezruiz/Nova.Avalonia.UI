@@ -1,5 +1,11 @@
+using System.Linq;
+using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Headless.XUnit;
 using Avalonia.Media;
+using Avalonia.VisualTree;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
 
@@ -96,14 +102,24 @@ public class GravatarTests
     }
 
     [AvaloniaFact]
-    public void Gravatar_AutomationPeer_Returns_Id_As_Name()
+    public void Gravatar_AutomationPeer_Returns_Safe_Default_Name()
     {
         var gravatar = new Gravatar { Id = "accessible@test.com" };
         var peer = new GravatarAutomationPeer(gravatar);
 
-        Assert.Equal("accessible@test.com", peer.GetName());
+        Assert.Equal("Avatar", peer.GetName());
         Assert.Equal(global::Avalonia.Automation.Peers.AutomationControlType.Image, peer.GetAutomationControlType());
         Assert.Equal("Gravatar", peer.GetClassName());
+    }
+
+    [AvaloniaFact]
+    public void Gravatar_AutomationPeer_Uses_Explicit_Name()
+    {
+        var gravatar = new Gravatar { Id = "accessible@test.com" };
+        AutomationProperties.SetName(gravatar, "Profile picture");
+        var peer = new GravatarAutomationPeer(gravatar);
+
+        Assert.Equal("Profile picture", peer.GetName());
     }
 
     [AvaloniaFact]
@@ -183,11 +199,12 @@ public class GravatarTests
     [AvaloniaFact]
     public void Gravatar_Source_Property_Can_Be_Set()
     {
+        var source = new DrawingImage();
         var gravatar = new Gravatar();
         Assert.Null(gravatar.Source);
 
-        gravatar.Source = null;
-        Assert.Null(gravatar.Source);
+        gravatar.Source = source;
+        Assert.Same(source, gravatar.Source);
     }
 
     [AvaloniaFact]
@@ -209,5 +226,152 @@ public class GravatarTests
         var avatar = generator.GenerateAvatar(longId);
         Assert.NotNull(avatar);
         Assert.IsType<global::Avalonia.Controls.Shapes.Path>(avatar);
+    }
+
+    [AvaloniaFact]
+    public void Gravatar_Template_Shows_Generated_Content_For_Id()
+    {
+        var gravatar = new Gravatar { Id = "visible@test.com" };
+        var window = ShowInWindow(gravatar);
+
+        try
+        {
+            var contentPresenter = GetTemplateChild<ContentPresenter>(gravatar, "PART_ContentPresenter");
+            var imagePresenter = GetTemplateChild<Image>(gravatar, "PART_ImagePresenter");
+
+            Assert.True(contentPresenter.IsVisible);
+            Assert.False(imagePresenter.IsVisible);
+            Assert.IsType<global::Avalonia.Controls.Shapes.Path>(contentPresenter.Content);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
+    [AvaloniaFact]
+    public void Gravatar_Template_Source_Overrides_Generated_Content()
+    {
+        var source = new DrawingImage();
+        var gravatar = new Gravatar
+        {
+            Id = "source@test.com",
+            Source = source
+        };
+        var window = ShowInWindow(gravatar);
+
+        try
+        {
+            var contentPresenter = GetTemplateChild<ContentPresenter>(gravatar, "PART_ContentPresenter");
+            var imagePresenter = GetTemplateChild<Image>(gravatar, "PART_ImagePresenter");
+
+            Assert.False(contentPresenter.IsVisible);
+            Assert.True(imagePresenter.IsVisible);
+            Assert.Same(source, imagePresenter.Source);
+
+            gravatar.Source = null;
+
+            Assert.True(contentPresenter.IsVisible);
+            Assert.False(imagePresenter.IsVisible);
+            Assert.IsType<global::Avalonia.Controls.Shapes.Path>(contentPresenter.Content);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
+    [AvaloniaFact]
+    public void Gravatar_Template_Replaces_Content_When_Id_Changes()
+    {
+        var gravatar = new Gravatar { Id = "first@test.com" };
+        var window = ShowInWindow(gravatar);
+
+        try
+        {
+            var contentPresenter = GetTemplateChild<ContentPresenter>(gravatar, "PART_ContentPresenter");
+            var firstContent = contentPresenter.Content;
+
+            gravatar.Id = "second@test.com";
+
+            Assert.True(contentPresenter.IsVisible);
+            Assert.NotNull(contentPresenter.Content);
+            Assert.NotSame(firstContent, contentPresenter.Content);
+            Assert.IsType<global::Avalonia.Controls.Shapes.Path>(contentPresenter.Content);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
+    [AvaloniaFact]
+    public void Gravatar_Template_Uses_Custom_Generator()
+    {
+        var customAvatar = new TextBlock { Text = "Custom avatar" };
+        var generator = new StubGravatarGenerator(customAvatar);
+        var gravatar = new Gravatar
+        {
+            Id = "custom@test.com",
+            Generator = generator
+        };
+        var window = ShowInWindow(gravatar);
+
+        try
+        {
+            var contentPresenter = GetTemplateChild<ContentPresenter>(gravatar, "PART_ContentPresenter");
+            var imagePresenter = GetTemplateChild<Image>(gravatar, "PART_ImagePresenter");
+
+            Assert.Equal("custom@test.com", generator.LastId);
+            Assert.True(contentPresenter.IsVisible);
+            Assert.False(imagePresenter.IsVisible);
+            Assert.Same(customAvatar, contentPresenter.Content);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
+    private static Window ShowInWindow(Gravatar gravatar)
+    {
+        var window = new Window
+        {
+            Width = 120,
+            Height = 120,
+            Content = gravatar
+        };
+
+        window.Show();
+        gravatar.ApplyTemplate();
+        gravatar.Measure(new Size(120, 120));
+        gravatar.Arrange(new Rect(0, 0, 120, 120));
+        return window;
+    }
+
+    private static T GetTemplateChild<T>(Gravatar gravatar, string name)
+        where T : Control
+    {
+        return gravatar.GetVisualDescendants()
+            .OfType<T>()
+            .Single(control => control.Name == name);
+    }
+
+    private sealed class StubGravatarGenerator : IGravatarGenerator
+    {
+        private readonly object? _avatar;
+
+        public StubGravatarGenerator(object? avatar)
+        {
+            _avatar = avatar;
+        }
+
+        public string? LastId { get; private set; }
+
+        public object? GenerateAvatar(string? id)
+        {
+            LastId = id;
+            return _avatar;
+        }
     }
 }
