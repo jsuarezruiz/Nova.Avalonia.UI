@@ -1,0 +1,98 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Nova.Avalonia.UI.Controls">
+
+  <Styles.Resources>
+    <ResourceDictionary>
+      <x:Double x:Key="CircularSliderTrackThickness">12</x:Double>
+      <x:Double x:Key="CircularSliderThumbSize">20</x:Double>
+      <Thickness x:Key="CircularSliderThumbBorderThickness">2</Thickness>
+      <SolidColorBrush x:Key="CircularSliderThumbBorderBrush" Color="White"/>
+      <BoxShadows x:Key="CircularSliderThumbBoxShadow">0 2 8 0 #40000000</BoxShadows>
+      <SolidColorBrush x:Key="CircularSliderDisabledThumbBrush" Color="#808080"/>
+      <BoxShadows x:Key="CircularSliderDisabledThumbBoxShadow">none</BoxShadows>
+
+      <ControlTheme x:Key="{x:Type controls:CircularSlider}"
+                    TargetType="controls:CircularSlider">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="200"/>
+        <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Template">
+          <ControlTemplate>
+            <Grid Width="{TemplateBinding Width}"
+                  Height="{TemplateBinding Height}"
+                  Background="Transparent">
+              <Ellipse Name="PART_FocusRing"
+                       Stroke="{DynamicResource SystemAccentColor}"
+                       StrokeThickness="2"
+                       IsVisible="False"
+                       Margin="-4"/>
+
+              <Canvas ClipToBounds="False" IsHitTestVisible="False">
+                <Border Name="PART_Thumb"
+                        Width="{DynamicResource CircularSliderThumbSize}"
+                        Height="{DynamicResource CircularSliderThumbSize}"
+                        Background="{TemplateBinding Foreground}"
+                        CornerRadius="100"
+                        BorderThickness="{DynamicResource CircularSliderThumbBorderThickness}"
+                        BorderBrush="{DynamicResource CircularSliderThumbBorderBrush}"
+                        BoxShadow="{DynamicResource CircularSliderThumbBoxShadow}"
+                        IsVisible="True"
+                        ZIndex="1000"/>
+              </Canvas>
+
+              <Grid IsHitTestVisible="False">
+                <TextBlock Name="PART_DefaultCenterText"
+                           FontSize="{Binding $parent[controls:CircularSlider].FontSize}"
+                           FontWeight="{Binding $parent[controls:CircularSlider].FontWeight}"
+                           Foreground="{Binding $parent[controls:CircularSlider].Foreground}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                <ContentPresenter Name="PART_CenterContent"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  IsVisible="False">
+                  <ContentPresenter.DataTemplates>
+                    <DataTemplate DataType="x:String">
+                      <TextBlock Text="{Binding}"
+                                 FontSize="{Binding $parent[controls:CircularSlider].FontSize}"
+                                 FontWeight="{Binding $parent[controls:CircularSlider].FontWeight}"
+                                 Foreground="{Binding $parent[controls:CircularSlider].Foreground}"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"/>
+                    </DataTemplate>
+                  </ContentPresenter.DataTemplates>
+                </ContentPresenter>
+              </Grid>
+            </Grid>
+          </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:focus-visible /template/ Ellipse#PART_FocusRing">
+          <Setter Property="IsVisible" Value="True"/>
+        </Style>
+
+        <Style Selector="^:disabled">
+          <Setter Property="Cursor" Value="Arrow"/>
+          <Setter Property="Foreground" Value="#A0A0A0"/>
+          <Setter Property="Background" Value="#D0D0D0"/>
+        </Style>
+
+        <Style Selector="^:disabled /template/ Border#PART_Thumb">
+          <Setter Property="Background" Value="{DynamicResource CircularSliderDisabledThumbBrush}"/>
+          <Setter Property="BoxShadow" Value="{DynamicResource CircularSliderDisabledThumbBoxShadow}"/>
+        </Style>
+
+        <Style Selector="^:disabled /template/ ContentPresenter#PART_CenterContent">
+          <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+      </ControlTheme>
+    </ResourceDictionary>
+  </Styles.Resources>
+</Styles>

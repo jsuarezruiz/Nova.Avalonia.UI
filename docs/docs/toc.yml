@@ -36,6 +36,8 @@
     href: controls/radialpanel.md
   - name: RatingControl
     href: controls/ratingcontrol.md
+  - name: SegmentedSlider
+    href: controls/segmentedslider.md
   - name: ResponsivePanel
     href: controls/responsivepanel.md
   - name: Scratcher
