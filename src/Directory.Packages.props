@@ -17,6 +17,7 @@
         <PackageVersion Include="Avalonia.Labs.Controls" Version="11.3.1" />
         <PackageVersion Include="Avalonia.Headless" Version="11.3.8" />
         <PackageVersion Include="Avalonia.Headless.XUnit" Version="11.3.8" />
+        <PackageVersion Include="Avalonia.Markup.Xaml.Loader" Version="11.3.8" />
 
         <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageVersion Include="ZXing.Net" Version="0.16.11" />
