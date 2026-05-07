@@ -1,6 +1,8 @@
 using System;
-using System.Windows.Input;
 using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Automation.Peers;
+using Avalonia.Automation.Provider;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Presenters;
@@ -8,8 +10,8 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Metadata;
 using Avalonia.Media;
-using Avalonia.Automation.Peers;
 
 namespace Nova.Avalonia.UI.Controls;
 
@@ -18,44 +20,41 @@ namespace Nova.Avalonia.UI.Controls;
 /// Supports customizable angles, themes, and value formatting.
 /// </summary>
 [PseudoClasses(":minimum", ":maximum")]
-public class CircularSlider : TemplatedControl
+public class CircularSlider : RangeBase
 {
+    private const double DefaultThumbDiameter = 20.0;
+    private const double DefaultTrackThickness = 12.0;
+    private const double TouchThumbHitTargetPadding = 12.0;
+    private const double ArcHitTestPadding = 6.0;
+    private const string TrackThicknessResourceKey = "CircularSliderTrackThickness";
+
     private Border? _thumbContainer;
     private ContentPresenter? _centerContent;
+    private TextBlock? _defaultCenterText;
+    private IPointer? _dragPointer;
     private bool _isDragging;
     
     private StreamGeometry? _inactiveGeometryCache;
-    private IBrush? _activeBrushCache;
+    private IBrush? _foregroundBrushCache;
+    private double _trackThickness = DefaultTrackThickness;
 
     /// <summary>
-    /// Defines the <see cref="MinValue"/> property.
+    /// Defines the <see cref="TickFrequency"/> property.
     /// </summary>
-    public static readonly StyledProperty<double> MinValueProperty = 
-        AvaloniaProperty.Register<CircularSlider, double>(nameof(MinValue), 0.0);
+    public static readonly StyledProperty<double> TickFrequencyProperty =
+        AvaloniaProperty.Register<CircularSlider, double>(nameof(TickFrequency), 1.0);
 
     /// <summary>
-    /// Defines the <see cref="MaxValue"/> property.
+    /// Defines the <see cref="IsSnapToTickEnabled"/> property.
     /// </summary>
-    public static readonly StyledProperty<double> MaxValueProperty = 
-        AvaloniaProperty.Register<CircularSlider, double>(nameof(MaxValue), 100.0);
+    public static readonly StyledProperty<bool> IsSnapToTickEnabledProperty =
+        AvaloniaProperty.Register<CircularSlider, bool>(nameof(IsSnapToTickEnabled), false);
 
     /// <summary>
-    /// Defines the <see cref="Value"/> property.
+    /// Defines the <see cref="ValueStringFormat"/> property.
     /// </summary>
-    public static readonly StyledProperty<double> ValueProperty = 
-        AvaloniaProperty.Register<CircularSlider, double>(nameof(Value), 0.0, coerce: CoerceValue);
-
-    /// <summary>
-    /// Defines the <see cref="StepFrequency"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> StepFrequencyProperty = 
-        AvaloniaProperty.Register<CircularSlider, double>(nameof(StepFrequency), 0.0);
-
-    /// <summary>
-    /// Defines the <see cref="ValueFormat"/> property.
-    /// </summary>
-    public static readonly StyledProperty<string> ValueFormatProperty = 
-        AvaloniaProperty.Register<CircularSlider, string>(nameof(ValueFormat), "F0");
+    public static readonly StyledProperty<string> ValueStringFormatProperty =
+        AvaloniaProperty.Register<CircularSlider, string>(nameof(ValueStringFormat), "F0");
 
     /// <summary>
     /// Defines the <see cref="StartAngle"/> property.
@@ -70,173 +69,31 @@ public class CircularSlider : TemplatedControl
         AvaloniaProperty.Register<CircularSlider, double>(nameof(EndAngle), 135.0);
 
     /// <summary>
-    /// Defines the <see cref="TrackBrush"/> property.
+    /// Defines the <see cref="Content"/> property.
     /// </summary>
-    public static readonly StyledProperty<IBrush> TrackBrushProperty = 
-        AvaloniaProperty.Register<CircularSlider, IBrush>(nameof(TrackBrush), Brushes.Transparent);
+    public static readonly StyledProperty<object?> ContentProperty =
+        AvaloniaProperty.Register<CircularSlider, object?>(nameof(Content));
 
     /// <summary>
-    /// Defines the <see cref="InactiveBrush"/> property.
+    /// Defines the <see cref="ContentTemplate"/> property.
     /// </summary>
-    public static readonly StyledProperty<IBrush> InactiveBrushProperty = 
-        AvaloniaProperty.Register<CircularSlider, IBrush>(nameof(InactiveBrush), new SolidColorBrush(Color.Parse("#E0E0E0")));
+    public static readonly StyledProperty<IDataTemplate?> ContentTemplateProperty =
+        AvaloniaProperty.Register<CircularSlider, IDataTemplate?>(nameof(ContentTemplate));
 
     /// <summary>
-    /// Defines the <see cref="ActiveBrush"/> property.
+    /// Gets or sets the interval between tick marks used for snapping.
     /// </summary>
-    public static readonly StyledProperty<IBrush> ActiveBrushProperty = 
-        AvaloniaProperty.Register<CircularSlider, IBrush>(nameof(ActiveBrush), new SolidColorBrush(Color.Parse("#2196F3")));
+    public double TickFrequency { get => GetValue(TickFrequencyProperty); set => SetValue(TickFrequencyProperty, value); }
 
     /// <summary>
-    /// Defines the <see cref="ThumbBrush"/> property.
+    /// Gets or sets a value indicating whether user interaction snaps the thumb to the closest tick.
     /// </summary>
-    public static readonly StyledProperty<IBrush> ThumbBrushProperty = 
-        AvaloniaProperty.Register<CircularSlider, IBrush>(nameof(ThumbBrush), new SolidColorBrush(Color.Parse("#1976D2")));
+    public bool IsSnapToTickEnabled { get => GetValue(IsSnapToTickEnabledProperty); set => SetValue(IsSnapToTickEnabledProperty, value); }
 
     /// <summary>
-    /// Defines the <see cref="InnerBackground"/> property.
+    /// Gets or sets the format string used to display the default center value.
     /// </summary>
-    public static readonly StyledProperty<IBrush> InnerBackgroundProperty = 
-        AvaloniaProperty.Register<CircularSlider, IBrush>(nameof(InnerBackground), Brushes.White);
-
-    /// <summary>
-    /// Defines the <see cref="InactiveThickness"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> InactiveThicknessProperty = 
-        AvaloniaProperty.Register<CircularSlider, double>(nameof(InactiveThickness), 12.0);
-
-    /// <summary>
-    /// Defines the <see cref="ActiveThickness"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> ActiveThicknessProperty = 
-        AvaloniaProperty.Register<CircularSlider, double>(nameof(ActiveThickness), 12.0);
-
-    /// <summary>
-    /// Defines the <see cref="InactiveStrokeLineCap"/> property.
-    /// </summary>
-    public static readonly StyledProperty<PenLineCap> InactiveStrokeLineCapProperty = 
-        AvaloniaProperty.Register<CircularSlider, PenLineCap>(nameof(InactiveStrokeLineCap), PenLineCap.Round);
-
-    /// <summary>
-    /// Defines the <see cref="ActiveStrokeLineCap"/> property.
-    /// </summary>
-    public static readonly StyledProperty<PenLineCap> ActiveStrokeLineCapProperty = 
-        AvaloniaProperty.Register<CircularSlider, PenLineCap>(nameof(ActiveStrokeLineCap), PenLineCap.Round);
-
-    /// <summary>
-    /// Defines the <see cref="ActiveRadiusDelta"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double?> ActiveRadiusDeltaProperty = 
-        AvaloniaProperty.Register<CircularSlider, double?>(nameof(ActiveRadiusDelta));
-
-    /// <summary>
-    /// Defines the <see cref="ThumbSize"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> ThumbSizeProperty = 
-        AvaloniaProperty.Register<CircularSlider, double>(nameof(ThumbSize), 20.0);
-    
-    /// <summary>
-    /// Defines the <see cref="TextBrush"/> property.
-    /// </summary>
-    public static readonly StyledProperty<IBrush> TextBrushProperty = 
-        AvaloniaProperty.Register<CircularSlider, IBrush>(nameof(TextBrush), Brushes.Black);
-
-    /// <summary>
-    /// Defines the <see cref="TextFontSize"/> property.
-    /// </summary>
-    public static readonly StyledProperty<double> TextFontSizeProperty = 
-        AvaloniaProperty.Register<CircularSlider, double>(nameof(TextFontSize), 24.0);
-
-    /// <summary>
-    /// Defines the <see cref="TextFontWeight"/> property.
-    /// </summary>
-    public static readonly StyledProperty<FontWeight> TextFontWeightProperty = 
-        AvaloniaProperty.Register<CircularSlider, FontWeight>(nameof(TextFontWeight), FontWeight.Normal);
-
-    /// <summary>
-    /// Defines the <see cref="ThumbContent"/> property.
-    /// </summary>
-    public static readonly StyledProperty<object?> ThumbContentProperty = 
-        AvaloniaProperty.Register<CircularSlider, object?>(nameof(ThumbContent));
-
-    /// <summary>
-    /// Defines the <see cref="ThumbContentTemplate"/> property.
-    /// </summary>
-    public static readonly StyledProperty<IDataTemplate?> ThumbContentTemplateProperty = 
-        AvaloniaProperty.Register<CircularSlider, IDataTemplate?>(nameof(ThumbContentTemplate));
-
-    /// <summary>
-    /// Defines the <see cref="CenterContent"/> property.
-    /// </summary>
-    public static readonly StyledProperty<object?> CenterContentProperty = 
-        AvaloniaProperty.Register<CircularSlider, object?>(nameof(CenterContent));
-
-    /// <summary>
-    /// Defines the <see cref="CenterContentTemplate"/> property.
-    /// </summary>
-    public static readonly StyledProperty<IDataTemplate?> CenterContentTemplateProperty = 
-        AvaloniaProperty.Register<CircularSlider, IDataTemplate?>(nameof(CenterContentTemplate));
-
-    /// <summary>
-    /// Defines the <see cref="DragStartedCommand"/> property.
-    /// </summary>
-    public static readonly StyledProperty<ICommand?> DragStartedCommandProperty = 
-        AvaloniaProperty.Register<CircularSlider, ICommand?>(nameof(DragStartedCommand));
-
-    /// <summary>
-    /// Defines the <see cref="DragCompletedCommand"/> property.
-    /// </summary>
-    public static readonly StyledProperty<ICommand?> DragCompletedCommandProperty = 
-        AvaloniaProperty.Register<CircularSlider, ICommand?>(nameof(DragCompletedCommand));
-
-    /// <summary>
-    /// Defines the <see cref="ValueChangedCommand"/> property.
-    /// </summary>
-    public static readonly StyledProperty<ICommand?> ValueChangedCommandProperty = 
-        AvaloniaProperty.Register<CircularSlider, ICommand?>(nameof(ValueChangedCommand));
-
-    /// <summary>
-    /// Defines the <see cref="DragStartedCommandParameter"/> property.
-    /// </summary>
-    public static readonly StyledProperty<object?> DragStartedCommandParameterProperty = 
-        AvaloniaProperty.Register<CircularSlider, object?>(nameof(DragStartedCommandParameter));
-
-    /// <summary>
-    /// Defines the <see cref="DragCompletedCommandParameter"/> property.
-    /// </summary>
-    public static readonly StyledProperty<object?> DragCompletedCommandParameterProperty = 
-        AvaloniaProperty.Register<CircularSlider, object?>(nameof(DragCompletedCommandParameter));
-
-    /// <summary>
-    /// Defines the <see cref="ValueChangedCommandParameter"/> property.
-    /// </summary>
-    public static readonly StyledProperty<object?> ValueChangedCommandParameterProperty = 
-        AvaloniaProperty.Register<CircularSlider, object?>(nameof(ValueChangedCommandParameter));
-
-    /// <summary>
-    /// Gets or sets the minimum value of the slider.
-    /// </summary>
-    public double MinValue { get => GetValue(MinValueProperty); set => SetValue(MinValueProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the maximum value of the slider.
-    /// </summary>
-    public double MaxValue { get => GetValue(MaxValueProperty); set => SetValue(MaxValueProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the current value of the slider.
-    /// </summary>
-    public double Value { get => GetValue(ValueProperty); set => SetValue(ValueProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the step frequency for value changes.
-    /// </summary>
-    public double StepFrequency { get => GetValue(StepFrequencyProperty); set => SetValue(StepFrequencyProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the format string used to display the value.
-    /// </summary>
-    public string ValueFormat { get => GetValue(ValueFormatProperty); set => SetValue(ValueFormatProperty, value); }
+    public string ValueStringFormat { get => GetValue(ValueStringFormatProperty); set => SetValue(ValueStringFormatProperty, value); }
 
     /// <summary>
     /// Gets or sets the start angle of the arc in degrees.
@@ -249,152 +106,25 @@ public class CircularSlider : TemplatedControl
     public double EndAngle { get => GetValue(EndAngleProperty); set => SetValue(EndAngleProperty, value); }
 
     /// <summary>
-    /// Gets or sets the brush for the active (filled) portion of the arc.
-    /// </summary>
-    public IBrush ActiveBrush { get => GetValue(ActiveBrushProperty); set => SetValue(ActiveBrushProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the brush for the inactive (unfilled) portion of the arc.
-    /// </summary>
-    public IBrush InactiveBrush { get => GetValue(InactiveBrushProperty); set => SetValue(InactiveBrushProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the brush for the thumb.
-    /// </summary>
-    public IBrush ThumbBrush { get => GetValue(ThumbBrushProperty); set => SetValue(ThumbBrushProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the brush for the inner background circle.
-    /// </summary>
-    public IBrush InnerBackground { get => GetValue(InnerBackgroundProperty); set => SetValue(InnerBackgroundProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the brush for the track background.
-    /// </summary>
-    public IBrush TrackBrush { get => GetValue(TrackBrushProperty); set => SetValue(TrackBrushProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the thickness of the inactive arc stroke.
-    /// </summary>
-    public double InactiveThickness { get => GetValue(InactiveThicknessProperty); set => SetValue(InactiveThicknessProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the thickness of the active arc stroke.
-    /// </summary>
-    public double ActiveThickness { get => GetValue(ActiveThicknessProperty); set => SetValue(ActiveThicknessProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the line cap style for the inactive arc.
-    /// </summary>
-    public PenLineCap InactiveStrokeLineCap { get => GetValue(InactiveStrokeLineCapProperty); set => SetValue(InactiveStrokeLineCapProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the line cap style for the active arc.
-    /// </summary>
-    public PenLineCap ActiveStrokeLineCap { get => GetValue(ActiveStrokeLineCapProperty); set => SetValue(ActiveStrokeLineCapProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the radius offset for the active arc relative to the inactive arc.
-    /// </summary>
-    public double? ActiveRadiusDelta { get => GetValue(ActiveRadiusDeltaProperty); set => SetValue(ActiveRadiusDeltaProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the size of the thumb.
-    /// </summary>
-    public double ThumbSize { get => GetValue(ThumbSizeProperty); set => SetValue(ThumbSizeProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the content to display inside the thumb.
-    /// </summary>
-    public object? ThumbContent { get => GetValue(ThumbContentProperty); set => SetValue(ThumbContentProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the template for the thumb content.
-    /// </summary>
-    public IDataTemplate? ThumbContentTemplate { get => GetValue(ThumbContentTemplateProperty); set => SetValue(ThumbContentTemplateProperty, value); }
-
-    /// <summary>
     /// Gets or sets the content to display in the center of the slider.
     /// </summary>
-    public object? CenterContent { get => GetValue(CenterContentProperty); set => SetValue(CenterContentProperty, value); }
+    [Content]
+    public object? Content { get => GetValue(ContentProperty); set => SetValue(ContentProperty, value); }
 
     /// <summary>
     /// Gets or sets the template for the center content.
     /// </summary>
-    public IDataTemplate? CenterContentTemplate { get => GetValue(CenterContentTemplateProperty); set => SetValue(CenterContentTemplateProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the brush for the center text.
-    /// </summary>
-    public IBrush TextBrush { get => GetValue(TextBrushProperty); set => SetValue(TextBrushProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the font size for the center text.
-    /// </summary>
-    public double TextFontSize { get => GetValue(TextFontSizeProperty); set => SetValue(TextFontSizeProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the font weight for the center text.
-    /// </summary>
-    public FontWeight TextFontWeight { get => GetValue(TextFontWeightProperty); set => SetValue(TextFontWeightProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the command executed when dragging starts.
-    /// </summary>
-    public ICommand? DragStartedCommand { get => GetValue(DragStartedCommandProperty); set => SetValue(DragStartedCommandProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the command executed when dragging completes.
-    /// </summary>
-    public ICommand? DragCompletedCommand { get => GetValue(DragCompletedCommandProperty); set => SetValue(DragCompletedCommandProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the command executed when the value changes.
-    /// </summary>
-    public ICommand? ValueChangedCommand { get => GetValue(ValueChangedCommandProperty); set => SetValue(ValueChangedCommandProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the parameter for the drag started command.
-    /// </summary>
-    public object? DragStartedCommandParameter { get => GetValue(DragStartedCommandParameterProperty); set => SetValue(DragStartedCommandParameterProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the parameter for the drag completed command.
-    /// </summary>
-    public object? DragCompletedCommandParameter { get => GetValue(DragCompletedCommandParameterProperty); set => SetValue(DragCompletedCommandParameterProperty, value); }
-
-    /// <summary>
-    /// Gets or sets the parameter for the value changed command.
-    /// </summary>
-    public object? ValueChangedCommandParameter { get => GetValue(ValueChangedCommandParameterProperty); set => SetValue(ValueChangedCommandParameterProperty, value); }
-
-    /// <summary>
-    /// Occurs when dragging starts.
-    /// </summary>
-    public event EventHandler? DragStarted;
-
-    /// <summary>
-    /// Occurs when dragging completes.
-    /// </summary>
-    public event EventHandler? DragCompleted;
-
-    /// <summary>
-    /// Occurs when the value changes.
-    /// </summary>
-    public event EventHandler<ValueChangedEventArgs>? ValueChanged;
+    public IDataTemplate? ContentTemplate { get => GetValue(ContentTemplateProperty); set => SetValue(ContentTemplateProperty, value); }
 
     static CircularSlider()
     {
         AffectsRender<CircularSlider>(
-            ValueProperty, MinValueProperty, MaxValueProperty,
+            ValueProperty, MinimumProperty, MaximumProperty,
             StartAngleProperty, EndAngleProperty,
-            TrackBrushProperty, InactiveBrushProperty, ActiveBrushProperty,
-            InnerBackgroundProperty, InactiveThicknessProperty, ActiveThicknessProperty,
-            InactiveStrokeLineCapProperty, ActiveStrokeLineCapProperty, ActiveRadiusDeltaProperty,
-            ThumbSizeProperty);
+            BackgroundProperty, ForegroundProperty);
 
-        MinValueProperty.Changed.AddClassHandler<CircularSlider>((o, _) => o.CoerceValue(ValueProperty));
-        MaxValueProperty.Changed.AddClassHandler<CircularSlider>((o, _) => o.CoerceValue(ValueProperty));
+        MinimumProperty.Changed.AddClassHandler<CircularSlider>((o, _) => o.CoerceValueToRange());
+        MaximumProperty.Changed.AddClassHandler<CircularSlider>((o, _) => o.CoerceValueToRange());
 
         FocusableProperty.OverrideDefaultValue<CircularSlider>(true);
     }
@@ -404,6 +134,8 @@ public class CircularSlider : TemplatedControl
     /// </summary>
     public CircularSlider()
     {
+        ResourcesChanged += OnResourcesChanged;
+        ActualThemeVariantChanged += OnActualThemeVariantChanged;
         UpdatePseudoClasses();
     }
 
@@ -414,16 +146,24 @@ public class CircularSlider : TemplatedControl
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
+        if (_thumbContainer != null)
+            _thumbContainer.PropertyChanged -= OnThumbContainerPropertyChanged;
+
         _thumbContainer = e.NameScope.Find<Border>("PART_Thumb");
         _centerContent = e.NameScope.Find<ContentPresenter>("PART_CenterContent");
+        _defaultCenterText = e.NameScope.Find<TextBlock>("PART_DefaultCenterText");
+        if (_thumbContainer != null)
+            _thumbContainer.PropertyChanged += OnThumbContainerPropertyChanged;
+
+        RefreshTrackThicknessResource();
         UpdateThumbPosition();
         UpdateCenterContent();
-        UpdateActiveBrushCache();
+        UpdateForegroundBrushCache();
     }
 
-    private void UpdateActiveBrushCache()
+    private void UpdateForegroundBrushCache()
     {
-        if (ActiveBrush is ConicGradientBrush conic)
+        if (Foreground is ConicGradientBrush conic)
         {
             var rotation = StartAngle - 90;
             var newBrush = new ConicGradientBrush
@@ -433,32 +173,31 @@ public class CircularSlider : TemplatedControl
                 Opacity = conic.Opacity,
                 Transform = new RotateTransform(rotation)
             };
-            _activeBrushCache = newBrush;
+            _foregroundBrushCache = newBrush;
         }
         else
         {
-            _activeBrushCache = ActiveBrush;
+            _foregroundBrushCache = Foreground;
         }
     }
 
     private double CalculateRadius(Size availableSize)
     {
-        var maxThickness = Math.Max(InactiveThickness, ActiveThickness);
-        var maxElement = Math.Max(maxThickness, ThumbSize);
-        if (ActiveRadiusDelta.HasValue && ActiveRadiusDelta.Value > 0)
-            maxElement += ActiveRadiusDelta.Value * 2;
-        
+        var maxElement = Math.Max(GetTrackThickness(), GetThumbDiameter());
         return (Math.Min(availableSize.Width, availableSize.Height) - maxElement) / 2;
     }
 
-    private static double CoerceValue(AvaloniaObject sender, double value)
+    private double GetThumbDiameter()
     {
-        if (sender is CircularSlider slider)
-        {
-            if (slider.MaxValue < slider.MinValue) return slider.MinValue;
-            return Math.Clamp(value, slider.MinValue, slider.MaxValue);
-        }
-        return value;
+        if (_thumbContainer is { Bounds.Width: > 0, Bounds.Height: > 0 })
+            return Math.Max(_thumbContainer.Bounds.Width, _thumbContainer.Bounds.Height);
+
+        return DefaultThumbDiameter;
+    }
+
+    private void CoerceValueToRange()
+    {
+        Value = Maximum < Minimum ? Minimum : Math.Clamp(Value, Minimum, Maximum);
     }
 
     /// <inheritdoc/>
@@ -468,18 +207,14 @@ public class CircularSlider : TemplatedControl
 
         if (change.Property == BoundsProperty ||
             change.Property == StartAngleProperty ||
-            change.Property == EndAngleProperty ||
-            change.Property == InactiveThicknessProperty ||
-            change.Property == ActiveThicknessProperty || 
-            change.Property == ThumbSizeProperty ||
-            change.Property == ActiveRadiusDeltaProperty)
+            change.Property == EndAngleProperty)
         {
             _inactiveGeometryCache = null;
         }
 
-        if (change.Property == ActiveBrushProperty || change.Property == StartAngleProperty)
+        if (change.Property == ForegroundProperty || change.Property == StartAngleProperty)
         {
-            UpdateActiveBrushCache();
+            UpdateForegroundBrushCache();
         }
 
         if (change.Property == ValueProperty)
@@ -487,28 +222,22 @@ public class CircularSlider : TemplatedControl
             UpdateThumbPosition();
             UpdateCenterContent();
             UpdatePseudoClasses();
-
-            var args = new ValueChangedEventArgs((double)change.OldValue!, (double)change.NewValue!);
-            ValueChanged?.Invoke(this, args);
-
-            if (ValueChangedCommand?.CanExecute(ValueChangedCommandParameter ?? args) == true)
-                ValueChangedCommand.Execute(ValueChangedCommandParameter ?? args);
         }
         else if (change.Property == BoundsProperty || 
                  change.Property == StartAngleProperty || 
                  change.Property == EndAngleProperty ||
-                 change.Property == ThumbSizeProperty ||
-                 change.Property == InactiveThicknessProperty ||
-                 change.Property == ActiveThicknessProperty ||
-                 change.Property == ActiveRadiusDeltaProperty ||
-                 change.Property == MinValueProperty ||
-                 change.Property == MaxValueProperty)
+                 change.Property == MinimumProperty ||
+                 change.Property == MaximumProperty)
         {
             UpdateThumbPosition();
-            if (change.Property == MinValueProperty || change.Property == MaxValueProperty)
+            if (change.Property == MinimumProperty || change.Property == MaximumProperty)
                 UpdatePseudoClasses();
         }
-        else if (change.Property == CenterContentProperty || change.Property == CenterContentTemplateProperty)
+        else if (change.Property == ContentProperty || change.Property == ContentTemplateProperty)
+        {
+            UpdateCenterContent();
+        }
+        else if (change.Property == ValueStringFormatProperty)
         {
             UpdateCenterContent();
         }
@@ -518,18 +247,18 @@ public class CircularSlider : TemplatedControl
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
-        if (!IsEnabled) return;
+        if (!IsEnabled)
+            return;
         
         var point = e.GetCurrentPoint(this);
+        var position = e.GetPosition(this);
+
         if (point.Properties.IsLeftButtonPressed)
         {
-            _isDragging = true;
-            e.Pointer.Capture(this);
-            UpdateValueFromPoint(e.GetPosition(this));
-            Focus();
-            DragStarted?.Invoke(this, EventArgs.Empty);
-            if (DragStartedCommand?.CanExecute(DragStartedCommandParameter) == true)
-                DragStartedCommand.Execute(DragStartedCommandParameter);
+            if (!IsInteractivePress(position, e.Pointer.Type))
+                return;
+
+            BeginDrag(e.Pointer, position);
             e.Handled = true;
         }
     }
@@ -538,7 +267,7 @@ public class CircularSlider : TemplatedControl
     protected override void OnPointerMoved(PointerEventArgs e)
     {
         base.OnPointerMoved(e);
-        if (_isDragging)
+        if (_isDragging && e.Pointer == _dragPointer)
         {
             UpdateValueFromPoint(e.GetPosition(this));
             e.Handled = true;
@@ -549,35 +278,100 @@ public class CircularSlider : TemplatedControl
     protected override void OnPointerReleased(PointerReleasedEventArgs e)
     {
         base.OnPointerReleased(e);
-        if (_isDragging)
+        if (_isDragging && e.Pointer == _dragPointer)
         {
-            _isDragging = false;
-            e.Pointer.Capture(null);
-            DragCompleted?.Invoke(this, EventArgs.Empty);
-            if (DragCompletedCommand?.CanExecute(DragCompletedCommandParameter) == true)
-                DragCompletedCommand.Execute(DragCompletedCommandParameter);
+            CompleteDrag(e.Pointer);
             e.Handled = true;
         }
+    }
+
+    /// <inheritdoc/>
+    protected override void OnPointerCaptureLost(PointerCaptureLostEventArgs e)
+    {
+        base.OnPointerCaptureLost(e);
+        CompleteDrag(null);
+    }
+
+    private void BeginDrag(IPointer pointer, Point position)
+    {
+        _dragPointer = pointer;
+        _isDragging = true;
+        pointer.Capture(this);
+        UpdateValueFromPoint(position);
+        Focus();
+    }
+
+    private void CompleteDrag(IPointer? pointer)
+    {
+        if (!_isDragging) return;
+
+        var pointerToRelease = _dragPointer ?? pointer;
+        _isDragging = false;
+        _dragPointer = null;
+        pointerToRelease?.Capture(null);
+    }
+
+    private bool IsTouchPressOnThumb(Point position)
+    {
+        if (_thumbContainer is null || !_thumbContainer.IsVisible)
+            return false;
+
+        var bounds = _thumbContainer.Bounds;
+        var hitBounds = new Rect(
+            bounds.X - TouchThumbHitTargetPadding,
+            bounds.Y - TouchThumbHitTargetPadding,
+            bounds.Width + TouchThumbHitTargetPadding * 2,
+            bounds.Height + TouchThumbHitTargetPadding * 2);
+
+        return hitBounds.Contains(position);
+    }
+
+    private bool IsInteractivePress(Point position, PointerType pointerType)
+    {
+        if (pointerType == PointerType.Touch)
+            return IsTouchPressOnThumb(position);
+
+        return IsTouchPressOnThumb(position) || IsPointOnArcBand(position);
+    }
+
+    private bool IsPointOnArcBand(Point position)
+    {
+        if (Bounds.Width <= 0 || Bounds.Height <= 0)
+            return false;
+
+        var radius = CalculateRadius(Bounds.Size);
+        if (radius <= 0)
+            return false;
+
+        var center = new Point(Bounds.Width / 2, Bounds.Height / 2);
+        var dx = position.X - center.X;
+        var dy = position.Y - center.Y;
+        var distance = Math.Sqrt(dx * dx + dy * dy);
+        var halfBand = Math.Max(GetTrackThickness(), GetThumbDiameter()) / 2 + ArcHitTestPadding;
+
+        if (Math.Abs(distance - radius) > halfBand)
+            return false;
+
+        var angleRange = GetAngleRange();
+        if (angleRange >= 359.99)
+            return true;
+
+        var pointAngle = NormalizeAngle(Math.Atan2(dy, dx) * 180.0 / Math.PI + 90);
+        var start = NormalizeAngle(StartAngle);
+        var relativeAngle = pointAngle - start;
+        if (relativeAngle < 0)
+            relativeAngle += 360;
+
+        return relativeAngle <= angleRange;
     }
 
     /// <inheritdoc/>
     protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
     {
         base.OnPointerWheelChanged(e);
-        if (!IsEnabled || e.Handled) return;
-        
-        var range = MaxValue - MinValue;
-        if (range <= 0) return;
-        
-        var step = StepFrequency > 0 ? StepFrequency : range / 100.0;
-        if (step < 0.01) step = 1.0;
 
-        if (e.Delta.Y > 0)
-            Value = Math.Min(MaxValue, Value + step);
-        else
-            Value = Math.Max(MinValue, Value - step);
-
-        e.Handled = true;
+        if (_isDragging)
+            CompleteDrag(e.Pointer);
     }
 
     /// <inheritdoc/>
@@ -586,38 +380,39 @@ public class CircularSlider : TemplatedControl
         base.OnKeyDown(e);
         if (!IsEnabled) return;
         
-        var range = MaxValue - MinValue;
+        var range = Maximum - Minimum;
         if (range <= 0) return;
         
-        var step = StepFrequency > 0 ? StepFrequency : range / 100.0;
-        if (step <= 0) step = 1;
+        var smallChange = GetSmallInteractionChange(range);
+        var largeChange = GetLargeInteractionChange(range);
+        if (smallChange <= 0 || largeChange <= 0) return;
 
         switch (e.Key)
         {
             case Key.Left:
             case Key.Down:
-                Value -= step;
+                Value = SnapValueToTick(Value - smallChange);
                 e.Handled = true;
                 break;
             case Key.Right:
             case Key.Up:
-                Value += step;
+                Value = SnapValueToTick(Value + smallChange);
                 e.Handled = true;
                 break;
             case Key.Home:
-                Value = MinValue;
+                Value = Minimum;
                 e.Handled = true;
                 break;
             case Key.End:
-                Value = MaxValue;
+                Value = Maximum;
                 e.Handled = true;
                 break;
             case Key.PageDown:
-                Value -= step * 10;
+                Value = SnapValueToTick(Value - largeChange);
                 e.Handled = true;
                 break;
             case Key.PageUp:
-                Value += step * 10;
+                Value = SnapValueToTick(Value + largeChange);
                 e.Handled = true;
                 break;
         }
@@ -634,13 +429,6 @@ public class CircularSlider : TemplatedControl
         if (radius <= 0) return;
 
         var center = new Point(width / 2, height / 2);
-        var maxThickness = Math.Max(InactiveThickness, ActiveThickness);
-
-        var innerRadius = radius - maxThickness / 2;
-        if (innerRadius > 0 && InnerBackground != null)
-        {
-            context.DrawEllipse(InnerBackground, null, center, innerRadius, innerRadius);
-        }
 
         if (_inactiveGeometryCache == null)
         {
@@ -648,25 +436,26 @@ public class CircularSlider : TemplatedControl
             using var ctx = _inactiveGeometryCache.Open();
             DrawArcStream(ctx, center, radius, StartAngle, EndAngle);
         }
-        context.DrawGeometry(null, new Pen(InactiveBrush, InactiveThickness, lineCap: InactiveStrokeLineCap), _inactiveGeometryCache);
+        var trackThickness = GetTrackThickness();
+        context.DrawGeometry(null, new Pen(Background, trackThickness, lineCap: PenLineCap.Round), _inactiveGeometryCache);
 
-        var normalizedValue = (Value - MinValue) / (MaxValue - MinValue);
+        var range = Maximum - Minimum;
+        if (range <= 0) return;
+
+        var normalizedValue = (Value - Minimum) / range;
         if (normalizedValue > 0.001)
         {
             var angleRange = GetAngleRange();
             var valueAngle = StartAngle + normalizedValue * angleRange;
-            
-            var activeRadius = radius;
-            if (ActiveRadiusDelta.HasValue) activeRadius += ActiveRadiusDelta.Value;
 
             var activeGeo = new StreamGeometry();
             using (var ctx = activeGeo.Open())
             {
-                DrawArcStream(ctx, center, activeRadius, StartAngle, valueAngle);
+                DrawArcStream(ctx, center, radius, StartAngle, valueAngle);
             }
             
-            var brushToUse = _activeBrushCache ?? ActiveBrush;
-            context.DrawGeometry(null, new Pen(brushToUse, ActiveThickness, lineCap: ActiveStrokeLineCap), activeGeo);
+            var brushToUse = _foregroundBrushCache ?? Foreground;
+            context.DrawGeometry(null, new Pen(brushToUse, trackThickness, lineCap: PenLineCap.Round), activeGeo);
         }
     }
 
@@ -717,18 +506,12 @@ public class CircularSlider : TemplatedControl
             relativeAngle = relativeAngle > angleRange + (360 - angleRange) / 2 ? 0 : angleRange;
 
         var normalizedValue = relativeAngle / angleRange;
-        var range = MaxValue - MinValue;
+        var range = Maximum - Minimum;
         if (range <= 0) return;
         
-        var rawValue = MinValue + normalizedValue * range;
+        var rawValue = Minimum + normalizedValue * range;
 
-        if (StepFrequency > 0)
-        {
-            var steps = Math.Round((rawValue - MinValue) / StepFrequency);
-            rawValue = MinValue + steps * StepFrequency;
-        }
-
-        Value = rawValue;
+        Value = SnapValueToTick(rawValue);
     }
 
 
@@ -736,21 +519,19 @@ public class CircularSlider : TemplatedControl
     {
         if (_thumbContainer == null || Bounds.Width == 0 || Bounds.Height == 0) return;
 
-        var normalizedValue = (Value - MinValue) / (MaxValue - MinValue);
-        if (double.IsNaN(normalizedValue)) normalizedValue = 0;
+        var range = Maximum - Minimum;
+        var normalizedValue = range > 0 ? (Value - Minimum) / range : 0;
 
         var angleRange = GetAngleRange();
         var valueAngle = StartAngle + normalizedValue * angleRange;
 
         var center = new Point(Bounds.Width / 2, Bounds.Height / 2);
         var radius = CalculateRadius(Bounds.Size);
-
-        if (ActiveRadiusDelta.HasValue)
-            radius += ActiveRadiusDelta.Value;
+        var thumbDiameter = GetThumbDiameter();
 
         var angleRad = (valueAngle - 90) * Math.PI / 180.0;
-        var thumbX = center.X + radius * Math.Cos(angleRad) - ThumbSize / 2;
-        var thumbY = center.Y + radius * Math.Sin(angleRad) - ThumbSize / 2;
+        var thumbX = center.X + radius * Math.Cos(angleRad) - thumbDiameter / 2;
+        var thumbY = center.Y + radius * Math.Sin(angleRad) - thumbDiameter / 2;
 
         Canvas.SetLeft(_thumbContainer, thumbX);
         Canvas.SetTop(_thumbContainer, thumbY);
@@ -760,17 +541,22 @@ public class CircularSlider : TemplatedControl
 
     private void UpdateCenterContent()
     {
-        if (_centerContent == null) return;
-        if (CenterContent == null && CenterContentTemplate == null)
+        var hasCustomContent = Content is not null;
+
+        if (_centerContent != null)
+            _centerContent.IsVisible = hasCustomContent;
+
+        if (_defaultCenterText != null)
         {
-            _centerContent.Content = Value.ToString(ValueFormat);
+            _defaultCenterText.Text = Value.ToString(ValueStringFormat);
+            _defaultCenterText.IsVisible = !hasCustomContent;
         }
     }
 
     private void UpdatePseudoClasses()
     {
-        PseudoClasses.Set(":minimum", Value <= MinValue);
-        PseudoClasses.Set(":maximum", Value >= MaxValue);
+        PseudoClasses.Set(":minimum", Value <= Minimum);
+        PseudoClasses.Set(":maximum", Value >= Maximum);
     }
 
     private double NormalizeAngle(double angle)
@@ -788,43 +574,176 @@ public class CircularSlider : TemplatedControl
         if (range <= 0) range += 360;
         return range;
     }
-}
 
-/// <summary>
-/// Event arguments for the <see cref="CircularSlider.ValueChanged"/> event.
-/// </summary>
-public class ValueChangedEventArgs : EventArgs
-{
-    /// <summary>
-    /// Gets the previous value.
-    /// </summary>
-    public double OldValue { get; }
-
-    /// <summary>
-    /// Gets the new value.
-    /// </summary>
-    public double NewValue { get; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ValueChangedEventArgs"/> class.
-    /// </summary>
-    public ValueChangedEventArgs(double oldValue, double newValue)
+    private double GetSmallInteractionChange(double range)
     {
-        OldValue = oldValue;
-        NewValue = newValue;
+        if (range <= 0) return 0;
+        return SmallChange > 0 ? SmallChange : range / 100.0;
+    }
+
+    internal double GetSmallInteractionChange()
+    {
+        var range = Maximum - Minimum;
+        return range > 0 ? GetSmallInteractionChange(range) : 0;
+    }
+
+    private double GetLargeInteractionChange(double range)
+    {
+        if (range <= 0) return 0;
+        return LargeChange > 0 ? LargeChange : GetSmallInteractionChange(range) * 10.0;
+    }
+
+    internal double GetLargeInteractionChange()
+    {
+        var range = Maximum - Minimum;
+        return range > 0 ? GetLargeInteractionChange(range) : 0;
+    }
+
+    private double GetTrackThickness()
+        => _trackThickness;
+
+    private void OnResourcesChanged(object? sender, ResourcesChangedEventArgs e)
+    {
+        RefreshTrackThicknessResource();
+        InvalidateThumbLayout();
+    }
+
+    private void OnActualThemeVariantChanged(object? sender, EventArgs e)
+    {
+        RefreshTrackThicknessResource();
+        InvalidateThumbLayout();
+    }
+
+    private void OnThumbContainerPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs change)
+    {
+        if (change.Property == BoundsProperty)
+        {
+            var oldBounds = change.GetOldValue<Rect>();
+            var newBounds = change.GetNewValue<Rect>();
+            if (oldBounds.Size == newBounds.Size)
+                return;
+        }
+        else if (change.Property != WidthProperty && change.Property != HeightProperty)
+        {
+            return;
+        }
+
+        InvalidateThumbLayout();
+    }
+
+    private void InvalidateThumbLayout()
+    {
+        _inactiveGeometryCache = null;
+        UpdateThumbPosition();
+        InvalidateVisual();
+    }
+
+    private void RefreshTrackThicknessResource()
+    {
+        if (!ApplyTrackThicknessResource())
+            return;
+
+        InvalidateThumbLayout();
+    }
+
+    private bool ApplyTrackThicknessResource()
+    {
+        var trackThickness = GetTrackThicknessResource();
+        if (Math.Abs(_trackThickness - trackThickness) < 0.001)
+            return false;
+
+        _trackThickness = trackThickness;
+        _inactiveGeometryCache = null;
+        return true;
+    }
+
+    private double GetTrackThicknessResource()
+    {
+        if (Resources.ContainsKey(TrackThicknessResourceKey))
+            return CoerceTrackThicknessResource(Resources[TrackThicknessResourceKey]);
+
+        if (Resources.TryGetResource(TrackThicknessResourceKey, ActualThemeVariant, out var resource) ||
+            Resources.TryGetResource(TrackThicknessResourceKey, null, out resource) ||
+            TryGetResource(TrackThicknessResourceKey, null, out resource) ||
+            TryGetResource(TrackThicknessResourceKey, ActualThemeVariant, out resource))
+        {
+            return CoerceTrackThicknessResource(resource);
+        }
+
+        return DefaultTrackThickness;
+    }
+
+    private static double CoerceTrackThicknessResource(object? resource)
+        => resource is double thickness && double.IsFinite(thickness) ? Math.Max(0, thickness) : DefaultTrackThickness;
+
+    private double SnapValueToTick(double value)
+    {
+        var range = Maximum - Minimum;
+        if (range <= 0)
+            return Minimum;
+
+        var clamped = Math.Clamp(value, Minimum, Maximum);
+        if (!IsSnapToTickEnabled || TickFrequency <= 0)
+            return clamped;
+
+        var steps = Math.Round((clamped - Minimum) / TickFrequency, MidpointRounding.AwayFromZero);
+        var snapped = Minimum + steps * TickFrequency;
+        return Math.Clamp(snapped, Minimum, Maximum);
     }
 }
 
 /// <summary>
 /// Automation peer for the <see cref="CircularSlider"/> control.
 /// </summary>
-public class CircularSliderAutomationPeer : ControlAutomationPeer
+public class CircularSliderAutomationPeer : ControlAutomationPeer, IRangeValueProvider
 {
+    private readonly CircularSlider _owner;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="CircularSliderAutomationPeer"/> class.
     /// </summary>
-    public CircularSliderAutomationPeer(CircularSlider owner) : base(owner) { }
+    public CircularSliderAutomationPeer(CircularSlider owner) : base(owner)
+    {
+        _owner = owner;
+    }
 
     /// <inheritdoc/>
     protected override AutomationControlType GetAutomationControlTypeCore() => AutomationControlType.Slider;
+
+    /// <inheritdoc/>
+    protected override string GetClassNameCore() => nameof(CircularSlider);
+
+    /// <inheritdoc/>
+    protected override string GetNameCore()
+    {
+        var name = base.GetNameCore();
+        if (!string.IsNullOrWhiteSpace(name))
+            return name;
+
+        var format = _owner.ValueStringFormat;
+        var minimum = _owner.Minimum;
+        var maximum = Math.Max(_owner.Minimum, _owner.Maximum);
+        return $"Value {_owner.Value.ToString(format)} ({minimum.ToString(format)} to {maximum.ToString(format)})";
+    }
+
+    bool IRangeValueProvider.IsReadOnly => !_owner.IsEnabled;
+
+    double IRangeValueProvider.Minimum => _owner.Minimum;
+
+    double IRangeValueProvider.Maximum => Math.Max(_owner.Minimum, _owner.Maximum);
+
+    double IRangeValueProvider.Value => _owner.Value;
+
+    double IRangeValueProvider.LargeChange => _owner.GetLargeInteractionChange();
+
+    double IRangeValueProvider.SmallChange => _owner.GetSmallInteractionChange();
+
+    void IRangeValueProvider.SetValue(double value)
+    {
+        if (!_owner.IsEnabled)
+            throw new ElementNotEnabledException();
+
+        _owner.Value = value;
+    }
+
 }
