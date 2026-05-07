@@ -1,0 +1,136 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls;assembly=Nova.Avalonia.UI"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="900"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.SegmentedSliderView"
+             x:DataType="vm:SegmentedSliderViewModel">
+
+  <ScrollViewer Margin="20">
+    <StackPanel Spacing="20">
+      <TextBlock Text="A segmented range slider for stepped workflows, weighted ranges, and labeled progress."
+                 Theme="{StaticResource BodyTextBlockStyle}"
+                 Opacity="0.6"
+                 TextWrapping="Wrap"/>
+
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="12">
+          <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+          <TextBlock Text="Default equal segments with continuous value selection." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+          <controls:SegmentedSlider x:Name="BasicSlider"
+                                    Maximum="100"
+                                    Value="40"
+                                    HorizontalAlignment="Stretch"
+                                    MaxWidth="560"/>
+          <TextBlock Text="{Binding #BasicSlider.Value, StringFormat='Value: {0:F0}'}"
+                     HorizontalAlignment="Center"/>
+        </StackPanel>
+      </Border>
+
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="12">
+          <TextBlock Text="Segment Count" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+          <TextBlock Text="Use generated equal-width segments when labels are not needed." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Eight compact segments" FontWeight="SemiBold"/>
+            <controls:SegmentedSlider SegmentCount="8"
+                                      Spacing="2"
+                                      Value="62"
+                                      TitleVisibility="Collapsed"
+                                      HorizontalAlignment="Stretch"
+                                      MaxWidth="560"/>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Four thick segments" FontWeight="SemiBold"/>
+            <controls:SegmentedSlider SegmentCount="4"
+                                      CornerRadius="5"
+                                      Spacing="8"
+                                      Value="75"
+                                      TitleVisibility="Collapsed"
+                                      Foreground="#2E7D32"
+                                      Background="#C8E6C9"
+                                      HorizontalAlignment="Stretch"
+                                      MaxWidth="560">
+              <controls:SegmentedSlider.Resources>
+                <x:Double x:Key="SegmentedSliderTrackHeight">10</x:Double>
+              </controls:SegmentedSlider.Resources>
+            </controls:SegmentedSlider>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="12">
+          <TextBlock Text="Custom Segments" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+          <TextBlock Text="Segments can provide labels, proportional widths, and individual brushes." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+          <controls:SegmentedSlider x:Name="LabeledSlider"
+                                    Value="55"
+                                    TitleVisibility="AlwaysVisible"
+                                    HorizontalAlignment="Stretch"
+                                    MaxWidth="560"/>
+
+          <controls:SegmentedSlider x:Name="WeightedSlider"
+                                    Value="72"
+                                    CornerRadius="4"
+                                    TitleVisibility="ActiveAndPrevious"
+                                    HorizontalAlignment="Stretch"
+                                    MaxWidth="560">
+            <controls:SegmentedSlider.Resources>
+              <x:Double x:Key="SegmentedSliderTrackHeight">8</x:Double>
+            </controls:SegmentedSlider.Resources>
+          </controls:SegmentedSlider>
+        </StackPanel>
+      </Border>
+
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="12">
+          <TextBlock Text="Snapping and Read-only" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+          <TextBlock Text="IsSnapToSegmentEnabled moves drag completion to the nearest segment center; IsReadOnly keeps range values visible without pointer edits." Foreground="{DynamicResource SecondaryTextBrush}" TextWrapping="Wrap"/>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Snap to segment center" FontWeight="SemiBold"/>
+            <controls:SegmentedSlider x:Name="SnapSlider"
+                                      Value="34"
+                                      IsSnapToSegmentEnabled="True"
+                                      HorizontalAlignment="Stretch"
+                                      MaxWidth="560"/>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Read-only" FontWeight="SemiBold"/>
+            <controls:SegmentedSlider Value="65"
+                                      IsReadOnly="True"
+                                      TitleVisibility="Collapsed"
+                                      HorizontalAlignment="Stretch"
+                                      MaxWidth="560"/>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+        <StackPanel Spacing="12">
+          <TextBlock Text="Events" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+          <TextBlock Text="ValueChanged comes from RangeBase; SegmentChanged reports the active segment." Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+          <controls:SegmentedSlider x:Name="EventSlider"
+                                    Value="20"
+                                    ValueChanged="OnEventSliderValueChanged"
+                                    SegmentChanged="OnEventSliderSegmentChanged"
+                                    HorizontalAlignment="Stretch"
+                                    MaxWidth="560"/>
+
+          <StackPanel Orientation="Horizontal" Spacing="16" HorizontalAlignment="Center">
+            <TextBlock x:Name="EventValueText" Text="Value: 20"/>
+            <TextBlock x:Name="EventSegmentText" Text="Segment: Low"/>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

@@ -1,0 +1,101 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Nova.Avalonia.UI.Controls">
+
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+          <SolidColorBrush x:Key="SegmentedSliderTrackBrush" Color="#E0E0E0"/>
+          <SolidColorBrush x:Key="SegmentedSliderFillBrush" Color="{DynamicResource SystemAccentColor}"/>
+          <SolidColorBrush x:Key="SegmentedSliderThumbBorderBrush" Color="White"/>
+          <SolidColorBrush x:Key="SegmentedSliderReadOnlyThumbBrush" Color="#BDBDBD"/>
+          <SolidColorBrush x:Key="SegmentedSliderReadOnlyThumbBorderBrush" Color="#E0E0E0"/>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+          <SolidColorBrush x:Key="SegmentedSliderTrackBrush" Color="#404040"/>
+          <SolidColorBrush x:Key="SegmentedSliderFillBrush" Color="{DynamicResource SystemAccentColor}"/>
+          <SolidColorBrush x:Key="SegmentedSliderThumbBorderBrush" Color="#2D2D2D"/>
+          <SolidColorBrush x:Key="SegmentedSliderReadOnlyThumbBrush" Color="#616161"/>
+          <SolidColorBrush x:Key="SegmentedSliderReadOnlyThumbBorderBrush" Color="#404040"/>
+        </ResourceDictionary>
+      </ResourceDictionary.ThemeDictionaries>
+
+      <x:Double x:Key="SegmentedSliderThumbSize">18</x:Double>
+      <Thickness x:Key="SegmentedSliderThumbBorderThickness">2</Thickness>
+      <x:Double x:Key="SegmentedSliderTrackHeight">4</x:Double>
+      <CornerRadius x:Key="SegmentedSliderTrackCornerRadius">2</CornerRadius>
+      <x:Double x:Key="SegmentedSliderTitleFontSize">11</x:Double>
+      <Thickness x:Key="SegmentedSliderTrackMargin">10,0</Thickness>
+      <BoxShadows x:Key="SegmentedSliderThumbBoxShadow">0 1 4 0 #40000000</BoxShadows>
+      <BoxShadows x:Key="SegmentedSliderReadOnlyThumbBoxShadow">none</BoxShadows>
+
+      <ControlTheme x:Key="{x:Type controls:SegmentedSlider}"
+                    TargetType="controls:SegmentedSlider">
+        <Setter Property="Background" Value="{DynamicResource SegmentedSliderTrackBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SegmentedSliderFillBrush}"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource SegmentedSliderTrackCornerRadius}"/>
+        <Setter Property="FontSize" Value="{DynamicResource SegmentedSliderTitleFontSize}"/>
+        <Setter Property="Padding" Value="0,8"/>
+        <Setter Property="Template">
+          <ControlTemplate>
+            <Border Background="Transparent"
+                    Padding="{TemplateBinding Padding}">
+              <Grid>
+                <Grid Name="PART_Track"
+                      Grid.Row="0"
+                      HorizontalAlignment="Stretch"
+                      Background="Transparent"
+                      Margin="{DynamicResource SegmentedSliderTrackMargin}"/>
+
+                <Thumb Name="PART_Thumb"
+                       Grid.Row="0"
+                       AutomationProperties.Name="Slider thumb"
+                       Width="{DynamicResource SegmentedSliderThumbSize}"
+                       Height="{DynamicResource SegmentedSliderThumbSize}"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       Cursor="Hand">
+                  <Thumb.Template>
+                    <ControlTemplate>
+                      <Border Width="{TemplateBinding Width}"
+                              Height="{TemplateBinding Height}"
+                              CornerRadius="100"
+                              Background="{Binding $parent[controls:SegmentedSlider].Foreground}"
+                              BorderBrush="{DynamicResource SegmentedSliderThumbBorderBrush}"
+                              BorderThickness="{DynamicResource SegmentedSliderThumbBorderThickness}"
+                              BoxShadow="{DynamicResource SegmentedSliderThumbBoxShadow}"/>
+                    </ControlTemplate>
+                  </Thumb.Template>
+                </Thumb>
+              </Grid>
+            </Border>
+          </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:readonly /template/ Thumb#PART_Thumb Border">
+          <Setter Property="Background" Value="{DynamicResource SegmentedSliderReadOnlyThumbBrush}"/>
+          <Setter Property="BorderBrush" Value="{DynamicResource SegmentedSliderReadOnlyThumbBorderBrush}"/>
+          <Setter Property="BoxShadow" Value="{DynamicResource SegmentedSliderReadOnlyThumbBoxShadow}"/>
+        </Style>
+
+        <Style Selector="^:readonly /template/ Thumb#PART_Thumb">
+          <Setter Property="Cursor" Value="Arrow"/>
+        </Style>
+
+        <Style Selector="^:focus-visible /template/ Thumb#PART_Thumb Border">
+          <Setter Property="BorderBrush" Value="{DynamicResource SegmentedSliderFillBrush}"/>
+          <Setter Property="BorderThickness" Value="3"/>
+        </Style>
+
+        <Style Selector="^:disabled">
+          <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+
+        <Style Selector="^:disabled /template/ Thumb#PART_Thumb">
+          <Setter Property="Cursor" Value="Arrow"/>
+        </Style>
+      </ControlTheme>
+    </ResourceDictionary>
+  </Styles.Resources>
+</Styles>
