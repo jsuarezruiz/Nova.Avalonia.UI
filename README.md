@@ -66,6 +66,10 @@ The `Scratcher` control temporarily hides content beneath an opaque overlay. Use
 
 <img src="images/novaui_scratcher_light.gif" alt="Scratcher" width="250" />
 
+### SegmentedSlider
+
+The `SegmentedSlider` control displays a range value across equal or custom weighted segments. It supports segment labels, snapping, keyboard interaction, read-only mode, and Avalonia-style styling through inherited properties and theme resources.
+
 ### Watermark
 
 The `Watermark` control renders repeating text or image patterns as a tiled overlay. Useful for marking documents as confidential, draft, or adding branding.
