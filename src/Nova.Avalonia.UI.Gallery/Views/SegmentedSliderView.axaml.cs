@@ -26,10 +26,10 @@ public partial class SegmentedSliderView : UserControl
 
         WeightedSlider.Segments = new List<SegmentedSliderSegment>
         {
-            new() { Title = "Queued", WidthRatio = 1, FillBrush = Brushes.SteelBlue },
-            new() { Title = "Running", WidthRatio = 2, FillBrush = Brushes.SeaGreen },
-            new() { Title = "Review", WidthRatio = 1, FillBrush = Brushes.DarkOrange },
-            new() { Title = "Done", WidthRatio = 1, FillBrush = Brushes.MediumVioletRed }
+            new() { Title = "Queued", WidthRatio = 1, FillBrush = Brushes.SteelBlue, TrackBrush = new SolidColorBrush(Color.Parse("#DCEBFA")) },
+            new() { Title = "Running", WidthRatio = 2, FillBrush = Brushes.SeaGreen, TrackBrush = new SolidColorBrush(Color.Parse("#DDEFE2")) },
+            new() { Title = "Review", WidthRatio = 1, FillBrush = Brushes.DarkOrange, TrackBrush = new SolidColorBrush(Color.Parse("#FBE7CC")) },
+            new() { Title = "Done", WidthRatio = 1, FillBrush = Brushes.MediumVioletRed, TrackBrush = new SolidColorBrush(Color.Parse("#F6DCEB")) }
         };
 
         EventSlider.Segments = new List<SegmentedSliderSegment>

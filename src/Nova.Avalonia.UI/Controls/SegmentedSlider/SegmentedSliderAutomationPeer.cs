@@ -15,6 +15,7 @@ public class SegmentedSliderAutomationPeer : ControlAutomationPeer, IRangeValueP
     /// <summary>
     /// Initializes a new instance of the <see cref="SegmentedSliderAutomationPeer"/> class.
     /// </summary>
+    /// <param name="owner">The <see cref="SegmentedSlider"/> control that owns this peer.</param>
     public SegmentedSliderAutomationPeer(SegmentedSlider owner) : base(owner)
     {
         _owner = owner;
