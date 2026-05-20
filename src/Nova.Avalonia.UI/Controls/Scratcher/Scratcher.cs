@@ -363,17 +363,23 @@ public class Scratcher : ContentControl
 
         System.Runtime.InteropServices.Marshal.Copy(mask, 0, dstLock.Address, expectedSize);
 
-        // Calculate ScratchedPixels directly from the copied byte array.
         int count = 0;
         unsafe
         {
             fixed (byte* pMask = mask)
             {
-                uint* pUint = (uint*)pMask;
-                int len = mask.Length / 4;
-                for (int i = 0; i < len; i++)
+                var width = dstLock.Size.Width;
+                var height = dstLock.Size.Height;
+                var stride = dstLock.RowBytes;
+
+                for (int y = 0; y < height; y++)
                 {
-                    if (pUint[i] == 0) count++;
+                    uint* rowPtr = (uint*)(pMask + y * stride);
+                    for (int x = 0; x < width; x++)
+                    {
+                        if (rowPtr[x] == 0)
+                            count++;
+                    }
                 }
             }
         }
