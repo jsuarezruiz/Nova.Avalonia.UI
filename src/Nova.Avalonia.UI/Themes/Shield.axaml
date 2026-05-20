@@ -1,0 +1,93 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls"
+        xmlns:converters="clr-namespace:Nova.Avalonia.UI.Converters">
+
+    <Styles.Resources>
+        <ResourceDictionary>
+            <converters:CornerRadiusSplitConverter x:Key="CornerRadiusSplitConverter" />
+
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="ShieldSubjectBackgroundBrush" Color="#555555" />
+                    <SolidColorBrush x:Key="ShieldSubjectForegroundBrush" Color="White" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="ShieldSubjectBackgroundBrush" Color="#3E3E3E" />
+                    <SolidColorBrush x:Key="ShieldSubjectForegroundBrush" Color="White" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <Style Selector="controls|Shield">
+        <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorDefault}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        <Setter Property="Color" Value="{DynamicResource AccentAAFillColorTertiaryBrush}" />
+        <Setter Property="SubjectBackground" Value="{DynamicResource ShieldSubjectBackgroundBrush}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid>
+                    <Grid ColumnDefinitions="Auto, Auto">
+                        <Border Grid.Column="0"
+                                Name="PART_SubjectBorder"
+                                Background="{TemplateBinding SubjectBackground}"
+                                CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource CornerRadiusSplitConverter}, ConverterParameter='1,0,0,1'}"
+                                Padding="6,2">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              Content="{TemplateBinding Subject}"
+                                              Foreground="{DynamicResource ShieldSubjectForegroundBrush}" />
+                        </Border>
+                        <Border Grid.Column="1"
+                                Name="PART_StatusBorder"
+                                Background="{TemplateBinding Color}"
+                                CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource CornerRadiusSplitConverter}, ConverterParameter='0,1,1,0'}"
+                                Padding="6,2">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              Content="{TemplateBinding Status}"
+                                              Foreground="{TemplateBinding Foreground}" />
+                        </Border>
+                    </Grid>
+                    <Border Name="PART_FocusBorder"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            IsHitTestVisible="False" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <!-- PointerOver State -->
+    <Style Selector="controls|Shield:not(:readonly):pointerover">
+        <Setter Property="Opacity" Value="0.9" />
+    </Style>
+
+    <!-- Pressed State -->
+    <Style Selector="controls|Shield:not(:readonly):pressed">
+        <Setter Property="Opacity" Value="0.7" />
+    </Style>
+
+    <!-- Disabled State -->
+    <Style Selector="controls|Shield:disabled">
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+
+    <!-- Focus State -->
+    <Style Selector="controls|Shield:not(:readonly):focus-visible">
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColor}" />
+    </Style>
+
+    <!-- ReadOnly State -->
+    <Style Selector="controls|Shield:readonly">
+        <Setter Property="Cursor" Value="Arrow" />
+        <Setter Property="Focusable" Value="False" />
+    </Style>
+</Styles>
