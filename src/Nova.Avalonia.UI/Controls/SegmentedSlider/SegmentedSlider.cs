@@ -1013,19 +1013,24 @@ public class SegmentedSlider : RangeBase
         var ratios = _cachedSegmentRatios ??= ComputeSegmentRatios(count);
         var valueRatio = Math.Clamp((Value - Minimum) / range, 0, 1);
         var cumulative = 0.0;
+        var nearestMidpoint = 0.0;
+        var nearestDistance = double.PositiveInfinity;
 
         for (var i = 0; i < ratios.Length; i++)
         {
             var segmentEnd = cumulative + ratios[i];
             var segmentMidpoint = (cumulative + segmentEnd) / 2;
+            var distance = Math.Abs(valueRatio - segmentMidpoint);
 
-            if (valueRatio <= segmentEnd || i == ratios.Length - 1)
+            if (distance < nearestDistance)
             {
-                Value = Minimum + segmentMidpoint * range;
-                return;
+                nearestMidpoint = segmentMidpoint;
+                nearestDistance = distance;
             }
 
             cumulative = segmentEnd;
         }
+
+        Value = Minimum + nearestMidpoint * range;
     }
 }
