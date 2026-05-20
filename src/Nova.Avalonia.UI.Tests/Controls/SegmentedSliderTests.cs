@@ -819,6 +819,29 @@ public class SegmentedSliderTests
         Assert.Equal(30, slider.Value, 6);
     }
 
+    [AvaloniaFact]
+    public void SegmentedSlider_SnapToSegment_UsesNearestWeightedSegmentCenter()
+    {
+        var slider = new TestSegmentedSlider
+        {
+            Maximum = 100,
+            Value = 77,
+            IsSnapToSegmentEnabled = true,
+            Segments = new ObservableCollection<SegmentedSliderSegment>
+            {
+                new() { WidthRatio = 1 },
+                new() { WidthRatio = 3 },
+                new() { WidthRatio = 1 }
+            }
+        };
+
+        slider.IsDraggingForTest = true;
+
+        slider.RaisePointerCaptureLostForTest();
+
+        Assert.Equal(90, slider.Value, 6);
+    }
+
     private static Window ShowInWindow(Control control)
     {
         var window = new Window
