@@ -30,12 +30,6 @@ public class Shield : Button
         AvaloniaProperty.Register<Shield, object?>(nameof(Status));
 
     /// <summary>
-    /// Defines the <see cref="Color"/> property.
-    /// </summary>
-    public static readonly StyledProperty<IBrush?> ColorProperty =
-        AvaloniaProperty.Register<Shield, IBrush?>(nameof(Color));
-
-    /// <summary>
     /// Defines the <see cref="SubjectBackground"/> property.
     /// </summary>
     public static readonly StyledProperty<IBrush?> SubjectBackgroundProperty =
@@ -71,19 +65,6 @@ public class Shield : Button
     {
         get => GetValue(StatusProperty);
         set => SetValue(StatusProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the background color of the status (right) part of the shield.
-    /// </summary>
-    /// <value>
-    /// An <see cref="IBrush"/> used as the background for the status section.
-    /// Common values include semantic colors like green for "passing" or red for "failing".
-    /// </value>
-    public IBrush? Color
-    {
-        get => GetValue(ColorProperty);
-        set => SetValue(ColorProperty, value);
     }
 
     /// <summary>

@@ -1,32 +1,39 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls"
-        xmlns:converters="clr-namespace:Nova.Avalonia.UI.Converters">
+        xmlns:controls="using:Nova.Avalonia.UI.Controls"
+        xmlns:converters="using:Nova.Avalonia.UI.Converters">
 
     <Styles.Resources>
         <ResourceDictionary>
             <converters:CornerRadiusSplitConverter x:Key="CornerRadiusSplitConverter" />
+            <CornerRadius x:Key="ShieldCornerRadius">4</CornerRadius>
 
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="ShieldBackgroundBrush" Color="#4CAF50" />
+                    <SolidColorBrush x:Key="ShieldForegroundBrush" Color="White" />
                     <SolidColorBrush x:Key="ShieldSubjectBackgroundBrush" Color="#555555" />
                     <SolidColorBrush x:Key="ShieldSubjectForegroundBrush" Color="White" />
+                    <SolidColorBrush x:Key="ShieldBorderBrush" Color="#0A66C2" />
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="ShieldBackgroundBrush" Color="#66BB6A" />
+                    <SolidColorBrush x:Key="ShieldForegroundBrush" Color="#101010" />
                     <SolidColorBrush x:Key="ShieldSubjectBackgroundBrush" Color="#3E3E3E" />
                     <SolidColorBrush x:Key="ShieldSubjectForegroundBrush" Color="White" />
+                    <SolidColorBrush x:Key="ShieldBorderBrush" Color="#7EB7F5" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </Styles.Resources>
 
     <Style Selector="controls|Shield">
-        <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ShieldBorderBrush}" />
         <Setter Property="Height" Value="22" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorDefault}" />
-        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
-        <Setter Property="Color" Value="{DynamicResource AccentAAFillColorTertiaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ShieldForegroundBrush}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ShieldCornerRadius}" />
+        <Setter Property="Background" Value="{DynamicResource ShieldBackgroundBrush}" />
         <Setter Property="SubjectBackground" Value="{DynamicResource ShieldSubjectBackgroundBrush}" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Cursor" Value="Hand" />
@@ -46,7 +53,7 @@
                         </Border>
                         <Border Grid.Column="1"
                                 Name="PART_StatusBorder"
-                                Background="{TemplateBinding Color}"
+                                Background="{TemplateBinding Background}"
                                 CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource CornerRadiusSplitConverter}, ConverterParameter='0,1,1,0'}"
                                 Padding="6,2">
                             <ContentPresenter VerticalAlignment="Center"
@@ -82,7 +89,7 @@
     <!-- Focus State -->
     <Style Selector="controls|Shield:not(:readonly):focus-visible">
         <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ShieldBorderBrush}" />
     </Style>
 
     <!-- ReadOnly State -->

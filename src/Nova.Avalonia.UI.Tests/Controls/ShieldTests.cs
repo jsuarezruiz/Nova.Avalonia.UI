@@ -20,7 +20,7 @@ public class ShieldTests
 
         Assert.Null(shield.Subject);
         Assert.Null(shield.Status);
-        Assert.Null(shield.Color);
+        Assert.Null(shield.Background);
         Assert.Null(shield.SubjectBackground);
     }
 
@@ -41,11 +41,11 @@ public class ShieldTests
     }
 
     [AvaloniaFact]
-    public void Shield_Should_Set_Color_Property()
+    public void Shield_Should_Set_Background_Property()
     {
-        var shield = new Shield { Color = Brushes.Green };
+        var shield = new Shield { Background = Brushes.Green };
 
-        Assert.Equal(Brushes.Green, shield.Color);
+        Assert.Equal(Brushes.Green, shield.Background);
     }
 
     [AvaloniaFact]
@@ -63,13 +63,13 @@ public class ShieldTests
         {
             Subject = "Test Subject",
             Status = "Test Status",
-            Color = Brushes.Red,
+            Background = Brushes.Red,
             SubjectBackground = Brushes.Black
         };
 
         Assert.Equal("Test Subject", shield.Subject);
         Assert.Equal("Test Status", shield.Status);
-        Assert.Equal(Brushes.Red, shield.Color);
+        Assert.Equal(Brushes.Red, shield.Background);
         Assert.Equal(Brushes.Black, shield.SubjectBackground);
     }
 
@@ -289,6 +289,40 @@ public class ShieldTests
 
             Assert.Equal(Brushes.Red, focusBorder.BorderBrush);
             Assert.Equal(new Thickness(2), focusBorder.BorderThickness);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
+    [AvaloniaFact]
+    public void Shield_Template_Should_Use_Background_For_Status_Border()
+    {
+        var shield = new Shield
+        {
+            Subject = "build",
+            Status = "passing",
+            Background = Brushes.Green
+        };
+        var window = new Window { Content = shield };
+
+        try
+        {
+            window.Show();
+            shield.ApplyTemplate();
+
+            var statusBorder = shield
+                .GetVisualDescendants()
+                .OfType<Border>()
+                .SingleOrDefault(border => border.Name == "PART_StatusBorder");
+
+            Assert.NotNull(statusBorder);
+            Assert.Equal(Brushes.Green, statusBorder.Background);
+
+            shield.Background = Brushes.Red;
+
+            Assert.Equal(Brushes.Red, statusBorder.Background);
         }
         finally
         {

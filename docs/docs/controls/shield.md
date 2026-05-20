@@ -16,7 +16,7 @@ The `Shield` control displays a subject and status with distinct background colo
 ## Usage
 
 ```xaml
-<controls:Shield Subject="Build" Status="passing" Color="Green" />
+<controls:Shield Subject="Build" Status="passing" Background="Green" />
 ```
 
 ## Properties
@@ -25,7 +25,7 @@ The `Shield` control displays a subject and status with distinct background colo
 | -- | -- | -- |
 | Subject | `object` | The content displayed on the left side (subject). |
 | Status | `object` | The content displayed on the right side (status). |
-| Color | `IBrush` | The background color of the status part. |
+| Background | `IBrush` | The background color of the status part. |
 | SubjectBackground | `IBrush` | The background color of the subject part. |
 | IsReadOnly | `bool` | When true, the shield is display-only with no interaction but full opacity. |
 | CornerRadius | `CornerRadius` | The corner radius of the control. Defaults to the theme's default. |
@@ -36,19 +36,19 @@ The `Shield` control displays a subject and status with distinct background colo
 
 ```xaml
 <StackPanel Spacing="10" Orientation="Horizontal">
-    <controls:Shield Subject="Build" Status="passing" Color="Green" />
-    <controls:Shield Subject="Version" Status="1.0.0" Color="Blue" />
-    <controls:Shield Subject="License" Status="MIT" Color="Orange" />
+    <controls:Shield Subject="Build" Status="passing" Background="Green" />
+    <controls:Shield Subject="Version" Status="1.0.0" Background="Blue" />
+    <controls:Shield Subject="License" Status="MIT" Background="Orange" />
 </StackPanel>
 ```
 
 ### Colors
 
-You can customize the color of the status part using the `Color` property.
+You can customize the color of the status part using the inherited `Background` property.
 
 ```xaml
-<controls:Shield Subject="Red" Status="Failed" Color="Red" />
-<controls:Shield Subject="Blue" Status="Info" Color="DodgerBlue" />
+<controls:Shield Subject="Red" Status="Failed" Background="Red" />
+<controls:Shield Subject="Blue" Status="Info" Background="DodgerBlue" />
 ```
 
 ### Custom Content
@@ -56,7 +56,7 @@ You can customize the color of the status part using the `Color` property.
 Since `Subject` and `Status` are of type `object`, you can put any content inside them.
 
 ```xaml
-<controls:Shield Subject="Users" Color="Teal">
+<controls:Shield Subject="Users" Background="Teal">
     <controls:Shield.Status>
         <StackPanel Orientation="Horizontal" Spacing="4">
              <PathIcon Data="{StaticResource UserIcon}" />
@@ -71,5 +71,5 @@ Since `Subject` and `Status` are of type `object`, you can put any content insid
 Use `IsReadOnly` for display-only badges that maintain full opacity without interaction.
 
 ```xaml
-<controls:Shield Subject="build" Status="passing" Color="Green" IsReadOnly="True" />
+<controls:Shield Subject="build" Status="passing" Background="Green" IsReadOnly="True" />
 ```
