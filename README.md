@@ -66,6 +66,12 @@ The `Scratcher` control temporarily hides content beneath an opaque overlay. Use
 
 <img src="images/novaui_scratcher_light.gif" alt="Scratcher" width="250" />
 
+### Shield
+
+The `Shield` control displays a subject and status in a badge-like format, similar to shields.io badges. It's commonly used to show build status, version numbers, licenses, or other metadata in a compact, visually distinct way.
+
+<img src="images/novaui_shield_light.png" alt="Shield" width="250" />
+
 ### Watermark
 
 The `Watermark` control renders repeating text or image patterns as a tiled overlay. Useful for marking documents as confidential, draft, or adding branding.

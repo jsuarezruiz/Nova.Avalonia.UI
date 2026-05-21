@@ -8,4 +8,5 @@
     <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/RatingControl.axaml" />
     <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Shimmer.axaml" />
     <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Scratcher.axaml" />
+    <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Shield.axaml" />
 </Styles>

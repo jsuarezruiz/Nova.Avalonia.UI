@@ -23,6 +23,7 @@ ms.date: 2026-02-01
 - **[RatingControl](docs/controls/ratingcontrol.md)**: Allows users to view and set ratings using interactive items such as stars, hearts, or custom shapes. It supports multiple precision levels, customizable appearance, and full keyboard and pointer interaction.
 - **[Shimmer](docs/controls/shimmer.md)**: Skeleton loading effect that detects your content layout to create matching placeholders.
 - **[Scratcher](docs/controls/scratcher.md)**: Interactive control that hides content beneath a scratchable overlay.
+- **[Shield](docs/controls/shield.md)**: Badge-like control for displaying status, version, or metadata in a compact two-part format (subject + status).
 - **[Watermark](docs/controls/watermark.md)**: Tiled text or image overlay for marking documents as confidential, draft, or adding branding.
 
 ### Panels

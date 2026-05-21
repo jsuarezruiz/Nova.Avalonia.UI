@@ -40,6 +40,8 @@
     href: controls/responsivepanel.md
   - name: Scratcher
     href: controls/scratcher.md
+  - name: Shield
+    href: controls/shield.md
   - name: Shimmer
     href: controls/shimmer.md
   - name: StaggeredPanel
