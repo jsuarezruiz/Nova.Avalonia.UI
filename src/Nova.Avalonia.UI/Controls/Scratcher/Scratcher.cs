@@ -30,6 +30,8 @@ public class Scratcher : ContentControl
     private bool _isThresholdReached;
     private bool _isParentHandlerActive;
     private Image? _overlayImage;
+    private int _scratchWidth;
+    private int _scratchHeight;
     private int _totalPixels;
     private int _scratchedPixels;
     private readonly DispatcherTimer _scrollLockTimer;
@@ -368,8 +370,8 @@ public class Scratcher : ContentControl
         {
             fixed (byte* pMask = mask)
             {
-                var width = _scratchBuffer.PixelSize.Width;
-                var height = _scratchBuffer.PixelSize.Height;
+                var width = _scratchWidth > 0 ? _scratchWidth : _scratchBuffer.PixelSize.Width;
+                var height = _scratchHeight > 0 ? _scratchHeight : _scratchBuffer.PixelSize.Height;
                 var stride = dstLock.RowBytes;
 
                 for (int y = 0; y < height; y++)
@@ -525,6 +527,8 @@ public class Scratcher : ContentControl
         if (width <= 0 || height <= 0) return;
 
         _scratchBuffer?.Dispose();
+        _scratchWidth = width;
+        _scratchHeight = height;
         _scratchBuffer = new WriteableBitmap(
             new PixelSize(width, height),
             new Vector(96, 96),
@@ -544,8 +548,8 @@ public class Scratcher : ContentControl
     {
         if (_scratchBuffer == null || _scratchBuffer.PixelSize.Width <= 0 || _scratchBuffer.PixelSize.Height <= 0) return;
 
-        var width = _scratchBuffer.PixelSize.Width;
-        var height = _scratchBuffer.PixelSize.Height;
+        var width = _scratchWidth > 0 ? _scratchWidth : _scratchBuffer.PixelSize.Width;
+        var height = _scratchHeight > 0 ? _scratchHeight : _scratchBuffer.PixelSize.Height;
 
         using var fb = _scratchBuffer.Lock();
         unsafe
@@ -619,8 +623,8 @@ public class Scratcher : ContentControl
         if (_scratchBuffer == null) return;
 
         using var fb = _scratchBuffer.Lock();
-        var width = fb.Size.Width;
-        var height = fb.Size.Height;
+        var width = _scratchWidth > 0 ? _scratchWidth : fb.Size.Width;
+        var height = _scratchHeight > 0 ? _scratchHeight : fb.Size.Height;
 
         unsafe
         {
@@ -688,8 +692,8 @@ public class Scratcher : ContentControl
 
     private unsafe void ScratchCircleInternal(global::Avalonia.Platform.ILockedFramebuffer fb, int cx, int cy, int radius)
     {
-        var width = fb.Size.Width;
-        var height = fb.Size.Height;
+        var width = _scratchWidth > 0 ? _scratchWidth : fb.Size.Width;
+        var height = _scratchHeight > 0 ? _scratchHeight : fb.Size.Height;
         var radiusSq = radius * radius;
         var ptr = (byte*)fb.Address;
         var stride = fb.RowBytes;
