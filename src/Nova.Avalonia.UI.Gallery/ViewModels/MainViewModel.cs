@@ -33,6 +33,7 @@ public partial class MainViewModel : ViewModelBase
                 new("Gravatar", new GravatarViewModel(), "Identicon avatars from emails/IDs"),
                 new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
                 new("Scratcher", new ScratcherViewModel(), "Interactive scratch card overlay"),
+                new("SegmentedSlider", new SegmentedSliderViewModel(), "Segmented range slider with labels"),
                 new("Shield", new ShieldViewModel(), "Status and subject indicator"),
                 new("Shimmer", new ShimmerViewModel(), "Loading placeholders with animated shimmer"),
                 new("Watermark", new WatermarkViewModel(), "Tiled text or image overlay watermarks"),

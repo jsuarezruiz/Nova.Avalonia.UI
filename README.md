@@ -66,6 +66,10 @@ The `Scratcher` control temporarily hides content beneath an opaque overlay. Use
 
 <img src="images/novaui_scratcher_light.gif" alt="Scratcher" width="250" />
 
+### SegmentedSlider
+
+The `SegmentedSlider` control displays a range value across equal or custom weighted segments. It supports segment labels, snapping, keyboard interaction, read-only mode, and Avalonia-style styling through inherited properties and theme resources.
+
 ### Shield
 
 The `Shield` control displays a subject and status in a badge-like format, similar to shields.io badges. It's commonly used to show build status, version numbers, licenses, or other metadata in a compact, visually distinct way.
