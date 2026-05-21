@@ -368,8 +368,8 @@ public class Scratcher : ContentControl
         {
             fixed (byte* pMask = mask)
             {
-                var width = dstLock.Size.Width;
-                var height = dstLock.Size.Height;
+                var width = _scratchBuffer.PixelSize.Width;
+                var height = _scratchBuffer.PixelSize.Height;
                 var stride = dstLock.RowBytes;
 
                 for (int y = 0; y < height; y++)
