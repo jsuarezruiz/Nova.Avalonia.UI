@@ -87,6 +87,22 @@ public class SegmentedSliderTests
     }
 
     [AvaloniaFact]
+    public void SegmentedSliderSegment_Properties_UseAvaloniaPropertySystem()
+    {
+        var segment = new SegmentedSliderSegment();
+
+        segment.SetValue(SegmentedSliderSegment.TitleProperty, "Low");
+        segment.SetValue(SegmentedSliderSegment.WidthRatioProperty, 2.0);
+        segment.SetValue(SegmentedSliderSegment.FillBrushProperty, Brushes.DodgerBlue);
+        segment.SetValue(SegmentedSliderSegment.TrackBrushProperty, Brushes.LightGray);
+
+        Assert.Equal("Low", segment.Title);
+        Assert.Equal(2, segment.WidthRatio);
+        Assert.Equal(Brushes.DodgerBlue, segment.FillBrush);
+        Assert.Equal(Brushes.LightGray, segment.TrackBrush);
+    }
+
+    [AvaloniaFact]
     public void SegmentedSlider_XamlSegments_AddToSegmentsCollection()
     {
         const string xaml = """
