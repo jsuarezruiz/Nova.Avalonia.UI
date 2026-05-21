@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Automation.Peers;
@@ -20,6 +19,8 @@ namespace Nova.Avalonia.UI.Controls;
 /// <summary>
 /// A horizontal range slider divided into visual segments with optional labels and proportional segment widths.
 /// </summary>
+[TemplatePart("PART_Track", typeof(Panel))]
+[TemplatePart("PART_Thumb", typeof(Thumb))]
 [PseudoClasses(":readonly")]
 public class SegmentedSlider : RangeBase
 {
@@ -506,18 +507,18 @@ public class SegmentedSlider : RangeBase
         RebuildAndUpdate();
     }
 
-    private void OnSegmentPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    private void OnSegmentPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(SegmentedSliderSegment.WidthRatio))
+        if (e.Property == SegmentedSliderSegment.WidthRatioProperty)
         {
             RebuildAndUpdate();
         }
-        else if (e.PropertyName == nameof(SegmentedSliderSegment.FillBrush) ||
-                 e.PropertyName == nameof(SegmentedSliderSegment.TrackBrush))
+        else if (e.Property == SegmentedSliderSegment.FillBrushProperty ||
+                 e.Property == SegmentedSliderSegment.TrackBrushProperty)
         {
             ApplyBrushes();
         }
-        else if (e.PropertyName == nameof(SegmentedSliderSegment.Title))
+        else if (e.Property == SegmentedSliderSegment.TitleProperty)
         {
             UpdateSegmentTitles();
         }
