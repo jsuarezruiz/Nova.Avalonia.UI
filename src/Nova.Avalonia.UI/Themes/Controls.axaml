@@ -2,7 +2,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Avatar.axaml" />
     <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Badge.axaml" />
+    <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/CompareSlider.axaml" />
+    <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Fortune.axaml" />
+    <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Gravatar.axaml" />
     <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/PinBox.axaml" />
     <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/RatingControl.axaml" />
+    <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/SegmentedSlider.axaml" />
     <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Shimmer.axaml" />
+    <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Scratcher.axaml" />
+    <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Shield.axaml" />
 </Styles>

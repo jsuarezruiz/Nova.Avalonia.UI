@@ -18,7 +18,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingPrecision.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: RatingPrecision
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingPrecision.cs
@@ -45,7 +45,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingPrecision.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Full
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingPrecision.cs
@@ -73,7 +73,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingPrecision.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Half
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingPrecision.cs
@@ -101,7 +101,7 @@ items:
   source:
     remote:
       path: src/Nova.Avalonia.UI/Controls/RatingControl/RatingPrecision.cs
-      branch: main
+      branch: panels
       repo: https://github.com/jsuarezruiz/Nova.Avalonia.UI.git
     id: Exact
     path: ../src/Nova.Avalonia.UI/Controls/RatingControl/RatingPrecision.cs

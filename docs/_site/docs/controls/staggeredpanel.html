@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>StaggeredPanel | Nova.Avalonia.UI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="StaggeredPanel | Nova.Avalonia.UI ">
+      
+      <meta name="description" content="A layout panel that positions items in a staggered grid, creating a masonry-like effect.">
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/jsuarezruiz/Nova.Avalonia.UI/blob/panels/docs/docs/controls/staggeredpanel.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.png" alt="Nova.Avalonia.UI">
+            Nova.Avalonia.UI
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="staggeredpanel">StaggeredPanel</h1>
+
+<p>The <code>StaggeredPanel</code> arranges items into columns based on their height, filling the shortest column first. This creates a staggered &quot;masonry&quot; layout that is efficient for displaying items with varying heights, such as cards or images.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>The <code>StaggeredPanel</code> is typically used as the <code>ItemsPanel</code> of an <code>ItemsControl</code> or <code>ListBox</code>. Set the <code>DesiredColumnWidth</code> to control how many columns are created based on the available space.</p>
+<pre><code class="lang-xaml">&lt;UserControl xmlns=&quot;https://github.com/avaloniaui&quot;
+             xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+             xmlns:nova=&quot;using:Nova.Avalonia.UI.Controls&quot;&gt;
+
+    &lt;ScrollViewer&gt;
+        &lt;ItemsControl ItemsSource=&quot;{Binding Items}&quot;&gt;
+            &lt;ItemsControl.ItemsPanel&gt;
+                &lt;ItemsPanelTemplate&gt;
+                    &lt;nova:StaggeredPanel DesiredColumnWidth=&quot;200&quot;
+                                         ColumnSpacing=&quot;10&quot; 
+                                         RowSpacing=&quot;10&quot; /&gt;
+                &lt;/ItemsPanelTemplate&gt;
+            &lt;/ItemsControl.ItemsPanel&gt;
+            
+            &lt;ItemsControl.ItemTemplate&gt;
+                &lt;DataTemplate&gt;
+                    &lt;Border Height=&quot;{Binding Height}&quot; Background=&quot;{Binding Brush}&quot; CornerRadius=&quot;4&quot;&gt;
+                        &lt;TextBlock Text=&quot;{Binding Title}&quot; Margin=&quot;10&quot; /&gt;
+                    &lt;/Border&gt;
+                &lt;/DataTemplate&gt;
+            &lt;/ItemsControl.ItemTemplate&gt;
+        &lt;/ItemsControl&gt;
+    &lt;/ScrollViewer&gt;
+&lt;/UserControl&gt;
+</code></pre>
+<h2 id="configure-columns">Configure Columns</h2>
+<p>The control automatically determines the number of columns by dividing the available width by the <code>DesiredColumnWidth</code> (plus spacing). It ensures at least one column is always present.</p>
+<ul>
+<li><strong>DesiredColumnWidth</strong>: The target width for each column. The actual width may be slightly larger to fill the available space.</li>
+<li><strong>ColumnSpacing</strong>: The horizontal space between columns.</li>
+<li><strong>RowSpacing</strong>: The vertical space between items in the same column.</li>
+</ul>
+<pre><code class="lang-xaml">&lt;nova:StaggeredPanel DesiredColumnWidth=&quot;150&quot;
+                     ColumnSpacing=&quot;20&quot;
+                     RowSpacing=&quot;20&quot;
+                     Padding=&quot;10&quot;&gt;
+    &lt;!-- Items... --&gt;
+&lt;/nova:StaggeredPanel&gt;
+</code></pre>
+<h2 id="layout-logic">Layout Logic</h2>
+<p>Items are added sequentially to the column with the <strong>minimum total height</strong>. This prevents large gaps and maintains a balanced visual weight across the panel.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If the available width is infinite (e.g., inside a horizontal <code>StackPanel</code> or <code>ScrollViewer</code>), the panel will default to using the <code>DesiredColumnWidth</code> for every item, potentially creating a single horizontal row or one column per item depending on exact constraints. It is best used within a container that provides a constrained width (like a vertical <code>ScrollViewer</code>).</p>
+</div>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DesiredColumnWidth</code></td>
+<td><code>double</code></td>
+<td><code>250</code></td>
+<td>The desired width for each column.</td>
+</tr>
+<tr>
+<td><code>ColumnSpacing</code></td>
+<td><code>double</code></td>
+<td><code>0</code></td>
+<td>The distance between columns.</td>
+</tr>
+<tr>
+<td><code>RowSpacing</code></td>
+<td><code>double</code></td>
+<td><code>0</code></td>
+<td>The distance between items in the same column.</td>
+</tr>
+<tr>
+<td><code>Padding</code></td>
+<td><code>Thickness</code></td>
+<td><code>0</code></td>
+<td>The padding inside the panel border.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="dynamic-resizing">Dynamic Resizing</h3>
+<p>The <code>StaggeredPanel</code> responds to window resizing by recalculating the number of columns.</p>
+<pre><code class="lang-xaml">&lt;nova:StaggeredPanel DesiredColumnWidth=&quot;300&quot; HorizontalAlignment=&quot;Stretch&quot;&gt;
+    &lt;!-- As the window widens, more columns will appear. --&gt;
+&lt;/nova:StaggeredPanel&gt;
+</code></pre>
+<h3 id="direct-children">Direct Children</h3>
+<p>You can also use <code>StaggeredPanel</code> directly with children defined in XAML:</p>
+<pre><code class="lang-xaml">&lt;nova:StaggeredPanel DesiredColumnWidth=&quot;120&quot; ColumnSpacing=&quot;5&quot; RowSpacing=&quot;5&quot;&gt;
+    &lt;Border Height=&quot;50&quot; Background=&quot;Red&quot; /&gt;
+    &lt;Border Height=&quot;100&quot; Background=&quot;Green&quot; /&gt;
+    &lt;Border Height=&quot;75&quot; Background=&quot;Blue&quot; /&gt;
+    &lt;Border Height=&quot;120&quot; Background=&quot;Orange&quot; /&gt;
+&lt;/nova:StaggeredPanel&gt;
+</code></pre>
+<h2 id="virtualized-version">Virtualized Version</h2>
+<p>For large datasets (100+ items), use <code>VirtualizedStaggeredLayout</code> with <code>ItemsRepeater</code> for efficient scrolling:</p>
+<pre><code class="lang-xaml">&lt;ScrollViewer&gt;
+    &lt;ItemsControl ItemsSource=&quot;{Binding LargeCollection}&quot;&gt;
+        &lt;ItemsControl.ItemsPanel&gt;
+            &lt;ItemsPanelTemplate&gt;
+                &lt;nova:VirtualizingStaggeredPanel 
+                    DesiredColumnWidth=&quot;200&quot;
+                    ColumnSpacing=&quot;10&quot; 
+                    RowSpacing=&quot;10&quot; /&gt;
+            &lt;/ItemsPanelTemplate&gt;
+        &lt;/ItemsControl.ItemsPanel&gt;
+        &lt;ItemsControl.ItemTemplate&gt;
+            &lt;DataTemplate&gt;
+                &lt;Border Height=&quot;{Binding Height}&quot; Background=&quot;{Binding Brush}&quot; CornerRadius=&quot;4&quot;&gt;
+                    &lt;TextBlock Text=&quot;{Binding Title}&quot; Margin=&quot;10&quot; /&gt;
+                &lt;/Border&gt;
+            &lt;/DataTemplate&gt;
+        &lt;/ItemsControl.ItemTemplate&gt;
+    &lt;/ItemsControl&gt;
+&lt;/ScrollViewer&gt;
+</code></pre>
+<h3 id="virtualizingstaggeredpanel-properties">VirtualizingStaggeredPanel Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DesiredColumnWidth</code></td>
+<td><code>double</code></td>
+<td><code>250</code></td>
+<td>The desired width for each column.</td>
+</tr>
+<tr>
+<td><code>ColumnSpacing</code></td>
+<td><code>double</code></td>
+<td><code>0</code></td>
+<td>The distance between columns.</td>
+</tr>
+<tr>
+<td><code>RowSpacing</code></td>
+<td><code>double</code></td>
+<td><code>0</code></td>
+<td>The distance between items in the same column.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="performance-features">Performance Features</h3>
+<p>The <code>VirtualizingStaggeredPanel</code> is optimized for large datasets:</p>
+<ul>
+<li><strong>Container Recycling</strong>: Off-screen items are hidden and reused, not destroyed</li>
+<li><strong>Minimal Allocations</strong>: Reusable collections avoid per-frame allocations</li>
+<li><strong>2x Viewport Buffer</strong>: Items above and below the viewport are pre-realized for smooth scrolling</li>
+<li><strong>Pool Size Limit</strong>: Maximum 20 recycled containers per type to prevent memory bloat</li>
+</ul>
+<div class="TIP">
+<h5>Tip</h5>
+<p>For best performance with 500+ items, ensure your <code>ItemTemplate</code> is lightweight and avoid expensive bindings or effects on each item.</p>
+</div>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/jsuarezruiz/Nova.Avalonia.UI/blob/panels/docs/docs/controls/staggeredpanel.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

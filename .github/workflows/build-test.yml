@@ -1,0 +1,65 @@
+name: Build and test
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-test-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BUILD_CONFIGURATION: Release
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+  DOTNET_NOLOGO: "true"
+
+jobs:
+  build-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/*.csproj', 'src/Directory.Packages.props') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Restore desktop gallery
+        run: dotnet restore src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj
+
+      - name: Restore tests
+        run: dotnet restore src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj
+
+      - name: Build desktop gallery
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj --configuration "$BUILD_CONFIGURATION" --no-restore
+
+      - name: Build tests
+        run: dotnet build src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj --configuration "$BUILD_CONFIGURATION" --no-restore
+
+      - name: Run tests
+        run: dotnet test src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj --configuration "$BUILD_CONFIGURATION" --no-build --logger "trx;LogFileName=test-results.trx" --results-directory TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults/*.trx

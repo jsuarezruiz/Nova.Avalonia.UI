@@ -1,0 +1,166 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls;assembly=Nova.Avalonia.UI"
+             xmlns:vm="clr-namespace:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.ShieldView"
+             x:DataType="vm:ShieldViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="WrapPanel > controls|Shield">
+            <Setter Property="Margin" Value="0,0,12,12"/>
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer>
+        <StackPanel Spacing="24" Margin="24">
+
+            <!-- Basic Usage -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Basic Usage"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Standard usage of the Shield control for status badges."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,8"
+                               TextWrapping="Wrap"/>
+
+                    <WrapPanel Orientation="Horizontal">
+                         <controls:Shield Subject="build" Status="passing" Background="#4CAF50" />
+                         <controls:Shield Subject="version" Status="1.0.0" Background="#2196F3" />
+                         <controls:Shield Subject="license" Status="MIT" Background="#FF9800" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Semantic Colors -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Semantic Colors"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Use colors that convey meaning at a glance."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,8"
+                               TextWrapping="Wrap"/>
+
+                    <WrapPanel Orientation="Horizontal">
+                        <controls:Shield Subject="tests" Status="failing" Background="#F44336" />
+                        <controls:Shield Subject="coverage" Status="87%" Background="#4CAF50" />
+                        <controls:Shield Subject="status" Status="inactive" Background="#9E9E9E" />
+                        <controls:Shield Subject="release" Status="beta" Background="#9C27B0" />
+                        <controls:Shield Subject="docs" Status="latest" Background="#00BCD4" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Custom Content -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Custom Content"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Use any content for Subject or Status, not just text."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,8"
+                               TextWrapping="Wrap"/>
+
+                    <WrapPanel Orientation="Horizontal">
+                        <controls:Shield Subject="users" Background="#009688">
+                            <controls:Shield.Status>
+                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                     <TextBlock Text="1.2k" />
+                                </StackPanel>
+                            </controls:Shield.Status>
+                        </controls:Shield>
+                        <controls:Shield Subject="downloads" Status="5.4M" Background="#673AB7" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Customization -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Customization"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Adjust CornerRadius and SubjectBackground for different looks."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,8"
+                               TextWrapping="Wrap"/>
+
+                    <WrapPanel Orientation="Horizontal">
+                        <controls:Shield Subject="rounded" Status="pill" Background="#E91E63" CornerRadius="11" />
+                        <controls:Shield Subject="sharp" Status="square" Background="#795548" CornerRadius="0" />
+                        <controls:Shield Subject="custom bg" Status="themed" Background="#3F51B5" SubjectBackground="#1A237E" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Interactivity -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Interactivity"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Shield inherits from Button - supports Click events and keyboard focus."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,8"
+                               TextWrapping="Wrap"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                         <controls:Shield Subject="action" Status="click me" Background="#4CAF50" Click="OnShieldClick" />
+                         <TextBlock Name="EventResultTextBlock" VerticalAlignment="Center" Text="Waiting for click..." />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Read-Only Mode -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Read-Only Mode"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Display-only badges with full opacity but no interaction. Compare with disabled state below."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,8"
+                               TextWrapping="Wrap"/>
+
+                    <WrapPanel Orientation="Horizontal">
+                        <controls:Shield Subject="build" Status="passing" Background="#4CAF50" IsReadOnly="True" />
+                        <controls:Shield Subject="version" Status="2.1.0" Background="#2196F3" IsReadOnly="True" />
+                        <controls:Shield Subject="license" Status="MIT" Background="#FF9800" IsReadOnly="True" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Disabled State -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Disabled State"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Text="Disabled shields have reduced opacity and no interaction."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Margin="0,0,0,8"
+                               TextWrapping="Wrap"/>
+
+                    <WrapPanel Orientation="Horizontal">
+                        <controls:Shield Subject="status" Status="disabled" Background="#607D8B" IsEnabled="False" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
