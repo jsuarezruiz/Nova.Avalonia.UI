@@ -9,10 +9,10 @@
              x:DataType="vm:PinBoxViewModel">
     <ScrollViewer>
         <StackPanel Spacing="20" Margin="20">
-            <TextBlock Text="PinBox"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center" />
+            <TextBlock Text="A specialized input control for PIN codes, OTP verification, and security codes."
+                       Theme="{StaticResource BodyTextBlockStyle}"
+                       Opacity="0.6"
+                       TextWrapping="Wrap" />
 
             <!-- Basic PIN Entry -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
@@ -133,6 +133,46 @@
                 </StackPanel>
             </Border>
 
+            <!-- Grouping and Normalization -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Grouping and Normalization"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+
+                    <TextBlock Text="Grouped 6-character code"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="6"
+                                    GroupLength="3"
+                                    Separator="-"
+                                    Text="{Binding GroupedCode}"
+                                    HorizontalAlignment="Center" />
+
+                    <TextBlock Text="Alphanumeric backup code"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="8"
+                                    DigitsOnly="False"
+                                    GroupLength="4"
+                                    Separator="-"
+                                    Text="{Binding BackupCode}"
+                                    TextNormalizer="{Binding NormalizeBackupCode}"
+                                    HorizontalAlignment="Center" />
+
+                    <TextBlock Text="Read-only verification code"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                    <controls:PinBox Length="6"
+                                    GroupLength="3"
+                                    Separator="-"
+                                    IsReadOnly="True"
+                                    Text="123456"
+                                    HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+
             <!-- Validation -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
                 <StackPanel Spacing="15">
@@ -167,6 +207,7 @@
                     <controls:PinBox x:Name="InteractivePinBox"
                                     Length="4"
                                     Text="{Binding InteractivePin}"
+                                    CompletedCommand="{Binding PinCompletedCommand}"
                                     HorizontalAlignment="Center" />
                     
                     <TextBlock Text="{Binding StatusText}"

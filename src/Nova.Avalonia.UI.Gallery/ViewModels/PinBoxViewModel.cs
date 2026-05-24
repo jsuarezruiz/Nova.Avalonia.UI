@@ -15,6 +15,12 @@ public partial class PinBoxViewModel : PageViewModel
     private string _passwordPin = string.Empty;
 
     [ObservableProperty]
+    private string _groupedCode = string.Empty;
+
+    [ObservableProperty]
+    private string _backupCode = string.Empty;
+
+    [ObservableProperty]
     private string _statusText = "Enter your PIN";
 
     [ObservableProperty]
@@ -31,7 +37,7 @@ public partial class PinBoxViewModel : PageViewModel
     }
 
     [RelayCommand]
-    private void OnPinCompleted(string pin)
+    private void PinCompleted(string pin)
     {
         StatusText = $"PIN entered: {pin}";
     }
@@ -42,6 +48,8 @@ public partial class PinBoxViewModel : PageViewModel
         Pin = string.Empty;
         OtpCode = string.Empty;
         PasswordPin = string.Empty;
+        GroupedCode = string.Empty;
+        BackupCode = string.Empty;
         InteractivePin = string.Empty;
         ValidationPin = string.Empty;
         StatusText = "Cleared all PINs";
@@ -62,5 +70,10 @@ public partial class PinBoxViewModel : PageViewModel
             return "Invalid PIN. Try 1234";
 
         return null;
+    }
+
+    public string NormalizeBackupCode(string text)
+    {
+        return text.ToUpperInvariant();
     }
 }

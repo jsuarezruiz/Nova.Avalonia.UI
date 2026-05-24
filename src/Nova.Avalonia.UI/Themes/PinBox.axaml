@@ -50,20 +50,43 @@
         </Setter>
         <Setter Property="Template">
             <ControlTemplate>
-                <StackPanel Spacing="8">
-                    <!-- Pin boxes container -->
-                    <StackPanel Name="PART_ItemsPanel"
-                               Orientation="Horizontal"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
+                <Grid>
+                    <TextBox Name="PART_InputTextBox"
+                             Width="1"
+                             Height="1"
+                             MinWidth="1"
+                             MinHeight="1"
+                             MaxWidth="1"
+                             MaxHeight="1"
+                             AutomationProperties.AccessibilityView="Raw"
+                             Opacity="0"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             Foreground="Transparent"
+                             CaretBrush="Transparent"
+                             SelectionBrush="Transparent"
+                             AcceptsReturn="False"
+                             AcceptsTab="False"
+                             IsTabStop="False"
+                             IsHitTestVisible="False"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top" />
 
-                    <!-- Error text -->
-                    <TextBlock Text="{TemplateBinding ErrorText}"
-                              Foreground="#F44336"
-                              FontSize="12"
-                              HorizontalAlignment="Center"
-                              IsVisible="{TemplateBinding HasError}" />
-                </StackPanel>
+                    <StackPanel Spacing="8">
+                        <!-- Pin boxes container -->
+                        <StackPanel Name="PART_ItemsPanel"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+
+                        <!-- Error text -->
+                        <TextBlock Text="{TemplateBinding ErrorText}"
+                                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                                   FontSize="12"
+                                   HorizontalAlignment="Center"
+                                   IsVisible="{TemplateBinding HasError}" />
+                    </StackPanel>
+                </Grid>
             </ControlTemplate>
         </Setter>
     </Style>

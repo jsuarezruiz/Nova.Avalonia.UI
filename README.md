@@ -32,7 +32,7 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 ### PinBox
 
-The `PinBox` control provides a specialized input field for PIN codes, OTP verification, and security codes. It features individual character boxes, blinking cursor animation, validation support, and multiple theme presets.
+The `PinBox` control provides a specialized input field for PIN codes, OTP verification, and security codes. It features individual character boxes, grouping separators, read-only display, text normalization, validation, masking, responsive sizing, command binding, accessibility value support, and multiple theme presets.
 
 ### CompareSlider
 

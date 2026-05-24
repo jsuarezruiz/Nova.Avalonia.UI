@@ -2,15 +2,17 @@ using System;
 using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Metadata;
 using Avalonia.Media;
 using Avalonia.Threading;
 
 namespace Nova.Avalonia.UI.Controls;
 
 /// <summary>
-/// Represents an individual digit box within a PinBox control.
+/// Represents an individual character box within a PinBox control.
 /// </summary>
-internal class PinBoxItem : Control
+[PseudoClasses(":empty", ":focused", ":filled", ":error", ":disabled")]
+public class PinBoxItem : Control
 {
     private bool _showCursor;
     private DispatcherTimer? _cursorTimer;
@@ -129,6 +131,7 @@ internal class PinBoxItem : Control
             Interval = TimeSpan.FromMilliseconds(530)
         };
         _cursorTimer.Tick += OnCursorTimerTick;
+        UpdatePseudoClasses();
     }
 
     private void OnCursorTimerTick(object? sender, EventArgs e)
@@ -159,6 +162,8 @@ internal class PinBoxItem : Control
 
         if (change.Property == StateProperty)
         {
+            UpdatePseudoClasses();
+
             if (State == PinBoxItemState.Focused)
             {
                 _showCursor = true;
@@ -171,48 +176,56 @@ internal class PinBoxItem : Control
             }
             InvalidateVisual();
         }
+        else if (change.Property == BoxThemeProperty)
+        {
+            InvalidateMeasure();
+            InvalidateVisual();
+        }
         else if (change.Property == CharacterProperty ||
-                 change.Property == BoxThemeProperty ||
-                 change.Property == IsPasswordProperty)
+                 change.Property == IsPasswordProperty ||
+                 change.Property == PasswordCharProperty ||
+                 change.Property == ShowCursorProperty ||
+                 change.Property == CursorBrushProperty)
         {
             InvalidateVisual();
         }
     }
 
+    private void UpdatePseudoClasses()
+    {
+        PseudoClasses.Set(":empty", State == PinBoxItemState.Default);
+        PseudoClasses.Set(":focused", State == PinBoxItemState.Focused);
+        PseudoClasses.Set(":filled", State == PinBoxItemState.Filled);
+        PseudoClasses.Set(":error", State == PinBoxItemState.Error);
+        PseudoClasses.Set(":disabled", State == PinBoxItemState.Disabled);
+    }
 
     public override void Render(DrawingContext context)
     {
         var theme = BoxTheme ?? PinBoxTheme.Default;
-        var bounds = new Rect(0, 0, theme.Width, theme.Height);
+        var renderWidth = Bounds.Width > 0 ? Bounds.Width : theme.Width;
+        var renderHeight = Bounds.Height > 0 ? Bounds.Height : theme.Height;
+        var bounds = new Rect(0, 0, renderWidth, renderHeight);
+        var pen = theme.BorderBrush != null && theme.BorderThickness > 0
+            ? new Pen(theme.BorderBrush, theme.BorderThickness)
+            : null;
 
-        // Draw background (skip for underline style)
-        if (theme.Background != null && !theme.IsUnderline)
+        if (!theme.IsUnderline)
         {
-            var backgroundGeometry = CreateRoundedRect(bounds, theme.CornerRadius);
-            context.DrawGeometry(theme.Background, null, backgroundGeometry);
-        }
+            context.DrawRectangle(theme.Background, null, new RoundedRect(bounds, theme.CornerRadius), theme.BoxShadow);
 
-        // Draw border
-        if (theme.BorderBrush != null && theme.BorderThickness > 0)
-        {
-            var pen = new Pen(theme.BorderBrush, theme.BorderThickness);
-            
-            if (theme.IsUnderline)
+            if (pen != null)
             {
-                // Draw only bottom line for underline style
-                var y = bounds.Bottom - theme.BorderThickness / 2;
-                context.DrawLine(pen, new Point(bounds.Left, y), new Point(bounds.Right, y));
-            }
-            else
-            {
-                // Draw full border
-                var borderRect = bounds.Deflate(theme.BorderThickness / 2);
-                var borderGeometry = CreateRoundedRect(borderRect, theme.CornerRadius);
-                context.DrawGeometry(null, pen, borderGeometry);
+                var borderBounds = bounds.Deflate(theme.BorderThickness / 2);
+                context.DrawRectangle(null, pen, new RoundedRect(borderBounds, theme.CornerRadius));
             }
         }
+        else if (pen != null)
+        {
+            var y = bounds.Bottom - theme.BorderThickness / 2;
+            context.DrawLine(pen, new Point(bounds.Left, y), new Point(bounds.Right, y));
+        }
 
-        // Draw character or cursor
         if (Character.HasValue)
         {
             DrawCharacter(context, bounds, theme);
@@ -263,30 +276,11 @@ internal class PinBoxItem : Control
         context.FillRectangle(cursorBrush, cursorRect);
     }
 
-    private static StreamGeometry CreateRoundedRect(Rect rect, CornerRadius radius)
-    {
-        var geometry = new StreamGeometry();
-        using (var ctx = geometry.Open())
-        {
-            var r = Math.Min(radius.TopLeft, Math.Min(rect.Width, rect.Height) / 2);
-
-            ctx.BeginFigure(new Point(rect.Left + r, rect.Top), true);
-            ctx.LineTo(new Point(rect.Right - r, rect.Top));
-            ctx.ArcTo(new Point(rect.Right, rect.Top + r), new Size(r, r), 0, false, SweepDirection.Clockwise);
-            ctx.LineTo(new Point(rect.Right, rect.Bottom - r));
-            ctx.ArcTo(new Point(rect.Right - r, rect.Bottom), new Size(r, r), 0, false, SweepDirection.Clockwise);
-            ctx.LineTo(new Point(rect.Left + r, rect.Bottom));
-            ctx.ArcTo(new Point(rect.Left, rect.Bottom - r), new Size(r, r), 0, false, SweepDirection.Clockwise);
-            ctx.LineTo(new Point(rect.Left, rect.Top + r));
-            ctx.ArcTo(new Point(rect.Left + r, rect.Top), new Size(r, r), 0, false, SweepDirection.Clockwise);
-            ctx.EndFigure(true);
-        }
-        return geometry;
-    }
-
     protected override Size MeasureOverride(Size availableSize)
     {
         var theme = BoxTheme ?? PinBoxTheme.Default;
-        return new Size(theme.Width, theme.Height);
+        var width = double.IsNaN(Width) ? theme.Width : Width;
+        var height = double.IsNaN(Height) ? theme.Height : Height;
+        return new Size(width, height);
     }
 }
