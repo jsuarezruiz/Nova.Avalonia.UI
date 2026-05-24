@@ -45,13 +45,36 @@ public class ParticleEmitter
     /// </summary>
     public void Update(double deltaTime)
     {
-        _emissionAccumulator += EmissionRate * deltaTime;
+        if (!double.IsFinite(deltaTime) || deltaTime <= 0 || !double.IsFinite(EmissionRate) || EmissionRate <= 0)
+            return;
 
-        while (_emissionAccumulator >= 1.0)
+        _emissionAccumulator += EmissionRate * deltaTime;
+        var available = _particles.MaxItems - _particles.Items.Count;
+        if (available <= 0)
         {
-            EmitParticle();
-            _emissionAccumulator -= 1.0;
+            _emissionAccumulator = 0;
+            return;
         }
+
+        if (!double.IsFinite(_emissionAccumulator))
+            _emissionAccumulator = available;
+
+        var emitCount = (int)Math.Min(Math.Floor(_emissionAccumulator), available);
+        var emitted = 0;
+        for (int i = 0; i < emitCount; i++)
+        {
+            if (EmitParticle() == null)
+            {
+                _emissionAccumulator = 0;
+                return;
+            }
+
+            emitted++;
+        }
+
+        _emissionAccumulator -= emitted;
+        if (emitted == available)
+            _emissionAccumulator = 0;
     }
 
     /// <summary>
@@ -93,7 +116,8 @@ public class ParticleEmitter
     {
         for (int i = 0; i < count; i++)
         {
-            EmitParticle();
+            if (EmitParticle() == null)
+                break;
         }
     }
 }

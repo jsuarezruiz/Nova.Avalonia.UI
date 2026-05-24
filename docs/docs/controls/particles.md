@@ -6,11 +6,11 @@ ms.date: 2025-12-28
 
 # Particles
 
-The `Particles` control is a high-performance particle system for creating visual effects. It features object pooling, GPU-accelerated rendering, and a flexible event-driven update model.
+The `Particles` control is a high-performance particle system for creating visual effects. It features object pooling, immediate-mode rendering, and a flexible event-driven update model.
 
 ## Basic usage
 
-Add a `Particles` control and handle the `Update` event to define particle behavior.
+Add a `Particles` control and handle the `Update` event to spawn particles or adjust particle properties. The event runs before the built-in simulation pass; after the handler returns, the control advances lifetime, applies `Affectors`, updates positions, removes inactive particles, and redraws.
 
 ```xaml
 <UserControl xmlns="https://github.com/avaloniaui"
@@ -43,10 +43,13 @@ private void OnParticleUpdate(object? sender, ParticleUpdateEventArgs e)
         }
     }
     
-    // Update existing particles
-    foreach (var p in e.Items)
+    // Remove particles that have left the canvas.
+    for (var i = e.Items.Count - 1; i >= 0; i--)
     {
-        p.UpdatePosition(e.DeltaTime);
+        if (e.Items[i].Y > e.CanvasSize.Height)
+        {
+            particles!.Remove(e.Items[i]);
+        }
     }
 }
 ```
@@ -56,6 +59,7 @@ private void OnParticleUpdate(object? sender, ParticleUpdateEventArgs e)
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `Items` | `ObservableCollection<Particle>` | Empty | Read-only collection of active particles |
+| `Affectors` | `ObservableCollection<ParticleAffector>` | Empty | Built-in simulation effects applied once per update |
 | `Source` | `IImage?` | `null` | Sprite sheet image for particles |
 | `FrameSize` | `Size` | `32×32` | Size of each frame in the sprite sheet |
 | `FrameColumns` | `int` | `1` | Number of columns in the sprite sheet |
@@ -82,20 +86,12 @@ Each `Particle` has the following properties:
 
 ## Built-in affectors
 
-Affectors modify particle properties over time. Apply them in your update handler:
+Affectors modify particle properties during the built-in simulation pass. Add them to the control once:
 
 ```csharp
-var gravity = new GravityAffector { GravityY = 100 };
-var fade = new FadeAffector { FadeRate = 0.5 };
-var rotation = new RotationAffector { RotationSpeed = 90 };
-
-foreach (var particle in e.Items)
-{
-    gravity.Apply(particle, e.DeltaTime);
-    fade.Apply(particle, e.DeltaTime);
-    rotation.Apply(particle, e.DeltaTime);
-    particle.UpdatePosition(e.DeltaTime);
-}
+MyParticles.Affectors.Add(new GravityAffector { GravityY = 100 });
+MyParticles.Affectors.Add(new FadeAffector { FadeRate = 0.5 });
+MyParticles.Affectors.Add(new RotationAffector { RotationSpeed = 90 });
 ```
 
 Available affectors:
@@ -148,9 +144,47 @@ private void OnPointerMoved(object? sender, PointerEventArgs e)
 }
 ```
 
+Do not call `UpdatePosition` from the `Update` handler unless you intentionally want an extra manual movement step; the control already moves each particle once per frame.
+
+## Layering and simulated lighting
+
+You can compose multiple `Particles` controls in the same layout to build richer effects. Use a low frame rate for soft background glow, a higher frame rate for foreground motion, and normal Avalonia visuals behind the particle layers to simulate lighting.
+
+```xaml
+<Grid Height="320" ClipToBounds="True" Background="#070A12">
+    <Border Width="260"
+            Height="260"
+            CornerRadius="130"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="#153A7A"
+            Opacity="0.24" />
+
+    <nova:Particles x:Name="PortalGlowParticles"
+                    MaxItems="36"
+                    Origin="50%,50%"
+                    TargetFrameRate="30"
+                    Update="OnPortalGlowUpdate" />
+
+    <nova:Particles x:Name="PortalOrbitParticles"
+                    MaxItems="180"
+                    Origin="50%,50%"
+                    TargetFrameRate="60"
+                    Update="OnPortalOrbitUpdate" />
+
+    <nova:Particles x:Name="PortalSparkParticles"
+                    MaxItems="240"
+                    Origin="50%,50%"
+                    TargetFrameRate="60"
+                    Update="OnPortalSparkUpdate" />
+</Grid>
+```
+
+This approach works on every Avalonia backend supported by the control. True shader-based particles would require a separate rendering path and backend-specific fallback behavior.
+
 ## Effect examples
 
-The gallery includes 9 sample effects:
+The gallery includes 10 sample effects:
 
 | Effect | Description |
 |--------|-------------|
@@ -163,3 +197,4 @@ The gallery includes 9 sample effects:
 | Bubbles | Rising bubbles with wobble |
 | Smoke | Spreading, fading clouds |
 | Galaxy | Orbiting spiral stars |
+| Energy Portal | Layered glow, orbit, and spark systems |
