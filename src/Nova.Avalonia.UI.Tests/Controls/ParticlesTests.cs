@@ -1,5 +1,9 @@
+using System.Reflection;
 using Avalonia;
 using Avalonia.Headless.XUnit;
+using Avalonia.Media.Imaging;
+using AvaloniaAlphaFormat = Avalonia.Platform.AlphaFormat;
+using AvaloniaPixelFormats = Avalonia.Platform.PixelFormats;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
 
@@ -111,6 +115,26 @@ public class ParticlesTests
 
         particles.TargetFrameRate = 300;
         Assert.Equal(240, particles.TargetFrameRate);
+    }
+
+    [AvaloniaFact]
+    public void TargetFrameRate_InvalidValue_UsesDefault()
+    {
+        var particles = new Particles();
+
+        particles.TargetFrameRate = double.NaN;
+
+        Assert.Equal(60.0, particles.TargetFrameRate);
+    }
+
+    [AvaloniaFact]
+    public void FrameSize_ClampedToPositiveFiniteValues()
+    {
+        var particles = new Particles();
+
+        particles.FrameSize = new Size(0, double.NaN);
+
+        Assert.Equal(new Size(1, 32), particles.FrameSize);
     }
 
     [AvaloniaFact]
@@ -269,5 +293,190 @@ public class ParticlesTests
         affector.Apply(particle, 1.0);
 
         Assert.Equal(90, particle.Rotation);
+    }
+
+    [AvaloniaFact]
+    public void Update_Event_RunsBeforeBuiltInParticleAdvance()
+    {
+        var particles = new Particles();
+        var particle = particles.Add()!;
+        particle.VelocityX = 10;
+        double? xDuringUpdate = null;
+
+        particles.Update += (_, _) => xDuringUpdate = particle.X;
+
+        Advance(particles, 0.5);
+
+        Assert.Equal(0, xDuringUpdate);
+        Assert.Equal(5, particle.X);
+        Assert.Equal(0.5, particle.LifeTime);
+    }
+
+    [AvaloniaFact]
+    public void Update_CanSpawnParticle_AndBuiltInAdvanceRunsOnce()
+    {
+        var particles = new Particles();
+        Particle? spawned = null;
+
+        particles.Update += (_, _) =>
+        {
+            spawned = particles.Add();
+            spawned!.VelocityY = 12;
+        };
+
+        Advance(particles, 1.0);
+
+        Assert.NotNull(spawned);
+        Assert.Equal(12, spawned!.Y);
+        Assert.Equal(1, spawned.LifeTime);
+    }
+
+    [AvaloniaFact]
+    public void Advance_IgnoresInvalidDeltaTime()
+    {
+        var particles = new Particles();
+        var particle = particles.Add()!;
+        particle.VelocityX = 10;
+
+        Advance(particles, double.NaN);
+
+        Assert.Equal(0, particle.X);
+        Assert.Equal(0, particle.LifeTime);
+    }
+
+    [AvaloniaFact]
+    public void ControlAffectors_AreAppliedDuringBuiltInAdvance()
+    {
+        var particles = new Particles();
+        particles.Affectors.Add(new GravityAffector { GravityX = 10, GravityY = 0 });
+        var particle = particles.Add()!;
+
+        Advance(particles, 1.0);
+
+        Assert.Equal(10, particle.VelocityX);
+        Assert.Equal(10, particle.X);
+    }
+
+    [AvaloniaFact]
+    public void ParticleSpriteSheet_GetFrameRect_ClampsNegativeFrame()
+    {
+        var spriteSheet = new ParticleSpriteSheet
+        {
+            FrameWidth = 32,
+            FrameHeight = 16,
+            Columns = 4
+        };
+
+        var frame = spriteSheet.GetFrameRect(-2);
+
+        Assert.Equal(new Rect(0, 0, 32, 16), frame);
+    }
+
+    [AvaloniaFact]
+    public void ParticleSpriteSheet_GetFrameRect_ReturnsEmpty_WhenFrameSizeInvalid()
+    {
+        var spriteSheet = new ParticleSpriteSheet
+        {
+            FrameWidth = 0,
+            FrameHeight = 16
+        };
+
+        Assert.Equal(default, spriteSheet.GetFrameRect(0));
+    }
+
+    [AvaloniaFact]
+    public void ParticleSpriteSheet_GetFrameRect_UsesImageColumnLimit()
+    {
+        using var image = new WriteableBitmap(
+            new PixelSize(64, 64),
+            new Vector(96, 96),
+            AvaloniaPixelFormats.Rgba8888,
+            AvaloniaAlphaFormat.Premul);
+        var spriteSheet = new ParticleSpriteSheet
+        {
+            Image = image,
+            FrameWidth = 32,
+            FrameHeight = 32,
+            Columns = 4
+        };
+
+        Assert.Equal(4, spriteSheet.FrameCount);
+        Assert.Equal(new Rect(0, 32, 32, 32), spriteSheet.GetFrameRect(2));
+    }
+
+    [AvaloniaFact]
+    public void ParticleSpriteSheet_GetFrameRect_ReturnsEmpty_WhenImageHasNoFullFrame()
+    {
+        using var image = new WriteableBitmap(
+            new PixelSize(16, 16),
+            new Vector(96, 96),
+            AvaloniaPixelFormats.Rgba8888,
+            AvaloniaAlphaFormat.Premul);
+        var spriteSheet = new ParticleSpriteSheet
+        {
+            Image = image,
+            FrameWidth = 32,
+            FrameHeight = 32,
+            Columns = 1
+        };
+
+        Assert.Equal(0, spriteSheet.FrameCount);
+        Assert.Equal(default, spriteSheet.GetFrameRect(0));
+    }
+
+    [AvaloniaFact]
+    public void ParticleEmitter_Update_IgnoresInvalidDeltaTimeAndEmissionRate()
+    {
+        var particles = new Particles();
+        var emitter = new ParticleEmitter(particles);
+
+        emitter.Update(double.NaN);
+        emitter.EmissionRate = double.PositiveInfinity;
+        emitter.Update(1);
+
+        Assert.Empty(particles.Items);
+    }
+
+    [AvaloniaFact]
+    public void ParticleEmitter_Update_DiscardsBacklogWhileParticlesControlIsFull()
+    {
+        var particles = new Particles { MaxItems = 3 };
+        var emitter = new ParticleEmitter(particles) { EmissionRate = 10 };
+
+        emitter.Burst(3);
+        emitter.Update(10);
+        particles.Clear();
+        emitter.Update(0.01);
+
+        Assert.Empty(particles.Items);
+    }
+
+    [AvaloniaFact]
+    public void ParticleEmitter_Update_StopsWhenParticlesControlIsFull()
+    {
+        var particles = new Particles { MaxItems = 1 };
+        var emitter = new ParticleEmitter(particles) { EmissionRate = 1000 };
+
+        emitter.Update(1);
+
+        Assert.Single(particles.Items);
+    }
+
+    [AvaloniaFact]
+    public void ParticleEmitter_Burst_StopsWhenParticlesControlIsFull()
+    {
+        var particles = new Particles { MaxItems = 1 };
+        var emitter = new ParticleEmitter(particles);
+
+        emitter.Burst(100);
+
+        Assert.Single(particles.Items);
+    }
+
+    private static void Advance(Particles particles, double deltaTime)
+    {
+        var advance = typeof(Particles).GetMethod("Advance", BindingFlags.Instance | BindingFlags.NonPublic);
+        Assert.NotNull(advance);
+        advance.Invoke(particles, new object[] { deltaTime });
     }
 }

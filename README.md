@@ -62,7 +62,7 @@ The `Gravatar` control generates GitHub-style identicon avatars from identifiers
 
 ### Particles
 
-The `Particles` control is a high-performance particle system for creating visual effects like rain, fire, fireworks, snow, confetti, and more. It features object pooling, GPU-accelerated rendering, built-in affectors (gravity, fade, rotation, wind), and shape variety.
+The `Particles` control is a high-performance particle system for creating visual effects like rain, fire, fireworks, snow, confetti, and more. It features object pooling, immediate-mode rendering, built-in affectors (gravity, fade, rotation, wind), and shape variety.
 
 ### Scratcher
 

@@ -7,7 +7,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
              x:Class="Nova.Avalonia.UI.Gallery.Views.ParticlesView"
              x:DataType="vm:ParticlesViewModel">
-    <ScrollViewer>
+    <ScrollViewer x:Name="ParticlesScrollViewer">
         <StackPanel Spacing="20" Margin="20">
             <TextBlock Text="Particles"
                        FontSize="28"
@@ -223,6 +223,68 @@
                                        MaxItems="400"
                                        TargetFrameRate="60"
                                        Update="OnGalaxyUpdate" />
+                </StackPanel>
+            </Border>
+
+            <!-- Energy Portal (Layered) -->
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Energy Portal"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource AccentBrush}" />
+
+                    <TextBlock Text="Layered particles with simulated lighting"
+                               FontSize="12"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <Grid Height="320"
+                          ClipToBounds="True"
+                          Background="#070A12">
+                        <Border Width="260"
+                                Height="260"
+                                CornerRadius="130"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="#153A7A"
+                                Opacity="0.24" />
+                        <Border Width="170"
+                                Height="170"
+                                CornerRadius="85"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="#20D9FF"
+                                Opacity="0.18" />
+                        <Border Width="80"
+                                Height="80"
+                                CornerRadius="40"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="#FFFFFF"
+                                Opacity="0.10" />
+
+                        <controls:Particles x:Name="PortalGlowParticles"
+                                           ClipToBounds="True"
+                                           IsHitTestVisible="False"
+                                           MaxItems="36"
+                                           Origin="50%,50%"
+                                           TargetFrameRate="30"
+                                           Update="OnPortalGlowUpdate" />
+                        <controls:Particles x:Name="PortalOrbitParticles"
+                                           ClipToBounds="True"
+                                           IsHitTestVisible="False"
+                                           MaxItems="180"
+                                           Origin="50%,50%"
+                                           TargetFrameRate="60"
+                                           Update="OnPortalOrbitUpdate" />
+                        <controls:Particles x:Name="PortalSparkParticles"
+                                           ClipToBounds="True"
+                                           IsHitTestVisible="False"
+                                           MaxItems="240"
+                                           Origin="50%,50%"
+                                           TargetFrameRate="60"
+                                           Update="OnPortalSparkUpdate" />
+                    </Grid>
                 </StackPanel>
             </Border>
         </StackPanel>

@@ -24,9 +24,12 @@ public class ParticleSpriteSheet
     {
         get
         {
-            if (Image == null || FrameHeight <= 0) return 0;
-            var rows = (int)Math.Ceiling(Image.Size.Height / FrameHeight);
-            return Columns * rows;
+            if (Image == null || FrameWidth <= 0 || FrameHeight <= 0) return 0;
+
+            var columns = GetEffectiveColumns();
+            var rows = GetEffectiveRows();
+
+            return columns <= 0 || rows <= 0 ? 0 : columns * rows;
         }
     }
 
@@ -35,13 +38,55 @@ public class ParticleSpriteSheet
     /// </summary>
     public Rect GetFrameRect(int frame)
     {
-        var col = frame % Columns;
-        var row = frame / Columns;
+        if (FrameWidth <= 0 || FrameHeight <= 0)
+            return default;
+
+        var columns = GetEffectiveColumns();
+        var frameCount = FrameCount;
+        if (frameCount > 0)
+        {
+            frame = Math.Clamp(frame, 0, frameCount - 1);
+        }
+        else if (Image != null)
+        {
+            return default;
+        }
+        else
+        {
+            frame = Math.Max(0, frame);
+            columns = Math.Max(1, Columns);
+        }
+
+        var col = frame % columns;
+        var row = frame / columns;
 
         return new Rect(
             col * FrameWidth,
             row * FrameHeight,
             FrameWidth,
             FrameHeight);
+    }
+
+    private int GetEffectiveColumns()
+    {
+        if (Image == null)
+            return Math.Max(1, Columns);
+
+        if (!double.IsFinite(Image.Size.Width) || Image.Size.Width <= 0)
+            return 0;
+
+        var maxColumns = (int)Math.Floor(Image.Size.Width / FrameWidth);
+        return Math.Min(Math.Max(1, Columns), maxColumns);
+    }
+
+    private int GetEffectiveRows()
+    {
+        if (Image == null)
+            return 0;
+
+        if (!double.IsFinite(Image.Size.Height) || Image.Size.Height <= 0)
+            return 0;
+
+        return (int)Math.Floor(Image.Size.Height / FrameHeight);
     }
 }

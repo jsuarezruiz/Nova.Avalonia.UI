@@ -1,8 +1,10 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Threading;
 using Nova.Avalonia.UI.Controls;
 using Nova.Avalonia.UI.Gallery.ViewModels;
 
@@ -15,6 +17,7 @@ public partial class ParticlesView : UserControl
     private readonly FadeAffector _fade = new() { FadeRate = 0.8 };
     private readonly RotationAffector _rotation = new() { RotationSpeed = 180 };
     private readonly WindAffector _wind = new() { WindX = 30, Turbulent = true };
+    private Particles[] _particleSystems = Array.Empty<Particles>();
 
     // Fire colors
     private readonly Color[] _fireColors = new[]
@@ -40,6 +43,65 @@ public partial class ParticlesView : UserControl
     {
         InitializeComponent();
         DataContext = new ParticlesViewModel();
+
+        _particleSystems = new[]
+        {
+            RainParticles,
+            FireParticles,
+            FireworksParticles,
+            ConfettiParticles,
+            SparkleParticles,
+            SnowParticles,
+            BubbleParticles,
+            SmokeParticles,
+            GalaxyParticles,
+            PortalGlowParticles,
+            PortalOrbitParticles,
+            PortalSparkParticles
+        };
+
+        ParticlesScrollViewer.ScrollChanged += (_, _) => UpdateVisibleParticleSystems();
+        ParticlesScrollViewer.SizeChanged += (_, _) => UpdateVisibleParticleSystems();
+        foreach (var particles in _particleSystems)
+        {
+            particles.SizeChanged += (_, _) => UpdateVisibleParticleSystems();
+        }
+
+        AttachedToVisualTree += (_, _) => Dispatcher.UIThread.Post(UpdateVisibleParticleSystems, DispatcherPriority.Background);
+        DetachedFromVisualTree += (_, _) => StopParticleTimers();
+    }
+
+    private void UpdateVisibleParticleSystems()
+    {
+        if (ParticlesScrollViewer.Bounds.Width <= 0 || ParticlesScrollViewer.Bounds.Height <= 0)
+            return;
+
+        var viewport = new Rect(
+            0,
+            -300,
+            ParticlesScrollViewer.Bounds.Width,
+            ParticlesScrollViewer.Bounds.Height + 600);
+
+        foreach (var particles in _particleSystems)
+        {
+            if (particles.Bounds.Width <= 0 || particles.Bounds.Height <= 0)
+                continue;
+
+            var position = particles.TranslatePoint(new Point(), ParticlesScrollViewer);
+            var bounds = position.HasValue
+                ? new Rect(position.Value, particles.Bounds.Size)
+                : default;
+
+            particles.IsRunning = bounds.Intersects(viewport);
+        }
+    }
+
+    private void StopParticleTimers()
+    {
+        foreach (var particles in _particleSystems)
+        {
+            particles.Stop();
+        }
     }
 
     // ===== RAIN EFFECT =====
@@ -71,7 +133,6 @@ public partial class ParticlesView : UserControl
         for (int i = e.Items.Count - 1; i >= 0; i--)
         {
             var particle = e.Items[i];
-            particle.UpdatePosition(e.DeltaTime);
 
             // Remove particles that fall below screen
             if (particle.Y > size.Height + 20)
@@ -114,8 +175,6 @@ public partial class ParticlesView : UserControl
             _fade.Apply(particle, e.DeltaTime);
             particle.Scale -= 0.5 * e.DeltaTime;
             particle.VelocityX += (_random.NextDouble() - 0.5) * 20;
-
-            particle.UpdatePosition(e.DeltaTime);
 
             // Remove faded or small particles
             if (particle.Opacity <= 0 || particle.Scale <= 0.1)
@@ -168,8 +227,6 @@ public partial class ParticlesView : UserControl
             _gravity.Apply(particle, e.DeltaTime);
             _fade.Apply(particle, e.DeltaTime);
 
-            particle.UpdatePosition(e.DeltaTime);
-
             if (particle.Opacity <= 0)
             {
                 particles!.Remove(particle);
@@ -216,8 +273,6 @@ public partial class ParticlesView : UserControl
 
             // Add some flutter
             particle.VelocityX += Math.Sin(particle.LifeTime * 5) * 10 * e.DeltaTime;
-
-            particle.UpdatePosition(e.DeltaTime);
 
             // Remove particles that fall below screen
             if (particle.Y > size.Height + 20)
@@ -277,8 +332,6 @@ public partial class ParticlesView : UserControl
             particle.Opacity -= 2.0 * e.DeltaTime;
             particle.Scale -= 0.5 * e.DeltaTime;
 
-            particle.UpdatePosition(e.DeltaTime);
-
             if (particle.Opacity <= 0 || particle.Scale <= 0.1)
             {
                 particles!.Remove(particle);
@@ -323,8 +376,6 @@ public partial class ParticlesView : UserControl
             // Slow rotation
             particle.Rotation += 30 * e.DeltaTime;
 
-            particle.UpdatePosition(e.DeltaTime);
-
             // Remove particles that fall below screen
             if (particle.Y > size.Height + 20)
             {
@@ -366,8 +417,6 @@ public partial class ParticlesView : UserControl
             
             // Slight scale pulsing
             particle.Scale += Math.Sin(particle.LifeTime * 5) * 0.01;
-
-            particle.UpdatePosition(e.DeltaTime);
 
             // Remove bubbles that rise above screen
             if (particle.Y < -20)
@@ -415,8 +464,6 @@ public partial class ParticlesView : UserControl
             particle.Scale += 0.3 * e.DeltaTime;
             particle.Opacity -= 0.4 * e.DeltaTime;
 
-            particle.UpdatePosition(e.DeltaTime);
-
             if (particle.Opacity <= 0)
             {
                 particles!.Remove(particle);
@@ -434,6 +481,8 @@ public partial class ParticlesView : UserControl
     };
 
     private bool _galaxyInitialized;
+    private bool _portalGlowInitialized;
+    private bool _portalOrbitInitialized;
 
     private void OnGalaxyUpdate(object? sender, ParticleUpdateEventArgs e)
     {
@@ -482,5 +531,162 @@ public partial class ParticlesView : UserControl
             particle.Opacity = 0.5 + Math.Sin(e.Elapsed.TotalSeconds * 3 + distance) * 0.3;
         }
     }
-}
 
+    // ===== ENERGY PORTAL (LAYERED) =====
+    private sealed class PortalParticleState
+    {
+        public double Radius { get; init; }
+
+        public double Angle { get; set; }
+
+        public double AngularSpeed { get; init; }
+
+        public double Phase { get; init; }
+
+        public double PulseSpeed { get; init; }
+    }
+
+    private readonly Color[] _portalColors = new[]
+    {
+        Color.FromArgb(210, 57, 214, 255),
+        Color.FromArgb(190, 121, 92, 255),
+        Color.FromArgb(230, 255, 255, 255),
+        Color.FromArgb(180, 66, 255, 191),
+    };
+
+    private void OnPortalGlowUpdate(object? sender, ParticleUpdateEventArgs e)
+    {
+        var particles = sender as Particles;
+
+        if (!_portalGlowInitialized)
+        {
+            for (int i = 0; i < 24; i++)
+            {
+                var particle = particles!.Add();
+                if (particle == null) break;
+
+                particle.Shape = ParticleShape.Circle;
+                particle.Color = i % 3 == 0
+                    ? Color.FromArgb(70, 255, 255, 255)
+                    : Color.FromArgb(90, 57, 214, 255);
+                particle.Tag = new PortalParticleState
+                {
+                    Radius = 28 + _random.NextDouble() * 92,
+                    Angle = _random.NextDouble() * Math.PI * 2,
+                    AngularSpeed = (_random.NextDouble() - 0.5) * 0.35,
+                    Phase = _random.NextDouble() * Math.PI * 2,
+                    PulseSpeed = 0.7 + _random.NextDouble() * 1.2
+                };
+            }
+
+            _portalGlowInitialized = true;
+        }
+
+        foreach (var particle in e.Items)
+        {
+            if (particle.Tag is not PortalParticleState state)
+                continue;
+
+            state.Angle += state.AngularSpeed * e.DeltaTime;
+            var pulse = 0.5 + Math.Sin(e.Elapsed.TotalSeconds * state.PulseSpeed + state.Phase) * 0.5;
+            var radius = state.Radius + pulse * 12;
+
+            particle.X = Math.Cos(state.Angle) * radius;
+            particle.Y = Math.Sin(state.Angle) * radius * 0.72;
+            particle.Scale = 6.5 + pulse * 4.0;
+            particle.Opacity = 0.08 + pulse * 0.18;
+        }
+    }
+
+    private void OnPortalOrbitUpdate(object? sender, ParticleUpdateEventArgs e)
+    {
+        var particles = sender as Particles;
+
+        if (!_portalOrbitInitialized)
+        {
+            for (int i = 0; i < 140; i++)
+            {
+                var particle = particles!.Add();
+                if (particle == null) break;
+
+                var radiusBand = i % 3;
+                var radius = 58 + radiusBand * 22 + _random.NextDouble() * 16;
+                particle.Shape = radiusBand == 0 ? ParticleShape.Star : ParticleShape.Circle;
+                particle.Color = _portalColors[_random.Next(_portalColors.Length)];
+                particle.Tag = new PortalParticleState
+                {
+                    Radius = radius,
+                    Angle = _random.NextDouble() * Math.PI * 2,
+                    AngularSpeed = (radiusBand % 2 == 0 ? 1 : -1) * (0.7 + _random.NextDouble() * 1.8),
+                    Phase = _random.NextDouble() * Math.PI * 2,
+                    PulseSpeed = 1.5 + _random.NextDouble() * 2.5
+                };
+            }
+
+            _portalOrbitInitialized = true;
+        }
+
+        foreach (var particle in e.Items)
+        {
+            if (particle.Tag is not PortalParticleState state)
+                continue;
+
+            state.Angle += state.AngularSpeed * e.DeltaTime;
+            var pulse = 0.5 + Math.Sin(e.Elapsed.TotalSeconds * state.PulseSpeed + state.Phase) * 0.5;
+            var wobble = Math.Sin(e.Elapsed.TotalSeconds * 1.7 + state.Phase) * 7;
+            var radius = state.Radius + wobble;
+
+            particle.X = Math.Cos(state.Angle) * radius;
+            particle.Y = Math.Sin(state.Angle) * radius * 0.58;
+            particle.Scale = 0.35 + pulse * 0.85;
+            particle.Rotation += 160 * e.DeltaTime;
+            particle.Opacity = 0.28 + pulse * 0.72;
+        }
+    }
+
+    private void OnPortalSparkUpdate(object? sender, ParticleUpdateEventArgs e)
+    {
+        var particles = sender as Particles;
+
+        if (e.Items.Count < 220)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                var particle = particles!.Add();
+                if (particle == null) break;
+
+                var angle = _random.NextDouble() * Math.PI * 2;
+                var radius = 32 + _random.NextDouble() * 62;
+                var speed = 45 + _random.NextDouble() * 95;
+                var tangent = angle + Math.PI / 2 + (_random.NextDouble() - 0.5) * 0.9;
+
+                particle.X = Math.Cos(angle) * radius;
+                particle.Y = Math.Sin(angle) * radius * 0.58;
+                particle.VelocityX = Math.Cos(tangent) * speed;
+                particle.VelocityY = Math.Sin(tangent) * speed * 0.58;
+                particle.Scale = 0.45 + _random.NextDouble() * 0.55;
+                particle.Opacity = 0.75 + _random.NextDouble() * 0.25;
+                particle.Rotation = _random.NextDouble() * 360;
+                particle.Shape = _random.Next(3) == 0 ? ParticleShape.Line : ParticleShape.Circle;
+                particle.Color = _portalColors[_random.Next(_portalColors.Length)];
+            }
+        }
+
+        for (int i = e.Items.Count - 1; i >= 0; i--)
+        {
+            var particle = e.Items[i];
+            var distance = Math.Sqrt(particle.X * particle.X + particle.Y * particle.Y);
+
+            particle.Opacity -= 1.8 * e.DeltaTime;
+            particle.Scale -= 0.35 * e.DeltaTime;
+            particle.VelocityX += -particle.X * 0.9 * e.DeltaTime;
+            particle.VelocityY += -particle.Y * 0.9 * e.DeltaTime;
+            particle.Rotation += 220 * e.DeltaTime;
+
+            if (particle.Opacity <= 0 || particle.Scale <= 0.1 || distance > 190)
+            {
+                particles!.Remove(particle);
+            }
+        }
+    }
+}

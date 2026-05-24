@@ -6,7 +6,6 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Threading;
-using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace Nova.Avalonia.UI.Controls;
@@ -57,7 +56,8 @@ public class Particles : TemplatedControl
     public static readonly StyledProperty<Size> FrameSizeProperty =
         AvaloniaProperty.Register<Particles, Size>(
             nameof(FrameSize),
-            defaultValue: new Size(32, 32));
+            defaultValue: new Size(32, 32),
+            coerce: (_, value) => CoerceFrameSize(value));
 
     /// <summary>
     /// Defines the <see cref="FrameColumns"/> property.
@@ -91,7 +91,7 @@ public class Particles : TemplatedControl
         AvaloniaProperty.Register<Particles, double>(
             nameof(TargetFrameRate),
             defaultValue: 60.0,
-            coerce: (_, value) => Math.Clamp(value, 1, 240));
+            coerce: (_, value) => CoerceTargetFrameRate(value));
 
     /// <summary>
     /// Defines the <see cref="MaxItems"/> property.
@@ -104,8 +104,12 @@ public class Particles : TemplatedControl
 
     static Particles()
     {
-        AffectsRender<Particles>(SourceProperty);
-        AffectsMeasure<Particles>(OriginProperty);
+        AffectsRender<Particles>(
+            SourceProperty,
+            FrameSizeProperty,
+            FrameColumnsProperty,
+            OriginProperty,
+            BackgroundProperty);
     }
 
     /// <summary>
@@ -252,6 +256,7 @@ public class Particles : TemplatedControl
 
         var particle = _particlePool.Rent();
         _items.Add(particle);
+        InvalidateVisual();
         return particle;
     }
 
@@ -265,6 +270,7 @@ public class Particles : TemplatedControl
         if (_items.Remove(particle))
         {
             _particlePool.Return(particle);
+            InvalidateVisual();
             return true;
         }
         return false;
@@ -285,6 +291,10 @@ public class Particles : TemplatedControl
         else if (change.Property == TargetFrameRateProperty)
         {
             _updateTimer.Interval = TimeSpan.FromMilliseconds(1000.0 / TargetFrameRate);
+        }
+        else if (change.Property == OriginProperty)
+        {
+            UpdateOriginPoint(Bounds.Size);
         }
     }
 
@@ -337,39 +347,50 @@ public class Particles : TemplatedControl
         if (deltaTime > 0.1) deltaTime = 0.1;
         
         _lastElapsedSeconds = currentElapsed;
+        Advance(deltaTime);
+    }
+
+    private void Advance(double deltaTime)
+    {
+        if (!double.IsFinite(deltaTime) || deltaTime <= 0)
+            return;
+
         _totalElapsed += TimeSpan.FromSeconds(deltaTime);
- 
+
         foreach (var affector in _affectors)
         {
             affector.Update(deltaTime);
         }
- 
-        // Update particles in parallel for high performance
-        if (_items.Count > 100)
+
+        if (Update != null)
         {
-            Parallel.For(0, _items.Count, i =>
+            if (_sharedArgs == null)
             {
-                var particle = _items[i];
-                particle.LifeTime += deltaTime;
-                foreach (var affector in _affectors)
-                {
-                    affector.Apply(particle, deltaTime);
-                }
-                particle.UpdatePosition(deltaTime);
-            });
-        }
-        else
-        {
-            for (int i = 0; i < _items.Count; i++)
-            {
-                var particle = _items[i];
-                particle.LifeTime += deltaTime;
-                foreach (var affector in _affectors)
-                {
-                    affector.Apply(particle, deltaTime);
-                }
-                particle.UpdatePosition(deltaTime);
+                _sharedArgs = new ParticleUpdateEventArgs(_items, _totalElapsed, deltaTime, Bounds.Size);
             }
+            else
+            {
+                _sharedArgs.Update(deltaTime, _totalElapsed, Bounds.Size);
+            }
+
+            Update.Invoke(this, _sharedArgs);
+
+            if (!IsRunning)
+            {
+                InvalidateVisual();
+                return;
+            }
+        }
+
+        for (int i = 0; i < _items.Count; i++)
+        {
+            var particle = _items[i];
+            particle.LifeTime += deltaTime;
+            foreach (var affector in _affectors)
+            {
+                affector.Apply(particle, deltaTime);
+            }
+            particle.UpdatePosition(deltaTime);
         }
 
         // Cleanup inactive particles
@@ -382,22 +403,20 @@ public class Particles : TemplatedControl
                 _items.RemoveAt(i);
             }
         }
- 
-        if (Update != null)
-        {
-            if (_sharedArgs == null)
-            {
-                _sharedArgs = new ParticleUpdateEventArgs(_items, _totalElapsed, deltaTime, Bounds.Size);
-            }
-            else
-            {
-                // Internal update of existing args to avoid allocation
-                _sharedArgs.Update(deltaTime, _totalElapsed, Bounds.Size);
-            }
-            Update.Invoke(this, _sharedArgs);
-        }
- 
+
         InvalidateVisual();
+    }
+
+    private static Size CoerceFrameSize(Size value)
+    {
+        var width = double.IsFinite(value.Width) ? Math.Max(1, value.Width) : 32;
+        var height = double.IsFinite(value.Height) ? Math.Max(1, value.Height) : 32;
+        return new Size(width, height);
+    }
+
+    private static double CoerceTargetFrameRate(double value)
+    {
+        return double.IsFinite(value) ? Math.Clamp(value, 1, 240) : 60;
     }
 
     private static Dictionary<ParticleShape, StreamGeometry> CreateShapeGeometries()
@@ -476,10 +495,13 @@ public class Particles : TemplatedControl
     {
         foreach (var particle in _items)
         {
-            if (particle.Opacity <= 0) continue;
+            if (particle.Opacity <= 0 || !double.IsFinite(particle.Opacity)) continue;
+            if (particle.Scale <= 0 || !double.IsFinite(particle.Scale)) continue;
+            if (!double.IsFinite(particle.X) || !double.IsFinite(particle.Y)) continue;
  
             var renderX = _originPoint.X + particle.X;
             var renderY = _originPoint.Y + particle.Y;
+            if (!double.IsFinite(renderX) || !double.IsFinite(renderY)) continue;
             
             // Viewport clipping (rough check)
             var size = 16 * particle.Scale; // Heuristic size for clipping
@@ -490,11 +512,14 @@ public class Particles : TemplatedControl
             }
 
             var hasOpacity = particle.Opacity < 0.999;
-            var hasRotation = Math.Abs(particle.Rotation) > 0.001;
+            var hasRotation = double.IsFinite(particle.Rotation) && Math.Abs(particle.Rotation) > 0.001;
 
             if (spriteSheet.Image != null)
             {
                 var sourceRect = spriteSheet.GetFrameRect(particle.Frame);
+                if (sourceRect.Width <= 0 || sourceRect.Height <= 0)
+                    continue;
+
                 var destRect = new Rect(
                     renderX - sourceRect.Width * particle.Scale / 2,
                     renderY - sourceRect.Height * particle.Scale / 2,
