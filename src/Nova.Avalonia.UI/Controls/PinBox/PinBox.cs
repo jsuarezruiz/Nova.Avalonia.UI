@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Avalonia;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls;
+using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
@@ -18,6 +19,9 @@ namespace Nova.Avalonia.UI.Controls;
 /// A specialized input control for PIN codes, OTP verification, and security codes.
 /// Supports visual grouping, validation, masking, read-only display, and text normalization.
 /// </summary>
+[TemplatePart("PART_ItemsPanel", typeof(Panel))]
+[TemplatePart("PART_InputTextBox", typeof(TextBox))]
+[PseudoClasses(":readonly")]
 public class PinBox : TemplatedControl
 {
     private const double ShakeDistance = 8.0;
@@ -26,8 +30,10 @@ public class PinBox : TemplatedControl
     private TextBox? _inputTextBox;
     private readonly List<PinBoxItem> _items = new();
     private readonly List<TextBlock> _separators = new();
+    private readonly HashSet<PinBoxTheme> _subscribedThemes = new();
     private string _lastText = string.Empty;
     private bool _syncingInputTextBox;
+    private bool _isAttachedToVisualTree;
 
     /// <summary>
     /// Defines the <see cref="Text"/> property.
@@ -463,6 +469,31 @@ public class PinBox : TemplatedControl
         FocusableProperty.OverrideDefaultValue<PinBox>(true);
     }
 
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+
+        if (_isAttachedToVisualTree && IsThemeProperty(change.Property))
+        {
+            SyncThemeSubscriptions();
+        }
+    }
+
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        _isAttachedToVisualTree = true;
+        SyncThemeSubscriptions();
+        OnThemePropertyChanged();
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        _isAttachedToVisualTree = false;
+        ClearThemeSubscriptions();
+        base.OnDetachedFromVisualTree(e);
+    }
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
@@ -651,8 +682,72 @@ public class PinBox : TemplatedControl
     {
         UpdateSeparators();
         UpdateItemsFromText();
+        InvalidateItemMeasures();
         UpdateResponsiveItemWidths(Bounds.Width);
         InvalidateMeasure();
+    }
+
+    private void InvalidateItemMeasures()
+    {
+        foreach (var item in _items)
+        {
+            item.InvalidateMeasure();
+        }
+    }
+
+    private void SyncThemeSubscriptions()
+    {
+        var assignedThemes = GetAssignedThemes().ToHashSet();
+
+        foreach (var subscribedTheme in _subscribedThemes.ToArray())
+        {
+            if (assignedThemes.Contains(subscribedTheme))
+            {
+                continue;
+            }
+
+            subscribedTheme.PropertyChanged -= OnThemeObjectPropertyChanged;
+            _subscribedThemes.Remove(subscribedTheme);
+        }
+
+        foreach (var assignedTheme in assignedThemes)
+        {
+            if (_subscribedThemes.Add(assignedTheme))
+            {
+                assignedTheme.PropertyChanged += OnThemeObjectPropertyChanged;
+            }
+        }
+    }
+
+    private void ClearThemeSubscriptions()
+    {
+        foreach (var subscribedTheme in _subscribedThemes)
+        {
+            subscribedTheme.PropertyChanged -= OnThemeObjectPropertyChanged;
+        }
+
+        _subscribedThemes.Clear();
+    }
+
+    private IEnumerable<PinBoxTheme> GetAssignedThemes()
+    {
+        if (DefaultTheme != null) yield return DefaultTheme;
+        if (FocusedTheme != null) yield return FocusedTheme;
+        if (FilledTheme != null) yield return FilledTheme;
+        if (ErrorTheme != null) yield return ErrorTheme;
+    }
+
+    private void OnThemeObjectPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    {
+        OnThemePropertyChanged();
+    }
+
+    private static bool IsThemeProperty(AvaloniaProperty property)
+    {
+        return property == DefaultThemeProperty ||
+               property == FocusedThemeProperty ||
+               property == FilledThemeProperty ||
+               property == ErrorThemeProperty;
     }
 
     private void OnGroupingPropertyChanged()

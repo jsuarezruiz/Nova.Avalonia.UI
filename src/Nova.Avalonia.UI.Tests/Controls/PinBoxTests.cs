@@ -42,6 +42,19 @@ public class PinBoxTests
     }
 
     [AvaloniaFact]
+    public void ControlMetadata_DeclaresTemplatePartsAndPseudoClasses()
+    {
+        var templateParts = typeof(PinBox).GetCustomAttributesData()
+            .Where(attribute => attribute.AttributeType.Name == "TemplatePartAttribute")
+            .Select(attribute => attribute.ConstructorArguments[0].Value?.ToString())
+            .ToArray();
+
+        Assert.Contains("PART_ItemsPanel", templateParts);
+        Assert.Contains("PART_InputTextBox", templateParts);
+        Assert.Contains(":readonly", GetPseudoClassMetadata(typeof(PinBox)));
+    }
+
+    [AvaloniaFact]
     public void Length_IsClamped()
     {
         var pinBox = new PinBox();
@@ -563,6 +576,47 @@ public class PinBoxTests
     }
 
     [AvaloniaFact]
+    public void NestedThemePropertyChanges_UpdateExistingItems()
+    {
+        var theme = new PinBoxTheme
+        {
+            Width = 40,
+            Height = 44,
+            Background = Brushes.White,
+            BorderBrush = Brushes.Gray
+        };
+        var pinBox = new PinBox
+        {
+            Length = 4,
+            DefaultTheme = theme,
+            FocusedTheme = theme,
+            FilledTheme = theme,
+            ErrorTheme = theme,
+            IsResponsive = false
+        };
+        var window = ShowInWindow(pinBox, width: 400, height: 120);
+
+        try
+        {
+            var item = GetVisualItems(pinBox)[0];
+
+            Assert.Equal(40, item.Bounds.Width);
+            Assert.Equal(44, item.Bounds.Height);
+
+            theme.Width = 72;
+            theme.Height = 64;
+            window.UpdateLayout();
+
+            Assert.Equal(72, item.Bounds.Width);
+            Assert.Equal(64, item.Bounds.Height);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
+    [AvaloniaFact]
     public void AutomationPeer_ExposesValueProvider()
     {
         var pinBox = new PinBox
@@ -986,6 +1040,25 @@ public class PinBoxTests
     private static T GetTemplatePart<T>(Control control, string name) where T : Control
     {
         return control.GetVisualDescendants().OfType<T>().Single(part => part.Name == name);
+    }
+
+    private static string[] GetPseudoClassMetadata(Type type)
+    {
+        return type.GetCustomAttributesData()
+            .Where(attribute => attribute.AttributeType.Name == "PseudoClassesAttribute")
+            .SelectMany(attribute => attribute.ConstructorArguments)
+            .SelectMany(argument =>
+            {
+                if (argument.Value is IEnumerable<CustomAttributeTypedArgument> values)
+                {
+                    return values.Select(value => value.Value?.ToString());
+                }
+
+                return new[] { argument.Value?.ToString() };
+            })
+            .Where(value => value != null)
+            .Cast<string>()
+            .ToArray();
     }
 
     private static Window ShowInWindow(Control control, double width = 500, double height = 200)
