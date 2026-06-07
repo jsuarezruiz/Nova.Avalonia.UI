@@ -34,6 +34,8 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 The `PinBox` control provides a specialized input field for PIN codes, OTP verification, and security codes. It features individual character boxes, grouping separators, read-only display, text normalization, validation, masking, responsive sizing, command binding, accessibility value support, and multiple theme presets.
 
+<img src="images/novaui_pinbox_light.gif" alt="PinBox" width="250" />
+
 ### CompareSlider
 
 The `CompareSlider` control enables users to compare two pieces of content side-by-side. A draggable divider allows the user to reveal more of the "before" or "after" content interactively.
