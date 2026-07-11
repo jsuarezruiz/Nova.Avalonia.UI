@@ -1,0 +1,135 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Nova.Avalonia.UI.Controls">
+
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="SocialButtonOutlineBackgroundBrush" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="SocialButtonOutlineBorderBrush" Color="#D0D5DD" />
+                    <SolidColorBrush x:Key="SocialButtonOutlineForegroundBrush" Color="#101828" />
+                    <SolidColorBrush x:Key="SocialButtonGrayBackgroundBrush" Color="#F2F4F7" />
+                    <SolidColorBrush x:Key="SocialButtonGrayBorderBrush" Color="#EAECF0" />
+                    <SolidColorBrush x:Key="SocialButtonGrayForegroundBrush" Color="#101828" />
+                    <SolidColorBrush x:Key="SocialButtonFocusRingBrush" Color="#1570EF" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="SocialButtonOutlineBackgroundBrush" Color="#161B26" />
+                    <SolidColorBrush x:Key="SocialButtonOutlineBorderBrush" Color="#333741" />
+                    <SolidColorBrush x:Key="SocialButtonOutlineForegroundBrush" Color="#F5F5F6" />
+                    <SolidColorBrush x:Key="SocialButtonGrayBackgroundBrush" Color="#1F242F" />
+                    <SolidColorBrush x:Key="SocialButtonGrayBorderBrush" Color="#333741" />
+                    <SolidColorBrush x:Key="SocialButtonGrayForegroundBrush" Color="#F5F5F6" />
+                    <SolidColorBrush x:Key="SocialButtonFocusRingBrush" Color="#53B1FD" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <Style Selector="controls|SocialButton">
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="MinWidth" Value="40" />
+        <Setter Property="Padding" Value="14,0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid>
+                    <Border x:Name="PART_Root"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}">
+                        <Grid x:Name="PART_ContentGrid"
+                              ColumnDefinitions="Auto,Auto"
+                              ColumnSpacing="10"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentControl x:Name="PART_Icon"
+                                            AutomationProperties.AccessibilityView="Raw"
+                                            Content="{TemplateBinding ResolvedIcon}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            IsHitTestVisible="False" />
+
+                            <TextBlock x:Name="PART_Text"
+                                       Grid.Column="1"
+                                       Text="{TemplateBinding DisplayText}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       TextTrimming="CharacterEllipsis"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+
+                    <Border x:Name="PART_FocusRing"
+                            BorderBrush="{DynamicResource SocialButtonFocusRingBrush}"
+                            BorderThickness="2"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            IsHitTestVisible="False"
+                            IsVisible="False"
+                            Margin="-3" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls|SocialButton:small">
+        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="MinWidth" Value="36" />
+        <Setter Property="Padding" Value="12,0" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
+
+    <Style Selector="controls|SocialButton:large">
+        <Setter Property="MinHeight" Value="44" />
+        <Setter Property="MinWidth" Value="44" />
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+
+    <Style Selector="controls|SocialButton:icononly:not(:noicon)">
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style Selector="controls|SocialButton:icononly:not(:noicon) /template/ TextBlock#PART_Text">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="controls|SocialButton:icononly /template/ Grid#PART_ContentGrid">
+        <Setter Property="ColumnSpacing" Value="0" />
+    </Style>
+
+    <Style Selector="controls|SocialButton:noicon /template/ ContentControl#PART_Icon">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="controls|SocialButton:noicon /template/ Grid#PART_ContentGrid">
+        <Setter Property="ColumnSpacing" Value="0" />
+    </Style>
+
+    <Style Selector="controls|SocialButton:pointerover">
+        <Setter Property="Opacity" Value="0.92" />
+    </Style>
+
+    <Style Selector="controls|SocialButton:pressed">
+        <Setter Property="Opacity" Value="0.78" />
+    </Style>
+
+    <Style Selector="controls|SocialButton:disabled">
+        <Setter Property="Opacity" Value="0.5" />
+        <Setter Property="Cursor" Value="Arrow" />
+    </Style>
+
+    <Style Selector="controls|SocialButton:focus-visible /template/ Border#PART_FocusRing">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+</Styles>

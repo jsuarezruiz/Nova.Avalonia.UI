@@ -46,6 +46,8 @@
     href: controls/shield.md
   - name: Shimmer
     href: controls/shimmer.md
+  - name: SocialButton
+    href: controls/socialbutton.md
   - name: StaggeredPanel
     href: controls/staggeredpanel.md
   - name: TimelinePanel

@@ -1,0 +1,160 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Nova.Avalonia.UI.Controls;assembly=Nova.Avalonia.UI"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="900"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.SocialButtonView"
+             x:DataType="vm:SocialButtonViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="WrapPanel > controls|SocialButton">
+            <Setter Property="Margin" Value="0,0,12,12" />
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer>
+        <StackPanel Spacing="24" Margin="24">
+            <TextBlock Text="Provider sign-in buttons with built-in labels, provider glyphs, and Button command behavior."
+                       Theme="{StaticResource BodyTextBlockStyle}"
+                       Opacity="0.65"
+                       TextWrapping="Wrap" />
+
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Providers" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Use built-in providers for common social and identity sign-in actions."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               TextWrapping="Wrap" />
+
+                    <StackPanel Spacing="10" Width="320" HorizontalAlignment="Left">
+                        <controls:SocialButton Provider="Google" Action="Continue" />
+                        <controls:SocialButton Provider="Facebook" Action="SignIn" />
+                        <controls:SocialButton Provider="Apple" Action="SignIn" />
+                        <controls:SocialButton Provider="X" Action="Continue" />
+                        <controls:SocialButton Provider="GitHub" Action="Continue" />
+                        <controls:SocialButton Provider="Microsoft" Action="Continue" />
+                        <controls:SocialButton Provider="Figma" Action="Connect" />
+                        <controls:SocialButton Provider="Dribbble" Action="Continue" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Variants" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Choose neutral outline, neutral filled, or provider-branded variants."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               TextWrapping="Wrap" />
+
+                    <WrapPanel>
+                        <controls:SocialButton Provider="Google" Variant="Outline" />
+                        <controls:SocialButton Provider="Google" Variant="Gray" />
+                        <controls:SocialButton Provider="Facebook" Variant="Brand" />
+                        <controls:SocialButton Provider="Apple" Variant="Brand" />
+                        <controls:SocialButton Provider="Microsoft" Variant="Brand" />
+                        <controls:SocialButton Provider="Dribbble" Variant="Brand" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Sizes" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Small, medium, and large presets keep icon, text, and hit target sizing consistent."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               TextWrapping="Wrap" />
+
+                    <StackPanel Spacing="10" Width="320" HorizontalAlignment="Left">
+                        <controls:SocialButton Provider="GitHub" Size="Small" />
+                        <controls:SocialButton Provider="GitHub" Size="Medium" />
+                        <controls:SocialButton Provider="GitHub" Size="Large" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Icon-only" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Icon-only buttons keep their generated accessible name unless an explicit one is set."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               TextWrapping="Wrap" />
+
+                    <WrapPanel>
+                        <controls:SocialButton Provider="Google" IsIconOnly="True" AutomationProperties.Name="Continue with Google" />
+                        <controls:SocialButton Provider="Apple" Variant="Brand" IsIconOnly="True" AutomationProperties.Name="Sign in with Apple" />
+                        <controls:SocialButton Provider="GitHub" Variant="Brand" IsIconOnly="True" AutomationProperties.Name="Continue with GitHub" />
+                        <controls:SocialButton Provider="Microsoft" IsIconOnly="True" AutomationProperties.Name="Continue with Microsoft" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Icon color" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Override the glyph color with IconForeground to match a custom palette."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               TextWrapping="Wrap" />
+
+                    <StackPanel Spacing="10" Width="320" HorizontalAlignment="Left">
+                        <controls:SocialButton Provider="GitHub" IconForeground="#6941C6" />
+                        <controls:SocialButton Provider="Google" IconForeground="#101828" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Commands" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="SocialButton inherits Button command behavior. Command and CommandParameter fire on click and keyboard activation."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               TextWrapping="Wrap" />
+
+                    <StackPanel Spacing="10" Width="320" HorizontalAlignment="Left">
+                        <controls:SocialButton Provider="Google"
+                                               Command="{Binding SignInCommand}"
+                                               CommandParameter="Google" />
+                        <controls:SocialButton Provider="GitHub"
+                                               Command="{Binding SignInCommand}"
+                                               CommandParameter="GitHub" />
+                        <TextBlock Text="{Binding LastSignIn}"
+                                   Foreground="{DynamicResource SecondaryTextBrush}"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Custom provider" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Text="Use custom text and icon content for providers that are not built in."
+                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               TextWrapping="Wrap" />
+
+                    <controls:SocialButton Provider="Custom"
+                                           ProviderDisplayName="Contoso"
+                                           Text="Continue with Contoso"
+                                           Width="320"
+                                           HorizontalAlignment="Left">
+                        <controls:SocialButton.Icon>
+                            <Border Width="18"
+                                    Height="18"
+                                    Background="#6941C6"
+                                    CornerRadius="4">
+                                <TextBlock Text="C"
+                                           Foreground="White"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                            </Border>
+                        </controls:SocialButton.Icon>
+                    </controls:SocialButton>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

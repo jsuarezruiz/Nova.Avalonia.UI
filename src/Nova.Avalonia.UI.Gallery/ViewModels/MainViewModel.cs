@@ -36,6 +36,7 @@ public partial class MainViewModel : ViewModelBase
                 new("SegmentedSlider", new SegmentedSliderViewModel(), "Segmented range slider with labels"),
                 new("Shield", new ShieldViewModel(), "Status and subject indicator"),
                 new("Shimmer", new ShimmerViewModel(), "Loading placeholders with animated shimmer"),
+                new("SocialButton", new SocialButtonViewModel(), "Provider sign-in buttons"),
                 new("Watermark", new WatermarkViewModel(), "Tiled text or image overlay watermarks"),
             }),
             new("Panels", new ObservableCollection<NavigationSample>

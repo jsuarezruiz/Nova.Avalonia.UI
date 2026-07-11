@@ -54,6 +54,10 @@ The `Shimmer` control shows a lightweight skeleton while your content is loading
 
 <img src="images/novaui_shimmer_light.gif" alt="Shimmer" width="250" />
 
+### SocialButton
+
+The `SocialButton` control provides provider-branded sign-in buttons for social and identity providers. It supports built-in provider glyphs, generated sign-in text, command behavior, variants, sizes, icon-only mode, light/dark theme resources, and accessible names.
+
 ### Gravatar
 
 The `Gravatar` control generates GitHub-style identicon avatars from identifiers such as emails or usernames. It supports custom image overrides, configurable sizes, and pluggable generators via the `IGravatarGenerator` interface.
