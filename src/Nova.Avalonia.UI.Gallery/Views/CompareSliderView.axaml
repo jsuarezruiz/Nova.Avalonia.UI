@@ -13,7 +13,7 @@
         <StackPanel Spacing="20">
 
             <!-- Basic Usage -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Side-by-side image comparison." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -30,7 +30,7 @@
             </Border>
 
             <!-- Vertical Orientation (Image Comparison) -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Vertical Orientation" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Compare content vertically (e.g., photo editing effects)." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -51,7 +51,7 @@
             </Border>
             
             <!-- Interactive Control -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Interactive Control" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Control the slider programmatically." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -79,7 +79,7 @@
             </Border>
 
             <!-- Text/Code Comparison -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Content Comparison" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Compare arbitrary content, like code diffs." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -125,7 +125,7 @@
             </Border>
             
             <!-- Custom Styling -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Custom Styling" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Customizing the divider and thumb using inline styles." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -160,7 +160,7 @@
             </Border>
 
             <!-- Custom Range Usage -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Custom Range Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Map values to a specific domain (e.g., timeline progression)." Foreground="{DynamicResource SecondaryTextBrush}" />

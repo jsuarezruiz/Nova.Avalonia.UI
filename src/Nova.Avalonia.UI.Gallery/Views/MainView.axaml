@@ -5,47 +5,163 @@
              xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
              xmlns:local="using:Nova.Avalonia.UI.Gallery"
              xmlns:views="using:Nova.Avalonia.UI.Gallery.Views"
-             xmlns:labs="clr-namespace:Avalonia.Labs.Controls;assembly=Avalonia.Labs.Controls"
              mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
              x:Class="Nova.Avalonia.UI.Gallery.Views.MainView"
-             x:DataType="vm:MainViewModel">
+             x:DataType="vm:MainViewModel"
+             Background="{DynamicResource NovaPageBrush}"
+             FontSize="13">
     <Design.DataContext>
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <labs:NavigationControl x:Name="Nav"
-                            NavigationRouter="{Binding NavigationRouter}"
-                            IsBackButtonVisible="{Binding ShowBackButton}"
-                            IsNavBarVisible="{Binding ShowNavBar}"
-                            Header="{Binding NavigationRouter.CurrentPage}"
-                            Padding="0"
-                            BorderThickness="1"
-                            BorderBrush="#14000000">
-        <labs:NavigationControl.HeaderTemplate>
-            <DataTemplate x:DataType="vm:PageViewModel">
-                <DockPanel>
-                    <Button Command="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).SwapThemeCommand}"
-                            HorizontalAlignment="Right"
-                            DockPanel.Dock="Right"
-                            Padding="8,6"
-                            CornerRadius="8"
-                            Background="{DynamicResource CardBackgroundBrush}"
-                            BorderBrush="{DynamicResource CardBorderBrush}"
-                            ToolTip.Tip="Toggle theme">
-                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
-                            <TextBlock Text="Toggle theme"
-                                       FontWeight="SemiBold" />
+    <SplitView x:Name="Shell"
+               DisplayMode="Inline"
+               IsPaneOpen="True"
+               OpenPaneLength="278"
+               PaneBackground="{DynamicResource NovaPageBrush}">
+        <SplitView.Pane>
+            <Border BorderBrush="{DynamicResource NovaLineBrush}"
+                    BorderThickness="0,0,1,0">
+                <Grid Margin="28,30,24,24" RowDefinitions="Auto,Auto,*,Auto">
+                    <DockPanel Grid.Row="0">
+                        <Button x:Name="SettingsButton"
+                                AutomationProperties.Name="Gallery settings"
+                                DockPanel.Dock="Right"
+                                Tag="{StaticResource GallerySettingsGeometry}"
+                                Theme="{StaticResource NovaIconButton}">
+                            <Button.Flyout>
+                                <Flyout Placement="BottomEdgeAlignedRight" ShowMode="Transient">
+                                    <StackPanel Width="196" Spacing="12">
+                                        <StackPanel Spacing="7">
+                                            <TextBlock Classes="settings-label" Text="APPEARANCE" />
+                                            <WrapPanel>
+                                                <RadioButton x:Name="SystemChip"
+                                                             Content="System"
+                                                             GroupName="ThemeVariant"
+                                                             IsCheckedChanged="OnVariantChanged"
+                                                             Tag="System"
+                                                             Theme="{StaticResource NovaChoiceChip}" />
+                                                <RadioButton x:Name="DarkChip"
+                                                             Content="Dark"
+                                                             GroupName="ThemeVariant"
+                                                             IsCheckedChanged="OnVariantChanged"
+                                                             Tag="Dark"
+                                                             Theme="{StaticResource NovaChoiceChip}" />
+                                                <RadioButton x:Name="LightChip"
+                                                             Content="Light"
+                                                             GroupName="ThemeVariant"
+                                                             IsCheckedChanged="OnVariantChanged"
+                                                             Tag="Light"
+                                                             Theme="{StaticResource NovaChoiceChip}" />
+                                            </WrapPanel>
+                                        </StackPanel>
+                                        <StackPanel Spacing="7">
+                                            <TextBlock Classes="settings-label" Text="BASE THEME" />
+                                            <WrapPanel>
+                                                <RadioButton x:Name="FluentChip"
+                                                             Content="Fluent"
+                                                             GroupName="BaseTheme"
+                                                             IsCheckedChanged="OnBaseThemeChanged"
+                                                             Tag="Fluent"
+                                                             Theme="{StaticResource NovaChoiceChip}" />
+                                                <RadioButton x:Name="SimpleChip"
+                                                             Content="Simple"
+                                                             GroupName="BaseTheme"
+                                                             IsCheckedChanged="OnBaseThemeChanged"
+                                                             Tag="Simple"
+                                                             Theme="{StaticResource NovaChoiceChip}" />
+                                            </WrapPanel>
+                                            <TextBlock Classes="tagline"
+                                                       FontSize="11"
+                                                       Text="Nova controls support either base theme."
+                                                       TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+
+                        <StackPanel VerticalAlignment="Center" Spacing="3">
+                            <TextBlock Classes="wordmark" Text="Nova.Avalonia.UI" />
+                            <TextBlock Classes="tagline" Text="Controls and layouts for Avalonia" />
                         </StackPanel>
-                    </Button>
-                    <TextBlock Text="{Binding Title}"
-                               FontSize="18"
-                               FontWeight="SemiBold"
-                               VerticalAlignment="Center" />
-                </DockPanel>
-            </DataTemplate>
-        </labs:NavigationControl.HeaderTemplate>
-        <labs:NavigationControl.DataTemplates>
-            <local:ViewLocator />
-        </labs:NavigationControl.DataTemplates>
-    </labs:NavigationControl>
+                    </DockPanel>
+
+                    <Button Grid.Row="1"
+                            Classes="navhome"
+                            Classes.active="{Binding IsHome}"
+                            Command="{Binding GoHomeCommand}"
+                            Click="OnNavigationPicked"
+                            Content="Home"
+                            Margin="0,24,0,10" />
+
+                    <ScrollViewer Grid.Row="2"
+                                  HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl ItemsSource="{Binding Categories}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:SampleCategory">
+                                    <StackPanel>
+                                        <TextBlock Classes="navgroup" Text="{Binding Name}" />
+                                        <ListBox Classes="nav"
+                                                 ItemsSource="{Binding Samples}"
+                                                 SelectedItem="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).SelectedSample, Mode=TwoWay}"
+                                                 SelectionChanged="OnNavigationSelectionChanged">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate x:DataType="vm:NavigationSample">
+                                                    <TextBlock Text="{Binding Title}" />
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <StackPanel Grid.Row="3" Spacing="2" Margin="0,18,0,0">
+                        <TextBlock Classes="footername" Text="Nova.Avalonia.UI" />
+                        <TextBlock Classes="footerblurb"
+                                   Text="Modern controls and layout primitives for Avalonia applications." />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </SplitView.Pane>
+
+        <Grid>
+            <ContentControl x:Name="PageHost"
+                            Content="{Binding CurrentPage}"
+                            Background="{DynamicResource NovaPageBrush}"
+                            Foreground="{DynamicResource NovaInkBrush}">
+                <ContentControl.DataTemplates>
+                    <local:ViewLocator />
+                </ContentControl.DataTemplates>
+            </ContentControl>
+
+            <Button x:Name="MenuButton"
+                    AutomationProperties.Name="Open navigation"
+                    Click="OnToggleMenu"
+                    IsVisible="False"
+                    ZIndex="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="14"
+                    Width="36"
+                    Height="34"
+                    CornerRadius="9"
+                    Background="{DynamicResource NovaSurfaceBrush}"
+                    BorderBrush="{DynamicResource NovaLineBrush}"
+                    BorderThickness="1"
+                    Cursor="Hand">
+                <Viewbox Width="16" Height="16">
+                    <Canvas Width="24" Height="24">
+                        <Path Data="M3 6h18M3 12h18M3 18h18"
+                              Stroke="{DynamicResource NovaInk2Brush}"
+                              StrokeJoin="Round"
+                              StrokeLineCap="Round"
+                              StrokeThickness="2" />
+                    </Canvas>
+                </Viewbox>
+            </Button>
+        </Grid>
+    </SplitView>
 </UserControl>

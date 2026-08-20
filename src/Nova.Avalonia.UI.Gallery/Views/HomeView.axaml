@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             xmlns:views="using:Nova.Avalonia.UI.Gallery.Views"
+             mc:Ignorable="d"
+             d:DesignWidth="900"
+             d:DesignHeight="700"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.HomeView"
+             x:DataType="vm:HomeViewModel">
+    <Design.DataContext>
+        <vm:HomeViewModel />
+    </Design.DataContext>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="32,36,32,48"
+                    MaxWidth="960"
+                    HorizontalAlignment="Left">
+            <TextBlock Classes="hero" Text="Nova.Avalonia.UI" />
+            <TextBlock Classes="herotagline"
+                       Margin="0,8,0,0"
+                       Text="Controls and layouts for Avalonia" />
+            <TextBlock Classes="blurb"
+                       Margin="0,14,0,0"
+                       Text="Modern controls and layout primitives for Avalonia applications. Pick a sample from the sidebar, or browse the complete catalogue below." />
+
+            <WrapPanel Margin="0,22,0,0">
+                <Border Classes="chip" Margin="0,0,8,8">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <TextBlock Classes="chipvalue"
+                                   Text="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).SampleCount}" />
+                        <TextBlock Classes="chiplabel" Text="samples" />
+                    </StackPanel>
+                </Border>
+                <Border Classes="chip" Margin="0,0,8,8">
+                    <TextBlock Classes="chiplabel" Text="Light and dark" />
+                </Border>
+                <Border Classes="chip" Margin="0,0,8,8">
+                    <TextBlock Classes="chiplabel" Text="Fluent and Simple" />
+                </Border>
+            </WrapPanel>
+
+            <TextBlock Classes="navgroup"
+                       Margin="1,26,0,10"
+                       Text="ALL COMPONENTS" />
+
+            <ItemsControl ItemsSource="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).Categories}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="vm:SampleCategory">
+                        <StackPanel>
+                            <TextBlock Classes="navgroup"
+                                       AutomationProperties.HeadingLevel="2"
+                                       Margin="1,18,0,8"
+                                       Text="{Binding Name}" />
+                            <ItemsControl ItemsSource="{Binding Samples}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="2" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:NavigationSample">
+                                        <Button Classes="samplecard"
+                                                Command="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).NavigateToCommand}"
+                                                CommandParameter="{Binding}"
+                                                AutomationProperties.Name="{Binding Title}"
+                                                AutomationProperties.HelpText="{Binding Description}">
+                                            <StackPanel Spacing="5">
+                                                <TextBlock Classes="cardtitle" Text="{Binding Title}" />
+                                                <TextBlock Classes="carddesc" Text="{Binding Description}" />
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

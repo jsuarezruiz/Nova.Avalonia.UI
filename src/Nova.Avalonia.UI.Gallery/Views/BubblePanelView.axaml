@@ -13,7 +13,7 @@
             <TextBlock Text="A panel that packs circular items using circle packing algorithm." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
 
             <!-- Basic Usage -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Items pack together with larger items placed first." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -49,7 +49,7 @@
             </Border>
 
             <!-- Tag Cloud Style -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Tag Cloud Style" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Different sizes represent importance or frequency." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -80,7 +80,7 @@
             </Border>
 
             <!-- Configuration -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     
@@ -105,7 +105,7 @@
                 </StackPanel>
             </Border>
             <!-- Dynamic Items -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Add or remove items to see bubble packing reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>

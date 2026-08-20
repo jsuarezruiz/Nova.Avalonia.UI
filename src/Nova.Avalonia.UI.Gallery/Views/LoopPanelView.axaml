@@ -12,7 +12,7 @@
       <TextBlock Text="A panel that provides infinite scrolling capabilities for its items." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
 
       <!-- Basic Usage Section -->
-      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+      <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
           <TextBlock Text="Basic Usage" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
           <TextBlock Text="Drag or scroll to navigate infinitely through items." TextWrapping="Wrap" Opacity="0.7" />
@@ -47,7 +47,7 @@
       </Border>
 
       <!-- Vertical Orientation -->
-      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+      <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
           <TextBlock Text="Vertical Orientation" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
 
@@ -75,7 +75,7 @@
       </Border>
 
       <!-- Spacing and Anchor -->
-      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+      <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
           <TextBlock Text="Spacing and Anchor Position" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
           <TextBlock Text="AnchorPosition=0.0 (items anchor at left edge), Spacing=20" TextWrapping="Wrap" Opacity="0.7" />
@@ -104,7 +104,7 @@
       </Border>
 
       <!-- Dynamic Items -->
-      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+      <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
           <TextBlock Text="Dynamic Items" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
           <TextBlock Text="Add or remove items dynamically at runtime." TextWrapping="Wrap" Opacity="0.7" />
@@ -130,7 +130,7 @@
       </Border>
 
       <!-- Programmatic Control -->
-      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+      <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
           <TextBlock Text="Programmatic Scrolling" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
           <TextBlock Text="Use buttons to scroll programmatically via ScrollBy and ScrollToIndex methods." TextWrapping="Wrap" Opacity="0.7" />
@@ -177,7 +177,7 @@
       </Border>
 
       <!-- Interactive Playground -->
-      <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+      <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
           <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
 

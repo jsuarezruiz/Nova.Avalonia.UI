@@ -1,0 +1,78 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StreamGeometry x:Key="GallerySettingsGeometry">M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z</StreamGeometry>
+
+    <ControlTheme x:Key="NovaChoiceChip" TargetType="RadioButton">
+        <Setter Property="Foreground" Value="{DynamicResource NovaInk3Brush}" />
+        <Setter Property="FontSize" Value="11.5" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Margin" Value="0,0,4,4" />
+        <Setter Property="Padding" Value="9,0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="PART_Chip"
+                        Background="{DynamicResource NovaFieldBrush}"
+                        BorderBrush="Transparent"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        Padding="{TemplateBinding Padding}">
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource NovaInk2Brush}" />
+        </Style>
+        <Style Selector="^:checked">
+            <Setter Property="Foreground" Value="{DynamicResource NovaAccentBrush}" />
+            <Style Selector="^ /template/ Border#PART_Chip">
+                <Setter Property="Background" Value="{DynamicResource NovaAccentTintBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource NovaAccentBrush}" />
+            </Style>
+        </Style>
+        <Style Selector="^:focus-visible /template/ Border#PART_Chip">
+            <Setter Property="BorderBrush" Value="{DynamicResource NovaAccentBrush}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="NovaIconButton" TargetType="Button">
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Foreground" Value="{DynamicResource NovaInk3Brush}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="PART_IconBorder"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                    <Viewbox Width="15" Height="15"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center">
+                        <Canvas Width="24" Height="24">
+                            <Path Data="{TemplateBinding Tag}"
+                                  Stroke="{TemplateBinding Foreground}"
+                                  StrokeJoin="Round"
+                                  StrokeLineCap="Round"
+                                  StrokeThickness="1.8" />
+                        </Canvas>
+                    </Viewbox>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource NovaInk2Brush}" />
+        </Style>
+        <Style Selector="^:pointerover /template/ Border#PART_IconBorder">
+            <Setter Property="Background" Value="{DynamicResource NovaHoverStrongBrush}" />
+        </Style>
+        <Style Selector="^:focus-visible /template/ Border#PART_IconBorder">
+            <Setter Property="BorderBrush" Value="{DynamicResource NovaAccentBrush}" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

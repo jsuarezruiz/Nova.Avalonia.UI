@@ -20,7 +20,7 @@
         <StackPanel Spacing="20" Margin="20">
 
             <!-- Basic Text Watermark -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Basic Text Watermark"
                                FontWeight="Bold"
@@ -46,7 +46,7 @@
             </Border>
 
             <!-- Custom Angle and Spacing -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Custom Angle and Spacing"
                                FontWeight="Bold"
@@ -78,7 +78,7 @@
             </Border>
 
             <!-- High Opacity Watermark -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Higher Opacity"
                                FontWeight="Bold"
@@ -108,7 +108,7 @@
             </Border>
 
             <!-- Interactive Playground -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Interactive Playground"
                                FontWeight="Bold"
@@ -188,7 +188,7 @@
             </Border>
 
             <!-- Spaced Text -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Spaced Text"
                                FontWeight="Bold"
@@ -217,7 +217,7 @@
             </Border>
 
             <!-- Image Pattern Watermark -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Image Pattern Watermark"
                                FontWeight="Bold"

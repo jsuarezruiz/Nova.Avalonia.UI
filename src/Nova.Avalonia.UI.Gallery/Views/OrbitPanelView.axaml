@@ -13,7 +13,7 @@
             <TextBlock Text="A layout panel that arranges items in concentric orbit rings." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
 
             <!-- Basic Usage -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Items grouped by Orbit attached property (0=center, 1=first ring, etc.)." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -43,7 +43,7 @@
             </Border>
 
             <!-- Configuration -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     
@@ -79,7 +79,7 @@
                 </StackPanel>
             </Border>
             <!-- Dynamic Items -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Add or remove items to see orbit layout reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
