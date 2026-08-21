@@ -5,6 +5,7 @@
              xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
              xmlns:local="using:Nova.Avalonia.UI.Gallery"
              xmlns:views="using:Nova.Avalonia.UI.Gallery.Views"
+             xmlns:codeViewer="clr-namespace:Nova.Avalonia.UI.CodeViewer;assembly=Nova.Avalonia.UI.CodeViewer"
              xmlns:labs="clr-namespace:Avalonia.Labs.Controls;assembly=Avalonia.Labs.Controls"
              mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
              x:Class="Nova.Avalonia.UI.Gallery.Views.MainView"
@@ -24,19 +25,22 @@
         <labs:NavigationControl.HeaderTemplate>
             <DataTemplate x:DataType="vm:PageViewModel">
                 <DockPanel>
-                    <Button Command="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).SwapThemeCommand}"
-                            HorizontalAlignment="Right"
-                            DockPanel.Dock="Right"
-                            Padding="8,6"
-                            CornerRadius="8"
-                            Background="{DynamicResource CardBackgroundBrush}"
-                            BorderBrush="{DynamicResource CardBorderBrush}"
-                            ToolTip.Tip="Toggle theme">
-                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <StackPanel DockPanel.Dock="Right"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Spacing="8">
+                        <codeViewer:SourceCodeButton
+                            DocumentsSource="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).CurrentSourceDocuments}" />
+                        <Button Command="{Binding $parent[views:MainView].((vm:MainViewModel)DataContext).SwapThemeCommand}"
+                                Padding="8,6"
+                                CornerRadius="8"
+                                Background="{DynamicResource CardBackgroundBrush}"
+                                BorderBrush="{DynamicResource CardBorderBrush}"
+                                ToolTip.Tip="Toggle theme">
                             <TextBlock Text="Toggle theme"
                                        FontWeight="SemiBold" />
-                        </StackPanel>
-                    </Button>
+                        </Button>
+                    </StackPanel>
                     <TextBlock Text="{Binding Title}"
                                FontSize="18"
                                FontWeight="SemiBold"

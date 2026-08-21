@@ -1,0 +1,312 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Nova.Avalonia.UI.CodeViewer"
+        xmlns:avaloniaEdit="using:AvaloniaEdit">
+
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="CodeViewerBackgroundBrush" Color="#FFFDFDFD" />
+                    <SolidColorBrush x:Key="CodeViewerSurfaceBrush" Color="#FFF5F5F6" />
+                    <SolidColorBrush x:Key="CodeViewerForegroundBrush" Color="#FF202124" />
+                    <SolidColorBrush x:Key="CodeViewerMutedBrush" Color="#FF74777D" />
+                    <SolidColorBrush x:Key="CodeViewerBorderBrush" Color="#1F000000" />
+                    <SolidColorBrush x:Key="CodeViewerAccentBrush" Color="#FF0A84FF" />
+                    <SolidColorBrush x:Key="CodeViewerAccentSurfaceBrush" Color="#160A84FF" />
+                    <SolidColorBrush x:Key="SourceCodeDrawerBackdropBrush" Color="#260F172A" />
+                    <SolidColorBrush x:Key="SourceCodeButtonBackgroundBrush" Color="#0A000000" />
+                    <SolidColorBrush x:Key="SourceCodeButtonHoverBrush" Color="#12000000" />
+                    <SolidColorBrush x:Key="SourceCodeButtonPressedBrush" Color="#1F000000" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="CodeViewerBackgroundBrush" Color="#FF18191B" />
+                    <SolidColorBrush x:Key="CodeViewerSurfaceBrush" Color="#FF222428" />
+                    <SolidColorBrush x:Key="CodeViewerForegroundBrush" Color="#FFF2F3F5" />
+                    <SolidColorBrush x:Key="CodeViewerMutedBrush" Color="#FF9A9DA3" />
+                    <SolidColorBrush x:Key="CodeViewerBorderBrush" Color="#2FFFFFFF" />
+                    <SolidColorBrush x:Key="CodeViewerAccentBrush" Color="#FF64B5FF" />
+                    <SolidColorBrush x:Key="CodeViewerAccentSurfaceBrush" Color="#2464B5FF" />
+                    <SolidColorBrush x:Key="SourceCodeDrawerBackdropBrush" Color="#66000000" />
+                    <SolidColorBrush x:Key="SourceCodeButtonBackgroundBrush" Color="#0FFFFFFF" />
+                    <SolidColorBrush x:Key="SourceCodeButtonHoverBrush" Color="#1AFFFFFF" />
+                    <SolidColorBrush x:Key="SourceCodeButtonPressedBrush" Color="#29FFFFFF" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <Style Selector="controls|CodeViewer">
+        <Setter Property="Background" Value="{DynamicResource CodeViewerBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CodeViewerBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="FontFamily" Value="Cascadia Code,Menlo,Consolas,monospace" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Foreground" Value="{DynamicResource CodeViewerForegroundBrush}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        ClipToBounds="True">
+                    <Grid RowDefinitions="Auto,*">
+                        <Border Padding="14,10"
+                                Background="{DynamicResource CodeViewerSurfaceBrush}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0,0,0,1">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Text="{TemplateBinding Language}"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="12"
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource CodeViewerMutedBrush}"
+                                           VerticalAlignment="Center" />
+                                <Button x:Name="PART_CopyButton"
+                                        Grid.Column="1"
+                                        Content="Copy"
+                                        Padding="10,4"
+                                        IsVisible="{TemplateBinding ShowCopyButton}"
+                                        AutomationProperties.Name="Copy source code" />
+                            </Grid>
+                        </Border>
+
+                        <avaloniaEdit:TextEditor x:Name="PART_Editor"
+                                                 Grid.Row="1"
+                                                 Padding="8,10"
+                                                 IsReadOnly="True"
+                                                 ShowLineNumbers="{TemplateBinding ShowLineNumbers}"
+                                                 FontFamily="{TemplateBinding FontFamily}"
+                                                 FontSize="{TemplateBinding FontSize}"
+                                                 Foreground="{TemplateBinding Foreground}"
+                                                 Background="Transparent"
+                                                 LineNumbersForeground="{DynamicResource CodeViewerMutedBrush}"
+                                                 HorizontalScrollBarVisibility="Auto"
+                                                 VerticalScrollBarVisibility="Auto" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls|SourceCodeViewer">
+        <Setter Property="Background" Value="{DynamicResource CodeViewerBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CodeViewerBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <DataTemplate x:DataType="controls:SourceCodeDocument">
+                <TextBlock Text="{Binding Title}" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="ContentTemplate">
+            <DataTemplate x:DataType="controls:SourceCodeDocument">
+                <controls:CodeViewer Code="{Binding ResolvedCode}"
+                                     Language="{Binding Language}"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Stretch" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        ClipToBounds="True">
+                    <Grid RowDefinitions="Auto,*">
+                        <Border Padding="8,7"
+                                Background="{DynamicResource CodeViewerSurfaceBrush}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0,0,0,1">
+                            <ItemsPresenter x:Name="PART_ItemsPresenter"
+                                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+                        </Border>
+                        <ContentPresenter x:Name="PART_SelectedContentHost"
+                                          Grid.Row="1"
+                                          Content="{TemplateBinding SelectedContent}"
+                                          ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls|SourceCodeViewer > TabItem">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="MinWidth" Value="72" />
+        <Setter Property="Padding" Value="14,7" />
+        <Setter Property="Margin" Value="0,0,4,0" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource CodeViewerMutedBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border x:Name="PART_TabSurface"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="6">
+                    <ContentPresenter Content="{TemplateBinding Header}"
+                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls|SourceCodeViewer > TabItem:pointerover">
+        <Setter Property="Foreground" Value="{DynamicResource CodeViewerForegroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SourceCodeButtonHoverBrush}" />
+    </Style>
+
+    <Style Selector="controls|SourceCodeViewer > TabItem:selected">
+        <Setter Property="Foreground" Value="{DynamicResource CodeViewerAccentBrush}" />
+        <Setter Property="Background" Value="{DynamicResource CodeViewerAccentSurfaceBrush}" />
+    </Style>
+
+    <Style Selector="controls|CodeViewer Button#PART_CopyButton">
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="MinHeight" Value="28" />
+        <Setter Property="Padding" Value="10,4" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="{DynamicResource SourceCodeButtonBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CodeViewerBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Foreground" Value="{DynamicResource CodeViewerForegroundBrush}" />
+    </Style>
+
+    <Style Selector="controls|CodeViewer Button#PART_CopyButton:pointerover">
+        <Setter Property="Background" Value="{DynamicResource SourceCodeButtonHoverBrush}" />
+    </Style>
+
+    <Style Selector="controls|SourceCodeDrawer">
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid>
+                    <Border x:Name="PART_Backdrop"
+                            Background="{DynamicResource SourceCodeDrawerBackdropBrush}" />
+
+                    <Border x:Name="PART_DrawerPanel"
+                            Width="{TemplateBinding DrawerWidth}"
+                            HorizontalAlignment="Right"
+                            Background="{DynamicResource CodeViewerBackgroundBrush}"
+                            BorderBrush="{DynamicResource CodeViewerBorderBrush}"
+                            BorderThickness="1,0,0,0"
+                            BoxShadow="-16 0 40 0 #26000000">
+                        <Grid RowDefinitions="Auto,*">
+                            <Border Padding="18,14"
+                                    Background="{DynamicResource CodeViewerSurfaceBrush}"
+                                    BorderBrush="{DynamicResource CodeViewerBorderBrush}"
+                                    BorderThickness="0,0,0,1">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <StackPanel Spacing="2" VerticalAlignment="Center">
+                                        <TextBlock Text="Source code"
+                                                   FontSize="17"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource CodeViewerForegroundBrush}" />
+                                        <TextBlock Text="Select a file, inspect it, or copy its contents"
+                                                   FontSize="12"
+                                                   Foreground="{DynamicResource CodeViewerMutedBrush}" />
+                                    </StackPanel>
+
+                                    <Button x:Name="PART_CloseButton"
+                                            Grid.Column="1"
+                                            Width="36"
+                                            Height="36"
+                                            Padding="8"
+                                            Background="{DynamicResource CodeViewerAccentSurfaceBrush}"
+                                            BorderBrush="{DynamicResource CodeViewerAccentBrush}"
+                                            BorderThickness="1"
+                                            CornerRadius="9"
+                                            ToolTip.Tip="Close source"
+                                            AutomationProperties.Name="Close source">
+                                        <Viewbox Stretch="Uniform">
+                                            <PathIcon Data="M8.7 16.3 4.4 12l4.3-4.3L7.3 6.3 1.6 12l5.7 5.7 1.4-1.4zm6.6 0 4.3-4.3-4.3-4.3 1.4-1.4 5.7 5.7-5.7 5.7-1.4-1.4zM13.9 4 9.6 20h2.1L16 4h-2.1z"
+                                                      Foreground="{DynamicResource CodeViewerAccentBrush}" />
+                                        </Viewbox>
+                                    </Button>
+                                </Grid>
+                            </Border>
+
+                            <ContentPresenter Grid.Row="1"
+                                              Margin="16"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Grid>
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls|SourceCodeButton">
+        <Setter Property="Width" Value="36" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="CornerRadius" Value="9" />
+        <Setter Property="Background" Value="{DynamicResource SourceCodeButtonBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CodeViewerBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource CodeViewerForegroundBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border x:Name="PART_Root"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{TemplateBinding Padding}">
+                    <Viewbox Stretch="Uniform">
+                        <PathIcon Data="M8.7 16.3 4.4 12l4.3-4.3L7.3 6.3 1.6 12l5.7 5.7 1.4-1.4zm6.6 0 4.3-4.3-4.3-4.3 1.4-1.4 5.7 5.7-5.7 5.7-1.4-1.4zM13.9 4 9.6 20h2.1L16 4h-2.1z"
+                                  Foreground="{TemplateBinding Foreground}" />
+                    </Viewbox>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls|SourceCodeButton:pointerover">
+        <Setter Property="Background" Value="{DynamicResource SourceCodeButtonHoverBrush}" />
+    </Style>
+
+    <Style Selector="controls|SourceCodeButton:pressed">
+        <Setter Property="Background" Value="{DynamicResource SourceCodeButtonPressedBrush}" />
+    </Style>
+
+    <Style Selector="controls|SourceCodeButton:focus-visible">
+        <Setter Property="BorderBrush" Value="{DynamicResource CodeViewerAccentBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+
+    <Style Selector="controls|SourceCodeButton:disabled">
+        <Setter Property="Opacity" Value="0.45" />
+    </Style>
+
+</Styles>

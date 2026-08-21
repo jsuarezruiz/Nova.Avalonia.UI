@@ -1,10 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Labs.Controls;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Nova.Avalonia.UI.CodeViewer;
 
 namespace Nova.Avalonia.UI.Gallery.ViewModels;
 
@@ -13,6 +16,7 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty] private bool? _showNavBar = true;
     [ObservableProperty] private bool? _showBackButton = false;
     [ObservableProperty] private NavigationSample? _selectedSample;
+    [ObservableProperty] private IReadOnlyList<SourceCodeDocument> _currentSourceDocuments = [];
     private bool _initialNavigated;
     private bool _isDark;
 
@@ -29,6 +33,7 @@ public partial class MainViewModel : ViewModelBase
                 new("Badge", new BadgeViewModel(), "Notification badge control"),
                 new("BarcodeGenerator", new BarcodeGeneratorViewModel(), "QR codes, barcodes, and 2D symbologies"),
                 new("CompareSlider", new CompareSliderViewModel(), "Side-by-side content comparison with slider"),
+                new("Code Viewer", new CodeViewerViewModel(), "Read-only source display and source button"),
                 new("Fortune", new FortuneViewModel(), "Spin-to-win wheel and bar controls"),
                 new("Gravatar", new GravatarViewModel(), "Identicon avatars from emails/IDs"),
                 new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
@@ -98,5 +103,36 @@ public partial class MainViewModel : ViewModelBase
     private void OnNavigated(object? sender, NavigatedEventArgs e)
     {
         ShowBackButton = NavigationRouter.CanGoBack;
+        CurrentSourceDocuments = CreateSourceDocuments(NavigationRouter.CurrentPage?.GetType());
+    }
+
+    private static IReadOnlyList<SourceCodeDocument> CreateSourceDocuments(Type? viewModelType)
+    {
+        if (viewModelType is null)
+        {
+            return [];
+        }
+
+        var pageName = viewModelType.Name.EndsWith("ViewModel", StringComparison.Ordinal)
+            ? viewModelType.Name[..^"ViewModel".Length] + "View"
+            : viewModelType.Name + "View";
+        var resourceRoot = $"resm:Nova.Avalonia.UI.Gallery.Views.{pageName}";
+        const string assembly = "?assembly=Nova.Avalonia.UI.Gallery";
+
+        return
+        [
+            new SourceCodeDocument
+            {
+                Title = "XAML",
+                Language = "XAML",
+                Source = new Uri(resourceRoot + ".axaml" + assembly),
+            },
+            new SourceCodeDocument
+            {
+                Title = "C#",
+                Language = "C#",
+                Source = new Uri(resourceRoot + ".axaml.cs" + assembly),
+            },
+        ];
     }
 }

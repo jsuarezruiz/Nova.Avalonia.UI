@@ -8,6 +8,8 @@
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
+        <EmbeddedResource Include="Views\*.axaml" />
+        <EmbeddedResource Include="Views\*.axaml.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -27,5 +29,6 @@
     <ItemGroup>
       <ProjectReference Include="..\Nova.Avalonia.UI\Nova.Avalonia.UI.csproj" />
       <ProjectReference Include="..\Nova.Avalonia.UI.BarcodeGenerator\Nova.Avalonia.UI.BarcodeGenerator.csproj" />
+      <ProjectReference Include="..\Nova.Avalonia.UI.CodeViewer\Nova.Avalonia.UI.CodeViewer.csproj" />
     </ItemGroup>
 </Project>

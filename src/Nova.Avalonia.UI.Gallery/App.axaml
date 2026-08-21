@@ -14,6 +14,7 @@
         <FluentTheme />
         <labs:ControlThemes />
         <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Controls.axaml" />
+        <StyleInclude Source="avares://Nova.Avalonia.UI.CodeViewer/Themes/Controls.axaml" />
     </Application.Styles>
 
     <Application.Resources>
