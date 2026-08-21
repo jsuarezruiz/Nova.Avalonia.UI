@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using Avalonia;
 using Avalonia.Collections;
@@ -17,8 +17,8 @@ public class SourceCodeButton : Button
     /// <summary>
     /// Defines the <see cref="DocumentsSource"/> property.
     /// </summary>
-    public static readonly StyledProperty<IEnumerable?> DocumentsSourceProperty =
-        AvaloniaProperty.Register<SourceCodeButton, IEnumerable?>(nameof(DocumentsSource));
+    public static readonly StyledProperty<IEnumerable<SourceCodeDocument>?> DocumentsSourceProperty =
+        AvaloniaProperty.Register<SourceCodeButton, IEnumerable<SourceCodeDocument>?>(nameof(DocumentsSource));
 
     /// <summary>
     /// Defines the <see cref="DrawerMaxWidth"/> property.
@@ -48,7 +48,6 @@ public class SourceCodeButton : Button
             Content = Viewer,
         };
         Drawer.Closed += OnDrawerClosed;
-
     }
 
     /// <summary>
@@ -59,7 +58,7 @@ public class SourceCodeButton : Button
     /// <summary>
     /// Gets or sets a bindable source for dynamically supplied documents.
     /// </summary>
-    public IEnumerable? DocumentsSource
+    public IEnumerable<SourceCodeDocument>? DocumentsSource
     {
         get => GetValue(DocumentsSourceProperty);
         set => SetValue(DocumentsSourceProperty, value);

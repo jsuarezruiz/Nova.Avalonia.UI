@@ -69,6 +69,11 @@ public sealed class SourceCodeDocument : AvaloniaObject
     private bool _isResolved = true;
 
     /// <summary>
+    /// Occurs when the source resource cannot be loaded.
+    /// </summary>
+    public event EventHandler<SourceCodeLoadFailedEventArgs>? LoadFailed;
+
+    /// <summary>
     /// Gets or sets the document title displayed by the source viewer.
     /// </summary>
     public string Title
@@ -258,7 +263,7 @@ public sealed class SourceCodeDocument : AvaloniaObject
         {
             return;
         }
-        catch (Exception)
+        catch (Exception exception)
         {
             if (cancellation.IsCancellationRequested || version != _resolutionVersion)
             {
@@ -267,6 +272,7 @@ public sealed class SourceCodeDocument : AvaloniaObject
 
             LoadError = LoadErrorMessage;
             ResolvedCode = LoadError;
+            LoadFailed?.Invoke(this, new SourceCodeLoadFailedEventArgs(source, exception));
         }
         finally
         {

@@ -238,12 +238,14 @@ public class CodeViewerTests
     }
 
     [AvaloniaFact]
-    public async System.Threading.Tasks.Task SourceCodeDocument_Loads_Resources_Only_When_Selected()
+    public async Task SourceCodeDocument_Loads_Resources_Only_When_Selected()
     {
         var document = new SourceCodeDocument
         {
             Source = new Uri("avares://Missing.Assembly/missing.axaml"),
         };
+        SourceCodeLoadFailedEventArgs? failure = null;
+        document.LoadFailed += (_, args) => failure = args;
 
         Assert.Equal(string.Empty, document.ResolvedCode);
         Assert.Null(document.LoadError);
@@ -252,6 +254,9 @@ public class CodeViewerTests
 
         Assert.NotNull(document.LoadError);
         Assert.Equal(document.LoadError, document.ResolvedCode);
+        Assert.NotNull(failure);
+        Assert.Equal(document.Source, failure.Source);
+        Assert.NotNull(failure.Exception);
     }
 
     [AvaloniaFact]
@@ -436,11 +441,12 @@ public class CodeViewerTests
         var drawer = new SourceCodeDrawer();
 
         drawer.Open();
+        var closed = WaitForDrawerClosedAsync(drawer);
         drawer.Close();
 
         Assert.True(drawer.IsHitTestVisible);
 
-        await Task.Delay(250);
+        await closed;
 
         Assert.False(drawer.IsHitTestVisible);
     }
@@ -473,8 +479,9 @@ public class CodeViewerTests
 
             Assert.Equal(AccessibilityView.Raw, AutomationProperties.GetAccessibilityView(addedWhileOpen));
 
+            var drawerClosed = WaitForDrawerClosedAsync(sourceButton.Drawer);
             sourceButton.Drawer.Close();
-            await Task.Delay(250);
+            await drawerClosed;
 
             Assert.Equal(originalView, AutomationProperties.GetAccessibilityView(backgroundButton));
             Assert.Equal(AccessibilityView.Default, AutomationProperties.GetAccessibilityView(addedWhileOpen));
@@ -534,5 +541,21 @@ public class CodeViewerTests
         }
 
         Assert.True(linesHighlighted);
+    }
+
+    private static async Task WaitForDrawerClosedAsync(SourceCodeDrawer drawer)
+    {
+        var completion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        void OnClosed(object? sender, EventArgs args) => completion.TrySetResult();
+
+        drawer.Closed += OnClosed;
+        try
+        {
+            await completion.Task.WaitAsync(TimeSpan.FromSeconds(2));
+        }
+        finally
+        {
+            drawer.Closed -= OnClosed;
+        }
     }
 }

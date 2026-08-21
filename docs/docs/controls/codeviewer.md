@@ -114,6 +114,8 @@ Instead of keeping a large source string in a view model, set `Source` to an `av
 
 Make sure the file is included as an Avalonia resource by the application project. Resources are loaded asynchronously when their document is first selected. If a resource cannot be loaded, the viewer displays a short error message in place of the source. Set `LoadErrorMessage` on the document when that message needs to be localized.
 
+Handle `SourceCodeDocument.LoadFailed` when the application needs to log or inspect the underlying resource-loading exception.
+
 `CodeViewer` exposes its source as a read-only automation value, and the drawer keeps keyboard focus inside itself while open. Handle the `CopyFailed` event when the application needs to report clipboard errors to the user.
 
 Visible and accessible labels are stored in the `CodeViewerCopyText`, `CodeViewerCopyAutomationName`, `SourceCodeButtonText`, `SourceCodeDrawerTitle`, `SourceCodeDrawerDescription`, and `SourceCodeDrawerCloseText` resources. Override these keys after including the Code Viewer styles to localize the controls.
@@ -135,7 +137,7 @@ Visible and accessible labels are stored in the `CodeViewerCopyText`, `CodeViewe
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `Documents` | `AvaloniaList<SourceCodeDocument>` | Empty | Documents declared directly in XAML or code. |
-| `DocumentsSource` | `IEnumerable` | `null` | Bindable collection of source documents. |
+| `DocumentsSource` | `IEnumerable<SourceCodeDocument>` | `null` | Bindable collection of source documents. |
 | `DrawerMaxWidth` | `double` | `720` | Maximum width of the source drawer. |
 
 ### SourceCodeDocument
