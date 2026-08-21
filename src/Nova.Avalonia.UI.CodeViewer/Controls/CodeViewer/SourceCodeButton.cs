@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using Avalonia;
-using Avalonia.Automation;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.VisualTree;
 
 namespace Nova.Avalonia.UI.CodeViewer;
 
@@ -24,10 +24,16 @@ public class SourceCodeButton : Button
     /// Defines the <see cref="DrawerMaxWidth"/> property.
     /// </summary>
     public static readonly StyledProperty<double> DrawerMaxWidthProperty =
-        AvaloniaProperty.Register<SourceCodeButton, double>(nameof(DrawerMaxWidth), 720);
+        AvaloniaProperty.Register<SourceCodeButton, double>(
+            nameof(DrawerMaxWidth),
+            720,
+            validate: static value => double.IsFinite(value) && value > 0);
 
     private OverlayLayer? _overlayLayer;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SourceCodeButton"/> class.
+    /// </summary>
     public SourceCodeButton()
     {
         Documents.CollectionChanged += OnDocumentsChanged;
@@ -43,8 +49,6 @@ public class SourceCodeButton : Button
         };
         Drawer.Closed += OnDrawerClosed;
 
-        AutomationProperties.SetName(this, "View source");
-        ToolTip.SetTip(this, "View source");
     }
 
     /// <summary>
@@ -73,12 +77,12 @@ public class SourceCodeButton : Button
     /// <summary>
     /// Gets the viewer used by the default drawer.
     /// </summary>
-    public SourceCodeViewer Viewer { get; }
+    internal SourceCodeViewer Viewer { get; }
 
     /// <summary>
     /// Gets the drawer displayed by this button.
     /// </summary>
-    public SourceCodeDrawer Drawer { get; }
+    internal SourceCodeDrawer Drawer { get; }
 
     protected override void OnClick()
     {
@@ -108,6 +112,12 @@ public class SourceCodeButton : Button
         }
     }
 
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        RemoveDrawer(restoreFocus: false);
+        base.OnDetachedFromVisualTree(e);
+    }
+
     private void OnDocumentsChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         if (DocumentsSource is null && Viewer.ItemsSource != Documents)
@@ -132,7 +142,11 @@ public class SourceCodeButton : Button
         _overlayLayer = overlayLayer;
         _overlayLayer.SizeChanged += OnOverlaySizeChanged;
         UpdateDrawerBounds();
-        _overlayLayer.Children.Add(Drawer);
+        if (!_overlayLayer.Children.Contains(Drawer))
+        {
+            _overlayLayer.Children.Add(Drawer);
+        }
+
         Drawer.Open();
     }
 
@@ -155,16 +169,22 @@ public class SourceCodeButton : Button
 
     private void OnOverlaySizeChanged(object? sender, SizeChangedEventArgs e) => UpdateDrawerBounds();
 
-    private void OnDrawerClosed(object? sender, EventArgs e)
+    private void OnDrawerClosed(object? sender, EventArgs e) => RemoveDrawer(restoreFocus: true);
+
+    private void RemoveDrawer(bool restoreFocus)
     {
         if (_overlayLayer is null)
         {
             return;
         }
 
+        Drawer.Reset();
         _overlayLayer.SizeChanged -= OnOverlaySizeChanged;
         _overlayLayer.Children.Remove(Drawer);
         _overlayLayer = null;
-        Focus();
+        if (restoreFocus && this.IsAttachedToVisualTree())
+        {
+            Focus();
+        }
     }
 }

@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Platform;
 
@@ -35,6 +37,14 @@ public sealed class SourceCodeDocument : AvaloniaObject
         AvaloniaProperty.Register<SourceCodeDocument, Uri?>(nameof(Source));
 
     /// <summary>
+    /// Defines the <see cref="LoadErrorMessage"/> property.
+    /// </summary>
+    public static readonly StyledProperty<string> LoadErrorMessageProperty =
+        AvaloniaProperty.Register<SourceCodeDocument, string>(
+            nameof(LoadErrorMessage),
+            "Unable to load source.");
+
+    /// <summary>
     /// Defines the <see cref="ResolvedCode"/> property.
     /// </summary>
     public static readonly DirectProperty<SourceCodeDocument, string> ResolvedCodeProperty =
@@ -52,6 +62,11 @@ public sealed class SourceCodeDocument : AvaloniaObject
 
     private string _resolvedCode = string.Empty;
     private string? _loadError;
+    private CancellationTokenSource? _resolutionCancellation;
+    private Task? _resolutionTask;
+    private int _resolutionRequestCount;
+    private int _resolutionVersion;
+    private bool _isResolved = true;
 
     /// <summary>
     /// Gets or sets the document title displayed by the source viewer.
@@ -90,7 +105,16 @@ public sealed class SourceCodeDocument : AvaloniaObject
     }
 
     /// <summary>
-    /// Gets the inline or loaded source text.
+    /// Gets or sets the user-facing message displayed when <see cref="Source"/> cannot be loaded.
+    /// </summary>
+    public string LoadErrorMessage
+    {
+        get => GetValue(LoadErrorMessageProperty);
+        set => SetValue(LoadErrorMessageProperty, value);
+    }
+
+    /// <summary>
+    /// Gets the inline source text, or the resource text after the document is first selected.
     /// </summary>
     public string ResolvedCode
     {
@@ -99,7 +123,7 @@ public sealed class SourceCodeDocument : AvaloniaObject
     }
 
     /// <summary>
-    /// Gets a user-facing message when <see cref="Source"/> cannot be loaded.
+    /// Gets a user-facing message when a selected <see cref="Source"/> cannot be loaded.
     /// </summary>
     public string? LoadError
     {
@@ -113,37 +137,149 @@ public sealed class SourceCodeDocument : AvaloniaObject
 
         if (change.Property == CodeProperty || change.Property == SourceProperty)
         {
-            ResolveCode();
+            InvalidateResolvedCode();
+        }
+        else if (change.Property == LoadErrorMessageProperty && LoadError is not null)
+        {
+            LoadError = LoadErrorMessage;
+            ResolvedCode = LoadErrorMessage;
         }
     }
 
-    private void ResolveCode()
+    internal Task EnsureCodeResolvedAsync()
     {
+        if (_isResolved)
+        {
+            return Task.CompletedTask;
+        }
+
+        if (_resolutionTask is not null)
+        {
+            return _resolutionTask;
+        }
+
+        var source = Source;
+        if (source is null)
+        {
+            _isResolved = true;
+            return Task.CompletedTask;
+        }
+
+        var cancellation = new CancellationTokenSource();
+        _resolutionCancellation = cancellation;
+        var resolutionTask = ResolveCodeAsync(source, _resolutionVersion, cancellation);
+        if (ReferenceEquals(_resolutionCancellation, cancellation))
+        {
+            _resolutionTask = resolutionTask;
+        }
+
+        return resolutionTask;
+    }
+
+    internal void RequestCodeResolution()
+    {
+        _resolutionRequestCount++;
+        _ = EnsureCodeResolvedAsync();
+    }
+
+    internal void ReleaseCodeResolution()
+    {
+        if (_resolutionRequestCount == 0)
+        {
+            return;
+        }
+
+        _resolutionRequestCount--;
+        if (_resolutionRequestCount == 0)
+        {
+            CancelCodeResolution();
+        }
+    }
+
+    private void CancelCodeResolution()
+    {
+        var cancellation = _resolutionCancellation;
+        if (cancellation is null)
+        {
+            return;
+        }
+
+        _resolutionCancellation = null;
+        _resolutionTask = null;
+        cancellation.Cancel();
+        cancellation.Dispose();
+    }
+
+    private void InvalidateResolvedCode()
+    {
+        _resolutionVersion++;
+        CancelCodeResolution();
+        _isResolved = false;
+        LoadError = null;
+
         if (Code is { } code)
         {
-            LoadError = null;
             ResolvedCode = code;
+            _isResolved = true;
             return;
         }
 
-        if (Source is not { } source)
+        ResolvedCode = string.Empty;
+        if (Source is null)
         {
-            LoadError = null;
-            ResolvedCode = string.Empty;
-            return;
+            _isResolved = true;
         }
 
+        if (!_isResolved && _resolutionRequestCount > 0)
+        {
+            _ = EnsureCodeResolvedAsync();
+        }
+    }
+
+    private async Task ResolveCodeAsync(
+        Uri source,
+        int version,
+        CancellationTokenSource cancellation)
+    {
         try
         {
             using var stream = AssetLoader.Open(source);
             using var reader = new StreamReader(stream);
-            ResolvedCode = reader.ReadToEnd();
+            var resolvedCode = await reader.ReadToEndAsync(cancellation.Token);
+            if (cancellation.IsCancellationRequested || version != _resolutionVersion)
+            {
+                return;
+            }
+
+            ResolvedCode = resolvedCode;
             LoadError = null;
+        }
+        catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
+        {
+            return;
         }
         catch (Exception)
         {
-            LoadError = $"Unable to load source '{source}'.";
+            if (cancellation.IsCancellationRequested || version != _resolutionVersion)
+            {
+                return;
+            }
+
+            LoadError = LoadErrorMessage;
             ResolvedCode = LoadError;
+        }
+        finally
+        {
+            if (ReferenceEquals(_resolutionCancellation, cancellation))
+            {
+                _resolutionCancellation = null;
+                _resolutionTask = null;
+                cancellation.Dispose();
+                if (version == _resolutionVersion)
+                {
+                    _isResolved = true;
+                }
+            }
         }
     }
 }

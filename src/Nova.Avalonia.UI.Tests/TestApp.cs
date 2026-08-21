@@ -2,6 +2,7 @@ using System;
 using Avalonia;
 using Avalonia.Headless;
 using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Themes.Fluent;
 
 [assembly: AvaloniaTestApplication(typeof(Nova.Avalonia.UI.Tests.TestApp))]
 
@@ -14,9 +15,14 @@ public class TestApp : Application
 
     public override void Initialize()
     {
+        Styles.Add(new FluentTheme());
         Styles.Add(new StyleInclude(new Uri("avares://Nova.Avalonia.UI.Tests"))
         {
             Source = new Uri("avares://Nova.Avalonia.UI/Themes/Controls.axaml")
+        });
+        Styles.Add(new StyleInclude(new Uri("avares://Nova.Avalonia.UI.Tests"))
+        {
+            Source = new Uri("avares://Nova.Avalonia.UI.CodeViewer/Themes/Controls.axaml")
         });
     }
 }

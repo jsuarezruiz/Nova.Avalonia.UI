@@ -5,15 +5,22 @@
 
     <Styles.Resources>
         <ResourceDictionary>
+            <x:String x:Key="CodeViewerCopyText">Copy</x:String>
+            <x:String x:Key="CodeViewerCopyAutomationName">Copy source code</x:String>
+            <x:String x:Key="SourceCodeButtonText">View source</x:String>
+            <x:String x:Key="SourceCodeDrawerTitle">Source code</x:String>
+            <x:String x:Key="SourceCodeDrawerDescription">Select a file, inspect it, or copy its contents</x:String>
+            <x:String x:Key="SourceCodeDrawerCloseText">Close source</x:String>
+
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="CodeViewerBackgroundBrush" Color="#FFFDFDFD" />
                     <SolidColorBrush x:Key="CodeViewerSurfaceBrush" Color="#FFF5F5F6" />
                     <SolidColorBrush x:Key="CodeViewerForegroundBrush" Color="#FF202124" />
-                    <SolidColorBrush x:Key="CodeViewerMutedBrush" Color="#FF74777D" />
+                    <SolidColorBrush x:Key="CodeViewerMutedBrush" Color="#FF686B70" />
                     <SolidColorBrush x:Key="CodeViewerBorderBrush" Color="#1F000000" />
-                    <SolidColorBrush x:Key="CodeViewerAccentBrush" Color="#FF0A84FF" />
-                    <SolidColorBrush x:Key="CodeViewerAccentSurfaceBrush" Color="#160A84FF" />
+                    <SolidColorBrush x:Key="CodeViewerAccentBrush" Color="#FF0066CC" />
+                    <SolidColorBrush x:Key="CodeViewerAccentSurfaceBrush" Color="#160066CC" />
                     <SolidColorBrush x:Key="SourceCodeDrawerBackdropBrush" Color="#260F172A" />
                     <SolidColorBrush x:Key="SourceCodeButtonBackgroundBrush" Color="#0A000000" />
                     <SolidColorBrush x:Key="SourceCodeButtonHoverBrush" Color="#12000000" />
@@ -65,10 +72,10 @@
                                            VerticalAlignment="Center" />
                                 <Button x:Name="PART_CopyButton"
                                         Grid.Column="1"
-                                        Content="Copy"
+                                        Content="{DynamicResource CodeViewerCopyText}"
                                         Padding="10,4"
                                         IsVisible="{TemplateBinding ShowCopyButton}"
-                                        AutomationProperties.Name="Copy source code" />
+                                        AutomationProperties.Name="{DynamicResource CodeViewerCopyAutomationName}" />
                             </Grid>
                         </Border>
 
@@ -129,8 +136,11 @@
                                 Background="{DynamicResource CodeViewerSurfaceBrush}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="0,0,0,1">
-                            <ItemsPresenter x:Name="PART_ItemsPresenter"
-                                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                          VerticalScrollBarVisibility="Disabled">
+                                <ItemsPresenter x:Name="PART_ItemsPresenter"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            </ScrollViewer>
                         </Border>
                         <ContentPresenter x:Name="PART_SelectedContentHost"
                                           Grid.Row="1"
@@ -161,6 +171,8 @@
                 <Border x:Name="PART_TabSurface"
                         Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
+                        BorderBrush="Transparent"
+                        BorderThickness="1"
                         CornerRadius="6">
                     <ContentPresenter Content="{TemplateBinding Header}"
                                       ContentTemplate="{TemplateBinding HeaderTemplate}"
@@ -179,6 +191,11 @@
     <Style Selector="controls|SourceCodeViewer > TabItem:selected">
         <Setter Property="Foreground" Value="{DynamicResource CodeViewerAccentBrush}" />
         <Setter Property="Background" Value="{DynamicResource CodeViewerAccentSurfaceBrush}" />
+    </Style>
+
+    <Style Selector="controls|SourceCodeViewer > TabItem:focus-visible /template/ Border#PART_TabSurface">
+        <Setter Property="BorderBrush" Value="{DynamicResource CodeViewerAccentBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
     </Style>
 
     <Style Selector="controls|CodeViewer Button#PART_CopyButton">
@@ -202,6 +219,8 @@
 
     <Style Selector="controls|SourceCodeDrawer">
         <Setter Property="Focusable" Value="True" />
+        <Setter Property="(AutomationProperties.Name)" Value="{DynamicResource SourceCodeDrawerTitle}" />
+        <Setter Property="(KeyboardNavigation.TabNavigation)" Value="Cycle" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="Template">
@@ -224,13 +243,14 @@
                                     BorderThickness="0,0,0,1">
                                 <Grid ColumnDefinitions="*,Auto">
                                     <StackPanel Spacing="2" VerticalAlignment="Center">
-                                        <TextBlock Text="Source code"
+                                        <TextBlock Text="{DynamicResource SourceCodeDrawerTitle}"
                                                    FontSize="17"
                                                    FontWeight="SemiBold"
                                                    Foreground="{DynamicResource CodeViewerForegroundBrush}" />
-                                        <TextBlock Text="Select a file, inspect it, or copy its contents"
+                                        <TextBlock Text="{DynamicResource SourceCodeDrawerDescription}"
                                                    FontSize="12"
-                                                   Foreground="{DynamicResource CodeViewerMutedBrush}" />
+                                                   Foreground="{DynamicResource CodeViewerMutedBrush}"
+                                                   TextWrapping="Wrap" />
                                     </StackPanel>
 
                                     <Button x:Name="PART_CloseButton"
@@ -242,10 +262,10 @@
                                             BorderBrush="{DynamicResource CodeViewerAccentBrush}"
                                             BorderThickness="1"
                                             CornerRadius="9"
-                                            ToolTip.Tip="Close source"
-                                            AutomationProperties.Name="Close source">
+                                            ToolTip.Tip="{DynamicResource SourceCodeDrawerCloseText}"
+                                            AutomationProperties.Name="{DynamicResource SourceCodeDrawerCloseText}">
                                         <Viewbox Stretch="Uniform">
-                                            <PathIcon Data="M8.7 16.3 4.4 12l4.3-4.3L7.3 6.3 1.6 12l5.7 5.7 1.4-1.4zm6.6 0 4.3-4.3-4.3-4.3 1.4-1.4 5.7 5.7-5.7 5.7-1.4-1.4zM13.9 4 9.6 20h2.1L16 4h-2.1z"
+                                            <PathIcon Data="M18.3 5.71 12 12l6.3 6.29-1.41 1.42-6.3-6.3-6.3 6.3-1.41-1.41 6.29-6.3-6.29-6.3 1.41-1.41 6.3 6.29 6.3-6.29z"
                                                       Foreground="{DynamicResource CodeViewerAccentBrush}" />
                                         </Viewbox>
                                     </Button>
@@ -275,6 +295,8 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="{DynamicResource CodeViewerForegroundBrush}" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="(AutomationProperties.Name)" Value="{DynamicResource SourceCodeButtonText}" />
+        <Setter Property="ToolTip.Tip" Value="{DynamicResource SourceCodeButtonText}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border x:Name="PART_Root"

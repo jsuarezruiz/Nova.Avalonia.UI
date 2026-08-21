@@ -6,19 +6,29 @@ namespace Nova.Avalonia.UI.Gallery.ViewModels;
 public sealed class CodeViewerViewModel : PageViewModel
 {
     private const string XamlSample = """
-        <ui:SourceCodeButton DocumentsSource="{Binding Sources}" />
+        <UserControl xmlns="https://github.com/avaloniaui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:codeViewer="using:Nova.Avalonia.UI.CodeViewer">
+            <codeViewer:SourceCodeButton DocumentsSource="{Binding Sources}" />
+        </UserControl>
         """;
 
     private const string CSharpSample = """
-        Sources =
-        [
-            new SourceCodeDocument
-            {
-                Title = "XAML",
-                Language = "XAML",
-                Code = xaml
-            }
-        ];
+        using System.Collections.ObjectModel;
+        using Nova.Avalonia.UI.CodeViewer;
+
+        public sealed class SampleViewModel
+        {
+            public ObservableCollection<SourceCodeDocument> Sources { get; } =
+            [
+                new SourceCodeDocument
+                {
+                    Title = "XAML",
+                    Language = "XAML",
+                    Code = "<Button Content=\"Save\" />",
+                },
+            ];
+        }
         """;
 
     public CodeViewerViewModel() : base("Code Viewer")

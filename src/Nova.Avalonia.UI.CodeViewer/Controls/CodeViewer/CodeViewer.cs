@@ -1,15 +1,16 @@
 using System;
-using System.Text;
 using Avalonia;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using AvaloniaEdit.Editing;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using AvaloniaEdit;
+using AvaloniaEdit.Editing;
+using AvaloniaEdit.Rendering;
 using AvaloniaEdit.TextMate;
 using TextMateSharp.Grammars;
 
@@ -20,6 +21,9 @@ namespace Nova.Avalonia.UI.CodeViewer;
 /// </summary>
 public class CodeViewer : TemplatedControl
 {
+    private static readonly Lazy<RegistryOptions> SharedRegistry =
+        new(() => new RegistryOptions(ThemeName.LightPlus));
+
     /// <summary>
     /// Defines the <see cref="Code"/> property.
     /// </summary>
@@ -50,24 +54,24 @@ public class CodeViewer : TemplatedControl
     public static readonly StyledProperty<TextWrapping> TextWrappingProperty =
         AvaloniaProperty.Register<CodeViewer, TextWrapping>(nameof(TextWrapping), TextWrapping.NoWrap);
 
-    /// <summary>
-    /// Defines the <see cref="LineNumbers"/> property.
-    /// </summary>
-    public static readonly DirectProperty<CodeViewer, string> LineNumbersProperty =
-        AvaloniaProperty.RegisterDirect<CodeViewer, string>(
-            nameof(LineNumbers),
-            viewer => viewer.LineNumbers);
-
     private Button? _copyButton;
     private TextEditor? _editor;
+    private TextView? _highlightingViewAwaitingLayout;
     private RegistryOptions? _registry;
     private TextMate.Installation? _textMate;
-    private string _lineNumbers = "1";
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CodeViewer"/> class.
+    /// </summary>
     public CodeViewer()
     {
         ActualThemeVariantChanged += (_, _) => ApplyEditorTheme();
     }
+
+    /// <summary>
+    /// Occurs when the source text cannot be copied to the platform clipboard.
+    /// </summary>
+    public event EventHandler<SourceCodeCopyFailedEventArgs>? CopyFailed;
 
     /// <summary>
     /// Gets or sets the source text to display.
@@ -114,15 +118,6 @@ public class CodeViewer : TemplatedControl
         set => SetValue(TextWrappingProperty, value);
     }
 
-    /// <summary>
-    /// Gets the formatted line numbers for the current source text.
-    /// </summary>
-    public string LineNumbers
-    {
-        get => _lineNumbers;
-        private set => SetAndRaise(LineNumbersProperty, ref _lineNumbers, value);
-    }
-
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         if (_copyButton is not null)
@@ -150,17 +145,24 @@ public class CodeViewer : TemplatedControl
 
         if (change.Property == CodeProperty)
         {
-            LineNumbers = CreateLineNumbers(Code);
             if (_editor is not null)
             {
                 _editor.Text = Code ?? string.Empty;
+            }
+
+            if (ControlAutomationPeer.FromElement(this) is CodeViewerAutomationPeer peer)
+            {
+                peer.NotifyCodeChanged(
+                    change.GetOldValue<string?>(),
+                    change.GetNewValue<string?>());
             }
 
             ResetScrollOffset();
         }
         else if (change.Property == LanguageProperty)
         {
-            ApplyGrammar();
+            DisposeHighlighting();
+            UpdateHighlighting();
         }
         else if (change.Property == ShowLineNumbersProperty && _editor is not null)
         {
@@ -182,7 +184,7 @@ public class CodeViewer : TemplatedControl
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
-        InstallHighlighting();
+        UpdateHighlighting();
         ResetScrollOffset();
     }
 
@@ -197,9 +199,22 @@ public class CodeViewer : TemplatedControl
     private async void OnCopyClicked(object? sender, RoutedEventArgs e)
     {
         var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
-        if (clipboard is not null)
+        if (clipboard is null)
+        {
+            CopyFailed?.Invoke(
+                this,
+                new SourceCodeCopyFailedEventArgs(
+                    new InvalidOperationException("The platform clipboard is unavailable.")));
+            return;
+        }
+
+        try
         {
             await clipboard.SetTextAsync(Code ?? string.Empty);
+        }
+        catch (Exception exception)
+        {
+            CopyFailed?.Invoke(this, new SourceCodeCopyFailedEventArgs(exception));
         }
     }
 
@@ -231,7 +246,7 @@ public class CodeViewer : TemplatedControl
         _editor.Options.EnableHyperlinks = false;
         _editor.Options.EnableEmailHyperlinks = false;
         SynchronizeLineNumberTypography(_editor, FontFamily, FontSize);
-        InstallHighlighting();
+        UpdateHighlighting();
     }
 
     internal static void SynchronizeLineNumberTypography(
@@ -252,48 +267,79 @@ public class CodeViewer : TemplatedControl
         }
     }
 
-    private void InstallHighlighting()
+    private void UpdateHighlighting()
     {
-        if (_editor is null || _textMate is not null || !this.IsAttachedToVisualTree())
+        var extension = GetLanguageExtension(Language);
+        if (extension is null || !IsTextMateSupported())
+        {
+            DisposeHighlighting();
+            return;
+        }
+
+        if (_editor is null || !this.IsAttachedToVisualTree())
         {
             return;
         }
 
-        _registry = new RegistryOptions(
-            ActualThemeVariant == global::Avalonia.Styling.ThemeVariant.Dark
-                ? ThemeName.DarkPlus
-                : ThemeName.LightPlus);
-        _textMate = _editor.InstallTextMate(_registry);
-        ApplyGrammar();
+        if (_textMate is null)
+        {
+            _registry = SharedRegistry.Value;
+            _textMate = _editor.InstallTextMate(_registry);
+            ApplyEditorTheme();
+        }
+
+        var language = _registry?.GetLanguageByExtension(extension);
+        var scope = language is null ? null : _registry?.GetScopeByLanguageId(language.Id);
+        if (!string.IsNullOrEmpty(scope))
+        {
+            RefreshHighlightingAfterFirstLayout();
+            _textMate.SetGrammar(scope);
+        }
     }
 
-    private void ApplyGrammar()
+    private void RefreshHighlightingAfterFirstLayout()
     {
-        if (_registry is null || _textMate is null)
+        StopWaitingForHighlightingLayout();
+
+        if (_editor is null)
         {
             return;
         }
 
-        var extension = Language?.Trim().ToUpperInvariant() switch
-        {
-            "C#" or "CS" or "CSHARP" => ".cs",
-            "XAML" or "XML" => ".xml",
-            "JSON" => ".json",
-            "CSS" => ".css",
-            "JAVASCRIPT" or "JS" => ".js",
-            "MARKDOWN" or "MD" => ".md",
-            _ => null,
-        };
-        if (extension is null)
+        _highlightingViewAwaitingLayout = _editor.TextArea.TextView;
+        // TextMate may tokenize before AvaloniaEdit has a visible range to redraw.
+        // Rebuild the visual lines once layout is ready so those early tokens are applied.
+        _highlightingViewAwaitingLayout.VisualLinesChanged += OnHighlightingVisualLinesChanged;
+    }
+
+    private void OnHighlightingVisualLinesChanged(object? sender, EventArgs e)
+    {
+        if (sender is not TextView textView || !textView.VisualLinesValid)
         {
             return;
         }
 
-        var language = _registry.GetLanguageByExtension(extension);
-        if (language is not null)
+        StopWaitingForHighlightingLayout();
+        Dispatcher.UIThread.Post(
+            () =>
+            {
+                if (_textMate is not null && ReferenceEquals(_editor?.TextArea.TextView, textView))
+                {
+                    textView.Redraw();
+                }
+            },
+            DispatcherPriority.Render);
+    }
+
+    private void StopWaitingForHighlightingLayout()
+    {
+        if (_highlightingViewAwaitingLayout is null)
         {
-            _textMate.SetGrammar(_registry.GetScopeByLanguageId(language.Id));
+            return;
         }
+
+        _highlightingViewAwaitingLayout.VisualLinesChanged -= OnHighlightingVisualLinesChanged;
+        _highlightingViewAwaitingLayout = null;
     }
 
     private void ApplyEditorTheme()
@@ -303,42 +349,65 @@ public class CodeViewer : TemplatedControl
             return;
         }
 
-        var theme = ActualThemeVariant == global::Avalonia.Styling.ThemeVariant.Dark
-            ? ThemeName.DarkPlus
-            : ThemeName.LightPlus;
+        var theme = GetTextMateTheme(ActualThemeVariant);
         _textMate.SetTheme(_registry.LoadTheme(theme));
+    }
+
+    internal static ThemeName GetTextMateTheme(ThemeVariant? themeVariant)
+    {
+        for (var current = themeVariant; current is not null; current = current.InheritVariant)
+        {
+            if (current == ThemeVariant.Dark)
+            {
+                return ThemeName.DarkPlus;
+            }
+
+            if (current == ThemeVariant.Light)
+            {
+                return ThemeName.LightPlus;
+            }
+        }
+
+        return ThemeName.LightPlus;
     }
 
     private void DisposeHighlighting()
     {
+        StopWaitingForHighlightingLayout();
         _textMate?.Dispose();
         _textMate = null;
         _registry = null;
+
+        if (_editor is null)
+        {
+            return;
+        }
+
+        var transformers = _editor.TextArea.TextView.LineTransformers;
+        for (var index = transformers.Count - 1; index >= 0; index--)
+        {
+            if (transformers[index] is TextMateColoringTransformer transformer)
+            {
+                transformer.Dispose();
+                transformers.RemoveAt(index);
+            }
+        }
     }
 
-    private static string CreateLineNumbers(string? code)
+    private static string? GetLanguageExtension(string? language) => language?.Trim().ToUpperInvariant() switch
     {
-        var lineCount = 1;
-        for (var index = 0; index < code?.Length; index++)
-        {
-            if (code[index] == '\n' ||
-                code[index] == '\r' && (index + 1 == code.Length || code[index + 1] != '\n'))
-            {
-                lineCount++;
-            }
-        }
+        "C#" or "CS" or "CSHARP" => ".cs",
+        "XAML" or "XML" => ".xml",
+        "JSON" => ".json",
+        "CSS" => ".css",
+        "JAVASCRIPT" or "JS" => ".js",
+        "MARKDOWN" or "MD" => ".md",
+        _ => null,
+    };
 
-        var result = new StringBuilder(lineCount * 3);
-        for (var line = 1; line <= lineCount; line++)
-        {
-            if (line > 1)
-            {
-                result.Append(Environment.NewLine);
-            }
-
-            result.Append(line);
-        }
-
-        return result.ToString();
-    }
+    private static bool IsTextMateSupported() =>
+        !OperatingSystem.IsAndroid() &&
+        !OperatingSystem.IsIOS() &&
+        !OperatingSystem.IsTvOS() &&
+        !OperatingSystem.IsMacCatalyst();
 }

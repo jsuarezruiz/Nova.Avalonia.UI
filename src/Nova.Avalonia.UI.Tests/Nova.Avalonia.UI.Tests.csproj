@@ -13,6 +13,7 @@
         <PackageReference Include="Avalonia.Headless" />
         <PackageReference Include="Avalonia.Headless.XUnit" />
         <PackageReference Include="Avalonia.Markup.Xaml.Loader" />
+        <PackageReference Include="Avalonia.Themes.Fluent" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="xunit" />
         <PackageReference Include="xunit.runner.visualstudio">
