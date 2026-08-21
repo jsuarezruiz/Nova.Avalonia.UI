@@ -46,6 +46,10 @@ ms.date: 2026-02-01
 - **[VirtualizingStaggeredPanel](docs/controls/staggeredpanel.md)**: High-performance staggered grid for large datasets.
 - **[VirtualizingVariableSizeWrapPanel](docs/controls/variablesizewrappanel.md)**: High-performance variable-size tile grid for large datasets.
 
+### Input
+
+- **[PinBox](xref:Nova.Avalonia.UI.Controls.PinBox)**: Specialized input control for PIN codes, security codes, and OTP entry with validation, masking, and individual character boxes.
+
 ## Requirements
 
 - .NET 8.0 or higher

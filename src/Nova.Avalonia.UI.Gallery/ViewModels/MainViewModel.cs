@@ -31,6 +31,7 @@ public partial class MainViewModel : ViewModelBase
                 new("CompareSlider", new CompareSliderViewModel(), "Side-by-side content comparison with slider"),
                 new("Fortune", new FortuneViewModel(), "Spin-to-win wheel and bar controls"),
                 new("Gravatar", new GravatarViewModel(), "Identicon avatars from emails/IDs"),
+                new("PinBox", new PinBoxViewModel(), "PIN code and OTP input control"),
                 new("RatingControl", new RatingControlViewModel(), "Five-star rating control"),
                 new("Scratcher", new ScratcherViewModel(), "Interactive scratch card overlay"),
                 new("SegmentedSlider", new SegmentedSliderViewModel(), "Segmented range slider with labels"),
