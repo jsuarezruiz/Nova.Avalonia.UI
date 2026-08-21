@@ -63,6 +63,23 @@ public class ShowcaseTooltipPositionerTests
     }
 
     [Fact]
+    public void Center_Should_Respect_Container_Origin()
+    {
+        var target = new Rect(150, 150, 50, 30);
+        var tooltipSize = new Size(200, 100);
+        var container = new Rect(100, 75, 800, 600);
+
+        var position = _positioner.CalculatePosition(
+            target,
+            tooltipSize,
+            container,
+            ShowcaseTooltipPosition.Center);
+
+        Assert.Equal(400, position.X);
+        Assert.Equal(325, position.Y);
+    }
+
+    [Fact]
     public void Auto_Should_Prefer_Bottom_When_Space_Available()
     {
         var target = new Rect(300, 200, 120, 40);

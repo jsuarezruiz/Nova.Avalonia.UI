@@ -8,22 +8,23 @@ namespace Nova.Avalonia.UI.Gallery.Views;
 
 public partial class ShowcaseView : UserControl
 {
-    private readonly ShowcaseController _controller;
-
     public ShowcaseView()
     {
         InitializeComponent();
 
-        _controller = CreateController();
-        _controller.StepChanged += OnStepChanged;
-        _controller.Completed += OnCompleted;
-        _controller.Skipped += OnSkipped;
-        _controller.TransitionFailed += OnTransitionFailed;
+        foreach (var step in CreateSteps())
+        {
+            ShowcaseControl.Steps.Add(step);
+        }
+
+        ShowcaseControl.StepChanged += OnStepChanged;
+        ShowcaseControl.Completed += OnCompleted;
+        ShowcaseControl.Skipped += OnSkipped;
+        ShowcaseControl.TransitionFailed += OnTransitionFailed;
 
         InteractionModeComboBox.ItemsSource = Enum.GetValues<ShowcaseInteractionMode>();
         InteractionModeComboBox.SelectedItem = ShowcaseInteractionMode.Modal;
 
-        ShowcaseControl.Controller = _controller;
         ShowcaseControl.InteractionMode = GetSelectedInteractionMode();
 
         StartButton.Click += OnStartButtonClick;
@@ -32,9 +33,9 @@ public partial class ShowcaseView : UserControl
         InteractionModeComboBox.SelectionChanged += OnInteractionModeSelectionChanged;
     }
 
-    private static ShowcaseController CreateController()
+    private static ShowcaseStep[] CreateSteps()
     {
-        return new ShowcaseController(
+        return
         [
             new ShowcaseStep
             {
@@ -73,7 +74,7 @@ public partial class ShowcaseView : UserControl
                 Description = "Type something here and watch the preview card update above.",
                 TooltipPosition = ShowcaseTooltipPosition.Top
             }
-        ]);
+        ];
     }
 
     private async void OnStartButtonClick(object? sender, RoutedEventArgs e)
@@ -105,7 +106,7 @@ public partial class ShowcaseView : UserControl
     {
         ShowcaseControl.InteractionMode = GetSelectedInteractionMode();
 
-        if (_controller.IsActive)
+        if (ShowcaseControl.IsActive)
         {
             UpdateCurrentStepStatus("Updated default interaction mode");
             return;
@@ -138,16 +139,16 @@ public partial class ShowcaseView : UserControl
 
     private void UpdateCurrentStepStatus(string prefix)
     {
-        if (_controller.CurrentStep == null)
+        if (ShowcaseControl.CurrentStep == null)
         {
             UpdateStatus(prefix);
             return;
         }
 
-        var effectiveMode = _controller.CurrentStep.InteractionMode ?? ShowcaseControl.InteractionMode;
+        var effectiveMode = ShowcaseControl.CurrentStep.InteractionMode ?? ShowcaseControl.InteractionMode;
         UpdateStatus(
-            $"{prefix}: step {_controller.CurrentIndex + 1}/{_controller.Steps.Count} " +
-            $"\"{_controller.CurrentStep.Title}\" ({effectiveMode}).");
+            $"{prefix}: step {ShowcaseControl.CurrentIndex + 1}/{ShowcaseControl.Steps.Count} " +
+            $"\"{ShowcaseControl.CurrentStep.Title}\" ({effectiveMode}).");
     }
 
     private static string FormatValidationResult(ShowcaseValidationResult result)

@@ -2,18 +2,44 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:nova="using:Nova.Avalonia.UI.Controls">
 
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="ShowcaseOverlayBrush" Color="#B3000000" />
+                    <SolidColorBrush x:Key="ShowcaseTooltipBackgroundBrush" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="ShowcaseTooltipForegroundBrush" Color="#1B1B1F" />
+                    <SolidColorBrush x:Key="ShowcaseTooltipSecondaryForegroundBrush" Color="#5F6368" />
+                    <SolidColorBrush x:Key="ShowcaseTooltipBorderBrush" Color="#C7C7CC" />
+                    <BoxShadows x:Key="ShowcaseTooltipShadow">0 4 16 0 #40000000</BoxShadows>
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="ShowcaseOverlayBrush" Color="#B3000000" />
+                    <SolidColorBrush x:Key="ShowcaseTooltipBackgroundBrush" Color="#25252A" />
+                    <SolidColorBrush x:Key="ShowcaseTooltipForegroundBrush" Color="#F5F5F7" />
+                    <SolidColorBrush x:Key="ShowcaseTooltipSecondaryForegroundBrush" Color="#C7C7CC" />
+                    <SolidColorBrush x:Key="ShowcaseTooltipBorderBrush" Color="#5A5A60" />
+                    <BoxShadows x:Key="ShowcaseTooltipShadow">0 4 16 0 #80000000</BoxShadows>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
     <!-- ShowcaseOverlay Style -->
     <Style Selector="nova|ShowcaseOverlay">
+        <Setter Property="OverlayBrush" Value="{DynamicResource ShowcaseOverlayBrush}" />
         <Setter Property="IsHitTestVisible" Value="False" />
     </Style>
 
     <!-- ShowcaseTooltip Style -->
     <Style Selector="nova|ShowcaseTooltip">
-        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ShowcaseTooltipBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ShowcaseTooltipForegroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ShowcaseTooltipBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="16" />
-        <Setter Property="MaxWidth" Value="320" />
+        <Setter Property="MaxWidth" Value="360" />
         <Setter Property="CornerRadius" Value="8" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -22,32 +48,39 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Padding="{TemplateBinding Padding}"
-                        BoxShadow="0 4 16 0 #40000000">
-                    <StackPanel Spacing="12">
-                        <StackPanel Name="PART_DefaultBody"
-                                    Spacing="12"
-                                    IsVisible="{TemplateBinding ShowDefaultBody}">
-                            <TextBlock Text="{TemplateBinding Title}"
-                                       FontSize="18"
-                                       FontWeight="SemiBold"
-                                       TextWrapping="Wrap"
-                                       IsVisible="{TemplateBinding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                        BoxShadow="{DynamicResource ShowcaseTooltipShadow}">
+                    <Grid RowDefinitions="*,Auto"
+                          RowSpacing="12">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <Panel>
+                                <StackPanel Name="PART_DefaultBody"
+                                            Spacing="12"
+                                            IsVisible="{TemplateBinding ShowDefaultBody}">
+                                    <TextBlock Text="{TemplateBinding Title}"
+                                               FontSize="18"
+                                               FontWeight="SemiBold"
+                                               TextWrapping="Wrap"
+                                               IsVisible="{TemplateBinding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
 
-                            <TextBlock Text="{TemplateBinding Description}"
-                                       FontSize="14"
-                                       TextWrapping="Wrap"
-                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
-                                       IsVisible="{TemplateBinding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
-                        </StackPanel>
+                                    <TextBlock Text="{TemplateBinding Description}"
+                                               FontSize="14"
+                                               TextWrapping="Wrap"
+                                               Foreground="{DynamicResource ShowcaseTooltipSecondaryForegroundBrush}"
+                                               IsVisible="{TemplateBinding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                                </StackPanel>
 
-                        <ContentPresenter Name="PART_CustomBody"
-                                          Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          IsVisible="{TemplateBinding ShowCustomBody}" />
+                                <ContentPresenter Name="PART_CustomBody"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  IsVisible="{TemplateBinding ShowCustomBody}" />
+                            </Panel>
+                        </ScrollViewer>
 
-                        <ContentPresenter Content="{TemplateBinding FooterContent}"
+                        <ContentPresenter Grid.Row="1"
+                                          Content="{TemplateBinding FooterContent}"
                                           ContentTemplate="{TemplateBinding FooterContentTemplate}" />
-                    </StackPanel>
+                    </Grid>
                 </Border>
             </ControlTemplate>
         </Setter>
@@ -56,29 +89,36 @@
     <!-- Showcase Style -->
     <Style Selector="nova|Showcase">
         <Setter Property="Focusable" Value="True" />
+        <Setter Property="OverlayBrush" Value="{DynamicResource ShowcaseOverlayBrush}" />
         <Setter Property="Template">
             <ControlTemplate TargetType="nova:Showcase">
                 <Panel IsVisible="{Binding IsActive, RelativeSource={RelativeSource TemplatedParent}}">
                     <nova:ShowcaseOverlay Name="PART_Overlay"
                                           OverlayBrush="{TemplateBinding OverlayBrush}"
+                                          AutomationProperties.AccessibilityView="Raw"
                                           IsHitTestVisible="False" />
 
                     <Canvas HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
                         <Border Name="PART_ModalBlocker"
                                 IsVisible="False"
+                                AutomationProperties.AccessibilityView="Raw"
                                 Background="Transparent" />
                         <Border Name="PART_TopBlocker"
                                 IsVisible="False"
+                                AutomationProperties.AccessibilityView="Raw"
                                 Background="Transparent" />
                         <Border Name="PART_LeftBlocker"
                                 IsVisible="False"
+                                AutomationProperties.AccessibilityView="Raw"
                                 Background="Transparent" />
                         <Border Name="PART_RightBlocker"
                                 IsVisible="False"
+                                AutomationProperties.AccessibilityView="Raw"
                                 Background="Transparent" />
                         <Border Name="PART_BottomBlocker"
                                 IsVisible="False"
+                                AutomationProperties.AccessibilityView="Raw"
                                 Background="Transparent" />
                     </Canvas>
 
@@ -86,16 +126,18 @@
                             VerticalAlignment="Stretch">
                         <nova:ShowcaseTooltip Name="PART_Tooltip"
                                               AutomationProperties.AutomationId="ShowcaseTooltip"
+                                              AutomationProperties.AccessibilityView="Control"
                                               AutomationProperties.LiveSetting="Assertive">
                             <nova:ShowcaseTooltip.FooterContent>
-                                <StackPanel Orientation="Horizontal"
-                                            Spacing="8"
-                                            HorizontalAlignment="Right"
-                                            Margin="0,8,0,0">
+                                <WrapPanel Orientation="Horizontal"
+                                           ItemSpacing="8"
+                                           LineSpacing="8"
+                                           HorizontalAlignment="Right"
+                                           Margin="0,8,0,0">
                                     <Button Name="PART_SkipButton" />
                                     <Button Name="PART_PreviousButton" />
                                     <Button Name="PART_NextButton" Classes="accent" />
-                                </StackPanel>
+                                </WrapPanel>
                             </nova:ShowcaseTooltip.FooterContent>
                         </nova:ShowcaseTooltip>
                     </Canvas>

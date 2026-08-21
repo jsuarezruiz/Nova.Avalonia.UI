@@ -25,9 +25,22 @@ public class ShowcaseTests
         var showcase = new Showcase();
 
         Assert.False(showcase.IsActive);
-        Assert.Null(showcase.Controller);
+        Assert.Empty(showcase.Steps);
+        Assert.Null(showcase.CurrentStep);
+        Assert.Equal(-1, showcase.CurrentIndex);
         Assert.NotNull(showcase.OverlayBrush);
+        Assert.Null(showcase.Transition);
         Assert.Equal(ShowcaseInteractionMode.Modal, showcase.InteractionMode);
+    }
+
+    [AvaloniaFact]
+    public void Compatibility_Surface_Should_Remain_Stable()
+    {
+        Assert.Equal(1, (int)ShowcaseValidationIssueCode.NoSteps);
+        Assert.Equal(5, (int)ShowcaseValidationIssueCode.MissingTarget);
+        Assert.Equal(8, (int)ShowcaseValidationIssueCode.AmbiguousStepIdentity);
+        Assert.False(typeof(ShowcaseStepChangedEventArgs).IsSealed);
+        Assert.True(typeof(ShowcaseTooltipPositioner).IsPublic);
     }
 
     [AvaloniaFact]
@@ -35,6 +48,7 @@ public class ShowcaseTests
     {
         var step = new ShowcaseStep { Key = "Defaults" };
 
+        Assert.Null(step.Id);
         Assert.Equal(string.Empty, step.Title);
         Assert.Equal(string.Empty, step.Description);
         Assert.Equal(ShowcaseTooltipPosition.Auto, step.TooltipPosition);

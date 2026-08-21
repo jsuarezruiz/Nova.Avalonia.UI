@@ -1,7 +1,7 @@
 ---
 title: Showcase
 description: Create interactive tutorials and onboarding experiences with the Showcase control.
-ms.date: 2026-03-23
+ms.date: 2026-08-21
 ---
 
 # Showcase
@@ -10,7 +10,7 @@ The `Showcase` control creates interactive tutorials and onboarding experiences 
 
 ## Create a showcase
 
-Add unique `Showcase.Key` attached properties to target elements, create a `ShowcaseController` with steps, and bind it to the `Showcase` control.
+Add unique `Showcase.Key` attached properties to the elements you want to highlight, then add the tour steps to the `Showcase` control.
 
 ```xaml
 <UserControl xmlns="https://github.com/avaloniaui"
@@ -27,7 +27,7 @@ Add unique `Showcase.Key` attached properties to target elements, create a `Show
 ```
 
 ```csharp
-var controller = new ShowcaseController(
+ShowcaseStep[] steps =
 [
     new ShowcaseStep
     {
@@ -43,13 +43,19 @@ var controller = new ShowcaseController(
         Description = "Find what you're looking for instantly.",
         TooltipPosition = ShowcaseTooltipPosition.Top
     }
-]);
+];
 
-ShowcaseControl.Controller = controller;
+foreach (var step in steps)
+    ShowcaseControl.Steps.Add(step);
+
 ShowcaseControl.Start();
 ```
 
-Use `ShowcaseControl.Start()` or `await ShowcaseControl.StartAsync()` when starting from the view. Those entrypoints validate the visual tree before they activate the controller. `ShowcaseController.Start()` is still available when you intentionally want low-level controller-only flow control.
+`Showcase` owns its steps, navigation state, commands, events, and persistence settings. Use `ShowcaseControl.Start()` for event-handler code or `await ShowcaseControl.StartAsync()` when the caller needs to observe asynchronous hooks and failures. Both entry points validate the visual tree before starting.
+
+### Migrating from ShowcaseController
+
+`Showcase` now owns the tour state directly. Move steps, navigation calls, commands, hooks, events, and persistence settings from `ShowcaseController` to the `Showcase` control, then remove the old `Controller` assignment. In step hooks, replace `context.Controller` with `context.Showcase`. This is a breaking API change from the controller-based version.
 
 ## Validation
 
@@ -65,7 +71,7 @@ if (!result.Started)
 }
 ```
 
-`IsValid` only fails on errors. Warnings report degraded experiences, such as targets that exist but are not currently visible or laid out.
+`IsValid` only fails on errors. Missing, hidden, or not-yet-laid-out targets are warnings because a `BeforeStepAsync` hook can create or reveal them before the step becomes active. Duplicate target keys remain errors because target resolution would be ambiguous.
 
 ## Interaction modes
 
@@ -137,56 +143,75 @@ Available shapes: `RoundedRectangle` (default), `Rectangle`, `Circle`.
 
 ## Navigation and events
 
-The `ShowcaseController` provides commands and events for navigation:
+The `Showcase` control provides methods, commands, and events for navigation:
 
 ```csharp
 // Navigate programmatically
-controller.Next();
-controller.Previous();
-controller.Skip();
+ShowcaseControl.Next();
+ShowcaseControl.Previous();
+ShowcaseControl.Skip();
 
 // Handle events
-controller.StepChanged += (s, e) => Console.WriteLine($"Step: {e.CurrentStep?.Title}");
-controller.Completed += (s, e) => Console.WriteLine("Tutorial finished!");
-controller.Skipped += (s, e) => Console.WriteLine("User skipped tutorial");
+ShowcaseControl.StepChanged += (s, e) => Console.WriteLine($"Step: {e.CurrentStep.Title}");
+ShowcaseControl.Completed += (s, e) => Console.WriteLine("Tutorial finished!");
+ShowcaseControl.Skipped += (s, e) => Console.WriteLine("User skipped tutorial");
 ```
 
 For MVVM scenarios, bind to the built-in commands:
 
 ```xaml
-<Button Command="{Binding Controller.NextCommand}" Content="Next" />
-<Button Command="{Binding Controller.PreviousCommand}" Content="Back" />
-<Button Command="{Binding Controller.SkipCommand}" Content="Skip" />
+<Button Command="{Binding NextCommand, ElementName=ShowcaseControl}" Content="Next" />
+<Button Command="{Binding PreviousCommand, ElementName=ShowcaseControl}" Content="Back" />
+<Button Command="{Binding SkipCommand, ElementName=ShowcaseControl}" Content="Skip" />
 ```
 
 For asynchronous setup, use the async navigation methods and step hooks:
 
 ```csharp
-controller.BeforeStepAsync = async (context, cancellationToken) =>
+ShowcaseControl.BeforeStepAsync = async (context, cancellationToken) =>
 {
     if (context.NextStep.Key == "AdvancedPanel")
         await ExpandPanelAsync(cancellationToken);
 };
 
-await controller.StartAsync();
-await controller.NextAsync();
+await ShowcaseControl.StartAsync();
+await ShowcaseControl.NextAsync();
 ```
+
+The hook runs before Showcase resolves the next target, so it can safely load, expand, or add controls on demand.
 
 To persist progress across sessions, assign a store and persistence key, then call `ResumeAsync()`:
 
 ```csharp
-controller.ProgressStore = new InMemoryShowcaseProgressStore();
-controller.PersistenceKey = "main-tour";
+ShowcaseControl.ProgressStore = new InMemoryShowcaseProgressStore();
+ShowcaseControl.PersistenceKey = "main-tour";
 
-var resumed = await controller.ResumeAsync();
+var resumed = await ShowcaseControl.ResumeAsync();
 if (!resumed)
-    await controller.StartAsync();
+    await ShowcaseControl.StartAsync();
 ```
 
+Progress snapshots include a stable step identity, so reordering the steps does not resume the wrong item. By default the target `Key` is used. Give each step a unique `Id` when multiple steps target the same control:
+
+```csharp
+new ShowcaseStep
+{
+    Id = "search-basics",
+    Key = "SearchBox",
+    Title = "Search"
+}
+```
+
+Existing stores that only contain an index remain supported. Navigation is transactional when persistence is enabled: a step becomes active only after its progress is saved, and completing, skipping, or resetting deactivates the showcase only after its saved progress is cleared. The async methods surface store failures to the caller; the synchronous wrappers report them through `TransitionFailed`.
+
 Users can also navigate using keyboard:
-- **Arrow Right / Space / Enter**: Next step
-- **Arrow Left**: Previous step
-- **Escape**: Skip tutorial
+
+- **Arrow Right**: Move to the next step while focus is in the tutorial controls
+- **Arrow Left**: Move to the previous step while focus is in the tutorial controls
+- **Space / Enter**: Activate the focused tutorial button
+- **Escape**: Skip the tutorial from anywhere in the active window
+
+In `Modal` mode, Tab stays within the complete tooltip content, including controls supplied by a custom template, and underlying controls are removed from the control view of the automation tree. In `TargetOnly` mode, the highlighted control and its focusable children remain available to keyboard and assistive-technology users. `Passthrough` mode keeps the application's normal focus navigation and automation exposure.
 
 ## Custom tooltip templates
 
@@ -224,6 +249,8 @@ new ShowcaseStep
 
 Template resolution order: element-level `Showcase.TooltipTemplate` > step-level `TooltipTemplate` > default title/description body.
 
+Give interactive controls in a custom template clear accessible names. The tooltip announces the current title, description, and step number through UI automation when the active step changes.
+
 ## Customize appearance
 
 Set the overlay color and animation duration on the `Showcase` control:
@@ -236,28 +263,38 @@ Set the overlay color and animation duration on the `Showcase` control:
                InteractionMode="Modal" />
 ```
 
-The `AnimationDuration` controls the fade-in animation when transitioning between steps. Set to `0:0:0` to disable animations.
+`AnimationDuration` controls the built-in fade when `Transition` is `null`. A custom transition owns its duration; setting `AnimationDuration` to `0:0:0` disables either transition mode.
+
+Set `Transition` to any Avalonia `IPageTransition` to replace the built-in fade. Showcase passes `forward: true` for Start, Resume, and Next, and `forward: false` for Previous, so direction-aware transitions work automatically.
+
+```xaml
+<nova:Showcase x:Name="ShowcaseControl"
+               AnimationDuration="0:0:0.2">
+    <nova:Showcase.Transition>
+        <CrossFade Duration="0:0:0.2" />
+    </nova:Showcase.Transition>
+</nova:Showcase>
+```
+
+You can also implement `IPageTransition` for application-specific motion. The transition receives the tooltip as the incoming visual, participates in Showcase cancellation, and is replaced by the built-in fade when `Transition` is `null`.
 
 `AutoScrollIntoView` is enabled by default. When a step becomes active, the target control is brought into view once before the tooltip is positioned. Set it to `False` if your application manages scrolling separately.
 
-The tooltip automatically adapts to light and dark themes using system resources.
+The tooltip automatically adapts to light and dark themes using Nova-owned resources, so it does not require FluentTheme. Applications can override `ShowcaseOverlayBrush`, `ShowcaseTooltipBackgroundBrush`, `ShowcaseTooltipForegroundBrush`, `ShowcaseTooltipSecondaryForegroundBrush`, `ShowcaseTooltipBorderBrush`, and `ShowcaseTooltipShadow` to match a custom theme.
 
 ## Target resolution
 
-`Showcase.Key` values must be unique within the current visual root. If a target is temporarily unavailable because the layout has not finished yet, the tooltip stays visible and the control retries the target lookup during layout updates. If duplicate keys are detected at runtime, the highlight is skipped for that step and the tooltip is centered instead.
+`Showcase.Key` values must be unique within the current visual root. If a target is temporarily unavailable because the layout has not finished yet, the tooltip stays visible and the control retries the target lookup at a bounded interval. If duplicate keys are detected at runtime, the highlight is skipped for that step and the tooltip is centered instead.
 
 ## Localization
 
-Customize the button texts via `ShowcaseController` properties:
+Customize the button texts directly on the `Showcase` control:
 
 ```csharp
-var controller = new ShowcaseController
-{
-    NextButtonText = "Siguiente",
-    FinishButtonText = "Finalizar",
-    PreviousButtonText = "Anterior",
-    SkipButtonText = "Omitir"
-};
+ShowcaseControl.NextButtonText = "Siguiente";
+ShowcaseControl.FinishButtonText = "Finalizar";
+ShowcaseControl.PreviousButtonText = "Anterior";
+ShowcaseControl.SkipButtonText = "Omitir";
 ```
 
 ## API reference
@@ -273,17 +310,32 @@ var controller = new ShowcaseController
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `IsActive` | `bool` | `false` | Whether the showcase is currently active (read-only, derived from Controller) |
-| `Controller` | `ShowcaseController?` | `null` | The controller managing the showcase flow |
+| `Steps` | `ObservableCollection<ShowcaseStep>` | empty | The ordered collection of tour steps |
+| `CurrentStep` | `ShowcaseStep?` | `null` | The active step, or `null` when inactive |
+| `CurrentIndex` | `int` | `-1` | Index of the active step |
+| `IsActive` | `bool` | `false` | Whether the showcase is currently active |
+| `CanGoPrevious` | `bool` | `false` | Whether a previous step is available |
+| `CanGoNext` | `bool` | `false` | Whether another step is available |
+| `CurrentButtonText` | `string` | `"Finish"` | The next or finish text for the current position |
+| `NextButtonText` | `string` | `"Next"` | Text for the Next button |
+| `FinishButtonText` | `string` | `"Finish"` | Text for the last-step button |
+| `PreviousButtonText` | `string` | `"Previous"` | Text for the Previous button |
+| `SkipButtonText` | `string` | `"Skip"` | Text for the Skip button |
 | `OverlayBrush` | `IBrush?` | Black 70% | Brush for the dimmed overlay |
-| `AnimationDuration` | `TimeSpan` | 300ms | Tooltip fade-in duration (`0` to disable) |
+| `AnimationDuration` | `TimeSpan` | 300ms | Built-in fade duration; `0` disables built-in and custom transitions |
+| `Transition` | `IPageTransition?` | `null` | Custom tooltip transition; `null` uses the built-in fade |
 | `AutoScrollIntoView` | `bool` | `true` | Bring the active target into view on step change |
 | `InteractionMode` | `ShowcaseInteractionMode` | `Modal` | Default interaction mode for all steps |
+| `BeforeStepAsync` | `Func<..., Task>?` | `null` | Async hook before a step becomes active |
+| `AfterStepAsync` | `Func<..., Task>?` | `null` | Async hook after a step becomes active |
+| `ProgressStore` | `IShowcaseProgressStore?` | `null` | Store for persisting progress |
+| `PersistenceKey` | `string?` | `null` | Key used with `ProgressStore` |
 
 ### ShowcaseStep properties
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
+| `Id` | `string?` | `null` | Stable persisted identity; set a unique value when steps share a target |
 | `Key` | `required string` | | Matches a unique `Showcase.Key` on the target element |
 | `Title` | `string` | `""` | Tooltip title text |
 | `Description` | `string` | `""` | Tooltip description text |
@@ -294,27 +346,7 @@ var controller = new ShowcaseController
 | `HighlightCornerRadius` | `double` | `8` | Corner radius for rounded shapes |
 | `TooltipTemplate` | `IDataTemplate?` | `null` | Tooltip body template (element-level takes priority) |
 
-### ShowcaseController properties
-
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `Steps` | `ObservableCollection<ShowcaseStep>` | empty | The collection of showcase steps |
-| `CurrentStep` | `ShowcaseStep?` | `null` | The active step, or null when inactive |
-| `CurrentIndex` | `int` | `-1` | Index of the active step |
-| `IsActive` | `bool` | `false` | Whether the showcase is running |
-| `CanGoPrevious` | `bool` | `false` | Whether a previous step is available |
-| `CanGoNext` | `bool` | `false` | Whether a next step is available |
-| `CurrentButtonText` | `string` | | `NextButtonText` or `FinishButtonText` based on position |
-| `NextButtonText` | `string` | `"Next"` | Text for the Next button |
-| `FinishButtonText` | `string` | `"Finish"` | Text for the last-step button |
-| `PreviousButtonText` | `string` | `"Previous"` | Text for the Previous button |
-| `SkipButtonText` | `string` | `"Skip"` | Text for the Skip button |
-| `BeforeStepAsync` | `Func<..., Task>?` | `null` | Async hook before a step becomes active |
-| `AfterStepAsync` | `Func<..., Task>?` | `null` | Async hook after a step becomes active |
-| `ProgressStore` | `IShowcaseProgressStore?` | `null` | Store for persisting progress |
-| `PersistenceKey` | `string?` | `null` | Key used with `ProgressStore` |
-
-### ShowcaseController events
+### Showcase events
 
 | Event | Args | Description |
 |-------|------|-------------|
@@ -323,14 +355,14 @@ var controller = new ShowcaseController
 | `Skipped` | `EventArgs` | Raised when the user skips |
 | `Resumed` | `EventArgs` | Raised when resuming from persisted progress |
 | `StepChanged` | `ShowcaseStepChangedEventArgs` | Raised when the active step changes |
-| `TransitionFailed` | `ShowcaseTransitionFailedEventArgs` | Raised when a fire-and-forget transition throws |
+| `TransitionFailed` | `ShowcaseTransitionFailedEventArgs` | Raised when a synchronous navigation wrapper or visual transition fails |
 
-### ShowcaseController commands
+### Showcase commands
 
 | Command | Description |
 |---------|-------------|
 | `NextCommand` | Advances to the next step (enabled when active) |
 | `PreviousCommand` | Goes back to the previous step (enabled when active and not on first step) |
-| `SkipCommand` | Skips/cancels the showcase (enabled when active) |
+| `SkipCommand` | Skips or cancels the showcase (enabled when active) |
 
-`ShowcaseController` implements `IDisposable`. Disposing a controller deactivates it (sets `IsActive` to `false` and resets `CurrentIndex`), cancels any in-flight transitions, and releases internal synchronization resources. Calling navigation methods after disposal throws `ObjectDisposedException`.
+Call `Reset()` or `ResetAsync()` to deactivate the showcase and clear persisted progress. Pending transitions are cancelled automatically when the control leaves the visual tree.

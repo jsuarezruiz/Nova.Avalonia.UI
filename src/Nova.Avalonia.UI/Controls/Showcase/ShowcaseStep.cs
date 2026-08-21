@@ -9,6 +9,12 @@ namespace Nova.Avalonia.UI.Controls;
 public class ShowcaseStep
 {
     /// <summary>
+    /// Gets or sets an optional stable identity used to persist this step.
+    /// Use this when more than one step targets the same element.
+    /// </summary>
+    public string? Id { get; set; }
+
+    /// <summary>
     /// Gets or sets the unique key identifying the target element.
     /// Must match the Showcase.Key attached property on the target control.
     /// </summary>

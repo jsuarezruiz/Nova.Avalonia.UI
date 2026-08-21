@@ -1,12 +1,16 @@
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Automation;
+using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Headless.XUnit;
 using Avalonia.Input;
+using Avalonia.Media;
+using Avalonia.Styling;
 using Avalonia.VisualTree;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
@@ -16,15 +20,14 @@ namespace Nova.Avalonia.UI.Tests.Controls;
 public class ShowcaseIntegrationTests
 {
     [AvaloniaFact]
-    public void Controller_Start_Should_Activate_Attached_Showcase()
+    public void Start_Should_Activate_Attached_Showcase()
     {
         var host = CreateHost();
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         Assert.True(host.Showcase.IsActive);
-        Assert.True(host.Controller.IsActive);
         Assert.NotNull(GetOverlay(host.Showcase).TargetBounds);
     }
 
@@ -32,14 +35,14 @@ public class ShowcaseIntegrationTests
     public void Attached_Tooltip_Template_Should_Override_Step_Template_And_Receive_Current_Step()
     {
         var host = CreateHost();
-        host.Controller.Steps[0].TooltipTemplate =
+        host.Showcase.Steps[0].TooltipTemplate =
             new FuncDataTemplate<ShowcaseStep>((step, _) => new TextBlock { Text = $"step:{step.Key}" });
 
         Showcase.SetTooltipTemplate(
             host.Target,
             new FuncDataTemplate<ShowcaseStep>((step, _) => new TextBlock { Text = $"element:{step.Key}" }));
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         var tooltip = GetTooltip(host.Showcase);
@@ -56,11 +59,12 @@ public class ShowcaseIntegrationTests
     }
 
     [AvaloniaFact]
-    public void Missing_Target_Should_Keep_Tooltip_Visible_And_Centered()
+    public void Removed_Target_Should_Keep_Tooltip_Visible_And_Centered()
     {
-        var host = CreateHost(includeTarget: false, stepKey: "Missing");
+        var host = CreateHost();
 
-        host.Controller.Start();
+        host.Showcase.Start();
+        ((Panel)host.Target.Parent!).Children.Remove(host.Target);
         host.Window.UpdateLayout();
 
         var overlay = GetOverlay(host.Showcase);
@@ -74,11 +78,29 @@ public class ShowcaseIntegrationTests
     }
 
     [AvaloniaFact]
+    public async Task Removed_Target_Should_Be_Resolved_After_It_Returns()
+    {
+        var host = CreateHost();
+        var targetPanel = Assert.IsType<Canvas>(host.Target.Parent);
+
+        host.Showcase.Start();
+        targetPanel.Children.Remove(host.Target);
+        host.Window.UpdateLayout();
+        Assert.Null(GetOverlay(host.Showcase).TargetBounds);
+
+        targetPanel.Children.Add(host.Target);
+        await Task.Delay(350);
+        host.Window.UpdateLayout();
+
+        Assert.NotNull(GetOverlay(host.Showcase).TargetBounds);
+    }
+
+    [AvaloniaFact]
     public void Moving_Target_Should_Reposition_Overlay()
     {
         var host = CreateHost();
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         var overlay = GetOverlay(host.Showcase);
@@ -94,13 +116,27 @@ public class ShowcaseIntegrationTests
     }
 
     [AvaloniaFact]
+    public void Transformed_Target_Should_Use_Transformed_Bounds()
+    {
+        var host = CreateHost();
+        host.Target.RenderTransform = new ScaleTransform(1.5, 2);
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        var bounds = Assert.IsType<Rect>(GetOverlay(host.Showcase).TargetBounds);
+        Assert.Equal(180, bounds.Width, 3);
+        Assert.Equal(80, bounds.Height, 3);
+    }
+
+    [AvaloniaFact]
     public void AutoScrollIntoView_Should_Bring_Target_Into_View()
     {
         var host = CreateScrollHost();
         var requestCount = 0;
         host.Target.AddHandler(Control.RequestBringIntoViewEvent, (_, _) => requestCount++);
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
         host.Window.UpdateLayout();
 
@@ -117,7 +153,7 @@ public class ShowcaseIntegrationTests
         host.Showcase.AutoScrollIntoView = false;
         host.Target.AddHandler(Control.RequestBringIntoViewEvent, (_, _) => requestCount++);
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
         host.Window.UpdateLayout();
 
@@ -137,16 +173,52 @@ public class ShowcaseIntegrationTests
     }
 
     [AvaloniaFact]
+    public void Target_Under_Hidden_Ancestor_Should_Be_Unavailable()
+    {
+        var host = CreateHost();
+        Assert.IsType<Canvas>(host.Target.Parent).IsVisible = false;
+        host.Window.UpdateLayout();
+
+        var result = host.Showcase.Validate();
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        Assert.Contains(result.Issues, x => x.Code == ShowcaseValidationIssueCode.TargetUnavailable);
+        Assert.Null(GetOverlay(host.Showcase).TargetBounds);
+    }
+
+    [AvaloniaFact]
     public void Validate_Should_Report_Missing_Target()
     {
         var host = CreateHost(includeTarget: false, stepKey: "Missing");
 
         var result = host.Showcase.Validate();
 
-        Assert.False(result.IsValid);
+        Assert.True(result.IsValid);
         var issue = Assert.Single(result.Issues, x => x.Code == ShowcaseValidationIssueCode.MissingTarget);
+        Assert.Equal(ShowcaseValidationSeverity.Warning, issue.Severity);
         Assert.Equal("Missing", issue.Key);
         Assert.Equal(0, issue.StepIndex);
+    }
+
+    [AvaloniaFact]
+    public async Task BeforeStep_Hook_Should_Be_Able_To_Create_A_Missing_Target()
+    {
+        var host = CreateHost(includeTarget: false, stepKey: "LazyTarget");
+        var canvas = Assert.IsType<Canvas>(host.Root.Children[0]);
+        Showcase.SetKey(host.Target, "LazyTarget");
+        host.Showcase.BeforeStepAsync = (_, _) =>
+        {
+            canvas.Children.Insert(0, host.Target);
+            host.Window.UpdateLayout();
+            return Task.CompletedTask;
+        };
+
+        await host.Showcase.StartAsync();
+        host.Window.UpdateLayout();
+
+        Assert.True(host.Showcase.IsActive);
+        Assert.NotNull(GetOverlay(host.Showcase).TargetBounds);
     }
 
     [AvaloniaFact]
@@ -165,7 +237,7 @@ public class ShowcaseIntegrationTests
     public void Validate_Should_Report_No_Steps()
     {
         var host = CreateHost();
-        host.Controller.Steps.Clear();
+        host.Showcase.Steps.Clear();
 
         var result = host.Showcase.Validate();
 
@@ -177,7 +249,7 @@ public class ShowcaseIntegrationTests
     public void Validate_Should_Report_Empty_Step_Content()
     {
         var host = CreateHost();
-        host.Controller.Steps.Add(new ShowcaseStep { Key = "Other" });
+        host.Showcase.Steps.Add(new ShowcaseStep { Key = "Other" });
         Showcase.SetKey(host.OtherButton, "Other");
 
         var result = host.Showcase.Validate();
@@ -187,21 +259,10 @@ public class ShowcaseIntegrationTests
     }
 
     [AvaloniaFact]
-    public void Validate_Should_Report_No_Controller()
-    {
-        var showcase = new Showcase();
-
-        var result = showcase.Validate();
-
-        Assert.False(result.IsValid);
-        Assert.Single(result.Issues, x => x.Code == ShowcaseValidationIssueCode.NoController);
-    }
-
-    [AvaloniaFact]
     public void Validate_Should_Report_Empty_Step_Key()
     {
         var host = CreateHost();
-        host.Controller.Steps.Add(new ShowcaseStep { Key = " ", Title = "Bad Step" });
+        host.Showcase.Steps.Add(new ShowcaseStep { Key = " ", Title = "Bad Step" });
 
         var result = host.Showcase.Validate();
 
@@ -228,10 +289,10 @@ public class ShowcaseIntegrationTests
     public void Step_TooltipTemplate_Should_Override_Default_Body()
     {
         var host = CreateHost();
-        host.Controller.Steps[0].TooltipTemplate =
+        host.Showcase.Steps[0].TooltipTemplate =
             new FuncDataTemplate<ShowcaseStep>((step, _) => new TextBlock { Text = $"custom:{step.Key}" });
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         var tooltip = GetTooltip(host.Showcase);
@@ -249,37 +310,24 @@ public class ShowcaseIntegrationTests
     [AvaloniaFact]
     public void Start_Should_Throw_When_Validation_Fails()
     {
-        var host = CreateHost(includeTarget: false, stepKey: "Missing");
+        var host = CreateHost(includeSecondDuplicate: true);
 
         var exception = Assert.Throws<InvalidOperationException>(() => host.Showcase.Start());
 
-        Assert.Contains("no matching control was found", exception.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.False(host.Controller.IsActive);
-    }
-
-    [AvaloniaFact]
-    public void TryStart_Should_Return_NotStarted_When_Validation_Fails()
-    {
-        var host = CreateHost(includeTarget: false, stepKey: "Missing");
-
-        var result = host.Showcase.TryStart();
-
-        Assert.False(result.Started);
-        Assert.False(result.ValidationResult.IsValid);
+        Assert.Contains("multiple controls", exception.Message, StringComparison.OrdinalIgnoreCase);
         Assert.False(host.Showcase.IsActive);
-        Assert.False(host.Controller.IsActive);
     }
 
     [AvaloniaFact]
     public async Task TryStartAsync_Should_Return_NotStarted_When_Validation_Fails()
     {
-        var host = CreateHost(includeTarget: false, stepKey: "Missing");
+        var host = CreateHost(includeSecondDuplicate: true);
 
         var result = await host.Showcase.TryStartAsync();
 
         Assert.False(result.Started);
         Assert.False(result.ValidationResult.IsValid);
-        Assert.False(host.Controller.IsActive);
+        Assert.False(host.Showcase.IsActive);
     }
 
     [AvaloniaFact]
@@ -291,21 +339,7 @@ public class ShowcaseIntegrationTests
         host.Window.UpdateLayout();
 
         Assert.True(host.Showcase.IsActive);
-        Assert.True(host.Controller.IsActive);
-        Assert.Equal(0, host.Controller.CurrentIndex);
-    }
-
-    [AvaloniaFact]
-    public void TryStart_Should_Not_Activate_When_Validation_Fails()
-    {
-        var host = CreateHost(includeTarget: false, stepKey: "Missing");
-
-        var result = host.Showcase.TryStart();
-        host.Window.UpdateLayout();
-
-        Assert.False(result.Started);
-        Assert.False(host.Showcase.IsActive);
-        Assert.False(host.Controller.IsActive);
+        Assert.Equal(0, host.Showcase.CurrentIndex);
     }
 
     [AvaloniaFact]
@@ -314,7 +348,7 @@ public class ShowcaseIntegrationTests
         var host = CreateHost();
         host.Showcase.InteractionMode = ShowcaseInteractionMode.Modal;
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         var modalBlocker = GetBlocker(host.Showcase, "PART_ModalBlocker");
@@ -329,7 +363,7 @@ public class ShowcaseIntegrationTests
         var host = CreateHost();
         host.Showcase.InteractionMode = ShowcaseInteractionMode.Passthrough;
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         Assert.DoesNotContain(GetBlockers(host.Showcase), x => x.IsVisible);
@@ -341,7 +375,7 @@ public class ShowcaseIntegrationTests
         var host = CreateHost();
         host.Showcase.InteractionMode = ShowcaseInteractionMode.TargetOnly;
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         var targetCenter = GetTargetCenter(host.Target, host.Root);
@@ -355,13 +389,34 @@ public class ShowcaseIntegrationTests
     }
 
     [AvaloniaFact]
+    public void TargetOnly_InteractionMode_Should_Block_Highlight_Padding_Outside_Target()
+    {
+        var host = CreateHost();
+        host.Showcase.InteractionMode = ShowcaseInteractionMode.TargetOnly;
+        host.Showcase.Steps[0].HighlightPadding = new Thickness(16);
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        var targetTopLeft = host.Target.TranslatePoint(default, host.Root);
+        Assert.True(targetTopLeft.HasValue);
+
+        var pointInsidePadding = new Point(
+            targetTopLeft.Value.X - 8,
+            targetTopLeft.Value.Y + (host.Target.Bounds.Height / 2));
+        var visibleBlockers = GetBlockers(host.Showcase).Where(x => x.IsVisible).ToArray();
+
+        Assert.Contains(visibleBlockers, x => ContainsPoint(x, pointInsidePadding, host.Root));
+    }
+
+    [AvaloniaFact]
     public void Step_InteractionMode_Should_Override_Control_Default()
     {
         var host = CreateHost();
         host.Showcase.InteractionMode = ShowcaseInteractionMode.Modal;
-        host.Controller.Steps[0].InteractionMode = ShowcaseInteractionMode.Passthrough;
+        host.Showcase.Steps[0].InteractionMode = ShowcaseInteractionMode.Passthrough;
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         Assert.DoesNotContain(GetBlockers(host.Showcase), x => x.IsVisible);
@@ -373,15 +428,15 @@ public class ShowcaseIntegrationTests
         var host = CreateHost();
         Showcase.SetKey(host.OtherButton, "Other");
         host.Showcase.InteractionMode = ShowcaseInteractionMode.Modal;
-        host.Controller.Steps.Clear();
-        host.Controller.Steps.Add(new ShowcaseStep
+        host.Showcase.Steps.Clear();
+        host.Showcase.Steps.Add(new ShowcaseStep
         {
             Key = "Target",
             Title = "First",
             Description = "First step",
             InteractionMode = ShowcaseInteractionMode.Passthrough
         });
-        host.Controller.Steps.Add(new ShowcaseStep
+        host.Showcase.Steps.Add(new ShowcaseStep
         {
             Key = "Other",
             Title = "Second",
@@ -394,7 +449,7 @@ public class ShowcaseIntegrationTests
 
         Assert.DoesNotContain(GetBlockers(host.Showcase), x => x.IsVisible);
 
-        await host.Controller.NextAsync();
+        await host.Showcase.NextAsync();
         host.Window.UpdateLayout();
 
         var otherCenter = GetTargetCenter(host.OtherButton, host.Root);
@@ -411,17 +466,17 @@ public class ShowcaseIntegrationTests
     {
         var host = CreateHost();
         Showcase.SetKey(host.OtherButton, "Other");
-        host.Controller.Steps.Add(new ShowcaseStep
+        host.Showcase.Steps.Add(new ShowcaseStep
         {
             Key = "Other",
             Title = "Second",
             Description = "Second step"
         });
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
-        Assert.Equal(0, host.Controller.CurrentIndex);
+        Assert.Equal(0, host.Showcase.CurrentIndex);
 
         host.Showcase.RaiseEvent(new KeyEventArgs
         {
@@ -429,7 +484,7 @@ public class ShowcaseIntegrationTests
             Key = Key.Right
         });
 
-        Assert.Equal(1, host.Controller.CurrentIndex);
+        Assert.Equal(1, host.Showcase.CurrentIndex);
     }
 
     [AvaloniaFact]
@@ -437,18 +492,18 @@ public class ShowcaseIntegrationTests
     {
         var host = CreateHost();
         Showcase.SetKey(host.OtherButton, "Other");
-        host.Controller.Steps.Add(new ShowcaseStep
+        host.Showcase.Steps.Add(new ShowcaseStep
         {
             Key = "Other",
             Title = "Second",
             Description = "Second step"
         });
 
-        host.Controller.Start();
-        host.Controller.Next();
+        host.Showcase.Start();
+        host.Showcase.Next();
         host.Window.UpdateLayout();
 
-        Assert.Equal(1, host.Controller.CurrentIndex);
+        Assert.Equal(1, host.Showcase.CurrentIndex);
 
         host.Showcase.RaiseEvent(new KeyEventArgs
         {
@@ -456,7 +511,7 @@ public class ShowcaseIntegrationTests
             Key = Key.Left
         });
 
-        Assert.Equal(0, host.Controller.CurrentIndex);
+        Assert.Equal(0, host.Showcase.CurrentIndex);
     }
 
     [AvaloniaFact]
@@ -464,10 +519,10 @@ public class ShowcaseIntegrationTests
     {
         var host = CreateHost();
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
-        Assert.True(host.Controller.IsActive);
+        Assert.True(host.Showcase.IsActive);
 
         host.Showcase.RaiseEvent(new KeyEventArgs
         {
@@ -475,7 +530,7 @@ public class ShowcaseIntegrationTests
             Key = Key.Escape
         });
 
-        Assert.False(host.Controller.IsActive);
+        Assert.False(host.Showcase.IsActive);
     }
 
     [AvaloniaFact]
@@ -483,14 +538,14 @@ public class ShowcaseIntegrationTests
     {
         var host = CreateHost();
         Showcase.SetKey(host.OtherButton, "Other");
-        host.Controller.Steps.Add(new ShowcaseStep
+        host.Showcase.Steps.Add(new ShowcaseStep
         {
             Key = "Other",
             Title = "Second",
             Description = "Second step"
         });
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         host.Showcase.RaiseEvent(new KeyEventArgs
@@ -499,7 +554,7 @@ public class ShowcaseIntegrationTests
             Key = Key.Space
         });
 
-        Assert.Equal(1, host.Controller.CurrentIndex);
+        Assert.Equal(1, host.Showcase.CurrentIndex);
     }
 
     [AvaloniaFact]
@@ -507,14 +562,14 @@ public class ShowcaseIntegrationTests
     {
         var host = CreateHost();
         Showcase.SetKey(host.OtherButton, "Other");
-        host.Controller.Steps.Add(new ShowcaseStep
+        host.Showcase.Steps.Add(new ShowcaseStep
         {
             Key = "Other",
             Title = "Second",
             Description = "Second step"
         });
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         host.Showcase.RaiseEvent(new KeyEventArgs
@@ -523,7 +578,335 @@ public class ShowcaseIntegrationTests
             Key = Key.Enter
         });
 
-        Assert.Equal(1, host.Controller.CurrentIndex);
+        Assert.Equal(1, host.Showcase.CurrentIndex);
+    }
+
+    [AvaloniaFact]
+    public void TargetOnly_Tab_Should_Include_Highlighted_Target()
+    {
+        var host = CreateHost();
+        host.Showcase.InteractionMode = ShowcaseInteractionMode.TargetOnly;
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        var nextButton = host.Showcase
+            .GetVisualDescendants()
+            .OfType<Button>()
+            .Single(x => x.Name == "PART_NextButton");
+        nextButton.Focus();
+
+        nextButton.RaiseEvent(new KeyEventArgs
+        {
+            RoutedEvent = InputElement.KeyDownEvent,
+            Key = Key.Tab
+        });
+
+        var focused = TopLevel.GetTopLevel(host.Showcase)?.FocusManager?.GetFocusedElement();
+        Assert.Same(host.Target, focused);
+    }
+
+    [AvaloniaFact]
+    public void TargetOnly_Escape_Should_Remain_Available_When_Target_Has_Focus()
+    {
+        var host = CreateHost();
+        host.Showcase.InteractionMode = ShowcaseInteractionMode.TargetOnly;
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+        host.Target.Focus();
+
+        host.Target.RaiseEvent(new KeyEventArgs
+        {
+            RoutedEvent = InputElement.KeyDownEvent,
+            Key = Key.Escape
+        });
+
+        Assert.False(host.Showcase.IsActive);
+    }
+
+    [AvaloniaFact]
+    public void Custom_Tooltip_Input_Should_Keep_Editing_Keys_And_Join_Modal_Focus_Cycle()
+    {
+        var host = CreateHost();
+        host.Showcase.Steps[0].TooltipTemplate =
+            new FuncDataTemplate<ShowcaseStep>((_, _) => new TextBox { Name = "CustomInput", Text = "Edit me" });
+        Showcase.SetKey(host.OtherButton, "Other");
+        host.Showcase.Steps.Add(new ShowcaseStep
+        {
+            Key = "Other",
+            Title = "Second",
+            Description = "Second step"
+        });
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        var customInput = GetTooltip(host.Showcase)
+            .GetVisualDescendants()
+            .OfType<TextBox>()
+            .Single(x => x.Name == "CustomInput");
+        customInput.Focus();
+        customInput.RaiseEvent(new KeyEventArgs
+        {
+            RoutedEvent = InputElement.KeyDownEvent,
+            Key = Key.Right
+        });
+
+        Assert.Equal(0, host.Showcase.CurrentIndex);
+
+        var skipButton = host.Showcase
+            .GetVisualDescendants()
+            .OfType<Button>()
+            .Single(x => x.Name == "PART_SkipButton");
+        skipButton.Focus();
+        skipButton.RaiseEvent(new KeyEventArgs
+        {
+            RoutedEvent = InputElement.KeyDownEvent,
+            Key = Key.Tab,
+            KeyModifiers = KeyModifiers.Shift
+        });
+
+        var focused = TopLevel.GetTopLevel(host.Showcase)?.FocusManager?.GetFocusedElement();
+        Assert.Same(customInput, focused);
+    }
+
+    [AvaloniaFact]
+    public void Tooltip_Should_Expose_Step_To_Automation()
+    {
+        var host = CreateHost();
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        var tooltip = GetTooltip(host.Showcase);
+        Assert.Equal("Step Title. Step 1 of 1", AutomationProperties.GetName(tooltip));
+        Assert.Equal("Step Description", AutomationProperties.GetHelpText(tooltip));
+
+        var peer = new ShowcaseAutomationPeer(host.Showcase);
+        Assert.Equal(AutomationControlType.Pane, peer.GetAutomationControlType());
+    }
+
+    [AvaloniaFact]
+    public void Modal_Mode_Should_Isolate_And_Restore_Underlying_Automation()
+    {
+        var host = CreateHost();
+        host.Showcase.InteractionMode = ShowcaseInteractionMode.Modal;
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        Assert.Equal(AccessibilityView.Raw, AutomationProperties.GetAccessibilityView(host.Target));
+        Assert.Equal(AccessibilityView.Raw, AutomationProperties.GetAccessibilityView(host.OtherButton));
+        Assert.Equal(AccessibilityView.Control, AutomationProperties.GetAccessibilityView(GetTooltip(host.Showcase)));
+
+        host.Showcase.Skip();
+
+        Assert.Equal(AccessibilityView.Default, AutomationProperties.GetAccessibilityView(host.Target));
+        Assert.Equal(AccessibilityView.Default, AutomationProperties.GetAccessibilityView(host.OtherButton));
+    }
+
+    [AvaloniaFact]
+    public void TargetOnly_Mode_Should_Keep_Target_In_Automation_Tree()
+    {
+        var host = CreateHost();
+        host.Showcase.InteractionMode = ShowcaseInteractionMode.TargetOnly;
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        Assert.Equal(AccessibilityView.Default, AutomationProperties.GetAccessibilityView(host.Target));
+        Assert.Equal(AccessibilityView.Raw, AutomationProperties.GetAccessibilityView(host.OtherButton));
+    }
+
+    [AvaloniaFact]
+    public async Task Modal_Mode_Should_Isolate_Controls_Added_While_Active()
+    {
+        var host = CreateHost();
+        host.Showcase.InteractionMode = ShowcaseInteractionMode.Modal;
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        var canvas = Assert.IsType<Canvas>(host.Root.Children[0]);
+        var dynamicButton = new Button { Content = "Dynamic" };
+        canvas.Children.Add(dynamicButton);
+        host.Window.UpdateLayout();
+        await Task.Delay(150);
+
+        Assert.Equal(
+            AccessibilityView.Raw,
+            AutomationProperties.GetAccessibilityView(dynamicButton));
+
+        canvas.Children.Remove(dynamicButton);
+        host.Window.UpdateLayout();
+        await Task.Delay(150);
+
+        Assert.Equal(
+            AccessibilityView.Default,
+            AutomationProperties.GetAccessibilityView(dynamicButton));
+    }
+
+    [AvaloniaFact]
+    public void Tooltip_Should_Resolve_Nova_Light_And_Dark_Theme_Resources()
+    {
+        var host = CreateHost();
+        var tooltip = GetTooltip(host.Showcase);
+
+        host.Window.RequestedThemeVariant = ThemeVariant.Light;
+        host.Window.UpdateLayout();
+
+        var lightBackground = Assert.IsAssignableFrom<ISolidColorBrush>(tooltip.Background).Color;
+        var lightForeground = Assert.IsAssignableFrom<ISolidColorBrush>(tooltip.Foreground).Color;
+
+        host.Window.RequestedThemeVariant = ThemeVariant.Dark;
+        host.Window.UpdateLayout();
+
+        var darkBackground = Assert.IsAssignableFrom<ISolidColorBrush>(tooltip.Background).Color;
+        var darkForeground = Assert.IsAssignableFrom<ISolidColorBrush>(tooltip.Foreground).Color;
+
+        Assert.Equal(Color.Parse("#FFFFFF"), lightBackground);
+        Assert.Equal(Color.Parse("#1B1B1F"), lightForeground);
+        Assert.Equal(Color.Parse("#25252A"), darkBackground);
+        Assert.Equal(Color.Parse("#F5F5F7"), darkForeground);
+    }
+
+    [AvaloniaFact]
+    public void Tooltip_Footer_Should_Wrap_Long_Localized_Actions()
+    {
+        var host = CreateHost();
+        Showcase.SetKey(host.OtherButton, "Other");
+        host.Showcase.Steps.Add(new ShowcaseStep
+        {
+            Key = "Other",
+            Title = "Second",
+            Description = "Second step"
+        });
+        host.Showcase.SkipButtonText = "Skip this tutorial now";
+        host.Showcase.PreviousButtonText = "Return to previous step";
+        host.Showcase.NextButtonText = "Continue to next step";
+
+        host.Showcase.Start();
+        host.Showcase.Next();
+        host.Window.UpdateLayout();
+
+        var actions = GetTooltip(host.Showcase)
+            .GetVisualDescendants()
+            .OfType<Button>()
+            .Where(x => x.IsEffectivelyVisible)
+            .ToArray();
+
+        Assert.Equal(3, actions.Length);
+        Assert.True(actions.Select(x => x.Bounds.Y).Distinct().Count() > 1);
+    }
+
+    [AvaloniaFact]
+    public void Tooltip_Should_Be_Height_Bounded_And_Scrollable()
+    {
+        var host = CreateHost();
+        host.Root.Height = 200;
+        host.Window.Height = 200;
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        var tooltip = GetTooltip(host.Showcase);
+        Assert.True(tooltip.MaxHeight <= host.Showcase.Bounds.Height);
+        Assert.Contains(tooltip.GetVisualDescendants(), x => x is ScrollViewer);
+    }
+
+    [AvaloniaFact]
+    public void Custom_Transition_Should_Receive_Tooltip_And_Navigation_Direction()
+    {
+        var host = CreateHost();
+        var transition = new RecordingPageTransition();
+        host.Showcase.Transition = transition;
+        Showcase.SetKey(host.OtherButton, "Other");
+        host.Showcase.Steps.Add(new ShowcaseStep
+        {
+            Key = "Other",
+            Title = "Second",
+            Description = "Second step"
+        });
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        Assert.Equal(1, transition.StartCount);
+        Assert.True(transition.LastDirection);
+        Assert.Null(transition.LastFrom);
+        Assert.Same(GetTooltip(host.Showcase), transition.LastTo);
+
+        host.Showcase.Next();
+        Assert.Equal(2, transition.StartCount);
+        Assert.True(transition.LastDirection);
+
+        host.Showcase.Previous();
+        Assert.Equal(3, transition.StartCount);
+        Assert.False(transition.LastDirection);
+    }
+
+    [AvaloniaFact]
+    public void Zero_AnimationDuration_Should_Disable_Custom_Transition()
+    {
+        var host = CreateHost();
+        var transition = new RecordingPageTransition();
+        host.Showcase.Transition = transition;
+        host.Showcase.AnimationDuration = TimeSpan.Zero;
+
+        host.Showcase.Start();
+        host.Window.UpdateLayout();
+
+        Assert.Equal(0, transition.StartCount);
+        Assert.Equal(1, GetTooltip(host.Showcase).Opacity);
+    }
+
+    [AvaloniaFact]
+    public void New_Step_Should_Cancel_InFlight_Custom_Transition()
+    {
+        var host = CreateHost();
+        var transition = new RecordingPageTransition
+        {
+            OnStart = token => Task.Delay(Timeout.InfiniteTimeSpan, token)
+        };
+        host.Showcase.Transition = transition;
+        Showcase.SetKey(host.OtherButton, "Other");
+        host.Showcase.Steps.Add(new ShowcaseStep
+        {
+            Key = "Other",
+            Title = "Second",
+            Description = "Second step"
+        });
+
+        host.Showcase.Start();
+        host.Showcase.Next();
+
+        Assert.Equal(2, transition.Tokens.Count);
+        Assert.True(transition.Tokens[0].IsCancellationRequested);
+        Assert.False(transition.Tokens[1].IsCancellationRequested);
+
+        host.Showcase.Skip();
+    }
+
+    [AvaloniaFact]
+    public async Task Custom_Transition_Failure_Should_Be_Reported_And_Keep_Tooltip_Visible()
+    {
+        var host = CreateHost();
+        var expected = new InvalidOperationException("Animation failed.");
+        host.Showcase.Transition = new RecordingPageTransition
+        {
+            OnStart = _ => Task.FromException(expected)
+        };
+        var failure = new TaskCompletionSource<ShowcaseTransitionFailedEventArgs>(
+            TaskCreationOptions.RunContinuationsAsynchronously);
+        host.Showcase.TransitionFailed += (_, args) => failure.TrySetResult(args);
+
+        host.Showcase.Start();
+        var result = await failure.Task.WaitAsync(TimeSpan.FromSeconds(1));
+
+        Assert.Equal(ShowcaseNavigationAction.Start, result.Action);
+        Assert.Same(expected, result.Exception);
+        Assert.True(GetTooltip(host.Showcase).IsVisible);
+        Assert.Equal(1, GetTooltip(host.Showcase).Opacity);
     }
 
     [AvaloniaFact]
@@ -531,15 +914,15 @@ public class ShowcaseIntegrationTests
     {
         var host = CreateHost();
         Showcase.SetKey(host.OtherButton, "Other");
-        host.Controller.Steps.Add(new ShowcaseStep
+        host.Showcase.Steps.Add(new ShowcaseStep
         {
             Key = "Other",
             Title = "Second",
             Description = "Second step"
         });
 
-        host.Controller.Start();
-        host.Controller.Next();
+        host.Showcase.Start();
+        host.Showcase.Next();
         host.Window.UpdateLayout();
         Assert.True(host.Showcase.IsActive);
 
@@ -557,7 +940,7 @@ public class ShowcaseIntegrationTests
         host.Window.UpdateLayout();
 
         // Navigate back — forces target re-resolution with duplicate present
-        host.Controller.Previous();
+        host.Showcase.Previous();
         host.Window.UpdateLayout();
 
         Assert.True(host.Showcase.IsActive);
@@ -570,7 +953,7 @@ public class ShowcaseIntegrationTests
         var host = CreateHost();
         host.Showcase.InteractionMode = ShowcaseInteractionMode.Modal;
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         var modalBlocker = GetBlocker(host.Showcase, "PART_ModalBlocker");
@@ -583,12 +966,13 @@ public class ShowcaseIntegrationTests
     }
 
     [AvaloniaFact]
-    public void TargetOnly_With_Missing_Target_Should_Fallback_To_Modal()
+    public void TargetOnly_With_Removed_Target_Should_Fallback_To_Modal()
     {
-        var host = CreateHost(includeTarget: false, stepKey: "Missing");
+        var host = CreateHost();
         host.Showcase.InteractionMode = ShowcaseInteractionMode.TargetOnly;
 
-        host.Controller.Start();
+        host.Showcase.Start();
+        ((Panel)host.Target.Parent!).Children.Remove(host.Target);
         host.Window.UpdateLayout();
 
         var modalBlocker = GetBlocker(host.Showcase, "PART_ModalBlocker");
@@ -603,7 +987,7 @@ public class ShowcaseIntegrationTests
         var host = CreateHost();
         host.Showcase.InteractionMode = ShowcaseInteractionMode.Modal;
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         var modalBlocker = GetBlocker(host.Showcase, "PART_ModalBlocker");
@@ -626,7 +1010,7 @@ public class ShowcaseIntegrationTests
         var host = CreateHost();
         host.Showcase.InteractionMode = ShowcaseInteractionMode.TargetOnly;
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         var edgeBlockers = new[]
@@ -651,21 +1035,21 @@ public class ShowcaseIntegrationTests
     {
         var host = CreateHost();
         Showcase.SetKey(host.OtherButton, "Other");
-        host.Controller.Steps.Add(new ShowcaseStep
+        host.Showcase.Steps.Add(new ShowcaseStep
         {
             Key = "Other",
             Title = "Second Step",
             Description = "Second"
         });
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         var name = AutomationProperties.GetName(host.Showcase);
         Assert.Contains("Step Title", name);
         Assert.Contains("1 of 2", name);
 
-        host.Controller.Next();
+        host.Showcase.Next();
         host.Window.UpdateLayout();
 
         name = AutomationProperties.GetName(host.Showcase);
@@ -678,15 +1062,66 @@ public class ShowcaseIntegrationTests
     {
         var host = CreateHost();
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         Assert.Contains("Step Title", AutomationProperties.GetName(host.Showcase));
 
-        host.Controller.Skip();
+        host.Showcase.Skip();
         host.Window.UpdateLayout();
 
         Assert.Equal("Interactive Tutorial", AutomationProperties.GetName(host.Showcase));
+    }
+
+    [AvaloniaFact]
+    public void Skip_Should_Restore_Previous_Focus()
+    {
+        var host = CreateHost();
+        host.OtherButton.Focus();
+
+        host.Showcase.Start();
+        host.Showcase.Skip();
+
+        var focused = TopLevel.GetTopLevel(host.Showcase)?.FocusManager?.GetFocusedElement();
+        Assert.Same(host.OtherButton, focused);
+    }
+
+    [AvaloniaFact]
+    public void Skip_Should_Use_Fallback_When_Previous_Focus_Was_Removed()
+    {
+        var host = CreateHost();
+        host.OtherButton.Focus();
+
+        host.Showcase.Start();
+        Assert.IsType<Canvas>(host.OtherButton.Parent).Children.Remove(host.OtherButton);
+        host.Showcase.Skip();
+
+        var focused = TopLevel.GetTopLevel(host.Showcase)?.FocusManager?.GetFocusedElement();
+        Assert.Same(host.Target, focused);
+    }
+
+    [AvaloniaFact]
+    public async Task TargetOnly_Step_Change_Should_Move_Focus_From_The_Previous_Target()
+    {
+        var host = CreateHost();
+        Showcase.SetKey(host.OtherButton, "Other");
+        host.Showcase.InteractionMode = ShowcaseInteractionMode.TargetOnly;
+        host.Showcase.Steps.Add(new ShowcaseStep
+        {
+            Key = "Other",
+            Title = "Other target"
+        });
+        await host.Showcase.StartAsync();
+        host.Target.Focus();
+
+        await host.Showcase.NextAsync();
+
+        var nextButton = host.Showcase
+            .GetVisualDescendants()
+            .OfType<Button>()
+            .Single(x => x.Name == "PART_NextButton");
+        var focused = TopLevel.GetTopLevel(host.Showcase)?.FocusManager?.GetFocusedElement();
+        Assert.Same(nextButton, focused);
     }
 
     [AvaloniaFact]
@@ -694,15 +1129,15 @@ public class ShowcaseIntegrationTests
     {
         var host = CreateHost();
         Showcase.SetKey(host.OtherButton, "Other");
-        host.Controller.Steps.Add(new ShowcaseStep
+        host.Showcase.Steps.Add(new ShowcaseStep
         {
             Key = "Other",
             Title = "Second",
             Description = "Second step"
         });
 
-        host.Controller.Start();
-        host.Controller.Next();
+        host.Showcase.Start();
+        host.Showcase.Next();
         host.Window.UpdateLayout();
 
         var skipButton = host.Showcase.GetVisualDescendants().OfType<Button>().Single(x => x.Name == "PART_SkipButton");
@@ -752,9 +1187,9 @@ public class ShowcaseIntegrationTests
     public void Tab_Should_Not_Trap_In_Passthrough_Mode()
     {
         var host = CreateHost();
-        host.Controller.Steps[0].InteractionMode = ShowcaseInteractionMode.Passthrough;
+        host.Showcase.Steps[0].InteractionMode = ShowcaseInteractionMode.Passthrough;
 
-        host.Controller.Start();
+        host.Showcase.Start();
         host.Window.UpdateLayout();
 
         var skipButton = host.Showcase.GetVisualDescendants().OfType<Button>().Single(x => x.Name == "PART_SkipButton");
@@ -770,13 +1205,13 @@ public class ShowcaseIntegrationTests
         Assert.NotSame(skipButton, focused);
     }
 
-    private static (Window Window, Grid Root, Showcase Showcase, ShowcaseController Controller, Button Target, Button OtherButton) CreateHost(
+    private static (Window Window, Grid Root, Showcase Showcase, Button Target, Button OtherButton) CreateHost(
         bool includeTarget = true,
         bool includeSecondDuplicate = false,
         string stepKey = "Target")
     {
-        var controller = new ShowcaseController();
-        controller.Steps.Add(new ShowcaseStep
+        var showcase = new Showcase();
+        showcase.Steps.Add(new ShowcaseStep
         {
             Key = stepKey,
             Title = "Step Title",
@@ -832,11 +1267,6 @@ public class ShowcaseIntegrationTests
             canvas.Children.Add(duplicate);
         }
 
-        var showcase = new Showcase
-        {
-            Controller = controller
-        };
-
         layoutRoot.Children.Add(showcase);
 
         var window = new Window
@@ -851,13 +1281,13 @@ public class ShowcaseIntegrationTests
         showcase.ApplyTemplate();
         showcase.UpdateLayout();
 
-        return (window, layoutRoot, showcase, controller, target, otherButton);
+        return (window, layoutRoot, showcase, target, otherButton);
     }
 
-    private static (Window Window, Showcase Showcase, ShowcaseController Controller, ScrollViewer ScrollViewer, Button Target) CreateScrollHost()
+    private static (Window Window, Showcase Showcase, ScrollViewer ScrollViewer, Button Target) CreateScrollHost()
     {
-        var controller = new ShowcaseController();
-        controller.Steps.Add(new ShowcaseStep
+        var showcase = new Showcase();
+        showcase.Steps.Add(new ShowcaseStep
         {
             Key = "DeepTarget",
             Title = "Deep Target",
@@ -909,11 +1339,6 @@ public class ShowcaseIntegrationTests
             Height = 320
         };
 
-        var showcase = new Showcase
-        {
-            Controller = controller
-        };
-
         layoutRoot.Children.Add(scrollViewer);
         layoutRoot.Children.Add(showcase);
 
@@ -929,7 +1354,7 @@ public class ShowcaseIntegrationTests
         showcase.ApplyTemplate();
         showcase.UpdateLayout();
 
-        return (window, showcase, controller, scrollViewer, target);
+        return (window, showcase, scrollViewer, target);
     }
 
     private static ShowcaseOverlay GetOverlay(Showcase showcase) =>

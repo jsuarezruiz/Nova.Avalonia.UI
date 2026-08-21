@@ -10,7 +10,7 @@ public class ShowcaseTooltipPositioner
     /// <summary>
     /// Gap between the target highlight edge and the tooltip.
     /// </summary>
-    internal const double TooltipGap = 16;
+    public const double TooltipGap = 16;
 
     private static readonly ShowcaseTooltipPosition[] AutoOrder =
     {
@@ -69,8 +69,8 @@ public class ShowcaseTooltipPositioner
         if (preferredPosition == ShowcaseTooltipPosition.Center)
         {
             return new Point(
-                (containerBounds.Width - tooltipSize.Width) / 2,
-                (containerBounds.Height - tooltipSize.Height) / 2);
+                containerBounds.Left + (containerBounds.Width - tooltipSize.Width) / 2,
+                containerBounds.Top + (containerBounds.Height - tooltipSize.Height) / 2);
         }
 
         var positionsToTry = preferredPosition == ShowcaseTooltipPosition.Auto
@@ -87,8 +87,8 @@ public class ShowcaseTooltipPositioner
         }
 
         return new Point(
-            (containerBounds.Width - tooltipSize.Width) / 2,
-            (containerBounds.Height - tooltipSize.Height) / 2);
+            containerBounds.Left + (containerBounds.Width - tooltipSize.Width) / 2,
+            containerBounds.Top + (containerBounds.Height - tooltipSize.Height) / 2);
     }
 
     private static Point TryPosition(Rect targetBounds, Size tooltipSize, ShowcaseTooltipPosition position)
@@ -120,10 +120,10 @@ public class ShowcaseTooltipPositioner
     private static bool IsPositionValid(Point position, Size tooltipSize, Rect containerBounds)
     {
         var tooltipBounds = new Rect(position, tooltipSize);
-        return position.X >= 0 &&
-               position.Y >= 0 &&
-               tooltipBounds.Right <= containerBounds.Width &&
-               tooltipBounds.Bottom <= containerBounds.Height;
+        return position.X >= containerBounds.Left &&
+               position.Y >= containerBounds.Top &&
+               tooltipBounds.Right <= containerBounds.Right &&
+               tooltipBounds.Bottom <= containerBounds.Bottom;
     }
 
     private static ShowcaseTooltipPosition[] GetFallbackOrder(ShowcaseTooltipPosition preferred)

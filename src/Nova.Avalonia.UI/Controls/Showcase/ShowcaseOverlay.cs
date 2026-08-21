@@ -2,6 +2,7 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Media.Immutable;
 
 namespace Nova.Avalonia.UI.Controls;
 
@@ -18,7 +19,7 @@ public class ShowcaseOverlay : Control
     public static readonly StyledProperty<IBrush?> OverlayBrushProperty =
         AvaloniaProperty.Register<ShowcaseOverlay, IBrush?>(
             nameof(OverlayBrush),
-            new SolidColorBrush(Colors.Black, 0.7));
+            new ImmutableSolidColorBrush(0xB3000000));
 
     /// <summary>
     /// Defines the <see cref="TargetBounds"/> property.
@@ -136,6 +137,7 @@ public class ShowcaseOverlay : Control
         var geometry = new StreamGeometry();
         using (var ctx = geometry.Open())
         {
+            ctx.SetFillRule(FillRule.EvenOdd);
             ctx.BeginFigure(new Point(0, 0), true);
             ctx.LineTo(new Point(bounds.Width, 0));
             ctx.LineTo(new Point(bounds.Width, bounds.Height));
@@ -144,8 +146,14 @@ public class ShowcaseOverlay : Control
 
             if (TargetBounds.HasValue)
             {
-                var highlightBounds = TargetBounds.Value.Inflate(HighlightPadding);
-                DrawHighlightHole(ctx, highlightBounds);
+                var highlightBounds = TargetBounds.Value
+                    .Inflate(SanitizePadding(HighlightPadding))
+                    .Intersect(new Rect(bounds.Size));
+
+                if (highlightBounds.Width > 0 && highlightBounds.Height > 0)
+                {
+                    DrawHighlightHole(ctx, highlightBounds);
+                }
             }
         }
 
@@ -179,6 +187,7 @@ public class ShowcaseOverlay : Control
 
     private void DrawRoundedRectangleHole(StreamGeometryContext ctx, Rect bounds, double radius)
     {
+        radius = double.IsFinite(radius) ? Math.Max(0, radius) : 0;
         radius = Math.Min(radius, Math.Min(bounds.Width / 2, bounds.Height / 2));
         var arcSize = new Size(radius, radius);
 
@@ -204,4 +213,14 @@ public class ShowcaseOverlay : Control
         ctx.ArcTo(new Point(center.X, center.Y - radius), arcSize, 0, true, SweepDirection.CounterClockwise);
         ctx.EndFigure(true);
     }
+
+    private static Thickness SanitizePadding(Thickness padding) =>
+        new(
+            SanitizeLength(padding.Left),
+            SanitizeLength(padding.Top),
+            SanitizeLength(padding.Right),
+            SanitizeLength(padding.Bottom));
+
+    private static double SanitizeLength(double value) =>
+        double.IsFinite(value) ? Math.Max(0, value) : 0;
 }

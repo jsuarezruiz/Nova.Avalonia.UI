@@ -31,7 +31,7 @@
                            HorizontalAlignment="Center"
                            nova:Showcase.Key="WelcomeTitle" />
 
-                <TextBlock Text="A minimal Showcase sample: validated start, interaction modes, highlight shapes, and live search preview."
+                <TextBlock Text="A Showcase sample with validation, interaction modes, custom transitions, highlight shapes, and live search preview."
                            TextWrapping="Wrap"
                            TextAlignment="Center"
                            Opacity="0.8" />
@@ -123,6 +123,10 @@
         </Grid>
 
         <nova:Showcase x:Name="ShowcaseControl"
-                       OverlayBrush="#CC000000" />
+                       OverlayBrush="#CC000000">
+            <nova:Showcase.Transition>
+                <CrossFade Duration="0:0:0.2" />
+            </nova:Showcase.Transition>
+        </nova:Showcase>
     </Panel>
 </UserControl>
