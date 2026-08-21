@@ -30,6 +30,24 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 <img src="images/novaui_barcodegenerator_light.gif" alt="BarcodeGenerator" width="250" />
 
+### CodeViewer
+
+The optional `Nova.Avalonia.UI.CodeViewer` package displays read-only source code with syntax highlighting, line numbers, and copy support. It also includes a compact button that opens several source files in a drawer, which is useful for samples and galleries.
+
+Code Viewer is kept in a separate package because it uses AvaloniaEdit and its TextMate grammars. Applications that do not show source code can continue using `Nova.Avalonia.UI` without those extra dependencies.
+
+```bash
+dotnet add package Nova.Avalonia.UI.CodeViewer
+```
+
+Register its styles after your base Avalonia theme:
+
+```xml
+<StyleInclude Source="avares://Nova.Avalonia.UI.CodeViewer/Themes/Controls.axaml" />
+```
+
+See the [Code Viewer documentation](docs/docs/controls/codeviewer.md) for examples.
+
 ### CompareSlider
 
 The `CompareSlider` control enables users to compare two pieces of content side-by-side. A draggable divider allows the user to reveal more of the "before" or "after" content interactively.

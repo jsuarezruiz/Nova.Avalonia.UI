@@ -7,7 +7,8 @@
           "src": "../src",
           "files": [
             "Nova.Avalonia.UI/Nova.Avalonia.UI.csproj",
-            "Nova.Avalonia.UI.BarcodeGenerator/Nova.Avalonia.UI.BarcodeGenerator.csproj"
+            "Nova.Avalonia.UI.BarcodeGenerator/Nova.Avalonia.UI.BarcodeGenerator.csproj",
+            "Nova.Avalonia.UI.CodeViewer/Nova.Avalonia.UI.CodeViewer.csproj"
           ]
         }
       ],
