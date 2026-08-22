@@ -34,6 +34,8 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 The optional `Nova.Avalonia.UI.CodeViewer` package displays read-only source code with syntax highlighting, line numbers, and copy support. It also includes a compact button that opens several source files in a drawer, which is useful for samples and galleries.
 
+<img src="images/novaui_codeviewer_light.png" alt="CodeViewer" width="250" />
+
 TextMate highlighting is enabled on desktop and browser targets. Mobile Apple and Android targets use the same viewer with plain text because the tokenizer's native dependency is not available there.
 
 Code Viewer is kept in a separate package because it uses AvaloniaEdit and its TextMate grammars. Applications that do not show source code can continue using `Nova.Avalonia.UI` without those extra dependencies.
