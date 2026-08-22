@@ -1,0 +1,121 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Canonical Nova palette shared by the Nova galleries. -->
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <Color x:Key="NovaPageColor">#FAFAFB</Color>
+            <Color x:Key="NovaCanvasColor">#F1F2F3</Color>
+            <Color x:Key="NovaSurfaceColor">#FFFFFF</Color>
+            <Color x:Key="NovaInsetColor">#F7F8F9</Color>
+            <Color x:Key="NovaHoverColor">#F4F5F6</Color>
+            <Color x:Key="NovaHoverStrongColor">#E7E9EB</Color>
+            <Color x:Key="NovaInkColor">#1F2124</Color>
+            <Color x:Key="NovaInk2Color">#62656B</Color>
+            <Color x:Key="NovaInk3Color">#6C7076</Color>
+            <Color x:Key="NovaLineColor">#ECEDEF</Color>
+            <Color x:Key="NovaLineStrongColor">#E0E2E5</Color>
+            <Color x:Key="NovaFieldColor">#F2F2F3</Color>
+            <Color x:Key="NovaAccentColor">#0285FF</Color>
+            <Color x:Key="NovaAccentInkColor">#0170DD</Color>
+            <Color x:Key="NovaOnAccentColor">#FFFFFF</Color>
+            <Color x:Key="NovaAccentTintColor">#E9F3FF</Color>
+            <Color x:Key="NovaGreenColor">#189A4D</Color>
+            <Color x:Key="NovaGreenTintColor">#E8F5ED</Color>
+            <Color x:Key="NovaOrangeColor">#EF720C</Color>
+            <Color x:Key="NovaOrangeTintColor">#FDF1E5</Color>
+            <Color x:Key="NovaRedColor">#E3474C</Color>
+            <Color x:Key="NovaRedTintColor">#FCECEC</Color>
+            <Color x:Key="NovaChipBackgroundColor">#E7E9EB</Color>
+            <Color x:Key="NovaChipHoverBackgroundColor">#E0E2E5</Color>
+            <Color x:Key="NovaChipForegroundColor">#43464C</Color>
+
+            <SolidColorBrush x:Key="NovaPageBrush" Color="{StaticResource NovaPageColor}" />
+            <SolidColorBrush x:Key="NovaCanvasBrush" Color="{StaticResource NovaCanvasColor}" />
+            <SolidColorBrush x:Key="NovaSurfaceBrush" Color="{StaticResource NovaSurfaceColor}" />
+            <SolidColorBrush x:Key="NovaInsetBrush" Color="{StaticResource NovaInsetColor}" />
+            <SolidColorBrush x:Key="NovaHoverBrush" Color="{StaticResource NovaHoverColor}" />
+            <SolidColorBrush x:Key="NovaHoverStrongBrush" Color="{StaticResource NovaHoverStrongColor}" />
+            <SolidColorBrush x:Key="NovaInkBrush" Color="{StaticResource NovaInkColor}" />
+            <SolidColorBrush x:Key="NovaInk2Brush" Color="{StaticResource NovaInk2Color}" />
+            <SolidColorBrush x:Key="NovaInk3Brush" Color="{StaticResource NovaInk3Color}" />
+            <SolidColorBrush x:Key="NovaLineBrush" Color="{StaticResource NovaLineColor}" />
+            <SolidColorBrush x:Key="NovaLineStrongBrush" Color="{StaticResource NovaLineStrongColor}" />
+            <SolidColorBrush x:Key="NovaFieldBrush" Color="{StaticResource NovaFieldColor}" />
+            <SolidColorBrush x:Key="NovaAccentBrush" Color="{StaticResource NovaAccentColor}" />
+            <SolidColorBrush x:Key="NovaAccentInkBrush" Color="{StaticResource NovaAccentInkColor}" />
+            <SolidColorBrush x:Key="NovaOnAccentBrush" Color="{StaticResource NovaOnAccentColor}" />
+            <SolidColorBrush x:Key="NovaAccentTintBrush" Color="{StaticResource NovaAccentTintColor}" />
+            <SolidColorBrush x:Key="NovaGreenBrush" Color="{StaticResource NovaGreenColor}" />
+            <SolidColorBrush x:Key="NovaGreenTintBrush" Color="{StaticResource NovaGreenTintColor}" />
+            <SolidColorBrush x:Key="NovaOrangeBrush" Color="{StaticResource NovaOrangeColor}" />
+            <SolidColorBrush x:Key="NovaOrangeTintBrush" Color="{StaticResource NovaOrangeTintColor}" />
+            <SolidColorBrush x:Key="NovaRedBrush" Color="{StaticResource NovaRedColor}" />
+            <SolidColorBrush x:Key="NovaRedTintBrush" Color="{StaticResource NovaRedTintColor}" />
+            <SolidColorBrush x:Key="NovaChipBackgroundBrush" Color="{StaticResource NovaChipBackgroundColor}" />
+            <SolidColorBrush x:Key="NovaChipHoverBackgroundBrush" Color="{StaticResource NovaChipHoverBackgroundColor}" />
+            <SolidColorBrush x:Key="NovaChipForegroundBrush" Color="{StaticResource NovaChipForegroundColor}" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="Dark">
+            <Color x:Key="NovaPageColor">#17181A</Color>
+            <Color x:Key="NovaCanvasColor">#1C1D1F</Color>
+            <Color x:Key="NovaSurfaceColor">#232427</Color>
+            <Color x:Key="NovaInsetColor">#1F2022</Color>
+            <Color x:Key="NovaHoverColor">#2A2B2E</Color>
+            <Color x:Key="NovaHoverStrongColor">#313236</Color>
+            <Color x:Key="NovaInkColor">#F2F3F4</Color>
+            <Color x:Key="NovaInk2Color">#A5A8AD</Color>
+            <Color x:Key="NovaInk3Color">#A0A4AB</Color>
+            <Color x:Key="NovaLineColor">#2E3033</Color>
+            <Color x:Key="NovaLineStrongColor">#3A3C40</Color>
+            <Color x:Key="NovaFieldColor">#2B2C2F</Color>
+            <Color x:Key="NovaAccentColor">#3D9AFF</Color>
+            <Color x:Key="NovaAccentInkColor">#7EC0FF</Color>
+            <Color x:Key="NovaOnAccentColor">#FFFFFF</Color>
+            <Color x:Key="NovaAccentTintColor">#293D9AFF</Color>
+            <Color x:Key="NovaGreenColor">#3DBB72</Color>
+            <Color x:Key="NovaGreenTintColor">#243DBB72</Color>
+            <Color x:Key="NovaOrangeColor">#F68F3C</Color>
+            <Color x:Key="NovaOrangeTintColor">#24F68F3C</Color>
+            <Color x:Key="NovaRedColor">#EE5C61</Color>
+            <Color x:Key="NovaRedTintColor">#24EE5C61</Color>
+            <Color x:Key="NovaChipBackgroundColor">#2B2C2F</Color>
+            <Color x:Key="NovaChipHoverBackgroundColor">#36373B</Color>
+            <Color x:Key="NovaChipForegroundColor">#A5A8AD</Color>
+
+            <SolidColorBrush x:Key="NovaPageBrush" Color="{StaticResource NovaPageColor}" />
+            <SolidColorBrush x:Key="NovaCanvasBrush" Color="{StaticResource NovaCanvasColor}" />
+            <SolidColorBrush x:Key="NovaSurfaceBrush" Color="{StaticResource NovaSurfaceColor}" />
+            <SolidColorBrush x:Key="NovaInsetBrush" Color="{StaticResource NovaInsetColor}" />
+            <SolidColorBrush x:Key="NovaHoverBrush" Color="{StaticResource NovaHoverColor}" />
+            <SolidColorBrush x:Key="NovaHoverStrongBrush" Color="{StaticResource NovaHoverStrongColor}" />
+            <SolidColorBrush x:Key="NovaInkBrush" Color="{StaticResource NovaInkColor}" />
+            <SolidColorBrush x:Key="NovaInk2Brush" Color="{StaticResource NovaInk2Color}" />
+            <SolidColorBrush x:Key="NovaInk3Brush" Color="{StaticResource NovaInk3Color}" />
+            <SolidColorBrush x:Key="NovaLineBrush" Color="{StaticResource NovaLineColor}" />
+            <SolidColorBrush x:Key="NovaLineStrongBrush" Color="{StaticResource NovaLineStrongColor}" />
+            <SolidColorBrush x:Key="NovaFieldBrush" Color="{StaticResource NovaFieldColor}" />
+            <SolidColorBrush x:Key="NovaAccentBrush" Color="{StaticResource NovaAccentColor}" />
+            <SolidColorBrush x:Key="NovaAccentInkBrush" Color="{StaticResource NovaAccentInkColor}" />
+            <SolidColorBrush x:Key="NovaOnAccentBrush" Color="{StaticResource NovaOnAccentColor}" />
+            <SolidColorBrush x:Key="NovaAccentTintBrush" Color="{StaticResource NovaAccentTintColor}" />
+            <SolidColorBrush x:Key="NovaGreenBrush" Color="{StaticResource NovaGreenColor}" />
+            <SolidColorBrush x:Key="NovaGreenTintBrush" Color="{StaticResource NovaGreenTintColor}" />
+            <SolidColorBrush x:Key="NovaOrangeBrush" Color="{StaticResource NovaOrangeColor}" />
+            <SolidColorBrush x:Key="NovaOrangeTintBrush" Color="{StaticResource NovaOrangeTintColor}" />
+            <SolidColorBrush x:Key="NovaRedBrush" Color="{StaticResource NovaRedColor}" />
+            <SolidColorBrush x:Key="NovaRedTintBrush" Color="{StaticResource NovaRedTintColor}" />
+            <SolidColorBrush x:Key="NovaChipBackgroundBrush" Color="{StaticResource NovaChipBackgroundColor}" />
+            <SolidColorBrush x:Key="NovaChipHoverBackgroundBrush" Color="{StaticResource NovaChipHoverBackgroundColor}" />
+            <SolidColorBrush x:Key="NovaChipForegroundBrush" Color="{StaticResource NovaChipForegroundColor}" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <CornerRadius x:Key="NovaWindowCornerRadius">14</CornerRadius>
+    <CornerRadius x:Key="NovaCardCornerRadius">10</CornerRadius>
+    <CornerRadius x:Key="NovaControlCornerRadius">8</CornerRadius>
+    <BoxShadows x:Key="NovaCardShadow">0 1 2 0 #14101828, 0 2 6 0 #0F101828</BoxShadows>
+    <BoxShadows x:Key="NovaPopupShadow">0 4 16 0 #33000000</BoxShadows>
+    <FontFamily x:Key="NovaFontFamilyMono">Menlo, Consolas, Courier New</FontFamily>
+</ResourceDictionary>

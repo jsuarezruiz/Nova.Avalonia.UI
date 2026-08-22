@@ -10,10 +10,8 @@
 
     <ScrollViewer HorizontalScrollBarVisibility="Disabled">
         <StackPanel Spacing="20" Margin="20">
-            <TextBlock Text="Arranges items in a radial pattern radiating from the center." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
-
             <!-- Basic Usage -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Items radiate outward from the center in a fan pattern." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -44,7 +42,7 @@
             </Border>
 
             <!-- Playground -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Adjust Radius, StartAngle, SweepAngle, and item rotation." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -109,7 +107,7 @@
             </Border>
 
             <!-- Dynamic Items -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Add or remove items to see the radial layout reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -141,7 +139,7 @@
             </Border>
 
             <!-- Half-Circle Example -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Half-Circle Layout" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="SweepAngle=180 creates a semi-circular arrangement." Foreground="{DynamicResource SecondaryTextBrush}"/>

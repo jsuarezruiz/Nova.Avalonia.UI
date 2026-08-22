@@ -7,10 +7,8 @@
              x:Class="Nova.Avalonia.UI.Gallery.Views.BarcodeGeneratorView">
     <ScrollViewer Margin="20">
         <StackPanel Spacing="20">
-            <TextBlock Text="A control that generates various 1D and 2D barcodes (QR, Code128, etc)." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
-
             <!-- Basic QR Code -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Basic QR Code" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Standard QR code with text display. Adapts to theme automatically." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -27,7 +25,7 @@
             </Border>
 
             <!-- Custom Colors QR -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Custom Colors" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="QR code with theme-aware custom colors." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -67,7 +65,7 @@
             </Border>
 
             <!-- Code 128 -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Code 128" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Linear barcode commonly used in shipping and logistics." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -84,7 +82,7 @@
             </Border>
 
             <!-- Code 39 -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Code 39" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Alphanumeric barcode used in automotive and defense industries." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -101,7 +99,7 @@
             </Border>
 
             <!-- EAN Barcodes -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="EAN Barcodes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="European Article Number barcodes for retail products." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -132,7 +130,7 @@
             </Border>
 
             <!-- UPC-A -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="UPC-A" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Universal Product Code used in North America." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -148,7 +146,7 @@
             </Border>
 
             <!-- Data Matrix -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Data Matrix" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="2D matrix barcode for small items and electronic components." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -163,7 +161,7 @@
             </Border>
 
             <!-- PDF417 -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="PDF417" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="2D stacked linear format with high data capacity." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -179,7 +177,7 @@
             </Border>
 
             <!-- Aztec -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Aztec Code" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="2D matrix barcode used in transport tickets and boarding passes." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -195,7 +193,7 @@
             </Border>
 
             <!-- ITF -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="ITF (Interleaved 2 of 5)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Numeric barcode used in logistics and shipping." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -211,7 +209,7 @@
             </Border>
 
             <!-- Code 93 and Codabar -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Other Linear Barcodes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Code 93 and Codabar formats." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -242,7 +240,7 @@
             </Border>
 
             <!-- Error Correction Levels -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Error Correction Levels" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Higher levels allow more damage recovery but reduce data capacity." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -292,7 +290,7 @@
             </Border>
 
             <!-- Multiple Symbologies Comparison -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Symbology Comparison" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Side-by-side comparison of different barcode types." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -329,7 +327,7 @@
             </Border>
 
             <!-- Sizes -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Different Sizes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="QR codes at various dimensions." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -366,7 +364,7 @@
             </Border>
 
             <!-- QR Code with Logo -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="QR Code with Logo" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Embed a logo in the center of QR codes. Use ErrorCorrectionLevel H for best results." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -407,7 +405,7 @@
             </Border>
 
             <!-- Disabled State -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Disabled State" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Barcode with IsEnabled=False." Foreground="{DynamicResource SecondaryTextBrush}" />

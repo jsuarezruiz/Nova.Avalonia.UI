@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:Nova.Avalonia.UI.Controls"
              x:Class="Nova.Avalonia.UI.Gallery.Views.ScratcherView">
-    
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
@@ -18,22 +18,20 @@
 
     <ScrollViewer>
         <StackPanel Spacing="20" Margin="20">
-            
+
             <!-- Basic Scratcher -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
-                    BorderThickness="2" 
-                    Padding="15" 
-                    CornerRadius="8">
+            <Border Classes="stage"
+                    Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Basic Scratcher" 
-                               FontSize="16" 
-                               FontWeight="Bold" 
+                    <TextBlock Text="Basic Scratcher"
+                               FontSize="16"
+                               FontWeight="Bold"
                                Foreground="{DynamicResource AccentBrush}"/>
-                    <TextBlock Text="Scratch the gray area to reveal the hidden prize!" 
+                    <TextBlock Text="Scratch the gray area to reveal the hidden prize!"
                                Foreground="{DynamicResource SecondaryTextBrush}" />
-                    
+
                     <controls:Scratcher x:Name="BasicScratcher"
-                                        Width="300" 
+                                        Width="300"
                                         Height="150"
                                         OverlayBrush="{DynamicResource ScratcherOverlayBrush}"
                                         BrushSize="40"
@@ -42,19 +40,19 @@
                                         HorizontalAlignment="Left">
                         <Border Background="#FFD700" CornerRadius="8">
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock Text="YOU WON!" 
-                                           FontSize="28" 
+                                <TextBlock Text="YOU WON!"
+                                           FontSize="28"
                                            FontWeight="Bold"
                                            Foreground="#1A1A1A"
                                            HorizontalAlignment="Center" />
-                                <TextBlock Text="$100 Prize" 
-                                           FontSize="18" 
+                                <TextBlock Text="$100 Prize"
+                                           FontSize="18"
                                            Foreground="#333333"
                                            HorizontalAlignment="Center" />
                             </StackPanel>
                         </Border>
                     </controls:Scratcher>
-                    
+
                     <StackPanel Orientation="Horizontal" Spacing="10">
                         <TextBlock x:Name="BasicProgressText" Text="Progress: 0%" VerticalAlignment="Center" />
                         <Button Content="Reset" Click="OnResetBasicClick" />
@@ -62,22 +60,20 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-            
+
             <!-- Colored Overlay -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
-                    BorderThickness="2" 
-                    Padding="15" 
-                    CornerRadius="8">
+            <Border Classes="stage"
+                    Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Colored Gradient Overlay" 
-                               FontSize="16" 
-                               FontWeight="Bold" 
+                    <TextBlock Text="Colored Gradient Overlay"
+                               FontSize="16"
+                               FontWeight="Bold"
                                Foreground="{DynamicResource AccentBrush}"/>
-                    <TextBlock Text="Support for linear and radial gradients in the overlay." 
+                    <TextBlock Text="Support for linear and radial gradients in the overlay."
                                Foreground="{DynamicResource SecondaryTextBrush}" />
-                    
+
                     <controls:Scratcher x:Name="GradientScratcher"
-                                        Width="300" 
+                                        Width="300"
                                         Height="150"
                                         BrushSize="50"
                                         Threshold="40"
@@ -89,81 +85,79 @@
                                 <GradientStop Offset="1" Color="#673AB7" />
                             </LinearGradientBrush>
                         </controls:Scratcher.OverlayBrush>
-                        
+
                         <Border Background="#4CAF50" CornerRadius="8">
-                            <TextBlock Text="Secret Message Revealed!" 
-                                       FontSize="20" 
+                            <TextBlock Text="Secret Message Revealed!"
+                                       FontSize="20"
                                        FontWeight="SemiBold"
                                        Foreground="White"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
                         </Border>
                     </controls:Scratcher>
-                    
+
                     <TextBlock x:Name="GradientProgressText" Text="Progress: 0%" />
                 </StackPanel>
             </Border>
-            
+
             <!-- Different Brush Sizes -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
-                    BorderThickness="2" 
-                    Padding="15" 
-                    CornerRadius="8">
+            <Border Classes="stage"
+                    Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Brush Sizes" 
-                               FontSize="16" 
-                               FontWeight="Bold" 
+                    <TextBlock Text="Brush Sizes"
+                               FontSize="16"
+                               FontWeight="Bold"
                                Foreground="{DynamicResource AccentBrush}"/>
-                    <TextBlock Text="Compare different brush sizes: Small (20px), Medium (40px), Large (80px)" 
+                    <TextBlock Text="Compare different brush sizes: Small (20px), Medium (40px), Large (80px)"
                                Foreground="{DynamicResource SecondaryTextBrush}" />
-                    
+
                     <WrapPanel Orientation="Horizontal">
                         <StackPanel Spacing="5" Margin="0,0,20,10">
                             <TextBlock Text="Small (20px)" HorizontalAlignment="Center" FontSize="12" Opacity="0.7" />
-                            <controls:Scratcher Width="150" 
+                            <controls:Scratcher Width="150"
                                                 Height="100"
                                                 OverlayBrush="#607D8B"
                                                 BrushSize="20"
                                                 Threshold="50">
                                 <Border Background="#FF9800" CornerRadius="4">
-                                    <TextBlock Text="Prize A" 
+                                    <TextBlock Text="Prize A"
                                                Foreground="White"
-                                               VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
                                                FontWeight="Bold" />
                                 </Border>
                             </controls:Scratcher>
                         </StackPanel>
-                        
+
                         <StackPanel Spacing="5" Margin="0,0,20,10">
                             <TextBlock Text="Medium (40px)" HorizontalAlignment="Center" FontSize="12" Opacity="0.7" />
-                            <controls:Scratcher Width="150" 
+                            <controls:Scratcher Width="150"
                                                 Height="100"
                                                 OverlayBrush="#455A64"
                                                 BrushSize="40"
                                                 Threshold="50">
                                 <Border Background="#03A9F4" CornerRadius="4">
-                                    <TextBlock Text="Prize B" 
+                                    <TextBlock Text="Prize B"
                                                Foreground="White"
-                                               VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
                                                FontWeight="Bold" />
                                 </Border>
                             </controls:Scratcher>
                         </StackPanel>
-                        
+
                         <StackPanel Spacing="5" Margin="0,0,20,10">
                             <TextBlock Text="Large (80px)" HorizontalAlignment="Center" FontSize="12" Opacity="0.7" />
-                            <controls:Scratcher Width="150" 
+                            <controls:Scratcher Width="150"
                                                 Height="100"
                                                 OverlayBrush="#37474F"
                                                 BrushSize="80"
                                                 Threshold="50">
                                 <Border Background="#E91E63" CornerRadius="4">
-                                    <TextBlock Text="Prize C" 
+                                    <TextBlock Text="Prize C"
                                                Foreground="White"
-                                               VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
                                                FontWeight="Bold" />
                                 </Border>
                             </controls:Scratcher>
@@ -171,48 +165,44 @@
                     </WrapPanel>
                 </StackPanel>
             </Border>
-            
+
             <!-- Threshold Example -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
-                    BorderThickness="2" 
-                    Padding="15" 
-                    CornerRadius="8">
+            <Border Classes="stage"
+                    Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Threshold Detection" 
-                               FontSize="16" 
-                               FontWeight="Bold" 
+                    <TextBlock Text="Threshold Detection"
+                               FontSize="16"
+                               FontWeight="Bold"
                                Foreground="{DynamicResource AccentBrush}"/>
-                    <TextBlock Text="The message below will appear when 70% is scratched." 
+                    <TextBlock Text="The message below will appear when 70% is scratched."
                                Foreground="{DynamicResource SecondaryTextBrush}" />
-                    
+
                     <controls:Scratcher x:Name="ThresholdScratcher"
-                                        Width="300" 
+                                        Width="300"
                                         Height="120"
                                         OverlayBrush="#795548"
                                         BrushSize="35"
                                         Threshold="70"
                                         HorizontalAlignment="Left">
                         <Border Background="#8BC34A" CornerRadius="8">
-                            <TextBlock Text="Threshold Content" 
-                                       FontSize="18" 
+                            <TextBlock Text="Threshold Content"
+                                       FontSize="18"
                                        FontWeight="SemiBold"
                                        Foreground="White"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
                         </Border>
                     </controls:Scratcher>
-                    
-                    <TextBlock x:Name="ThresholdStatusText" 
-                               Text="Status: Scratching..." 
+
+                    <TextBlock x:Name="ThresholdStatusText"
+                               Text="Status: Scratching..."
                                FontWeight="SemiBold" />
                 </StackPanel>
             </Border>
-            
+
             <!-- Save / Restore State -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}"
-                    BorderThickness="2"
-                    Padding="15"
-                    CornerRadius="8">
+            <Border Classes="stage"
+                    Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Save / Restore State"
                                FontSize="16"
@@ -256,26 +246,24 @@
             </Border>
 
             <!-- Disabled State -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" 
-                    BorderThickness="2" 
-                    Padding="15" 
-                    CornerRadius="8">
+            <Border Classes="stage"
+                    Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Disabled State" 
-                               FontSize="16" 
-                               FontWeight="Bold" 
+                    <TextBlock Text="Disabled State"
+                               FontSize="16"
+                               FontWeight="Bold"
                                Foreground="{DynamicResource AccentBrush}"/>
-                    <TextBlock Text="The control cannot be scratched when disabled." 
+                    <TextBlock Text="The control cannot be scratched when disabled."
                                Foreground="{DynamicResource SecondaryTextBrush}" />
-                    
-                    <controls:Scratcher Width="300" 
+
+                    <controls:Scratcher Width="300"
                                         Height="100"
                                         IsEnabled="False"
                                         OverlayBrush="{DynamicResource ScratcherOverlayBrush}"
                                         CornerRadius="8"
                                         HorizontalAlignment="Left">
                         <Border Background="{DynamicResource CardBackgroundBrush}" CornerRadius="8">
-                            <TextBlock Text="Cannot Scratch Me" 
+                            <TextBlock Text="Cannot Scratch Me"
                                        FontSize="20"
                                        FontWeight="Bold"
                                        Foreground="White"
@@ -285,7 +273,7 @@
                     </controls:Scratcher>
                 </StackPanel>
             </Border>
-            
+
         </StackPanel>
     </ScrollViewer>
 </UserControl>

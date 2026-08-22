@@ -4,6 +4,8 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using Avalonia.Themes.Fluent;
+using Avalonia.Themes.Simple;
 using Nova.Avalonia.UI.Gallery.ViewModels;
 using Nova.Avalonia.UI.Gallery.Views;
 
@@ -11,6 +13,23 @@ namespace Nova.Avalonia.UI.Gallery;
 
 public partial class App : Application
 {
+    public static bool SetBaseTheme(bool useSimple)
+    {
+        if (Current is not { } application || application.Styles.Count == 0)
+        {
+            return false;
+        }
+
+        var isSimple = application.Styles[0] is SimpleTheme;
+        if (isSimple == useSimple)
+        {
+            return false;
+        }
+
+        application.Styles[0] = useSimple ? new SimpleTheme() : new FluentTheme();
+        return true;
+    }
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);

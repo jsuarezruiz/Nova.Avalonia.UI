@@ -50,9 +50,6 @@ public sealed class CodeViewerViewModel : PageViewModel
         ];
     }
 
-    public string Description =>
-        "Display selectable source with line numbers, or open several source files from a compact button.";
-
     public string InlineSample => XamlSample;
 
     public ObservableCollection<SourceCodeDocument> Sources { get; }

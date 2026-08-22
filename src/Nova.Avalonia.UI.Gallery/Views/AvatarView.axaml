@@ -20,10 +20,8 @@
 
   <ScrollViewer>
       <StackPanel Spacing="20" Margin="20">
-            <TextBlock Text="A control that represents a user with an image, initials, or icon." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
-
             <!-- Basic Avatars with Auto Mode -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Basic Avatars"
                                FontSize="16"
@@ -77,7 +75,7 @@
             </Border>
 
             <!-- Different Sizes -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Sizes"
                                FontSize="16"
@@ -122,7 +120,7 @@
             </Border>
 
             <!-- Different Shapes -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Shapes"
                                FontSize="16"
@@ -156,7 +154,7 @@
             </Border>
 
             <!-- Status Indicators -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Status Indicators"
                                FontSize="16"
@@ -204,7 +202,7 @@
             </Border>
 
             <!-- Custom Colors -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Custom Colors"
                                FontSize="16"
@@ -243,7 +241,7 @@
             </Border>
 
             <!-- Auto-Generated Colors -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Auto-Generated Colors (name hash)"
                                FontSize="16"
@@ -263,7 +261,7 @@
             </Border>
 
             <!-- Display Modes -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Display Modes"
                                FontSize="16"
@@ -305,7 +303,7 @@
             </Border>
 
             <!-- Avatar Group -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Avatar Group"
                                FontSize="16"
@@ -344,7 +342,7 @@
             </Border>
 
             <!-- Styled Variants -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Styled Variants"
                                FontSize="16"
@@ -377,7 +375,7 @@
             </Border>
 
             <!-- Real-World Example -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Real-World Example"
                                FontSize="16"

@@ -12,13 +12,6 @@
 
     <ScrollViewer>
         <StackPanel Margin="24" Spacing="24">
-            <StackPanel Spacing="6">
-                <TextBlock Text="Code Viewer" FontSize="26" FontWeight="SemiBold" />
-                <TextBlock Text="{Binding Description}"
-                           Foreground="{DynamicResource SecondaryTextBrush}"
-                           TextWrapping="Wrap" />
-            </StackPanel>
-
             <Border Padding="20"
                     BorderBrush="{DynamicResource CardBorderBrush}"
                     BorderThickness="1"

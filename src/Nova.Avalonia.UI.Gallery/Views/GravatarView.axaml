@@ -11,7 +11,7 @@
         <StackPanel Spacing="20" Margin="20">
 
             <!-- Basic Usage -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Basic Usage"
                                FontWeight="Bold"
@@ -32,7 +32,7 @@
             </Border>
 
             <!-- Size Variations -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Size Variations"
                                FontWeight="Bold"
@@ -53,7 +53,7 @@
             </Border>
 
             <!-- Consistent Output -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Consistent Output"
                                FontWeight="Bold"
@@ -81,7 +81,7 @@
             </Border>
 
             <!-- Custom Image Override -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Custom Image Override"
                                FontWeight="Bold"
@@ -105,7 +105,7 @@
             </Border>
 
             <!-- Interactive Input -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Interactive Input"
                                FontWeight="Bold"

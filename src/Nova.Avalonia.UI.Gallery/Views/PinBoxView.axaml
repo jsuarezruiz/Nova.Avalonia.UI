@@ -9,11 +9,6 @@
              x:DataType="vm:PinBoxViewModel">
     <ScrollViewer>
         <StackPanel Spacing="20" Margin="20">
-            <TextBlock Text="A specialized input control for PIN codes, OTP verification, and security codes."
-                       Theme="{StaticResource BodyTextBlockStyle}"
-                       Opacity="0.6"
-                       TextWrapping="Wrap" />
-
             <!-- Basic PIN Entry -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
                 <StackPanel Spacing="15">

@@ -1,7 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:Nova.Avalonia.UI.Gallery"
-             xmlns:labs="using:Avalonia.Labs.Controls"
              x:Class="Nova.Avalonia.UI.Gallery.App"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
@@ -12,19 +11,24 @@
 
     <Application.Styles>
         <FluentTheme />
-        <labs:ControlThemes />
         <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Controls.axaml" />
         <StyleInclude Source="avares://Nova.Avalonia.UI.CodeViewer/Themes/Controls.axaml" />
+        <StyleInclude Source="avares://Nova.Avalonia.UI.Gallery/Styles/NovaShellStyles.axaml" />
     </Application.Styles>
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://Nova.Avalonia.UI.BarcodeGenerator/Themes/BarcodeGenerator.axaml" />
+                <ResourceInclude Source="avares://Nova.Avalonia.UI.Gallery/Styles/NovaTokens.axaml" />
+                <ResourceInclude Source="avares://Nova.Avalonia.UI.Gallery/Styles/GalleryStyles.axaml" />
             </ResourceDictionary.MergedDictionaries>
             
-            <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource SystemAccentColor}" />
-            <SolidColorBrush x:Key="AccentMutedBrush" Color="{DynamicResource SystemAccentColor}" Opacity="0.75" />
+            <!-- Compatibility aliases for existing samples. -->
+            <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource NovaAccentColor}" />
+            <SolidColorBrush x:Key="SecondaryTextBrush" Color="{DynamicResource NovaInk2Color}" />
+            <SolidColorBrush x:Key="CardBorderBrush" Color="{DynamicResource NovaLineColor}" />
+            <SolidColorBrush x:Key="CardBackgroundBrush" Color="{DynamicResource NovaSurfaceColor}" />
 
             <!-- Shared Barcode brushes (High Contrast for both themes) -->
             <!-- We use standard "Dark Bars on Light Background" for barcodes even in Dark Mode -->
@@ -50,18 +54,6 @@
             <SolidColorBrush x:Key="BarcodeGrayBrush" Color="#37474F" />
             <SolidColorBrush x:Key="BarcodeGrayBackgroundBrush" Color="#ECEFF1" />
 
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="SecondaryTextBrush" Color="#666666" />
-                    <SolidColorBrush x:Key="CardBorderBrush" Color="#33000000" />
-                    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#0F000000" />
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="SecondaryTextBrush" Color="#CCDDDDDD" />
-                    <SolidColorBrush x:Key="CardBorderBrush" Color="#33FFFFFF" />
-                    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#19FFFFFF" />
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 
