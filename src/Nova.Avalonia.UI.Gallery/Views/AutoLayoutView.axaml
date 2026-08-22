@@ -14,7 +14,7 @@
                        Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
 
             <!-- Interactive Playground -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
 
@@ -113,7 +113,7 @@
             </Border>
             
             <!-- Reference to Figma -->
-             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Absolute Positioning" FontWeight="Bold"/>
                     <TextBlock Text="Items with IsAbsolute=True are removed from flow." Opacity="0.6"/>

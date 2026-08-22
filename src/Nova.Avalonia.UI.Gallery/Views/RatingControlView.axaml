@@ -12,7 +12,7 @@
             <TextBlock Text="A control for collecting or displaying ratings with customizable shapes." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
 
             <!-- Basic Usage -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Standard rating control with default settings." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -22,7 +22,7 @@
             </Border>
 
             <!-- Precision Modes -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Precision Modes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Control how values are selected: Full, Half, or Exact." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -45,7 +45,7 @@
             </Border>
 
             <!-- Shapes -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Shapes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Built-in shapes and support for custom geometries." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -83,7 +83,7 @@
             </Border>
 
             <!-- Colors & Styling -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Colors &amp; Styling" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Customize fills, strokes, sizing, and spacing." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -99,7 +99,7 @@
             </Border>
 
             <!-- Read Only -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Read Only" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Display-only mode. Users cannot interact with it." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -109,7 +109,7 @@
             </Border>
 
             <!-- Item Count -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Item Count" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Support for any number of items." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -119,7 +119,7 @@
             </Border>
 
             <!-- ValueChanged Event -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="ValueChanged Event" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="React to value changes with the ValueChanged event." Foreground="{DynamicResource SecondaryTextBrush}" />

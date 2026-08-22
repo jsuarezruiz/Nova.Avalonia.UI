@@ -18,7 +18,7 @@
         <StackPanel Spacing="24" Margin="24">
 
             <!-- Basic Usage -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+            <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
                     <TextBlock Text="Basic Usage"
                                FontSize="16"
@@ -38,7 +38,7 @@
             </Border>
 
             <!-- Semantic Colors -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+            <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
                     <TextBlock Text="Semantic Colors"
                                FontSize="16"
@@ -60,7 +60,7 @@
             </Border>
 
             <!-- Custom Content -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+            <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
                     <TextBlock Text="Custom Content"
                                FontSize="16"
@@ -85,7 +85,7 @@
             </Border>
 
             <!-- Customization -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+            <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
                     <TextBlock Text="Customization"
                                FontSize="16"
@@ -105,7 +105,7 @@
             </Border>
 
             <!-- Interactivity -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+            <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
                     <TextBlock Text="Interactivity"
                                FontSize="16"
@@ -124,7 +124,7 @@
             </Border>
 
             <!-- Read-Only Mode -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+            <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
                     <TextBlock Text="Read-Only Mode"
                                FontSize="16"
@@ -144,7 +144,7 @@
             </Border>
 
             <!-- Disabled State -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="1" Padding="20" CornerRadius="8">
+            <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
                     <TextBlock Text="Disabled State"
                                FontSize="16"

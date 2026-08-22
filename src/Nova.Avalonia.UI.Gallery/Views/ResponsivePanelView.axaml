@@ -13,7 +13,7 @@
             <TextBlock Text="An adaptive layout panel that toggles visibility of children based on breakpoints." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
 
             <!-- Window Resizing Demo -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                      <TextBlock Text="Window Resizing" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                      <TextBlock Text="Resize the application window to see this panel adapt." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -40,7 +40,7 @@
             </Border>
 
             <!-- Basic Usage -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <Grid ColumnDefinitions="*, Auto">
                         <StackPanel Spacing="5">
@@ -105,7 +105,7 @@
 
             <!-- Interactive - Only visible on tablet and desktop -->
             <nova:ResponsivePanel>
-                <Border nova:ResponsivePanel.Condition="Normal" BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <Border Classes="stage" nova:ResponsivePanel.Condition="Normal" Padding="15">
                     <StackPanel Spacing="10">
                         <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                         <TextBlock Text="Use the slider to simulate container width and see the layout adapt. Try different transition effects." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -270,7 +270,7 @@
                     </StackPanel>
                 </Border>
                 
-                <Border nova:ResponsivePanel.Condition="Wide" BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+                <Border Classes="stage" nova:ResponsivePanel.Condition="Wide" Padding="15">
                     <StackPanel Spacing="10">
                         <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                         <TextBlock Text="Use the slider to simulate container width and see the layout adapt. Try different transition effects." Foreground="{DynamicResource SecondaryTextBrush}"/>

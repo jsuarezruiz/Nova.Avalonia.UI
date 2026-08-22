@@ -13,7 +13,7 @@
             <TextBlock Text="A panel that stacks children with configurable X/Y offsets." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
 
             <!-- Basic Usage -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Items stack with horizontal and vertical offsets." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -38,7 +38,7 @@
             </Border>
 
             <!-- Playground -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Adjust OffsetX, OffsetY, and ReverseZIndex." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -84,7 +84,7 @@
             </Border>
 
             <!-- Dynamic Items -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Add or remove items to see the overlap adjust." Foreground="{DynamicResource SecondaryTextBrush}"/>
@@ -116,7 +116,7 @@
             </Border>
 
             <!-- Negative Offset Example -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Negative Offsets" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Text="Use negative offsets to stack in the opposite direction." Foreground="{DynamicResource SecondaryTextBrush}"/>

@@ -1,0 +1,229 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- The shared Nova shell: type ramp, section labels, nav pills, and catalogue cards.
+       This file is copied verbatim into every Nova gallery. Edit one copy, then recopy to the
+       others so the md5s stay identical; do not let a copy diverge. -->
+
+  <!-- Sidebar header -->
+  <Style Selector="TextBlock.wordmark">
+    <Setter Property="FontSize" Value="14.5" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="LetterSpacing" Value="-0.2" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInkBrush}" />
+  </Style>
+  <Style Selector="TextBlock.tagline">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk3Brush}" />
+  </Style>
+
+  <!-- Sidebar footer -->
+  <Style Selector="TextBlock.footername">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk2Brush}" />
+  </Style>
+  <Style Selector="TextBlock.footerblurb">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk3Brush}" />
+  </Style>
+
+  <!-- Page header: eyebrow (catalog number), title, intro. -->
+  <Style Selector="TextBlock.eyebrow">
+    <Setter Property="FontFamily" Value="{DynamicResource NovaFontFamilyMono}" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk3Brush}" />
+  </Style>
+  <Style Selector="TextBlock.title">
+    <Setter Property="FontSize" Value="30" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="LetterSpacing" Value="-0.5" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInkBrush}" />
+  </Style>
+  <Style Selector="TextBlock.sub">
+    <Setter Property="FontSize" Value="14.5" />
+    <Setter Property="LineHeight" Value="22" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="MaxWidth" Value="700" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk2Brush}" />
+  </Style>
+
+  <!-- Home hero -->
+  <Style Selector="TextBlock.hero">
+    <Setter Property="FontSize" Value="30" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="LetterSpacing" Value="-0.5" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInkBrush}" />
+  </Style>
+  <Style Selector="TextBlock.herotagline">
+    <Setter Property="FontSize" Value="14.5" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk2Brush}" />
+  </Style>
+  <Style Selector="TextBlock.blurb">
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="LineHeight" Value="20" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="MaxWidth" Value="560" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk3Brush}" />
+  </Style>
+
+  <!-- Section labels -->
+  <Style Selector="TextBlock.navgroup">
+    <Setter Property="FontSize" Value="10.5" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="LetterSpacing" Value="1.2" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk3Brush}" />
+    <Setter Property="Margin" Value="13,18,0,6" />
+  </Style>
+  <Style Selector="TextBlock.settings-label">
+    <Setter Property="FontSize" Value="10.5" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="LetterSpacing" Value="0.6" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk3Brush}" />
+  </Style>
+
+  <!-- Sample stage: the quiet well every demo sits in, per the AIKit reference. -->
+  <Style Selector="Border.stage">
+    <Setter Property="Background" Value="{DynamicResource NovaCanvasBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource NovaLineBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource NovaWindowCornerRadius}" />
+    <Setter Property="ClipToBounds" Value="True" />
+  </Style>
+
+  <!-- Section label inside pages: the caps treatment without the sidebar margins. -->
+  <Style Selector="TextBlock.sectionlabel">
+    <Setter Property="FontSize" Value="10.5" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="LetterSpacing" Value="1.2" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk3Brush}" />
+  </Style>
+
+  <!-- Stat chips -->
+  <Style Selector="Border.chip">
+    <Setter Property="Background" Value="{DynamicResource NovaFieldBrush}" />
+    <Setter Property="CornerRadius" Value="7" />
+    <Setter Property="Padding" Value="11,5" />
+  </Style>
+  <Style Selector="TextBlock.chipvalue">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInkBrush}" />
+  </Style>
+  <Style Selector="TextBlock.chiplabel">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk2Brush}" />
+  </Style>
+
+  <!-- Catalogue card text -->
+  <Style Selector="TextBlock.cardtitle">
+    <Setter Property="FontSize" Value="13.5" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInkBrush}" />
+  </Style>
+  <Style Selector="TextBlock.carddesc">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="LineHeight" Value="17" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk2Brush}" />
+  </Style>
+
+  <!-- Sidebar nav lists: hover is a wash, selection is the accent pill. -->
+  <Style Selector="ListBox.nav">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="0" />
+  </Style>
+  <Style Selector="ListBox.nav ListBoxItem">
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Padding" Value="13,9" />
+    <Setter Property="Margin" Value="0,1" />
+    <Setter Property="CornerRadius" Value="9" />
+    <Setter Property="FontSize" Value="13.5" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk2Brush}" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="ListBox.nav ListBoxItem:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource NovaHoverBrush}" />
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource NovaInkBrush}" />
+  </Style>
+  <Style Selector="ListBox.nav ListBoxItem:selected /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource NovaAccentTintBrush}" />
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource NovaAccentBrush}" />
+  </Style>
+  <Style Selector="ListBox.nav ListBoxItem:selected:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource NovaHoverStrongBrush}" />
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource NovaAccentBrush}" />
+  </Style>
+  <Style Selector="ListBox.nav ListBoxItem:selected">
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+
+  <!-- Home is a Button rather than a list item, so it needs the nav item look spelled out. -->
+  <Style Selector="Button.navhome">
+    <Setter Property="Padding" Value="13,9" />
+    <Setter Property="Margin" Value="0,1" />
+    <Setter Property="CornerRadius" Value="9" />
+    <Setter Property="FontSize" Value="13.5" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Foreground" Value="{DynamicResource NovaInk2Brush}" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="Button.navhome:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource NovaHoverBrush}" />
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource NovaInkBrush}" />
+  </Style>
+  <Style Selector="Button.navhome.active">
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Button.navhome.active /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource NovaAccentTintBrush}" />
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource NovaAccentBrush}" />
+  </Style>
+  <Style Selector="Button.navhome.active:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource NovaHoverStrongBrush}" />
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource NovaAccentBrush}" />
+  </Style>
+
+  <!-- Catalogue cards and rows -->
+  <Style Selector="Button.samplecard">
+    <Setter Property="Background" Value="{DynamicResource NovaSurfaceBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource NovaLineBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="12" />
+    <Setter Property="Padding" Value="16,13" />
+    <Setter Property="Margin" Value="0,0,10,10" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="Button.samplecard:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource NovaInsetBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource NovaLineStrongBrush}" />
+  </Style>
+  <Style Selector="Button.samplecard:pressed /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource NovaInsetBrush}" />
+  </Style>
+
+  <Style Selector="Button.homerow">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="9" />
+    <Setter Property="Padding" Value="13,8" />
+    <Setter Property="Margin" Value="0,1" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="Button.homerow:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource NovaHoverBrush}" />
+  </Style>
+
+</Styles>

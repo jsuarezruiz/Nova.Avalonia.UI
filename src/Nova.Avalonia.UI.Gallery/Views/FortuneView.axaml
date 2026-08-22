@@ -86,7 +86,7 @@
                        TextWrapping="Wrap"/>
 
             <!-- Basic FortuneWheel -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Fortune Wheel" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="A circular spin-to-win wheel. Click the button to spin!" Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -115,7 +115,7 @@
             </Border>
 
             <!-- Style Strategies -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Style Strategies" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Different color strategies: Alternating vs Gradient." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -151,7 +151,7 @@
             </Border>
 
             <!-- Indicator Positions -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Indicator Positions" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="The pointer can be positioned at any edge." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -193,7 +193,7 @@
             </Border>
 
             <!-- FortuneBar Horizontal -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Fortune Bar (Horizontal)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="A slot machine style scrolling bar." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -227,7 +227,7 @@
             </Border>
 
             <!-- FortuneBar Image -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Fortune Bar (Image)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Slot machine with image assets." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -261,7 +261,7 @@
             </Border>
 
             <!-- FortuneBar Vertical -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Fortune Bar (Vertical)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Vertical orientation for different layouts." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -295,7 +295,7 @@
             </Border>
 
             <!-- Events Demo -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Events" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Observe SpinStarted and SpinCompleted events." Foreground="{DynamicResource SecondaryTextBrush}" />
@@ -335,7 +335,7 @@
             </Border>
 
             <!-- Customization -->
-            <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="15" CornerRadius="8">
+            <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
                     <TextBlock Text="Customization" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
                     <TextBlock Text="Custom center size, indicator colors, and slice colors." Foreground="{DynamicResource SecondaryTextBrush}" />

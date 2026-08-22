@@ -1,8 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Avalonia;
-using Avalonia.Labs.Controls;
-using Avalonia.Styling;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -10,17 +7,12 @@ namespace Nova.Avalonia.UI.Gallery.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    [ObservableProperty] private bool? _showNavBar = true;
-    [ObservableProperty] private bool? _showBackButton = false;
+    [ObservableProperty] private PageViewModel _currentPage = new HomeViewModel();
+    [ObservableProperty] private bool _isHome = true;
     [ObservableProperty] private NavigationSample? _selectedSample;
-    private bool _initialNavigated;
-    private bool _isDark;
 
     public MainViewModel()
     {
-        NavigationRouter = new StackNavigationRouter();
-        NavigationRouter.Navigated += OnNavigated;
-
         Categories = new ObservableCollection<SampleCategory>
         {
             new("Controls", new ObservableCollection<NavigationSample>
@@ -58,46 +50,34 @@ public partial class MainViewModel : ViewModelBase
                 new("VirtualizedVariableSizeWrapPanel", new VirtualizedVariableSizeWrapPanelViewModel(), "Virtualized tile grid layout"),
             }),
         };
-
-        // Start on menu hub; initial navigation clears stack once.
-        _initialNavigated = true;
-        _ = NavigationRouter.NavigateToAsync(new NavigationMenuViewModel(), NavigationMode.Clear);
     }
 
     public ObservableCollection<SampleCategory> Categories { get; }
 
-    public INavigationRouter NavigationRouter { get; }
+    public int SampleCount => Categories.Sum(category => category.Samples.Count);
 
     partial void OnSelectedSampleChanged(NavigationSample? value)
     {
-        _ = NavigateToAsync(value);
-    }
-
-    [RelayCommand]
-    private Task NavigateTo(NavigationSample? sample) => NavigateToAsync(sample);
-
-    [RelayCommand]
-    private void SwapTheme()
-    {
-        _isDark = !_isDark;
-        Application.Current!.RequestedThemeVariant = _isDark ? ThemeVariant.Dark : ThemeVariant.Light;
-    }
-
-    private async Task NavigateToAsync(NavigationSample? sample)
-    {
-        if (sample?.Page is null)
+        if (value?.Page is null)
         {
             return;
         }
 
-        var mode = _initialNavigated ? NavigationMode.Normal : NavigationMode.Clear;
-        _initialNavigated = true;
-
-        await NavigationRouter.NavigateToAsync(sample.Page, mode);
+        CurrentPage = value.Page;
+        IsHome = false;
     }
 
-    private void OnNavigated(object? sender, NavigatedEventArgs e)
+    [RelayCommand]
+    private void NavigateTo(NavigationSample? sample)
     {
-        ShowBackButton = NavigationRouter.CanGoBack;
+        SelectedSample = sample;
+    }
+
+    [RelayCommand]
+    private void GoHome()
+    {
+        SelectedSample = null;
+        CurrentPage = new HomeViewModel();
+        IsHome = true;
     }
 }
