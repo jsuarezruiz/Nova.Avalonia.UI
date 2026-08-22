@@ -34,6 +34,8 @@
     href: controls/orbitpanel.md
   - name: OverlapPanel
     href: controls/overlappanel.md
+  - name: PinBox
+    href: controls/pinbox.md
   - name: RadialPanel
     href: controls/radialpanel.md
   - name: RatingControl

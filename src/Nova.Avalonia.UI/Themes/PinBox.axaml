@@ -1,0 +1,237 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cp="using:Nova.Avalonia.UI.Controls">
+
+    <!-- Default PinBox Style -->
+    <Style Selector="cp|PinBox">
+        <Setter Property="Length" Value="6" />
+        <Setter Property="Spacing" Value="8" />
+        <Setter Property="ShowCursor" Value="True" />
+        <Setter Property="CursorBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        <Setter Property="DefaultTheme">
+            <cp:PinBoxTheme Width="56" Height="60"
+                           Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                           BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                           BorderThickness="2"
+                           CornerRadius="8"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+        <Setter Property="FocusedTheme">
+            <cp:PinBoxTheme Width="56" Height="60"
+                           Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                           BorderBrush="{DynamicResource SystemControlHighlightBaseMediumBrush}"
+                           BorderThickness="2"
+                           CornerRadius="8"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+        <Setter Property="FilledTheme">
+            <cp:PinBoxTheme Width="56" Height="60"
+                           Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                           BorderBrush="{DynamicResource SystemControlHighlightBaseMediumHighBrush}"
+                           BorderThickness="2"
+                           CornerRadius="8"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+        <Setter Property="ErrorTheme">
+            <cp:PinBoxTheme Width="56" Height="60"
+                           Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                           BorderBrush="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                           BorderThickness="2"
+                           CornerRadius="8"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid>
+                    <TextBox Name="PART_InputTextBox"
+                             Width="1"
+                             Height="1"
+                             MinWidth="1"
+                             MinHeight="1"
+                             MaxWidth="1"
+                             MaxHeight="1"
+                             AutomationProperties.AccessibilityView="Raw"
+                             Opacity="0"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             Foreground="Transparent"
+                             CaretBrush="Transparent"
+                             SelectionBrush="Transparent"
+                             AcceptsReturn="False"
+                             AcceptsTab="False"
+                             IsTabStop="False"
+                             IsHitTestVisible="False"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top" />
+
+                    <StackPanel Spacing="8">
+                        <!-- Pin boxes container -->
+                        <StackPanel Name="PART_ItemsPanel"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+
+                        <!-- Error text -->
+                        <TextBlock Text="{TemplateBinding ErrorText}"
+                                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                                   FontSize="12"
+                                   HorizontalAlignment="Center"
+                                   IsVisible="{TemplateBinding HasError}" />
+                    </StackPanel>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <!-- Disabled State -->
+    <Style Selector="cp|PinBox:disabled">
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+
+    <!-- Rounded Theme -->
+    <Style Selector="cp|PinBox.rounded">
+        <Setter Property="DefaultTheme">
+            <cp:PinBoxTheme Width="60" Height="60"
+                           Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                           BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                           BorderThickness="1"
+                           CornerRadius="30"
+                           FontSize="28"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+        <Setter Property="FocusedTheme">
+            <cp:PinBoxTheme Width="60" Height="60"
+                           Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                           BorderBrush="#2196F3"
+                           BorderThickness="2"
+                           CornerRadius="30"
+                           FontSize="28"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+        <Setter Property="FilledTheme">
+            <cp:PinBoxTheme Width="60" Height="60"
+                           Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                           BorderBrush="#4CAF50"
+                           BorderThickness="2"
+                           CornerRadius="30"
+                           FontSize="28"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+    </Style>
+
+    <!-- Underline Theme -->
+    <Style Selector="cp|PinBox.underline">
+        <Setter Property="DefaultTheme">
+            <cp:PinBoxTheme Width="50" Height="60"
+                           Background="Transparent"
+                           BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                           BorderThickness="2"
+                           CornerRadius="0"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                           IsUnderline="True" />
+        </Setter>
+        <Setter Property="FocusedTheme">
+            <cp:PinBoxTheme Width="50" Height="60"
+                           Background="Transparent"
+                           BorderBrush="#2196F3"
+                           BorderThickness="3"
+                           CornerRadius="0"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                           IsUnderline="True" />
+        </Setter>
+        <Setter Property="FilledTheme">
+            <cp:PinBoxTheme Width="50" Height="60"
+                           Background="Transparent"
+                           BorderBrush="#4CAF50"
+                           BorderThickness="3"
+                           CornerRadius="0"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                           IsUnderline="True" />
+        </Setter>
+    </Style>
+
+    <!-- Material Theme -->
+    <Style Selector="cp|PinBox.material">
+        <Setter Property="DefaultTheme">
+            <cp:PinBoxTheme Width="56" Height="56"
+                           Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                           BorderBrush="Transparent"
+                           BorderThickness="0"
+                           CornerRadius="4"
+                           FontSize="24"
+                           FontWeight="Medium"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+        <Setter Property="FocusedTheme">
+            <cp:PinBoxTheme Width="56" Height="56"
+                           Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                           BorderBrush="#6200EE"
+                           BorderThickness="2"
+                           CornerRadius="4"
+                           FontSize="24"
+                           FontWeight="Medium"
+                           Foreground="#6200EE" />
+        </Setter>
+        <Setter Property="FilledTheme">
+            <cp:PinBoxTheme Width="56" Height="56"
+                           Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                           BorderBrush="#03DAC5"
+                           BorderThickness="2"
+                           CornerRadius="4"
+                           FontSize="24"
+                           FontWeight="Medium"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+    </Style>
+
+    <!-- iOS Theme -->
+    <Style Selector="cp|PinBox.ios">
+        <Setter Property="DefaultTheme">
+            <cp:PinBoxTheme Width="45" Height="56"
+                           Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                           BorderBrush="Transparent"
+                           BorderThickness="0"
+                           CornerRadius="12"
+                           FontSize="28"
+                           FontWeight="Regular"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+        <Setter Property="FocusedTheme">
+            <cp:PinBoxTheme Width="45" Height="56"
+                           Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                           BorderBrush="#007AFF"
+                           BorderThickness="1"
+                           CornerRadius="12"
+                           FontSize="28"
+                           FontWeight="Regular"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+        <Setter Property="FilledTheme">
+            <cp:PinBoxTheme Width="45" Height="56"
+                           Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                           BorderBrush="#34C759"
+                           BorderThickness="1"
+                           CornerRadius="12"
+                           FontSize="28"
+                           FontWeight="Regular"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        </Setter>
+    </Style>
+</Styles>
