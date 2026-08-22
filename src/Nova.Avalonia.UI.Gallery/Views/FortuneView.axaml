@@ -83,7 +83,7 @@
             <!-- Basic FortuneWheel -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Fortune Wheel" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Fortune Wheel" />
                     <TextBlock Text="A circular spin-to-win wheel. Click the button to spin!" Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <StackPanel HorizontalAlignment="Center" Spacing="15">
@@ -112,7 +112,7 @@
             <!-- Style Strategies -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Style Strategies" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Style Strategies" />
                     <TextBlock Text="Different color strategies: Alternating vs Gradient." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -148,7 +148,7 @@
             <!-- Indicator Positions -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Indicator Positions" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Indicator Positions" />
                     <TextBlock Text="The pointer can be positioned at any edge." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -190,7 +190,7 @@
             <!-- FortuneBar Horizontal -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Fortune Bar (Horizontal)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Fortune Bar (Horizontal)" />
                     <TextBlock Text="A slot machine style scrolling bar." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <StackPanel HorizontalAlignment="Center" Spacing="15">
@@ -224,7 +224,7 @@
             <!-- FortuneBar Image -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Fortune Bar (Image)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Fortune Bar (Image)" />
                     <TextBlock Text="Slot machine with image assets." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <StackPanel HorizontalAlignment="Center" Spacing="15">
@@ -258,7 +258,7 @@
             <!-- FortuneBar Vertical -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Fortune Bar (Vertical)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Fortune Bar (Vertical)" />
                     <TextBlock Text="Vertical orientation for different layouts." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <StackPanel HorizontalAlignment="Center" Spacing="15">
@@ -292,7 +292,7 @@
             <!-- Events Demo -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Events" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Events" />
                     <TextBlock Text="Observe SpinStarted and SpinCompleted events." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="15">
@@ -332,7 +332,7 @@
             <!-- Customization -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Customization" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Customization" />
                     <TextBlock Text="Custom center size, indicator colors, and slice colors." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">

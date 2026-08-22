@@ -13,7 +13,7 @@
             <!-- Basic Usage -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Basic Usage"/>
                     <TextBlock Text="Items radiate outward from the center in a fan pattern." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="300" ClipToBounds="True">
@@ -44,7 +44,7 @@
             <!-- Playground -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Playground"/>
                     <TextBlock Text="Adjust Radius, StartAngle, SweepAngle, and item rotation." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
                     <!-- Controls -->
@@ -109,7 +109,7 @@
             <!-- Dynamic Items -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Dynamic Items"/>
                     <TextBlock Text="Add or remove items to see the radial layout reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
                     <StackPanel Orientation="Horizontal" Spacing="10">
@@ -141,7 +141,7 @@
             <!-- Half-Circle Example -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Half-Circle Layout" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Half-Circle Layout"/>
                     <TextBlock Text="SweepAngle=180 creates a semi-circular arrangement." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="250" ClipToBounds="True">

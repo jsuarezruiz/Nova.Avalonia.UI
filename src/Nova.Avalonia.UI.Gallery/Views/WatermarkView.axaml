@@ -22,10 +22,7 @@
             <!-- Basic Text Watermark -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Text Watermark"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Basic Text Watermark" />
                     <TextBlock Text="A simple text watermark overlay with default settings."
                                TextWrapping="Wrap"
                                Opacity="0.7" />
@@ -48,10 +45,7 @@
             <!-- Custom Angle and Spacing -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Custom Angle and Spacing"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Custom Angle and Spacing" />
                     <TextBlock Text="Angle=-45, HorizontalSpacing=100, VerticalSpacing=50"
                                TextWrapping="Wrap"
                                Opacity="0.7" />
@@ -80,10 +74,7 @@
             <!-- High Opacity Watermark -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Higher Opacity"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Higher Opacity" />
                     <TextBlock Text="WatermarkOpacity=0.3 for more visible watermarks."
                                TextWrapping="Wrap"
                                Opacity="0.7" />
@@ -110,10 +101,7 @@
             <!-- Interactive Playground -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Interactive Playground"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Interactive Playground" />
 
                     <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto" Margin="0,0,0,10">
                         <StackPanel Grid.Column="0" Spacing="5" Margin="0,0,10,0">
@@ -190,10 +178,7 @@
             <!-- Spaced Text -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Spaced Text"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Spaced Text" />
                     <TextBlock Text="Use spaces in text for spaced-out effect."
                                TextWrapping="Wrap"
                                Opacity="0.7" />
@@ -219,10 +204,7 @@
             <!-- Image Pattern Watermark -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Image Pattern Watermark"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Image Pattern Watermark" />
                     <TextBlock Text="Use Source property with an image for image-based watermarks."
                                TextWrapping="Wrap"
                                Opacity="0.7" />

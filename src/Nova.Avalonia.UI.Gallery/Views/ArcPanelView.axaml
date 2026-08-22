@@ -13,7 +13,7 @@
             <!-- Basic Usage -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Usage - Semi Circle" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Basic Usage - Semi Circle"/>
                     <TextBlock Text="Items distributed along a 180° arc starting from the top." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="280" ClipToBounds="True">
@@ -31,7 +31,7 @@
             <!-- Configuration -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Playground"/>
                     
                     <Grid ColumnDefinitions="Auto, *, 50" RowDefinitions="Auto, Auto, Auto">
                         <TextBlock Text="Radius" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -67,7 +67,7 @@
             <!-- Quarter Arc -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Quarter Arc" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Quarter Arc"/>
                     <TextBlock Text="90° sweep for corner menus or gauges." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" MinHeight="250" ClipToBounds="True">
@@ -82,7 +82,7 @@
             <!-- Dynamic Items -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Dynamic Items"/>
                     <TextBlock Text="Add or remove items to see the arc layout reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
                     <StackPanel Orientation="Horizontal" Spacing="10">

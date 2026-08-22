@@ -23,10 +23,7 @@
             <Border Classes="stage"
                     Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Basic Scratcher"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Basic Scratcher"/>
                     <TextBlock Text="Scratch the gray area to reveal the hidden prize!"
                                Foreground="{DynamicResource SecondaryTextBrush}" />
 
@@ -65,10 +62,7 @@
             <Border Classes="stage"
                     Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Colored Gradient Overlay"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Colored Gradient Overlay"/>
                     <TextBlock Text="Support for linear and radial gradients in the overlay."
                                Foreground="{DynamicResource SecondaryTextBrush}" />
 
@@ -104,10 +98,7 @@
             <Border Classes="stage"
                     Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Brush Sizes"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Brush Sizes"/>
                     <TextBlock Text="Compare different brush sizes: Small (20px), Medium (40px), Large (80px)"
                                Foreground="{DynamicResource SecondaryTextBrush}" />
 
@@ -170,10 +161,7 @@
             <Border Classes="stage"
                     Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Threshold Detection"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Threshold Detection"/>
                     <TextBlock Text="The message below will appear when 70% is scratched."
                                Foreground="{DynamicResource SecondaryTextBrush}" />
 
@@ -204,10 +192,7 @@
             <Border Classes="stage"
                     Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Save / Restore State"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Save / Restore State"/>
                     <TextBlock Text="Scratch partially, save the state, reset, then restore to continue where you left off."
                                Foreground="{DynamicResource SecondaryTextBrush}" />
 
@@ -249,10 +234,7 @@
             <Border Classes="stage"
                     Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Disabled State"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Disabled State"/>
                     <TextBlock Text="The control cannot be scratched when disabled."
                                Foreground="{DynamicResource SecondaryTextBrush}" />
 

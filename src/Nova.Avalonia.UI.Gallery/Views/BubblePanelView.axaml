@@ -13,7 +13,7 @@
             <!-- Basic Usage -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Basic Usage"/>
                     <TextBlock Text="Items pack together with larger items placed first." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="350" ClipToBounds="True">
@@ -49,7 +49,7 @@
             <!-- Tag Cloud Style -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Tag Cloud Style" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Tag Cloud Style"/>
                     <TextBlock Text="Different sizes represent importance or frequency." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="320" ClipToBounds="True">
@@ -80,7 +80,7 @@
             <!-- Configuration -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Playground"/>
                     
                     <Grid ColumnDefinitions="Auto, *, 50">
                         <TextBlock Text="Item Spacing" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -105,7 +105,7 @@
             <!-- Dynamic Items -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Dynamic Items"/>
                     <TextBlock Text="Add or remove items to see bubble packing reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
                     <StackPanel Orientation="Horizontal" Spacing="10">

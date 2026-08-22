@@ -13,7 +13,7 @@
             <!-- Basic Usage -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Basic Usage"/>
                     <TextBlock Text="Items positioned using Row and Column attached properties. Using Ellipses to show circle packing." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" Height="400" ClipToBounds="True">
@@ -50,7 +50,7 @@
             <!-- Layout Configuration -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Playground"/>
                     <TextBlock Text="Adjust RowCount, ColumnCount, and Orientation." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
                     <!-- Controls -->
@@ -93,7 +93,7 @@
             <!-- Dynamic Items -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Dynamic Items"/>
                     <TextBlock Text="Add or remove items to see the hex grid reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
                     <StackPanel Orientation="Horizontal" Spacing="10">

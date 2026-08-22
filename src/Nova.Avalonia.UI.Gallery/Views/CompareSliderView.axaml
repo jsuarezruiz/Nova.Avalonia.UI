@@ -15,7 +15,7 @@
             <!-- Basic Usage -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Basic Usage" />
                     <TextBlock Text="Side-by-side image comparison." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:CompareSlider Height="300">
@@ -32,7 +32,7 @@
             <!-- Vertical Orientation (Image Comparison) -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Vertical Orientation" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Vertical Orientation" />
                     <TextBlock Text="Compare content vertically (e.g., photo editing effects)." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:CompareSlider Orientation="Vertical" Height="300">
@@ -53,7 +53,7 @@
             <!-- Interactive Control -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Interactive Control" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Interactive Control" />
                     <TextBlock Text="Control the slider programmatically." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:CompareSlider x:Name="InteractiveSlider" Height="200" Value="0.5">
@@ -81,7 +81,7 @@
             <!-- Text/Code Comparison -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Content Comparison" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Content Comparison" />
                     <TextBlock Text="Compare arbitrary content, like code diffs." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:CompareSlider Height="200">
@@ -127,7 +127,7 @@
             <!-- Custom Styling -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Custom Styling" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Custom Styling" />
                     <TextBlock Text="Customizing the divider and thumb using inline styles." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:CompareSlider Height="300">
@@ -162,7 +162,7 @@
             <!-- Custom Range Usage -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Custom Range Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Custom Range Usage" />
                     <TextBlock Text="Map values to a specific domain (e.g., timeline progression)." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:CompareSlider Height="300" 

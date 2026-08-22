@@ -14,7 +14,7 @@
             <!-- Basic Usage -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Basic Usage"/>
                     <TextBlock Text="Tiles auto-flow with ColumnSpan and RowSpan for variable sizes." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
@@ -91,7 +91,7 @@
             <!-- Configuration -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Playground"/>
                     
                     <Grid ColumnDefinitions="Auto, *, 50" RowDefinitions="Auto, Auto, Auto">
                         <TextBlock Text="Tile Size" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -128,7 +128,7 @@
             <!-- Dashboard Example -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Dashboard Layout" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Dashboard Layout"/>
                     <TextBlock Text="Creating a dashboard with mixed tile sizes." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="10" ClipToBounds="True">
@@ -165,7 +165,7 @@
             <!-- Dynamic Items -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Dynamic Items" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Dynamic Items"/>
                     <TextBlock Text="Add or remove items to see the tile grid reflow." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
                     <StackPanel Orientation="Horizontal" Spacing="10">

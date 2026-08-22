@@ -20,10 +20,7 @@
             <!-- Multiple TextBlocks -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Multiple TextBlocks"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Multiple TextBlocks" />
                     
                     <controls:Shimmer IsLoading="{Binding #GlobalToggle.IsChecked}">
                         <StackPanel Spacing="10">
@@ -39,10 +36,7 @@
             <!-- Profile Card with Avatar -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Profile card"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Profile card" />
                     
                     <controls:Shimmer IsLoading="{Binding #GlobalToggle.IsChecked}">
                         <Border BorderBrush="{DynamicResource CardBorderBrush}" 
@@ -77,10 +71,7 @@
             <!-- Card with Rounded Corners -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Rounded border"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Rounded border" />
                     
                     <controls:Shimmer IsLoading="{Binding #GlobalToggle.IsChecked}">
                         <Border Background="{DynamicResource CardBackgroundBrush}" 
@@ -105,10 +96,7 @@
             <!-- Complex Layout -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Complex layout"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Complex layout" />
                     
                     <controls:Shimmer IsLoading="{Binding #GlobalToggle.IsChecked}">
                         <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
@@ -150,10 +138,7 @@
             <!-- List of Items -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="List items"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="List items" />
                     
                     <controls:Shimmer IsLoading="{Binding #GlobalToggle.IsChecked}">
                         <StackPanel Spacing="10">
@@ -207,10 +192,7 @@
             <!-- Buttons -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Buttons"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Buttons" />
                     
                     <controls:Shimmer IsLoading="{Binding #GlobalToggle.IsChecked}">
                         <WrapPanel>

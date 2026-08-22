@@ -11,10 +11,7 @@
             <!-- Basic Badges (Standalone) -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Badges"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Basic Badges"/>
                     
                     <WrapPanel>
                         <controls:Badge BadgeContent="Primary" 
@@ -54,10 +51,7 @@
             <!-- Outline Badges -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Outline Badges"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Outline Badges"/>
                     
                     <WrapPanel>
                         <controls:Badge BadgeContent="Primary" 
@@ -82,10 +76,7 @@
             <!-- Sizes -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Different Sizes"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Different Sizes"/>
                     
                     <WrapPanel>
                         <controls:Badge BadgeContent="Small" 
@@ -105,10 +96,7 @@
             <!-- Number Badges -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Number Badges"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Number Badges"/>
                     
                     <WrapPanel>
                         <controls:Badge BadgeContent="1" 
@@ -136,10 +124,7 @@
             <!-- Dot Indicators -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Dot Indicators"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Dot Indicators"/>
                     
                     <WrapPanel>
                         <controls:Badge Kind="Dot"
@@ -171,10 +156,7 @@
             <!-- All Placements -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="All Placements"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="All Placements"/>
                     
                     <UniformGrid Rows="3" Columns="3" Margin="0,10">
                         <UniformGrid.Styles>
@@ -263,10 +245,7 @@
             <!-- Badges on Buttons -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Badges on Buttons"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Badges on Buttons"/>
                     
                     <WrapPanel>
                         <controls:Badge BadgePlacement="TopRight" Margin="10" BadgeContent="5" Theme="{StaticResource DangerBadge}">
@@ -288,10 +267,7 @@
             <!-- Shape Variants -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Shape Variants"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Shape Variants"/>
             
                     <WrapPanel>
                         <controls:Badge BadgeContent="Pill Badge" 
@@ -311,10 +287,7 @@
             <!-- Interactive -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Playground"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Playground"/>
                     
                     <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
                         <TextBlock Grid.Column="0" Grid.Row="0" Text="Badge Content:" VerticalAlignment="Center" />
@@ -340,10 +313,7 @@
             <!-- Max Count & Cutout Effect -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Max Count &amp; Cutout Effect"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Max Count &amp; Cutout Effect"/>
                     
                     <WrapPanel>
                         <!-- Max Count Example (99 default limit) -->

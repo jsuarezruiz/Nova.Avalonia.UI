@@ -13,7 +13,7 @@
             <!-- Configuration -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Configuration" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Configuration"/>
                     
                     <Grid ColumnDefinitions="120, *, 60" RowDefinitions="Auto, Auto, Auto">
                         <TextBlock Text="Column Width" VerticalAlignment="Center"/>
@@ -40,7 +40,7 @@
             <!-- Virtualized Panel -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Large Dataset" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Large Dataset"/>
                     <TextBlock Text="Scroll through 500+ items with smooth performance." Foreground="{DynamicResource SecondaryTextBrush}"/>
                     
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Height="500" ClipToBounds="True">

@@ -13,7 +13,7 @@
             <!-- Interactive Playground -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Playground"/>
 
                     <!-- Controls -->
                     <WrapPanel Orientation="Horizontal">
