@@ -12,6 +12,7 @@
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Controls.axaml" />
+        <StyleInclude Source="avares://Nova.Avalonia.UI.CodeViewer/Themes/Controls.axaml" />
         <StyleInclude Source="avares://Nova.Avalonia.UI.Gallery/Styles/NovaShellStyles.axaml" />
     </Application.Styles>
 

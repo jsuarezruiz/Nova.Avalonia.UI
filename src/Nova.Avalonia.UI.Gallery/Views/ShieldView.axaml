@@ -20,10 +20,7 @@
             <!-- Basic Usage -->
             <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="Basic Usage"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Basic Usage"/>
                     <TextBlock Text="Standard usage of the Shield control for status badges."
                                Foreground="{DynamicResource SecondaryTextBrush}"
                                Margin="0,0,0,8"
@@ -40,10 +37,7 @@
             <!-- Semantic Colors -->
             <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="Semantic Colors"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Semantic Colors"/>
                     <TextBlock Text="Use colors that convey meaning at a glance."
                                Foreground="{DynamicResource SecondaryTextBrush}"
                                Margin="0,0,0,8"
@@ -62,10 +56,7 @@
             <!-- Custom Content -->
             <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="Custom Content"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Custom Content"/>
                     <TextBlock Text="Use any content for Subject or Status, not just text."
                                Foreground="{DynamicResource SecondaryTextBrush}"
                                Margin="0,0,0,8"
@@ -87,10 +78,7 @@
             <!-- Customization -->
             <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="Customization"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Customization"/>
                     <TextBlock Text="Adjust CornerRadius and SubjectBackground for different looks."
                                Foreground="{DynamicResource SecondaryTextBrush}"
                                Margin="0,0,0,8"
@@ -107,10 +95,7 @@
             <!-- Interactivity -->
             <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="Interactivity"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Interactivity"/>
                     <TextBlock Text="Shield inherits from Button - supports Click events and keyboard focus."
                                Foreground="{DynamicResource SecondaryTextBrush}"
                                Margin="0,0,0,8"
@@ -126,10 +111,7 @@
             <!-- Read-Only Mode -->
             <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="Read-Only Mode"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Read-Only Mode"/>
                     <TextBlock Text="Display-only badges with full opacity but no interaction. Compare with disabled state below."
                                Foreground="{DynamicResource SecondaryTextBrush}"
                                Margin="0,0,0,8"
@@ -146,10 +128,7 @@
             <!-- Disabled State -->
             <Border Classes="stage" Padding="20">
                 <StackPanel Spacing="12">
-                    <TextBlock Text="Disabled State"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Disabled State"/>
                     <TextBlock Text="Disabled shields have reduced opacity and no interaction."
                                Foreground="{DynamicResource SecondaryTextBrush}"
                                Margin="0,0,0,8"

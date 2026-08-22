@@ -9,12 +9,10 @@
         <StackPanel Spacing="20">
             
 
-            <TextBlock Text="A control for collecting or displaying ratings with customizable shapes." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
-
             <!-- Basic Usage -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Basic Usage" />
                     <TextBlock Text="Standard rating control with default settings." Foreground="{DynamicResource SecondaryTextBrush}" />
                     
                     <controls:RatingControl Value="3" />
@@ -24,7 +22,7 @@
             <!-- Precision Modes -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Precision Modes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Precision Modes" />
                     <TextBlock Text="Control how values are selected: Full, Half, or Exact." Foreground="{DynamicResource SecondaryTextBrush}" />
 
                     <StackPanel Spacing="5">
@@ -47,7 +45,7 @@
             <!-- Shapes -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Shapes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Shapes" />
                     <TextBlock Text="Built-in shapes and support for custom geometries." Foreground="{DynamicResource SecondaryTextBrush}" />
 
                     <WrapPanel Orientation="Horizontal">
@@ -85,7 +83,7 @@
             <!-- Colors & Styling -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Colors &amp; Styling" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Colors &amp; Styling" />
                     <TextBlock Text="Customize fills, strokes, sizing, and spacing." Foreground="{DynamicResource SecondaryTextBrush}" />
 
                     <controls:RatingControl Value="4" 
@@ -101,7 +99,7 @@
             <!-- Read Only -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Read Only" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Read Only" />
                     <TextBlock Text="Display-only mode. Users cannot interact with it." Foreground="{DynamicResource SecondaryTextBrush}" />
 
                     <controls:RatingControl Value="3.7" IsReadOnly="True" Precision="Exact" />
@@ -111,7 +109,7 @@
             <!-- Item Count -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Item Count" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Item Count" />
                     <TextBlock Text="Support for any number of items." Foreground="{DynamicResource SecondaryTextBrush}" />
 
                     <controls:RatingControl Value="7" ItemCount="10" ItemSize="20" />
@@ -121,7 +119,7 @@
             <!-- ValueChanged Event -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="ValueChanged Event" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="ValueChanged Event" />
                     <TextBlock Text="React to value changes with the ValueChanged event." Foreground="{DynamicResource SecondaryTextBrush}" />
 
                     <StackPanel Orientation="Horizontal" Spacing="15">

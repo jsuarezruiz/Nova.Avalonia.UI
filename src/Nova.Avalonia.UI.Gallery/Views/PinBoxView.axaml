@@ -9,18 +9,10 @@
              x:DataType="vm:PinBoxViewModel">
     <ScrollViewer>
         <StackPanel Spacing="20" Margin="20">
-            <TextBlock Text="A specialized input control for PIN codes, OTP verification, and security codes."
-                       Theme="{StaticResource BodyTextBlockStyle}"
-                       Opacity="0.6"
-                       TextWrapping="Wrap" />
-
             <!-- Basic PIN Entry -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Basic PIN Entry"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Basic PIN Entry" />
                     
                     <TextBlock Text="4-digit PIN"
                                FontSize="12"
@@ -41,10 +33,7 @@
             <!-- Password Mode -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Password Mode"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Password Mode" />
                     
                     <TextBlock Text="Characters are obscured with dots"
                                FontSize="12"
@@ -67,10 +56,7 @@
             <!-- Theme Variants -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Theme Variants"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Theme Variants" />
                     
                     <TextBlock Text="Rounded"
                                FontSize="12"
@@ -105,10 +91,7 @@
             <!-- Spacing Options -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Spacing Options"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Spacing Options" />
                     
                     <TextBlock Text="Spacing: 4"
                                FontSize="12"
@@ -136,10 +119,7 @@
             <!-- Grouping and Normalization -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Grouping and Normalization"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Grouping and Normalization" />
 
                     <TextBlock Text="Grouped 6-character code"
                                FontSize="12"
@@ -176,10 +156,7 @@
             <!-- Validation -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Validation"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Validation" />
                     
                     <TextBlock Text="Enter 1234 for valid PIN (press Backspace to edit)" 
                                FontSize="12" 
@@ -199,10 +176,7 @@
             <!-- Interactive -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Interactive"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Interactive" />
                     
                     <controls:PinBox x:Name="InteractivePinBox"
                                     Length="4"
@@ -226,10 +200,7 @@
             <!-- Disabled State -->
             <Border BorderBrush="{DynamicResource AccentMutedBrush}" BorderThickness="2" Padding="20" CornerRadius="8">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Disabled State"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Disabled State" />
                     
                     <TextBlock Text="PinBox with IsEnabled=False"
                                FontSize="12"

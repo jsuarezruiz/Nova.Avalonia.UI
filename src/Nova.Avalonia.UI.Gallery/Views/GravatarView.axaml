@@ -13,10 +13,7 @@
             <!-- Basic Usage -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Usage"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Basic Usage" />
                     <TextBlock Text="GitHub-style identicons generated from email addresses."
                                TextWrapping="Wrap"
                                Opacity="0.7" />
@@ -34,10 +31,7 @@
             <!-- Size Variations -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Size Variations"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Size Variations" />
                     <TextBlock Text="The same ID at different sizes."
                                TextWrapping="Wrap"
                                Opacity="0.7" />
@@ -55,10 +49,7 @@
             <!-- Consistent Output -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Consistent Output"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Consistent Output" />
                     <TextBlock Text="Same ID always produces the same identicon."
                                TextWrapping="Wrap"
                                Opacity="0.7" />
@@ -83,10 +74,7 @@
             <!-- Custom Image Override -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Custom Image Override"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Custom Image Override" />
                     <TextBlock Text="When Source is set, the custom image takes priority over the generated identicon."
                                TextWrapping="Wrap"
                                Opacity="0.7" />
@@ -107,10 +95,7 @@
             <!-- Interactive Input -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="15">
-                    <TextBlock Text="Interactive Input"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Interactive Input" />
                     <TextBlock Text="Type an email or username to see the generated identicon."
                                TextWrapping="Wrap"
                                Opacity="0.7" />

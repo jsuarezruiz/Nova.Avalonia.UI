@@ -13,6 +13,7 @@ Nova.Avalonia.UI is a control library built for Avalonia. It focuses on controls
 - **[Avatar](xref:Nova.Avalonia.UI.Controls.Avatar)** and **[AvatarGroup](xref:Nova.Avalonia.UI.Controls.AvatarGroup)**: Identity visuals with initials, images, status badges, and grouping support.
 - **[Badge](xref:Nova.Avalonia.UI.Controls.Badge)**: Notifications, status indicators, and counters with customizable placement and overflow handling.
 - **[BarcodeGenerator](xref:Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator)**: Generate QR codes, 1D barcodes, and 2D matrix codes with customizable styling.
+- **[CodeViewer](xref:Nova.Avalonia.UI.CodeViewer.CodeViewer)**: Show read-only source code with syntax highlighting, line numbers, and copy support from an optional package.
 - **[Fortune](xref:Nova.Avalonia.UI.Controls.FortuneWheel)**: Interactive spin-to-win controls for games and random selection.
 - **[RatingControl](xref:Nova.Avalonia.UI.Controls.RatingControl)**: Interactive star ratings with customizable shapes and precision levels.
 - **[Shimmer](xref:Nova.Avalonia.UI.Controls.Shimmer)**: Skeleton loading effect for async data scenarios.

@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:codeViewer="clr-namespace:Nova.Avalonia.UI.CodeViewer;assembly=Nova.Avalonia.UI.CodeViewer"
+             xmlns:vm="using:Nova.Avalonia.UI.Gallery.ViewModels"
+             x:Class="Nova.Avalonia.UI.Gallery.Views.CodeViewerView"
+             x:DataType="vm:CodeViewerViewModel"
+             mc:Ignorable="d"
+             d:DesignWidth="900"
+             d:DesignHeight="650">
+
+    <ScrollViewer>
+        <StackPanel Margin="24" Spacing="24">
+            <Border Padding="20"
+                    BorderBrush="{DynamicResource CardBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="12">
+                <StackPanel Spacing="14">
+                    <TextBlock Text="Inline viewer" FontSize="16" FontWeight="SemiBold" />
+                    <codeViewer:CodeViewer Code="{Binding InlineSample}"
+                                           Language="XAML"
+                                           MinHeight="220" />
+                </StackPanel>
+            </Border>
+
+            <Border Padding="20"
+                    BorderBrush="{DynamicResource CardBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="12">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="20">
+                    <StackPanel Spacing="5" VerticalAlignment="Center">
+                        <TextBlock Text="Source button" FontSize="16" FontWeight="SemiBold" />
+                        <TextBlock Text="Open XAML and C# in one reusable, keyboard-accessible drawer."
+                                   Foreground="{DynamicResource SecondaryTextBrush}"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <codeViewer:SourceCodeButton Grid.Column="1"
+                                                 DocumentsSource="{Binding Sources}"
+                                                 DrawerMaxWidth="640" />
+                </Grid>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

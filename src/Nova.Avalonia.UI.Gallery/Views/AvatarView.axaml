@@ -20,15 +20,10 @@
 
   <ScrollViewer>
       <StackPanel Spacing="20" Margin="20">
-            <TextBlock Text="A control that represents a user with an image, initials, or icon." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
-
             <!-- Basic Avatars with Auto Mode -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic Avatars"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Basic Avatars"/>
                     <TextBlock Text="Displays Image → Initials → Icon → Content"
                                Foreground="{DynamicResource SecondaryTextBrush}"
                                Margin="0,0,0,10"
@@ -79,10 +74,7 @@
             <!-- Different Sizes -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Sizes"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Sizes"/>
                     
                     <!-- Changed to WrapPanel -->
                     <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -124,10 +116,7 @@
             <!-- Different Shapes -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Shapes"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Shapes"/>
                     
                     <!-- Changed to WrapPanel -->
                     <WrapPanel Orientation="Horizontal">
@@ -158,10 +147,7 @@
             <!-- Status Indicators -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Status Indicators"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Status Indicators"/>
                     
                     <!-- Changed to WrapPanel -->
                     <WrapPanel Orientation="Horizontal">
@@ -206,10 +192,7 @@
             <!-- Custom Colors -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Custom Colors"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Custom Colors"/>
                     
                     <!-- Changed to WrapPanel -->
                     <WrapPanel Orientation="Horizontal">
@@ -245,10 +228,7 @@
             <!-- Auto-Generated Colors -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Auto-Generated Colors (name hash)"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Auto-Generated Colors (name hash)"/>
                     
                     <!-- Already WrapPanel, preserved -->
                     <WrapPanel>
@@ -265,10 +245,7 @@
             <!-- Display Modes -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Display Modes"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Display Modes"/>
                     
                     <!-- Already WrapPanel, preserved -->
                     <WrapPanel>
@@ -307,10 +284,7 @@
             <!-- Avatar Group -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Avatar Group"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Avatar Group"/>
                     
                     <StackPanel Spacing="15">
                         <TextBlock Text="Horizontal Group:" FontWeight="SemiBold"/>
@@ -346,10 +320,7 @@
             <!-- Styled Variants -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Styled Variants"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Styled Variants"/>
                     
                     <WrapPanel>
                         <StackPanel Spacing="8" Margin="0,0,12,12">
@@ -379,10 +350,7 @@
             <!-- Real-World Example -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Real-World Example"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Foreground="{DynamicResource AccentBrush}"/>
+                    <TextBlock Classes="sectionlabel" Text="Real-World Example"/>
                     
                     <Border Background="{DynamicResource CardBackgroundBrush}"
                             BorderBrush="{DynamicResource CardBorderBrush}"

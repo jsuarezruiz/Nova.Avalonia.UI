@@ -7,12 +7,10 @@
              x:Class="Nova.Avalonia.UI.Gallery.Views.BarcodeGeneratorView">
     <ScrollViewer Margin="20">
         <StackPanel Spacing="20">
-            <TextBlock Text="A control that generates various 1D and 2D barcodes (QR, Code128, etc)." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
-
             <!-- Basic QR Code -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Basic QR Code" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Basic QR Code" />
                     <TextBlock Text="Standard QR code with text display. Adapts to theme automatically." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <controls:BarcodeGenerator Value="https://www.avaloniaui.net/"
                                                Symbology="QRCode"
@@ -29,7 +27,7 @@
             <!-- Custom Colors QR -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Custom Colors" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Custom Colors" />
                     <TextBlock Text="QR code with theme-aware custom colors." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <WrapPanel Orientation="Horizontal">
                         <StackPanel Spacing="5" Margin="0,0,20,0">
@@ -69,7 +67,7 @@
             <!-- Code 128 -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Code 128" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Code 128" />
                     <TextBlock Text="Linear barcode commonly used in shipping and logistics." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <controls:BarcodeGenerator Value="AVALONIA2025"
                                                Symbology="Code128"
@@ -86,7 +84,7 @@
             <!-- Code 39 -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Code 39" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Code 39" />
                     <TextBlock Text="Alphanumeric barcode used in automotive and defense industries." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <controls:BarcodeGenerator Value="CODE39-DEMO"
                                                Symbology="Code39"
@@ -103,7 +101,7 @@
             <!-- EAN Barcodes -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="EAN Barcodes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="EAN Barcodes" />
                     <TextBlock Text="European Article Number barcodes for retail products." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <WrapPanel Orientation="Horizontal">
                         <StackPanel Spacing="5" Margin="0,0,30,0">
@@ -134,7 +132,7 @@
             <!-- UPC-A -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="UPC-A" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="UPC-A" />
                     <TextBlock Text="Universal Product Code used in North America." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <controls:BarcodeGenerator Value="012345678905"
                                                Symbology="UPCA"
@@ -150,7 +148,7 @@
             <!-- Data Matrix -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Data Matrix" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Data Matrix" />
                     <TextBlock Text="2D matrix barcode for small items and electronic components." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <controls:BarcodeGenerator Value="Avalonia Controls"
                                                Symbology="DataMatrix"
@@ -165,7 +163,7 @@
             <!-- PDF417 -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="PDF417" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="PDF417" />
                     <TextBlock Text="2D stacked linear format with high data capacity." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <controls:BarcodeGenerator Value="PDF417 Demo Data"
                                                Symbology="PDF417"
@@ -181,7 +179,7 @@
             <!-- Aztec -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Aztec Code" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Aztec Code" />
                     <TextBlock Text="2D matrix barcode used in transport tickets and boarding passes." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <controls:BarcodeGenerator Value="AZTEC-2025"
                                                Symbology="Aztec"
@@ -197,7 +195,7 @@
             <!-- ITF -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="ITF (Interleaved 2 of 5)" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="ITF (Interleaved 2 of 5)" />
                     <TextBlock Text="Numeric barcode used in logistics and shipping." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <controls:BarcodeGenerator Value="12345678901234"
                                                Symbology="ITF"
@@ -213,7 +211,7 @@
             <!-- Code 93 and Codabar -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Other Linear Barcodes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Other Linear Barcodes" />
                     <TextBlock Text="Code 93 and Codabar formats." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <WrapPanel Orientation="Horizontal">
                         <StackPanel Spacing="5" Margin="0,0,30,0">
@@ -244,7 +242,7 @@
             <!-- Error Correction Levels -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Error Correction Levels" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Error Correction Levels" />
                     <TextBlock Text="Higher levels allow more damage recovery but reduce data capacity." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <WrapPanel Orientation="Horizontal">
                         <StackPanel Spacing="5" Margin="0,0,15,0">
@@ -294,7 +292,7 @@
             <!-- Multiple Symbologies Comparison -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Symbology Comparison" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Symbology Comparison" />
                     <TextBlock Text="Side-by-side comparison of different barcode types." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <WrapPanel Orientation="Horizontal">
                         <StackPanel Spacing="5" Margin="0,0,20,10">
@@ -331,7 +329,7 @@
             <!-- Sizes -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Different Sizes" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Different Sizes" />
                     <TextBlock Text="QR codes at various dimensions." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <WrapPanel Orientation="Horizontal">
                         <StackPanel Spacing="5" Margin="0,0,20,10">
@@ -368,7 +366,7 @@
             <!-- QR Code with Logo -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="QR Code with Logo" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="QR Code with Logo" />
                     <TextBlock Text="Embed a logo in the center of QR codes. Use ErrorCorrectionLevel H for best results." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <WrapPanel Orientation="Horizontal">
                         <StackPanel Spacing="5" Margin="0,0,20,0">
@@ -409,7 +407,7 @@
             <!-- Disabled State -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                    <TextBlock Text="Disabled State" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+                    <TextBlock Classes="sectionlabel" Text="Disabled State" />
                     <TextBlock Text="Barcode with IsEnabled=False." Foreground="{DynamicResource SecondaryTextBrush}" />
                     <controls:BarcodeGenerator Value="DISABLED"
                                                Symbology="QRCode"

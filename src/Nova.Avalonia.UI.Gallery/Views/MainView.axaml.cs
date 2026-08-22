@@ -36,7 +36,7 @@ public partial class MainView : UserControl
         Shell.DisplayMode = isWide ? SplitViewDisplayMode.Inline : SplitViewDisplayMode.Overlay;
         Shell.IsPaneOpen = isWide;
         MenuButton.IsVisible = !isWide;
-        PageHost.Margin = isWide ? default : new Thickness(0, 46, 0, 0);
+        PageContent.Margin = isWide ? default : new Thickness(0, 46, 0, 0);
     }
 
     private void OnToggleMenu(object? sender, RoutedEventArgs e)

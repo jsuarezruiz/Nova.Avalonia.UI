@@ -16,6 +16,7 @@ ms.date: 2026-02-01
 - **[Avatar](docs/controls/avatar.md)**: Identity control supporting images, initials, icons, and status indicators with auto-generated backgrounds.
 - **[Badge](docs/controls/badge.md)**: Notification indicator for counts, status, or dot indicators with configurable placement and overflow handling.
 - **[BarcodeGenerator](docs/controls/barcodegenerator.md)**: Generates QR codes, Data Matrix, Code 128, and other barcode formats with customizable colors and logo support.
+- **[CodeViewer](docs/controls/codeviewer.md)**: Displays read-only source code inline or opens several source files from a compact button.
 - **[CompareSlider](docs/controls/compareslider.md)**: A control that allows side-by-side comparison of two pieces of content with a draggable divider.
 - **[FortuneBar](xref:Nova.Avalonia.UI.Controls.FortuneBar)**: Slot machine style horizontal or vertical scrolling bar for random selection.
 - **[FortuneWheel](xref:Nova.Avalonia.UI.Controls.FortuneWheel)**: Circular prize wheel with smooth spin animations, weighted selection, and customizable styling strategies.

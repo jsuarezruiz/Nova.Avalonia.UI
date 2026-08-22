@@ -10,12 +10,10 @@
 
     <ScrollViewer HorizontalScrollBarVisibility="Disabled">
         <StackPanel Spacing="20" Margin="20">
-            <TextBlock Text="An adaptive layout panel that toggles visibility of children based on breakpoints." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
-
             <!-- Window Resizing Demo -->
             <Border Classes="stage" Padding="15">
                 <StackPanel Spacing="10">
-                     <TextBlock Text="Window Resizing" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                     <TextBlock Classes="sectionlabel" Text="Window Resizing"/>
                      <TextBlock Text="Resize the application window to see this panel adapt." Foreground="{DynamicResource SecondaryTextBrush}"/>
                      
                     <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4" Padding="20" ClipToBounds="True">
@@ -44,7 +42,7 @@
                 <StackPanel Spacing="10">
                     <Grid ColumnDefinitions="*, Auto">
                         <StackPanel Spacing="5">
-                             <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                             <TextBlock Classes="sectionlabel" Text="Basic Usage"/>
                              <TextBlock Text="Items are automatically shown or hidden based on the available width." Foreground="{DynamicResource SecondaryTextBrush}"/>
                         </StackPanel>
                         <!-- Local Slider for Basic Usage -->
@@ -107,7 +105,7 @@
             <nova:ResponsivePanel>
                 <Border Classes="stage" nova:ResponsivePanel.Condition="Normal" Padding="15">
                     <StackPanel Spacing="10">
-                        <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                        <TextBlock Classes="sectionlabel" Text="Playground"/>
                         <TextBlock Text="Use the slider to simulate container width and see the layout adapt. Try different transition effects." Foreground="{DynamicResource SecondaryTextBrush}"/>
                         
                         <!-- Configuration Controls -->
@@ -272,7 +270,7 @@
                 
                 <Border Classes="stage" nova:ResponsivePanel.Condition="Wide" Padding="15">
                     <StackPanel Spacing="10">
-                        <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+                        <TextBlock Classes="sectionlabel" Text="Playground"/>
                         <TextBlock Text="Use the slider to simulate container width and see the layout adapt. Try different transition effects." Foreground="{DynamicResource SecondaryTextBrush}"/>
                         
                         <!-- Configuration Controls -->

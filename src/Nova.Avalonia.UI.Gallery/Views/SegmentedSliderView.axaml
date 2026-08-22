@@ -10,14 +10,9 @@
 
   <ScrollViewer Margin="20">
     <StackPanel Spacing="20">
-      <TextBlock Text="A segmented range slider for stepped workflows, weighted ranges, and labeled progress."
-                 Theme="{StaticResource BodyTextBlockStyle}"
-                 Opacity="0.6"
-                 TextWrapping="Wrap"/>
-
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="12">
-          <TextBlock Text="Basic Usage" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+          <TextBlock Classes="sectionlabel" Text="Basic Usage"/>
           <TextBlock Text="Default equal segments with continuous value selection." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
           <controls:SegmentedSlider x:Name="BasicSlider"
@@ -32,7 +27,7 @@
 
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="12">
-          <TextBlock Text="Segment Count" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+          <TextBlock Classes="sectionlabel" Text="Segment Count"/>
           <TextBlock Text="Use generated equal-width segments when labels are not needed." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
           <StackPanel Spacing="6">
@@ -66,7 +61,7 @@
 
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="12">
-          <TextBlock Text="Custom Segments" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+          <TextBlock Classes="sectionlabel" Text="Custom Segments"/>
           <TextBlock Text="Segments can provide labels, proportional widths, and individual brushes." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
           <controls:SegmentedSlider x:Name="LabeledSlider"
@@ -90,7 +85,7 @@
 
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="12">
-          <TextBlock Text="Snapping and Read-only" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+          <TextBlock Classes="sectionlabel" Text="Snapping and Read-only"/>
           <TextBlock Text="IsSnapToSegmentEnabled moves drag completion to the nearest segment center; IsReadOnly keeps range values visible without pointer edits." Foreground="{DynamicResource SecondaryTextBrush}" TextWrapping="Wrap"/>
 
           <StackPanel Spacing="6">
@@ -115,7 +110,7 @@
 
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="12">
-          <TextBlock Text="Events" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}"/>
+          <TextBlock Classes="sectionlabel" Text="Events"/>
           <TextBlock Text="ValueChanged comes from RangeBase; SegmentChanged reports the active segment." Foreground="{DynamicResource SecondaryTextBrush}"/>
 
           <controls:SegmentedSlider x:Name="EventSlider"

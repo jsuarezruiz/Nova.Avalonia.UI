@@ -45,11 +45,17 @@ jobs:
       - name: Restore desktop gallery
         run: dotnet restore src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj
 
+      - name: Restore browser gallery
+        run: dotnet restore src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj -r browser-wasm
+
       - name: Restore tests
         run: dotnet restore src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj
 
       - name: Build desktop gallery
         run: dotnet build src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj --configuration "$BUILD_CONFIGURATION" --no-restore
+
+      - name: Build browser gallery
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj --configuration "$BUILD_CONFIGURATION" --no-restore
 
       - name: Build tests
         run: dotnet build src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj --configuration "$BUILD_CONFIGURATION" --no-restore

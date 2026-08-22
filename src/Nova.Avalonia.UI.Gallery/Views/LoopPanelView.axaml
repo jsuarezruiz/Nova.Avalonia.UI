@@ -9,12 +9,10 @@
     <StackPanel Spacing="20" Margin="20">
 
 
-      <TextBlock Text="A panel that provides infinite scrolling capabilities for its items." Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6" TextWrapping="Wrap"/>
-
       <!-- Basic Usage Section -->
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
-          <TextBlock Text="Basic Usage" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+          <TextBlock Classes="sectionlabel" Text="Basic Usage" />
           <TextBlock Text="Drag or scroll to navigate infinitely through items." TextWrapping="Wrap" Opacity="0.7" />
 
           <controls:LoopPanel x:Name="BasicLoopPanel" Height="120" Background="#1AFFFFFF" Spacing="10">
@@ -49,7 +47,7 @@
       <!-- Vertical Orientation -->
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
-          <TextBlock Text="Vertical Orientation" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+          <TextBlock Classes="sectionlabel" Text="Vertical Orientation" />
 
           <controls:LoopPanel Orientation="Vertical" Height="250" Width="200" Background="#1AFFFFFF" Spacing="10">
             <Border Height="70" Background="#3366FF" CornerRadius="8">
@@ -77,7 +75,7 @@
       <!-- Spacing and Anchor -->
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
-          <TextBlock Text="Spacing and Anchor Position" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+          <TextBlock Classes="sectionlabel" Text="Spacing and Anchor Position" />
           <TextBlock Text="AnchorPosition=0.0 (items anchor at left edge), Spacing=20" TextWrapping="Wrap" Opacity="0.7" />
 
           <controls:LoopPanel Height="100" Background="#1AFFFFFF" Spacing="20" AnchorPosition="0">
@@ -106,7 +104,7 @@
       <!-- Dynamic Items -->
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
-          <TextBlock Text="Dynamic Items" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+          <TextBlock Classes="sectionlabel" Text="Dynamic Items" />
           <TextBlock Text="Add or remove items dynamically at runtime." TextWrapping="Wrap" Opacity="0.7" />
 
           <controls:LoopPanel x:Name="DynamicLoopPanel" Height="100" Background="#1AFFFFFF" Spacing="10">
@@ -132,7 +130,7 @@
       <!-- Programmatic Control -->
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
-          <TextBlock Text="Programmatic Scrolling" FontWeight="SemiBold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+          <TextBlock Classes="sectionlabel" Text="Programmatic Scrolling" />
           <TextBlock Text="Use buttons to scroll programmatically via ScrollBy and ScrollToIndex methods." TextWrapping="Wrap" Opacity="0.7" />
 
           <controls:LoopPanel x:Name="ProgrammaticLoopPanel" Height="100" Background="#1AFFFFFF" Spacing="10">
@@ -179,7 +177,7 @@
       <!-- Interactive Playground -->
       <Border Classes="stage" Padding="15">
         <StackPanel Spacing="15">
-          <TextBlock Text="Playground" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource AccentBrush}" />
+          <TextBlock Classes="sectionlabel" Text="Playground" />
 
           <Grid ColumnDefinitions="*, AUTO" Margin="0,0,0,10">
             <StackPanel Spacing="10" Margin="0,0,20,0">

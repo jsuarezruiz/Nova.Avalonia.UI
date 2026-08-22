@@ -30,6 +30,28 @@ The `BarcodeGenerator` control generates and renders various barcode symbologies
 
 <img src="images/novaui_barcodegenerator_light.gif" alt="BarcodeGenerator" width="250" />
 
+### CodeViewer
+
+The optional `Nova.Avalonia.UI.CodeViewer` package displays read-only source code with syntax highlighting, line numbers, and copy support. It also includes a compact button that opens several source files in a drawer, which is useful for samples and galleries.
+
+<img src="images/novaui_codeviewer_light.png" alt="CodeViewer" width="250" />
+
+TextMate highlighting is enabled on desktop and browser targets. Mobile Apple and Android targets use the same viewer with plain text because the tokenizer's native dependency is not available there.
+
+Code Viewer is kept in a separate package because it uses AvaloniaEdit and its TextMate grammars. Applications that do not show source code can continue using `Nova.Avalonia.UI` without those extra dependencies.
+
+```bash
+dotnet add package Nova.Avalonia.UI.CodeViewer
+```
+
+Register its styles after your base Avalonia theme:
+
+```xml
+<StyleInclude Source="avares://Nova.Avalonia.UI.CodeViewer/Themes/Controls.axaml" />
+```
+
+See the [Code Viewer documentation](docs/docs/controls/codeviewer.md) for examples.
+
 ### PinBox
 
 The `PinBox` control provides a specialized input field for PIN codes, OTP verification, and security codes. It features individual character boxes, grouping separators, read-only display, text normalization, validation, masking, responsive sizing, command binding, accessibility value support, and multiple theme presets.

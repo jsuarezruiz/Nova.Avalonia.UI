@@ -18,6 +18,8 @@
     href: controls/bubblepanel.md
   - name: CircularPanel
     href: controls/circularpanel.md
+  - name: CodeViewer
+    href: controls/codeviewer.md
   - name: CompareSlider
     href: controls/compareslider.md
   - name: Fortune

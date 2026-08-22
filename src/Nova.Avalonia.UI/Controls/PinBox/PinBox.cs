@@ -10,6 +10,7 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 
@@ -501,7 +502,7 @@ public class PinBox : TemplatedControl
         if (_inputTextBox != null)
         {
             _inputTextBox.TextChanged -= OnInputTextBoxTextChanged;
-            _inputTextBox.KeyDown -= OnInputTextBoxKeyDown;
+            _inputTextBox.RemoveHandler(KeyDownEvent, OnInputTextBoxKeyDown);
         }
 
         _itemsPanel = e.NameScope.Find<Panel>("PART_ItemsPanel");
@@ -510,7 +511,11 @@ public class PinBox : TemplatedControl
         if (_inputTextBox != null)
         {
             _inputTextBox.TextChanged += OnInputTextBoxTextChanged;
-            _inputTextBox.KeyDown += OnInputTextBoxKeyDown;
+            _inputTextBox.AddHandler(
+                KeyDownEvent,
+                OnInputTextBoxKeyDown,
+                RoutingStrategies.Tunnel,
+                handledEventsToo: true);
             SyncInputTextBox();
         }
 
