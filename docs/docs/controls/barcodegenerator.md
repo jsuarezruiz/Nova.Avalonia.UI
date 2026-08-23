@@ -8,6 +8,26 @@ ms.date: 2025-12-18
 
 The `BarcodeGenerator` control generates and renders various barcode symbologies including QR codes, Data Matrix, Code 128, and more. It uses the ZXing library for encoding and supports customizable colors, error correction, and logo overlays.
 
+## Install the package
+
+The barcode generator is distributed separately so applications that do not create barcodes avoid the ZXing.Net dependency.
+
+```bash
+dotnet add package Nova.Avalonia.UI.BarcodeGenerator
+```
+
+Add its theme dictionary to your application resources:
+
+```xml
+<Application.Resources>
+    <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceInclude Source="avares://Nova.Avalonia.UI.BarcodeGenerator/Themes/BarcodeGenerator.axaml" />
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+</Application.Resources>
+```
+
 ## Create a barcode
 
 Declare a `BarcodeGenerator` and set the `Value` and `Symbology` properties.

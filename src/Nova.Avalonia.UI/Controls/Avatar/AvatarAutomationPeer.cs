@@ -19,7 +19,7 @@ public class AvatarAutomationPeer : ControlAutomationPeer
         return "Avatar";
     }
 
-    protected override string GetNameCore()
+    protected override string? GetNameCore()
     {
         var avatar = (Avatar)Owner;
         // Announce the display name, or fall back to default if empty

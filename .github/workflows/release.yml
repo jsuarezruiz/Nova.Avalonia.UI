@@ -1,0 +1,137 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  BUILD_CONFIGURATION: Release
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+  DOTNET_NOLOGO: "true"
+
+jobs:
+  release:
+    name: Publish NuGet packages and create release
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate release tag
+        shell: bash
+        run: |
+          if [[ ! "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Release tags must use the vMAJOR.MINOR.PATCH format, for example v1.0.0." >&2
+            exit 1
+          fi
+
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "Release tags must point to a commit on main." >&2
+            exit 1
+          fi
+
+          echo "PACKAGE_VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/*.csproj', 'src/Directory.Packages.props') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Restore desktop gallery
+        run: dotnet restore src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj
+
+      - name: Restore browser gallery
+        run: dotnet restore src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj -r browser-wasm
+
+      - name: Restore tests
+        run: dotnet restore src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj
+
+      - name: Build desktop gallery
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj --configuration "$BUILD_CONFIGURATION" --no-restore --warnaserror
+
+      - name: Build browser gallery
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj --configuration "$BUILD_CONFIGURATION" --no-restore --warnaserror
+
+      - name: Run tests
+        run: dotnet test src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj --configuration "$BUILD_CONFIGURATION" --no-restore --warnaserror
+
+      - name: Pack NuGet packages
+        run: ./build/pack-nuget.sh "$PACKAGE_VERSION" artifacts/packages
+
+      - name: Upload package artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages-${{ github.ref_name }}
+          path: |
+            artifacts/packages/*.nupkg
+            artifacts/packages/*.snupkg
+          if-no-files-found: error
+
+      - name: Prepare GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if release_is_draft=$(gh release view "$GITHUB_REF_NAME" --json isDraft --jq .isDraft 2>/dev/null); then
+            if [[ "$release_is_draft" != "true" ]]; then
+              echo "GitHub Release $GITHUB_REF_NAME is already published." >&2
+              exit 1
+            fi
+
+            gh release upload "$GITHUB_REF_NAME" \
+              artifacts/packages/*.nupkg \
+              artifacts/packages/*.snupkg \
+              --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" \
+              artifacts/packages/*.nupkg \
+              artifacts/packages/*.snupkg \
+              --draft \
+              --verify-tag \
+              --generate-notes \
+              --fail-on-no-commits \
+              --title "Nova Avalonia UI $GITHUB_REF_NAME"
+          fi
+
+      - name: Publish packages to NuGet.org
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          if [[ -z "$NUGET_API_KEY" ]]; then
+            echo "The NUGET_API_KEY repository secret is not configured." >&2
+            exit 1
+          fi
+
+          for package in artifacts/packages/*.nupkg; do
+            dotnet nuget push "$package" \
+              --api-key "$NUGET_API_KEY" \
+              --source https://api.nuget.org/v3/index.json \
+              --skip-duplicate
+          done
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release edit "$GITHUB_REF_NAME" --draft=false --latest

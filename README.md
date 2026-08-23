@@ -6,6 +6,30 @@
 
 ![Nova.Avalonia.UI](images/promo-banner.png)
 
+## Installation
+
+Install the main controls and layout panels:
+
+```bash
+dotnet add package Nova.Avalonia.UI
+```
+
+Register the Nova themes after your Avalonia base theme:
+
+```xml
+<Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://Nova.Avalonia.UI/Themes/Controls.axaml" />
+</Application.Styles>
+```
+
+Features with larger third-party dependencies are available separately:
+
+```bash
+dotnet add package Nova.Avalonia.UI.BarcodeGenerator
+dotnet add package Nova.Avalonia.UI.CodeViewer
+```
+
 ## Documentation
 
 The docs cover everything from first steps to detailed control APIs and samples, aiming to make the library easy to adopt and extend. If you're interested in exploring more, you can find it here: https://jsuarezruiz.github.io/Nova.Avalonia.UI/
@@ -215,6 +239,14 @@ If you find a bug, you can help me by submitting an [issue](https://github.com/j
 For every contribution, you must:
 - Test your code.
 - target main branch (or an appropriate release branch if appropriate for a bug fix).
+
+To build all NuGet and symbol packages locally, run:
+
+```bash
+./build/pack-nuget.sh 1.0.0
+```
+
+See [Releasing Nova Avalonia UI](RELEASING.md) for the tag-based automated release process.
 
 ## Feedback or Requests
 

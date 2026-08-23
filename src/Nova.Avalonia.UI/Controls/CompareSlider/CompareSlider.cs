@@ -172,7 +172,7 @@ namespace Nova.Avalonia.UI.Controls
 
         /// <summary>
         /// Gets or sets the axis along which the divider moves.
-        /// Defaults to <see cref="Avalonia.Layout.Orientation.Horizontal"/>.
+        /// Defaults to horizontal orientation.
         /// </summary>
         public Orientation Orientation
         {

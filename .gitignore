@@ -28,7 +28,9 @@ x86/
 
 # NuGet Packages
 *.nupkg
+*.snupkg
 **/packages/*
+artifacts/
 
 # Visual Studio profiler
 *.psess

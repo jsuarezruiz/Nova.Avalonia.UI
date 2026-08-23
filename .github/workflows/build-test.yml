@@ -32,7 +32,9 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: |
+            8.0.x
+            9.0.x
 
       - name: Cache NuGet packages
         uses: actions/cache@v4
@@ -62,6 +64,17 @@ jobs:
 
       - name: Run tests
         run: dotnet test src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj --configuration "$BUILD_CONFIGURATION" --no-build --logger "trx;LogFileName=test-results.trx" --results-directory TestResults
+
+      - name: Pack NuGet packages
+        run: ./build/pack-nuget.sh "0.0.0-ci.${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}" artifacts/packages
+
+      - name: Upload NuGet packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages
+          path: |
+            artifacts/packages/*.nupkg
+            artifacts/packages/*.snupkg
 
       - name: Upload test results
         if: always()
