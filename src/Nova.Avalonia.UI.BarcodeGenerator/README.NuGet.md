@@ -2,6 +2,8 @@
 
 Nova.Avalonia.UI.BarcodeGenerator adds QR code, linear barcode, and matrix barcode generation to Avalonia applications. It is powered by ZXing.Net and supports custom colors, quiet zones, captions, error correction, and logo overlays.
 
+Requires Avalonia 12.1.1 or later in the Avalonia 12 release line.
+
 ![Nova Avalonia barcode generator](https://raw.githubusercontent.com/jsuarezruiz/Nova.Avalonia.UI/main/images/novaui_barcodegenerator_light.gif)
 
 ## Install

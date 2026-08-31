@@ -8,6 +8,8 @@
 
 ## Installation
 
+Nova Avalonia UI requires Avalonia 12.1.1 or later in the Avalonia 12 release line.
+
 Install the main controls and layout panels:
 
 ```bash

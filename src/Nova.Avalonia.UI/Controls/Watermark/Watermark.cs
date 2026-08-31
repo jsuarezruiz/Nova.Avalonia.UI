@@ -1,7 +1,8 @@
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Media;
 using Avalonia.Automation.Peers;
+using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Media;
 using System;
 using System.Globalization;
 
@@ -85,6 +86,7 @@ public class Watermark : ContentControl
         AvaloniaProperty.Register<Watermark, FlowDirection>(nameof(WatermarkFlowDirection), defaultValue: FlowDirection.LeftToRight);
 
     private FormattedText? _cachedFormattedText;
+    private WatermarkOverlayPresenter? _overlayPresenter;
 
     /// <inheritdoc cref="TextProperty"/>
     public string? Text
@@ -192,15 +194,43 @@ public class Watermark : ContentControl
     {
         base.OnPropertyChanged(change);
 
-        if (change.Property == TextProperty ||
-            change.Property == WatermarkFontSizeProperty ||
-            change.Property == WatermarkFontFamilyProperty ||
-            change.Property == WatermarkFontWeightProperty ||
-            change.Property == WatermarkFontStyleProperty ||
-            change.Property == WatermarkForegroundProperty ||
-            change.Property == WatermarkFlowDirectionProperty)
+        var textLayoutChanged = change.Property == TextProperty ||
+                                change.Property == WatermarkFontSizeProperty ||
+                                change.Property == WatermarkFontFamilyProperty ||
+                                change.Property == WatermarkFontWeightProperty ||
+                                change.Property == WatermarkFontStyleProperty ||
+                                change.Property == WatermarkForegroundProperty ||
+                                change.Property == WatermarkFlowDirectionProperty;
+
+        if (textLayoutChanged)
         {
             _cachedFormattedText = null;
+        }
+
+        if (textLayoutChanged ||
+            change.Property == SourceProperty ||
+            change.Property == AngleProperty ||
+            change.Property == HorizontalSpacingProperty ||
+            change.Property == VerticalSpacingProperty ||
+            change.Property == WatermarkOpacityProperty)
+        {
+            _overlayPresenter?.InvalidateVisual();
+        }
+    }
+
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        if (_overlayPresenter != null)
+        {
+            _overlayPresenter.Owner = null;
+        }
+
+        base.OnApplyTemplate(e);
+
+        _overlayPresenter = e.NameScope.Find<WatermarkOverlayPresenter>("PART_WatermarkOverlay");
+        if (_overlayPresenter != null)
+        {
+            _overlayPresenter.Owner = this;
         }
     }
 
@@ -209,11 +239,8 @@ public class Watermark : ContentControl
         return new WatermarkAutomationPeer(this);
     }
 
-    public override void Render(DrawingContext context)
+    internal void RenderWatermark(DrawingContext context, Size bounds)
     {
-        base.Render(context);
-
-        var bounds = Bounds;
         if (bounds.Width <= 0 || bounds.Height <= 0 || (string.IsNullOrEmpty(Text) && Source == null))
             return;
 

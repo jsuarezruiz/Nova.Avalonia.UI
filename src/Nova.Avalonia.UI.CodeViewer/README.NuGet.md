@@ -2,6 +2,8 @@
 
 Nova.Avalonia.UI.CodeViewer displays read-only source code with syntax highlighting, line numbers, copying, and an optional multi-document drawer. It is packaged separately so applications that do not show source code avoid the AvaloniaEdit and TextMate dependencies.
 
+Requires Avalonia 12.1.1 or later in the Avalonia 12 release line.
+
 ![Nova Avalonia code viewer](https://raw.githubusercontent.com/jsuarezruiz/Nova.Avalonia.UI/main/images/novaui_codeviewer_light.png)
 
 ## Install

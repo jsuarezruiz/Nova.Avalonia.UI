@@ -24,7 +24,9 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: |
+            8.0.x
+            10.0.x
 
       - name: Install DocFX
         run: dotnet tool update -g docfx
@@ -33,7 +35,7 @@ jobs:
         working-directory: docs
         run: |
           export PATH="$HOME/.dotnet/tools:$PATH"
-          docfx docfx.json
+          docfx docfx.json --warningsAsErrors
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

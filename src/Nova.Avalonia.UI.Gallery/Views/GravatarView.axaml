@@ -104,7 +104,7 @@
                         <TextBox x:Name="EmailInput"
                                  Width="300"
                                  VerticalAlignment="Center"
-                                 Watermark="Enter email or username..."
+                                 PlaceholderText="Enter email or username..."
                                  Text="hello@world.com" />
                         <controls:Gravatar Id="{Binding #EmailInput.Text}" Size="64" />
                     </StackPanel>

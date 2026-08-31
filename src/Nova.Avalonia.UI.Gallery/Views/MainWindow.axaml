@@ -6,6 +6,6 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Nova.Avalonia.UI.Gallery.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Nova.Avalonia.UI.Gallery">
+        Title="Nova.Avalonia.UI">
         <views:MainView />
 </Window>

@@ -224,8 +224,7 @@ public class ScratcherTests
         Assert.Equal(100, scratcher.ScratchProgress);
     }
 
-    // Flaky in headless CI because raw WriteableBitmap framebuffer bytes can differ between locks.
-    [AvaloniaFact(Skip = "Flaky headless WriteableBitmap mask round-trip; track outside SegmentedSlider.")]
+    [AvaloniaFact]
     public async Task Save_Restore_State()
     {
         var scratcher = new Scratcher

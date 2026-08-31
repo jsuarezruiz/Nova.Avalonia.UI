@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net9.0-ios</TargetFramework>
+        <TargetFramework>net10.0-ios</TargetFramework>
         <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -13,4 +13,15 @@
     <ItemGroup>
         <ProjectReference Include="..\Nova.Avalonia.UI.Gallery\Nova.Avalonia.UI.Gallery.csproj"/>
     </ItemGroup>
+
+    <!-- Avalonia's meta-package includes its previewer assembly as a runtime asset.
+         It is not referenced by the app and is not trim-safe, so do not ship it. -->
+    <Target Name="RemoveAvaloniaDesignerSupportFromRelease"
+            AfterTargets="ComputeResolvedFilesToPublishList"
+            Condition="'$(Configuration)' == 'Release'">
+        <ItemGroup>
+            <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)"
+                                   Condition="'%(ResolvedFileToPublish.Filename)' == 'Avalonia.DesignerSupport'" />
+        </ItemGroup>
+    </Target>
 </Project>

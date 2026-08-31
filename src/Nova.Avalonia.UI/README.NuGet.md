@@ -2,6 +2,8 @@
 
 Nova.Avalonia.UI provides accessible, themeable controls and layout panels for Avalonia applications. The package includes identity and status controls, interactive inputs, loading effects, comparison and game controls, and responsive or virtualized layouts.
 
+Requires Avalonia 12.1.1 or later in the Avalonia 12 release line.
+
 ![Nova.Avalonia.UI](https://raw.githubusercontent.com/jsuarezruiz/Nova.Avalonia.UI/main/images/banner.png)
 
 ## Install
