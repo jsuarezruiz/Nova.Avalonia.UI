@@ -34,7 +34,7 @@ jobs:
         with:
           dotnet-version: |
             8.0.x
-            10.0.x
+            10.0.100
 
       - name: Cache NuGet packages
         uses: actions/cache@v4
@@ -46,6 +46,9 @@ jobs:
 
       - name: Restore desktop gallery
         run: dotnet restore src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj
+
+      - name: Install browser workload
+        run: dotnet workload install wasm-tools --version 10.0.300
 
       - name: Restore browser gallery
         run: dotnet restore src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj -r browser-wasm
@@ -97,8 +100,8 @@ jobs:
         with:
           dotnet-version: 10.0.100
 
-      - name: Restore Android workload
-        run: dotnet workload restore src/Nova.Avalonia.UI.Gallery.Android/Nova.Avalonia.UI.Gallery.Android.csproj --skip-manifest-update
+      - name: Install Android workload
+        run: dotnet workload install android --version 10.0.300
 
       - name: Restore Android gallery
         run: dotnet restore src/Nova.Avalonia.UI.Gallery.Android/Nova.Avalonia.UI.Gallery.Android.csproj
@@ -120,11 +123,11 @@ jobs:
         with:
           dotnet-version: 10.0.100
 
-      - name: Select Xcode 26.1
-        run: sudo xcode-select --switch /Applications/Xcode_26.1.1.app/Contents/Developer
+      - name: Select Xcode 26.3
+        run: sudo xcode-select --switch /Applications/Xcode_26.3.app/Contents/Developer
 
-      - name: Restore iOS workload
-        run: dotnet workload restore src/Nova.Avalonia.UI.Gallery.iOS/Nova.Avalonia.UI.Gallery.iOS.csproj --skip-manifest-update
+      - name: Install iOS workload
+        run: dotnet workload install ios --version 10.0.300
 
       - name: Restore iOS gallery
         run: dotnet restore src/Nova.Avalonia.UI.Gallery.iOS/Nova.Avalonia.UI.Gallery.iOS.csproj --runtime iossimulator-arm64
