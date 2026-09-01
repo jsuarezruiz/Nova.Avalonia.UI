@@ -270,7 +270,7 @@ public class SourceCodeDrawer : ContentControl
         }
     }
 
-    private void OnTopLevelGotFocus(object? sender, GotFocusEventArgs e)
+    private void OnTopLevelGotFocus(object? sender, FocusChangedEventArgs e)
     {
         if (!_isOpen || _isRedirectingFocus || e.Source is not Visual focusedVisual || Contains(focusedVisual))
         {

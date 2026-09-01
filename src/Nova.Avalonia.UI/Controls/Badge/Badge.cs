@@ -1,6 +1,8 @@
+using System;
 using global::Avalonia;
 using global::Avalonia.Controls;
 using global::Avalonia.Controls.Metadata;
+using global::Avalonia.Controls.Presenters;
 using global::Avalonia.Controls.Primitives;
 using global::Avalonia.Media;
 using global::Avalonia.Layout;
@@ -22,6 +24,7 @@ namespace Nova.Avalonia.UI.Controls;
 /// </list>
 /// </remarks>
 [TemplatePart("PART_BadgeContainer", typeof(Border))]
+[TemplatePart("PART_ContentPresenter", typeof(ContentPresenter))]
 public class Badge : ContentControl
 {
     static Badge()
@@ -201,6 +204,7 @@ public class Badge : ContentControl
     }
 
     private Border? _badgeContainer;
+    private ContentPresenter? _contentPresenter;
     
     protected override AutomationPeer OnCreateAutomationPeer()
     {
@@ -209,18 +213,31 @@ public class Badge : ContentControl
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
+        if (_badgeContainer != null)
+            _badgeContainer.SizeChanged -= OnLayoutSizeChanged;
+        if (_contentPresenter != null)
+            _contentPresenter.LayoutUpdated -= OnContentLayoutUpdated;
+        SizeChanged -= OnLayoutSizeChanged;
+
         base.OnApplyTemplate(e);
         _badgeContainer = e.NameScope.Find<Border>("PART_BadgeContainer");
+        _contentPresenter = e.NameScope.Find<ContentPresenter>("PART_ContentPresenter");
 
         if (_badgeContainer != null)
         {
-            _badgeContainer.SizeChanged += (s, ev) => UpdatePosition();
-            this.SizeChanged += (s, ev) => UpdatePosition();
+            _badgeContainer.SizeChanged += OnLayoutSizeChanged;
+            SizeChanged += OnLayoutSizeChanged;
+            if (_contentPresenter != null)
+                _contentPresenter.LayoutUpdated += OnContentLayoutUpdated;
             UpdateLayoutState();
             UpdatePosition();
             UpdateDisplayContent();
         }
     }
+
+    private void OnLayoutSizeChanged(object? sender, SizeChangedEventArgs e) => UpdatePosition();
+
+    private void OnContentLayoutUpdated(object? sender, EventArgs e) => UpdatePosition();
 
     private void OnBadgeContentChanged(AvaloniaPropertyChangedEventArgs e)
     {
@@ -262,38 +279,58 @@ public class Badge : ContentControl
             _badgeContainer.VerticalAlignment = VerticalAlignment.Center;
             return;
         }
-        _badgeContainer.HorizontalAlignment = GetHorizontalAlignment(BadgePlacement);
-        _badgeContainer.VerticalAlignment = GetVerticalAlignment(BadgePlacement);
+
+        // Arrange the badge from a stable origin, then position its center on the
+        // requested edge of the actual wrapped visual. The Badge itself may be
+        // stretched by a Grid or UniformGrid, so its Bounds are not a reliable
+        // proxy for the bounds of its content.
+        _badgeContainer.HorizontalAlignment = HorizontalAlignment.Left;
+        _badgeContainer.VerticalAlignment = VerticalAlignment.Top;
         var bounds = _badgeContainer.Bounds;
-        if (bounds.Width == 0) return;
-        var inset = Padding;
-        if (Content is Control child) inset += child.Margin;
+        if (bounds.Width == 0 || bounds.Height == 0) return;
+
+        var anchorBounds = GetContentBounds();
         double halfW = bounds.Width / 2.0;
         double halfH = bounds.Height / 2.0;
         double off = BadgeOffset;
-        double x = 0, y = 0;
-        switch (BadgePlacement) {
-            case BadgePlacement.TopLeft: x = -halfW + off + inset.Left; y = -halfH + off + inset.Top; break;
-            case BadgePlacement.Top: y = -halfH + off + inset.Top; break;
-            case BadgePlacement.TopRight: x = halfW - off - inset.Right; y = -halfH + off + inset.Top; break;
-            case BadgePlacement.Right: x = halfW - off - inset.Right; break;
-            case BadgePlacement.BottomRight: x = halfW - off - inset.Right; y = halfH - off - inset.Bottom; break;
-            case BadgePlacement.Bottom: y = halfH - off - inset.Bottom; break;
-            case BadgePlacement.BottomLeft: x = -halfW + off + inset.Left; y = halfH - off - inset.Bottom; break;
-            case BadgePlacement.Left: x = -halfW + off + inset.Left; break;
-        }
-        _badgeContainer.RenderTransform = new TranslateTransform(x, y);
+        double left = anchorBounds.Left + off;
+        double centerX = anchorBounds.Center.X;
+        double right = anchorBounds.Right - off;
+        double top = anchorBounds.Top + off;
+        double centerY = anchorBounds.Center.Y;
+        double bottom = anchorBounds.Bottom - off;
+        var badgeCenter = BadgePlacement switch
+        {
+            BadgePlacement.TopLeft => new Point(left, top),
+            BadgePlacement.Top => new Point(centerX, top),
+            BadgePlacement.TopRight => new Point(right, top),
+            BadgePlacement.Right => new Point(right, centerY),
+            BadgePlacement.BottomRight => new Point(right, bottom),
+            BadgePlacement.Bottom => new Point(centerX, bottom),
+            BadgePlacement.BottomLeft => new Point(left, bottom),
+            BadgePlacement.Left => new Point(left, centerY),
+            _ => anchorBounds.Center
+        };
+
+        _badgeContainer.RenderTransform = new TranslateTransform(
+            badgeCenter.X - halfW,
+            badgeCenter.Y - halfH);
     }
 
-    private static HorizontalAlignment GetHorizontalAlignment(BadgePlacement p) => p switch {
-        BadgePlacement.TopLeft or BadgePlacement.Left or BadgePlacement.BottomLeft => HorizontalAlignment.Left,
-        BadgePlacement.TopRight or BadgePlacement.Right or BadgePlacement.BottomRight => HorizontalAlignment.Right,
-        _ => HorizontalAlignment.Center
-    };
+    private Rect GetContentBounds()
+    {
+        if (Content is Visual contentVisual &&
+            contentVisual.TranslatePoint(default, this) is { } contentOrigin)
+        {
+            return new Rect(contentOrigin, contentVisual.Bounds.Size);
+        }
 
-    private static VerticalAlignment GetVerticalAlignment(BadgePlacement p) => p switch {
-        BadgePlacement.TopLeft or BadgePlacement.Top or BadgePlacement.TopRight => VerticalAlignment.Top,
-        BadgePlacement.BottomLeft or BadgePlacement.Bottom or BadgePlacement.BottomRight => VerticalAlignment.Bottom,
-        _ => VerticalAlignment.Center
-    };
+        if (_contentPresenter != null &&
+            _contentPresenter.TranslatePoint(default, this) is { } presenterOrigin)
+        {
+            return new Rect(presenterOrigin, _contentPresenter.Bounds.Size);
+        }
+
+        return new Rect(Bounds.Size);
+    }
 }

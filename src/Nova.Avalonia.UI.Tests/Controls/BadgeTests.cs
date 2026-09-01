@@ -1,8 +1,13 @@
+using System;
+using System.Linq;
 using Avalonia;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls;
+using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
+using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.VisualTree;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
 
@@ -225,6 +230,70 @@ public class BadgeTests
         var badge = new Badge { BadgePlacement = placement };
 
         Assert.Equal(placement, badge.BadgePlacement);
+    }
+
+    [AvaloniaTheory]
+    [InlineData(BadgePlacement.TopLeft, 0.0, 0.0)]
+    [InlineData(BadgePlacement.Top, 0.5, 0.0)]
+    [InlineData(BadgePlacement.TopRight, 1.0, 0.0)]
+    [InlineData(BadgePlacement.Right, 1.0, 0.5)]
+    [InlineData(BadgePlacement.BottomRight, 1.0, 1.0)]
+    [InlineData(BadgePlacement.Bottom, 0.5, 1.0)]
+    [InlineData(BadgePlacement.BottomLeft, 0.0, 1.0)]
+    [InlineData(BadgePlacement.Left, 0.0, 0.5)]
+    public void Badge_Placement_Is_Anchored_To_Wrapped_Content_When_Stretched(
+        BadgePlacement placement,
+        double relativeX,
+        double relativeY)
+    {
+        var target = new Border
+        {
+            Width = 100,
+            Height = 60,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Background = Brushes.Gray
+        };
+        var badge = new Badge
+        {
+            Width = 500,
+            Height = 240,
+            BadgeContent = "1",
+            BadgePlacement = placement,
+            Content = target
+        };
+        var window = new Window
+        {
+            Width = 520,
+            Height = 260,
+            Content = badge
+        };
+
+        window.Show();
+
+        try
+        {
+            using var frame = window.CaptureRenderedFrame();
+
+            var badgeContainer = badge.GetVisualDescendants()
+                .OfType<Border>()
+                .Single(control => control.Name == "PART_BadgeContainer");
+            var targetOrigin = Assert.IsType<Point>(target.TranslatePoint(default, badge));
+            var badgeOrigin = Assert.IsType<Point>(badgeContainer.TranslatePoint(default, badge));
+            var expectedCenter = new Point(
+                targetOrigin.X + (target.Bounds.Width * relativeX),
+                targetOrigin.Y + (target.Bounds.Height * relativeY));
+            var actualCenter = new Point(
+                badgeOrigin.X + (badgeContainer.Bounds.Width / 2.0),
+                badgeOrigin.Y + (badgeContainer.Bounds.Height / 2.0));
+
+            Assert.InRange(Math.Abs(actualCenter.X - expectedCenter.X), 0, 0.5);
+            Assert.InRange(Math.Abs(actualCenter.Y - expectedCenter.Y), 0, 0.5);
+        }
+        finally
+        {
+            window.Close();
+        }
     }
 
     [AvaloniaFact]

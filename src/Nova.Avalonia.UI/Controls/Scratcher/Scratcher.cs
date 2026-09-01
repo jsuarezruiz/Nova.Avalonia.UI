@@ -70,7 +70,7 @@ public class Scratcher : ContentControl
         AddHandler(PointerMovedEvent, OnPointerMovedTunnel, RoutingStrategies.Tunnel, true);
         AddHandler(PointerReleasedEvent, OnPointerReleasedTunnel, RoutingStrategies.Tunnel, true);
 
-        AddHandler(Gestures.ScrollGestureEvent, OnScratcherScrollGesture, RoutingStrategies.Bubble, true);
+        AddHandler(ScrollGestureEvent, OnScratcherScrollGesture, RoutingStrategies.Bubble, true);
         AddHandler(PointerWheelChangedEvent, OnScratcherPointerWheel, RoutingStrategies.Bubble, true);
     }
 
@@ -759,9 +759,9 @@ public class Scratcher : ContentControl
             sv.AddHandler(PointerMovedEvent, OnAncestorPointerMoved, RoutingStrategies.Tunnel, true);
             sv.AddHandler(PointerReleasedEvent, OnAncestorPointerReleased, RoutingStrategies.Tunnel, true);
             sv.AddHandler(PointerWheelChangedEvent, OnAncestorPointerWheel, RoutingStrategies.Tunnel, true);
-            sv.AddHandler(Gestures.ScrollGestureEvent, OnAncestorScrollGesture, RoutingStrategies.Tunnel, true);
+            sv.AddHandler(ScrollGestureEvent, OnAncestorScrollGesture, RoutingStrategies.Tunnel, true);
             sv.AddHandler(PointerPressedEvent, OnAncestorPointerPressedBubble, RoutingStrategies.Bubble, true);
-            sv.AddHandler(Gestures.ScrollGestureEvent, OnAncestorScrollGestureBubble, RoutingStrategies.Bubble, true);
+            sv.AddHandler(ScrollGestureEvent, OnAncestorScrollGestureBubble, RoutingStrategies.Bubble, true);
             _activeParentScrollViewers.Add(sv);
         }
     }
@@ -774,9 +774,9 @@ public class Scratcher : ContentControl
             sv.RemoveHandler(PointerMovedEvent, OnAncestorPointerMoved);
             sv.RemoveHandler(PointerReleasedEvent, OnAncestorPointerReleased);
             sv.RemoveHandler(PointerWheelChangedEvent, OnAncestorPointerWheel);
-            sv.RemoveHandler(Gestures.ScrollGestureEvent, OnAncestorScrollGesture);
+            sv.RemoveHandler(ScrollGestureEvent, OnAncestorScrollGesture);
             sv.RemoveHandler(PointerPressedEvent, OnAncestorPointerPressedBubble);
-            sv.RemoveHandler(Gestures.ScrollGestureEvent, OnAncestorScrollGestureBubble);
+            sv.RemoveHandler(ScrollGestureEvent, OnAncestorScrollGestureBubble);
         }
         _activeParentScrollViewers.Clear();
         _lockedScrollOffsets.Clear();

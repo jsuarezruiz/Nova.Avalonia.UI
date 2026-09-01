@@ -53,18 +53,6 @@ namespace Nova.Avalonia.UI.Controls;
             AvaloniaProperty.Register<AvatarGroup, Orientation>(nameof(Orientation), Orientation.Horizontal);
 
         /// <summary>
-        /// Defines the <see cref="BorderBrush"/> property.
-        /// </summary>
-        public static readonly StyledProperty<IBrush> BorderBrushProperty =
-            AvaloniaProperty.Register<AvatarGroup, IBrush>(nameof(BorderBrush), Brushes.White);
-
-        /// <summary>
-        /// Defines the <see cref="BorderThickness"/> property.
-        /// </summary>
-        public static readonly StyledProperty<Thickness> BorderThicknessProperty =
-            AvaloniaProperty.Register<AvatarGroup, Thickness>(nameof(BorderThickness), new Thickness(2));
-
-        /// <summary>
         /// Gets or sets the collection of avatars to display.
         /// </summary>
         public AvaloniaList<Avatar> Avatars { get => GetValue(AvatarsProperty); set => SetValue(AvatarsProperty, value); }
@@ -94,18 +82,10 @@ namespace Nova.Avalonia.UI.Controls;
         /// </summary>
         public Orientation Orientation { get => GetValue(OrientationProperty); set => SetValue(OrientationProperty, value); }
         
-        /// <summary>
-        /// Gets or sets the brush used for the border separator between avatars.
-        /// </summary>
-        public new IBrush BorderBrush { get => GetValue(BorderBrushProperty); set => SetValue(BorderBrushProperty, value); }
-
-        /// <summary>
-        /// Gets or sets the thickness of the border separator between avatars.
-        /// </summary>
-        public new Thickness BorderThickness { get => GetValue(BorderThicknessProperty); set => SetValue(BorderThicknessProperty, value); }
-
         static AvatarGroup()
         {
+            BorderBrushProperty.OverrideDefaultValue<AvatarGroup>(Brushes.White);
+            BorderThicknessProperty.OverrideDefaultValue<AvatarGroup>(new Thickness(2));
             AvatarsProperty.Changed.AddClassHandler<AvatarGroup>((x, e) => x.UpdateAvatars());
             MaxDisplayedProperty.Changed.AddClassHandler<AvatarGroup>((x, e) => x.UpdateAvatars());
             OverlapProperty.Changed.AddClassHandler<AvatarGroup>((x, e) => x.UpdatePanelProperties());

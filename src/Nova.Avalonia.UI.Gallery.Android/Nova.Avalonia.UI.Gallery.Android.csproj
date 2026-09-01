@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net9.0-android</TargetFramework>
-        <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+        <TargetFramework>net10.0-android</TargetFramework>
+        <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
         <Nullable>enable</Nullable>
         <ApplicationId>com.CompanyName.Nova.Avalonia.UI.Gallery</ApplicationId>
         <ApplicationVersion>1</ApplicationVersion>
@@ -25,4 +25,5 @@
     <ItemGroup>
         <ProjectReference Include="..\Nova.Avalonia.UI.Gallery\Nova.Avalonia.UI.Gallery.csproj"/>
     </ItemGroup>
+
 </Project>

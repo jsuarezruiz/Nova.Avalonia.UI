@@ -10,6 +10,7 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
+using Avalonia.Input.Platform;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
@@ -821,7 +822,7 @@ public class PinBox : TemplatedControl
         return width;
     }
 
-    protected override void OnGotFocus(GotFocusEventArgs e)
+    protected override void OnGotFocus(FocusChangedEventArgs e)
     {
         base.OnGotFocus(e);
         if (ReferenceEquals(e.Source, this))
@@ -832,7 +833,7 @@ public class PinBox : TemplatedControl
         UpdateItemsFromText();
     }
 
-    protected override void OnLostFocus(global::Avalonia.Interactivity.RoutedEventArgs e)
+    protected override void OnLostFocus(FocusChangedEventArgs e)
     {
         base.OnLostFocus(e);
         UpdateItemsFromText();
@@ -1001,9 +1002,7 @@ public class PinBox : TemplatedControl
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel?.Clipboard == null) return;
 
-#pragma warning disable CS0618 // GetTextAsync is obsolete but TryGetTextAsync not available in all versions
-        var text = await topLevel.Clipboard.GetTextAsync();
-#pragma warning restore CS0618
+        var text = await topLevel.Clipboard.TryGetTextAsync();
         if (string.IsNullOrEmpty(text)) return;
 
         var validText = NormalizeText(text);

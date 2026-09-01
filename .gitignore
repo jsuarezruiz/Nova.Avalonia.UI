@@ -17,6 +17,7 @@ x86/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+TestResults/
 
 # Visual Studio cache/options directory
 .vs/
@@ -28,7 +29,9 @@ x86/
 
 # NuGet Packages
 *.nupkg
+*.snupkg
 **/packages/*
+artifacts/
 
 # Visual Studio profiler
 *.psess

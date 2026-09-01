@@ -1,0 +1,190 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  BUILD_CONFIGURATION: Release
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+  DOTNET_NOLOGO: "true"
+
+jobs:
+  validate-android:
+    name: Validate Android gallery
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.100
+
+      - name: Install Android workload
+        run: dotnet workload install android --version 10.0.300
+
+      - name: Restore Android gallery
+        run: dotnet restore src/Nova.Avalonia.UI.Gallery.Android/Nova.Avalonia.UI.Gallery.Android.csproj
+
+      - name: Build Android gallery
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.Android/Nova.Avalonia.UI.Gallery.Android.csproj --configuration "$BUILD_CONFIGURATION" --no-restore --warnaserror
+
+  validate-ios:
+    name: Validate iOS gallery
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.100
+
+      - name: Select Xcode 26.3
+        run: sudo xcode-select --switch /Applications/Xcode_26.3.app/Contents/Developer
+
+      - name: Install iOS workload
+        run: dotnet workload install ios --version 10.0.300
+
+      - name: Restore iOS gallery
+        run: dotnet restore src/Nova.Avalonia.UI.Gallery.iOS/Nova.Avalonia.UI.Gallery.iOS.csproj --runtime iossimulator-arm64
+
+      - name: Build iOS gallery
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.iOS/Nova.Avalonia.UI.Gallery.iOS.csproj --configuration "$BUILD_CONFIGURATION" --runtime iossimulator-arm64 --no-restore --warnaserror
+
+  release:
+    name: Publish NuGet packages and create release
+    needs: [validate-android, validate-ios]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate release tag
+        shell: bash
+        run: |
+          if [[ ! "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Release tags must use the vMAJOR.MINOR.PATCH format, for example v1.0.0." >&2
+            exit 1
+          fi
+
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "Release tags must point to a commit on main." >&2
+            exit 1
+          fi
+
+          echo "PACKAGE_VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.100
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/*.csproj', 'src/Directory.Packages.props') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Restore desktop gallery
+        run: dotnet restore src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj
+
+      - name: Install browser workload
+        run: dotnet workload install wasm-tools --version 10.0.300
+
+      - name: Restore browser gallery
+        run: dotnet restore src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj -r browser-wasm
+
+      - name: Restore tests
+        run: dotnet restore src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj
+
+      - name: Build desktop gallery
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj --configuration "$BUILD_CONFIGURATION" --no-restore --warnaserror
+
+      - name: Build browser gallery
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj --configuration "$BUILD_CONFIGURATION" --runtime browser-wasm --no-restore --warnaserror
+
+      - name: Run tests
+        run: dotnet test src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj --configuration "$BUILD_CONFIGURATION" --no-restore --warnaserror
+
+      - name: Pack NuGet packages
+        run: ./build/pack-nuget.sh "$PACKAGE_VERSION" artifacts/packages
+
+      - name: Upload package artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: nuget-packages-${{ github.ref_name }}
+          path: |
+            artifacts/packages/*.nupkg
+            artifacts/packages/*.snupkg
+          if-no-files-found: error
+
+      - name: Prepare GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if release_is_draft=$(gh release view "$GITHUB_REF_NAME" --json isDraft --jq .isDraft 2>/dev/null); then
+            if [[ "$release_is_draft" != "true" ]]; then
+              echo "GitHub Release $GITHUB_REF_NAME is already published." >&2
+              exit 1
+            fi
+
+            gh release upload "$GITHUB_REF_NAME" \
+              artifacts/packages/*.nupkg \
+              artifacts/packages/*.snupkg \
+              --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" \
+              artifacts/packages/*.nupkg \
+              artifacts/packages/*.snupkg \
+              --draft \
+              --verify-tag \
+              --generate-notes \
+              --fail-on-no-commits \
+              --title "Nova Avalonia UI $GITHUB_REF_NAME"
+          fi
+
+      - name: Publish packages to NuGet.org
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          if [[ -z "$NUGET_API_KEY" ]]; then
+            echo "The NUGET_API_KEY repository secret is not configured." >&2
+            exit 1
+          fi
+
+          for package in artifacts/packages/*.nupkg; do
+            dotnet nuget push "$package" \
+              --api-key "$NUGET_API_KEY" \
+              --source https://api.nuget.org/v3/index.json \
+              --skip-duplicate
+          done
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release edit "$GITHUB_REF_NAME" --draft=false --latest

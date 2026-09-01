@@ -1,7 +1,7 @@
 ---
 title: Getting Started
 description: Install Nova.Avalonia.UI and add the control styles to your Avalonia app.
-ms.date: 2024-06-01
+ms.date: 2026-08-22
 ---
 
 # Getting Started
@@ -10,8 +10,10 @@ Follow these steps to install Nova.Avalonia.UI, register its styles, and place y
 
 ## Prerequisites
 
-- Avalonia 11 or later
-- .NET 9 (the library currently targets `net9.0`)
+- Avalonia 12.1.1 or later in the Avalonia 12 release line
+- .NET 8 or later
+
+Android and iOS applications require .NET 10, matching Avalonia 12's platform support.
 
 ## Install the NuGet package
 

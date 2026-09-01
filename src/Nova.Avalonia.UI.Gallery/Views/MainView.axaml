@@ -133,7 +133,7 @@
                 <Grid Grid.Row="0"
                       ColumnDefinitions="*,Auto"
                       IsVisible="{Binding IsSamplePage}"
-                      Margin="20,20,20,0">
+                      Margin="40,36,40,0">
                     <StackPanel Margin="0,0,16,0" Spacing="8">
                         <TextBlock AutomationProperties.HeadingLevel="1"
                                    Classes="title"

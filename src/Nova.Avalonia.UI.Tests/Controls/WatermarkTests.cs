@@ -1,6 +1,14 @@
+using System.Linq;
+using System.Runtime.InteropServices;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Automation.Peers;
+using Avalonia.Platform;
+using Avalonia.VisualTree;
 using Nova.Avalonia.UI.Controls;
 using Xunit;
 
@@ -162,5 +170,89 @@ public class WatermarkTests
         var peer = ControlAutomationPeer.CreatePeerForElement(watermark);
         
         Assert.Equal("Watermark image", peer.GetName());
+    }
+
+    [AvaloniaFact]
+    public void Watermark_Renders_Above_Opaque_Content()
+    {
+        AssertOverlayChangesPixels(new Watermark
+        {
+            Text = "VISIBLE",
+            Angle = 0,
+            HorizontalSpacing = 20,
+            VerticalSpacing = 10,
+            WatermarkFontSize = 24,
+            WatermarkForeground = Brushes.Black
+        });
+    }
+
+    [AvaloniaFact]
+    public void Image_Watermark_Renders_Above_Opaque_Content()
+    {
+        AssertOverlayChangesPixels(new Watermark
+        {
+            Source = new DrawingImage
+            {
+                Drawing = new GeometryDrawing
+                {
+                    Brush = Brushes.Black,
+                    Geometry = new RectangleGeometry(new Rect(0, 0, 20, 20))
+                }
+            },
+            Angle = 0,
+            HorizontalSpacing = 20,
+            VerticalSpacing = 10
+        });
+    }
+
+    private static void AssertOverlayChangesPixels(Watermark watermark)
+    {
+        watermark.WatermarkOpacity = 0;
+        watermark.Content = new Border { Background = Brushes.White };
+
+        var window = new Window
+        {
+            Width = 240,
+            Height = 140,
+            Content = watermark
+        };
+        window.Show();
+
+        try
+        {
+            var overlay = Assert.Single(watermark.GetVisualDescendants().OfType<WatermarkOverlayPresenter>());
+            Assert.Same(watermark, overlay.Owner);
+            Assert.True(overlay.Bounds.Width > 0);
+            Assert.True(overlay.Bounds.Height > 0);
+
+            var withoutOverlay = CapturePixels(window);
+
+            watermark.WatermarkOpacity = 1;
+            var withOverlay = CapturePixels(window);
+
+            Assert.NotEqual(withoutOverlay, withOverlay);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
+    private static byte[] CapturePixels(Window window)
+    {
+        using var bitmap = window.CaptureRenderedFrame();
+        Assert.NotNull(bitmap);
+
+        using var copy = new WriteableBitmap(
+            bitmap.PixelSize,
+            bitmap.Dpi,
+            PixelFormat.Bgra8888,
+            AlphaFormat.Premul);
+        using var framebuffer = copy.Lock();
+        bitmap.CopyPixels(framebuffer);
+
+        var pixels = new byte[framebuffer.RowBytes * framebuffer.Size.Height];
+        Marshal.Copy(framebuffer.Address, pixels, 0, pixels.Length);
+        return pixels;
     }
 }

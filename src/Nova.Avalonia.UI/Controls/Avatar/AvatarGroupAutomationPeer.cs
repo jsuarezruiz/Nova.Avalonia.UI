@@ -21,7 +21,7 @@ public class AvatarGroupAutomationPeer : ControlAutomationPeer
         return "AvatarGroup";
     }
 
-    protected override IReadOnlyList<AutomationPeer> GetChildrenCore()
+    protected override IReadOnlyList<AutomationPeer>? GetChildrenCore()
     {
         // This calls the base implementation which traverses visual children.
         // Since our Avatars are inside the AvatarStackPanel (a visual child), 

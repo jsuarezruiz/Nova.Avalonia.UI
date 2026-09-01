@@ -27,15 +27,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: |
+            8.0.x
+            10.0.100
 
       - name: Cache NuGet packages
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/*.csproj', 'src/Directory.Packages.props') }}
@@ -45,6 +47,9 @@ jobs:
       - name: Restore desktop gallery
         run: dotnet restore src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj
 
+      - name: Install browser workload
+        run: dotnet workload install wasm-tools --version 10.0.300
+
       - name: Restore browser gallery
         run: dotnet restore src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj -r browser-wasm
 
@@ -52,20 +57,80 @@ jobs:
         run: dotnet restore src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj
 
       - name: Build desktop gallery
-        run: dotnet build src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj --configuration "$BUILD_CONFIGURATION" --no-restore
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.Desktop/Nova.Avalonia.UI.Gallery.Desktop.csproj --configuration "$BUILD_CONFIGURATION" --no-restore --warnaserror
 
       - name: Build browser gallery
-        run: dotnet build src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj --configuration "$BUILD_CONFIGURATION" --no-restore
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj --configuration "$BUILD_CONFIGURATION" --runtime browser-wasm --no-restore --warnaserror
 
       - name: Build tests
-        run: dotnet build src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj --configuration "$BUILD_CONFIGURATION" --no-restore
+        run: dotnet build src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj --configuration "$BUILD_CONFIGURATION" --no-restore --warnaserror
 
       - name: Run tests
         run: dotnet test src/Nova.Avalonia.UI.Tests/Nova.Avalonia.UI.Tests.csproj --configuration "$BUILD_CONFIGURATION" --no-build --logger "trx;LogFileName=test-results.trx" --results-directory TestResults
 
+      - name: Pack NuGet packages
+        run: ./build/pack-nuget.sh "0.0.0-ci.${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}" artifacts/packages
+
+      - name: Upload NuGet packages
+        uses: actions/upload-artifact@v7
+        with:
+          name: nuget-packages
+          path: |
+            artifacts/packages/*.nupkg
+            artifacts/packages/*.snupkg
+
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-results
           path: TestResults/*.trx
+
+  build-android:
+    name: Build Android gallery
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.100
+
+      - name: Install Android workload
+        run: dotnet workload install android --version 10.0.300
+
+      - name: Restore Android gallery
+        run: dotnet restore src/Nova.Avalonia.UI.Gallery.Android/Nova.Avalonia.UI.Gallery.Android.csproj
+
+      - name: Build Android gallery
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.Android/Nova.Avalonia.UI.Gallery.Android.csproj --configuration "$BUILD_CONFIGURATION" --no-restore --warnaserror
+
+  build-ios:
+    name: Build iOS gallery
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.100
+
+      - name: Select Xcode 26.3
+        run: sudo xcode-select --switch /Applications/Xcode_26.3.app/Contents/Developer
+
+      - name: Install iOS workload
+        run: dotnet workload install ios --version 10.0.300
+
+      - name: Restore iOS gallery
+        run: dotnet restore src/Nova.Avalonia.UI.Gallery.iOS/Nova.Avalonia.UI.Gallery.iOS.csproj --runtime iossimulator-arm64
+
+      - name: Build iOS gallery
+        run: dotnet build src/Nova.Avalonia.UI.Gallery.iOS/Nova.Avalonia.UI.Gallery.iOS.csproj --configuration "$BUILD_CONFIGURATION" --runtime iossimulator-arm64 --no-restore --warnaserror
