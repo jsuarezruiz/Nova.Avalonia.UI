@@ -1,3 +1,9 @@
+---
+title: AutoLayout
+description: Stack and align children using spacing and distribution behavior inspired by Figma Auto Layout.
+ms.date: 2026-09-02
+---
+
 # AutoLayout
 
 `AutoLayout` is a specialized panel that replicates the behavior of Figma's Auto Layout feature. It provides an intuitive way to stack items, control spacing, and manage alignment without the complexity of a Grid.

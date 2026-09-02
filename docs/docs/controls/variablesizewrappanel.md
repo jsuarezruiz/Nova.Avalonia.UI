@@ -56,9 +56,9 @@ Define the basic `ItemHeight` and `ItemWidth`. Items default to a 1x1 span of th
 | `RowSpan` | `int` | How many vertical units the item spans. Default is 1. |
 | `ColumnSpan` | `int` | How many horizontal units the item spans. Default is 1. |
 
-## Virtualized Version
+## Virtualizing version
 
-For large datasets (100+ items), use `VirtualizedVariableSizeWrapLayout` with `ItemsRepeater` for efficient scrolling:
+For large datasets (100+ items), use `VirtualizingVariableSizeWrapPanel` as the items panel for efficient scrolling:
 
 ```xaml
 <ScrollViewer>
@@ -89,7 +89,7 @@ For large datasets (100+ items), use `VirtualizedVariableSizeWrapLayout` with `I
 </ScrollViewer>
 ```
 
-### VirtualizedVariableSizeWrapLayout Properties
+### VirtualizingVariableSizeWrapPanel properties
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|

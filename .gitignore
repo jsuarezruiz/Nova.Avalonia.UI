@@ -33,6 +33,10 @@ TestResults/
 **/packages/*
 artifacts/
 
+# DocFX generated output
+docs/_site/
+docs/api/
+
 # Visual Studio profiler
 *.psess
 *.vsp
