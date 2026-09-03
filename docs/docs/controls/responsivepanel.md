@@ -35,7 +35,7 @@ You can customize the breakpoints using the `NarrowBreakpoint` and `WideBreakpoi
 | Property | Default | Description |
 |----------|---------|-------------|
 | `NarrowBreakpoint` | `600` | Width below this is considered `Narrow`. |
-| `WideBreakpoint` | `900` | Width above this is considered `Wide`. Width between Narrow and Wide is `Normal`. |
+| `WideBreakpoint` | `900` | Width at or above this is considered `Wide`. Width from the narrow breakpoint (inclusive) to the wide breakpoint (exclusive) is `Normal`. |
 
 ## Conditions
 
