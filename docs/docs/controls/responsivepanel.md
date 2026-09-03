@@ -1,3 +1,9 @@
+---
+title: ResponsivePanel
+description: Switch between narrow, normal, and wide layouts based on the available width.
+ms.date: 2026-09-02
+---
+
 # ResponsivePanel
 
 `ResponsivePanel` is an adaptive layout panel that selectively displays its children based on the available width and specified breakpoints. It enables simplified "Mobile vs Desktop" layout switching directly in XAML.
@@ -15,7 +21,7 @@ The control works by attaching a `Condition` to its children. Only children matc
     </StackPanel>
 
     <!-- Visible on Tablet/Desktop (>= 600px) -->
-    <Grid nova:ResponsivePanel.Condition="Normal | Wide">
+    <Grid nova:ResponsivePanel.Condition="Normal, Wide">
         <TextBlock Text="Desktop View"/>
     </Grid>
 
@@ -40,11 +46,18 @@ The `ResponsivePanel.Condition` attached property accepts a flag enum `Responsiv
 - `Wide`
 - `All` (Default)
 
-You can combine them using utility syntax if supported, or by standard piping in code-behind. In XAML, the parser usually supports comma-separated values for flags in some frameworks, but here you typically specify one. If you need multiple, you can use:
+Use comma-separated values to match more than one breakpoint in XAML:
 
 ```xml
-<!-- Example if flag parsing is supported by XAML compiler for this enum -->
 <Border nova:ResponsivePanel.Condition="Narrow, Normal" ... />
+```
+
+In code, combine values with the bitwise OR operator:
+
+```csharp
+ResponsivePanel.SetCondition(
+    content,
+    ResponsiveBreakpoint.Narrow | ResponsiveBreakpoint.Normal);
 ```
 
 ## Lazy Layout & Performance
