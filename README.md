@@ -216,17 +216,17 @@ The `VariableSizeWrapPanel` arranges varying-sized items in a wrapping grid, per
 
 <img src="images/novaui_variablesizewrappanel_light.gif" alt="VariableSizeWrapPanel" width="250" />
 
-### VirtualizedStaggeredPanel
+### VirtualizingStaggeredPanel
 
-The `VirtualizedStaggeredPanel` is a high-performance staggered grid optimized for large datasets (1000+ items). It works seamlessly with `ItemsControl` and `ScrollViewer`.
+The `VirtualizingStaggeredPanel` is a high-performance staggered grid optimized for large datasets (1000+ items). It works seamlessly with `ItemsControl` and `ScrollViewer`.
 
-<img src="images/novaui_virtualizedstaggeredpanel_light.gif" alt="VirtualizedStaggeredPanel" width="250" />
+<img src="images/novaui_virtualizedstaggeredpanel_light.gif" alt="VirtualizingStaggeredPanel" width="250" />
 
-### VirtualizedVariableSizeWrapPanel
+### VirtualizingVariableSizeWrapPanel
 
-The `VirtualizedVariableSizeWrapPanel` is a high-performance variable-size tile grid optimized for large datasets. Supports `ColumnSpan` and `RowSpan` attached properties for tiles spanning multiple cells.
+The `VirtualizingVariableSizeWrapPanel` is a high-performance variable-size tile grid optimized for large datasets. Supports `ColumnSpan` and `RowSpan` attached properties for tiles spanning multiple cells.
 
-<img src="images/novaui_virtualizedvariablesizewrappanel_light.gif" alt="VirtualizedVariableSizeWrapPanel" width="250" />
+<img src="images/novaui_virtualizedvariablesizewrappanel_light.gif" alt="VirtualizingVariableSizeWrapPanel" width="250" />
 
 ## Contribute
 

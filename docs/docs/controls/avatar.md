@@ -78,26 +78,30 @@ Tooltips automatically display the `DisplayName` when `ShowTooltip` is `True`, w
 
 ## Arrange multiple avatars with AvatarGroup
 
-Use `AvatarGroup` to stack or wrap multiple `Avatar` controls with configurable overlap and overflow handling. Combine `Spacing` and `MaxVisibleAvatars` to control layout, and place any remaining avatars in an overflow badge.
+Use `AvatarGroup` to arrange multiple `Avatar` controls with configurable overlap and overflow handling. Set `Overlap` and `MaxDisplayed` to control the layout; when more avatars are supplied, the group can display the remaining count.
 
 ```xaml
 <StackPanel Spacing="12">
-    <nova:AvatarGroup MaxVisibleAvatars="3" Spacing="-8">
-        <nova:Avatar DisplayName="Taylor Reed" Status="Online" />
-        <nova:Avatar DisplayName="Morgan Lee" Status="Away" />
-        <nova:Avatar DisplayName="Jamie Fox" Status="Busy" />
-        <nova:Avatar DisplayName="Avery Patel" />
+    <nova:AvatarGroup MaxDisplayed="3" Overlap="0.3">
+        <nova:AvatarGroup.Avatars>
+            <nova:Avatar DisplayName="Taylor Reed" Status="Online" />
+            <nova:Avatar DisplayName="Morgan Lee" Status="Away" />
+            <nova:Avatar DisplayName="Jamie Fox" Status="Busy" />
+            <nova:Avatar DisplayName="Avery Patel" />
+        </nova:AvatarGroup.Avatars>
     </nova:AvatarGroup>
 
-    <nova:AvatarGroup Orientation="Vertical" Spacing="4">
-        <nova:Avatar DisplayName="Ops" DisplayMode="Icon">
-            <nova:Avatar.Icon>
-                <PathIcon Data="M18,13 L6,13 6,11 18,11z" />
-            </nova:Avatar.Icon>
-        </nova:Avatar>
-        <nova:Avatar DisplayName="Engineering" Status="Online" />
+    <nova:AvatarGroup Orientation="Vertical" Overlap="0.15">
+        <nova:AvatarGroup.Avatars>
+            <nova:Avatar DisplayName="Ops" DisplayMode="Icon">
+                <nova:Avatar.Icon>
+                    <PathIcon Data="M18,13 L6,13 6,11 18,11z" />
+                </nova:Avatar.Icon>
+            </nova:Avatar>
+            <nova:Avatar DisplayName="Engineering" Status="Online" />
+        </nova:AvatarGroup.Avatars>
     </nova:AvatarGroup>
 </StackPanel>
 ```
 
-`AvatarGroup` also exposes `BorderBrush` and `BorderThickness` to add a ring around the stack when you need a stronger visual boundary against busy backgrounds.
+`AvatarGroup` also exposes `BorderBrush` and `BorderThickness` to add a ring around each avatar when you need a stronger visual boundary against busy backgrounds.

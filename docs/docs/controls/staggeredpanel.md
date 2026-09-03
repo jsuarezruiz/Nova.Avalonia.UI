@@ -97,9 +97,9 @@ You can also use `StaggeredPanel` directly with children defined in XAML:
 </nova:StaggeredPanel>
 ```
 
-## Virtualized Version
+## Virtualizing version
 
-For large datasets (100+ items), use `VirtualizedStaggeredLayout` with `ItemsRepeater` for efficient scrolling:
+For large datasets (100+ items), use `VirtualizingStaggeredPanel` as the items panel for efficient scrolling:
 
 ```xaml
 <ScrollViewer>

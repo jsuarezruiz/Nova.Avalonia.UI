@@ -9,8 +9,8 @@ ms.date: 2026-04-16
 The `Shield` control displays a subject and status with distinct background colors for each part. It is commonly used for build status, package versions, licenses, and other compact metadata.
 
 <p>
-  <img src="../../images/novaui_shield_light.png" alt="Shield control in light theme" width="300" />
-  <img src="../../images/novaui_shield_dark.png" alt="Shield control in dark theme" width="300" />
+  <img src="https://raw.githubusercontent.com/jsuarezruiz/Nova.Avalonia.UI/main/images/novaui_shield_light.png" alt="Shield control in light theme" width="300" />
+  <img src="https://raw.githubusercontent.com/jsuarezruiz/Nova.Avalonia.UI/main/images/novaui_shield_dark.png" alt="Shield control in dark theme" width="300" />
 </p>
 
 ## Usage

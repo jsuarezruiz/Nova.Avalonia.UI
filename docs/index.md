@@ -31,8 +31,8 @@ ms.date: 2026-02-01
 
 - **[ArcPanel](docs/controls/arcpanel.md)**: Arranges items along an arc (partial circle) for semi-circular menus or dial interfaces.
 - **[AutoLayout](docs/controls/autolayout.md)**: A layout panel inspired by Figma's Auto Layout with Orientation, Spacing, Padding, and Alignment.
-- **[AvatarGroup](docs/controls/avatargroup.md)**: Layout container for stacking multiple avatars with configurable overlap and overflow handling.
-- **[AvatarStackPanel](docs/controls/avatarstackpanel.md)**: A specialized panel for laying out avatars with overlap.
+- **[AvatarGroup](xref:Nova.Avalonia.UI.Controls.AvatarGroup)**: Layout container for stacking multiple avatars with configurable overlap and overflow handling.
+- **[AvatarStackPanel](xref:Nova.Avalonia.UI.Controls.AvatarStackPanel)**: A specialized panel for laying out avatars with overlap.
 - **[BubblePanel](docs/controls/bubblepanel.md)**: Packs circular items using a circle packing algorithm for dense, organic layouts.
 - **[CircularPanel](docs/controls/circularpanel.md)**: Arranges items evenly around a circle, perfect for radial menus or clock faces.
 - **[HexPanel](docs/controls/hexpanel.md)**: Layout panel that arranges items in a honeycomb hexagonal grid.
@@ -50,8 +50,10 @@ ms.date: 2026-02-01
 ### Input
 
 - **[PinBox](xref:Nova.Avalonia.UI.Controls.PinBox)**: Specialized input control for PIN codes, security codes, and OTP entry with validation, masking, and individual character boxes.
+- **[SegmentedSlider](docs/controls/segmentedslider.md)**: Range input divided into named segments with configurable titles, colors, and selection behavior.
 
 ## Requirements
 
-- .NET 8.0 or higher
-- Avalonia UI 11.0 or higher
+- Avalonia UI 12.1.1 or later in the Avalonia 12 release line
+- .NET 8 or later for desktop and browser applications
+- .NET 10 for Android and iOS applications

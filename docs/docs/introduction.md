@@ -8,7 +8,7 @@ ms.date: 2025-12-01
 
 Nova.Avalonia.UI is a control library built for Avalonia. It focuses on controls that are themeable, accessible, and ready to drop into desktop, web, and mobile experiences.
 
-## Available controls
+## Highlights
 
 - **[Avatar](xref:Nova.Avalonia.UI.Controls.Avatar)** and **[AvatarGroup](xref:Nova.Avalonia.UI.Controls.AvatarGroup)**: Identity visuals with initials, images, status badges, and grouping support.
 - **[Badge](xref:Nova.Avalonia.UI.Controls.Badge)**: Notifications, status indicators, and counters with customizable placement and overflow handling.
