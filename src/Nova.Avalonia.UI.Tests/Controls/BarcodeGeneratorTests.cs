@@ -1,6 +1,14 @@
+using System;
+using System.Runtime.InteropServices;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
+using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using Avalonia.Styling;
+using Avalonia.Threading;
 using Nova.Avalonia.UI.BarcodeGenerator;
 using Xunit;
 using BarcodeGeneratorControl = Nova.Avalonia.UI.BarcodeGenerator.BarcodeGenerator;
@@ -461,6 +469,128 @@ public class BarcodeGeneratorTests
     }
 
     [AvaloniaFact]
+    public void BarcodeGenerator_Rerenders_When_Theme_Changes()
+    {
+        var barcode = new BarcodeGeneratorControl
+        {
+            Value = "https://avaloniaui.net",
+            Width = 220,
+            Height = 220
+        };
+        var generationCount = 0;
+        barcode.BarcodeGenerated += (_, _) => generationCount++;
+        var window = CreateBarcodeWindow(barcode);
+
+        try
+        {
+            window.Show();
+            Dispatcher.UIThread.RunJobs();
+            window.UpdateLayout();
+            Assert.NotNull(barcode.Template);
+            AssertRenderedBarColor(barcode, Colors.Black);
+
+            window.RequestedThemeVariant = ThemeVariant.Dark;
+            Dispatcher.UIThread.RunJobs();
+            window.UpdateLayout();
+            Assert.Equal(ThemeVariant.Dark, barcode.ActualThemeVariant);
+            Assert.Equal(Colors.White, Assert.IsAssignableFrom<ISolidColorBrush>(barcode.BarBrush).Color);
+            AssertRenderedBarColor(barcode, Colors.White);
+
+            window.RequestedThemeVariant = ThemeVariant.Light;
+            window.UpdateLayout();
+            AssertRenderedBarColor(barcode, Colors.Black);
+
+            Dispatcher.UIThread.RunJobs();
+            Assert.Equal(1, generationCount);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
+    [AvaloniaTheory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void BarcodeGenerator_Rerenders_When_BarBrush_Changes(bool mutateBrush)
+    {
+        var brush = new SolidColorBrush(Colors.Black);
+        var barcode = new BarcodeGeneratorControl
+        {
+            Value = "https://avaloniaui.net",
+            Width = 220,
+            Height = 220,
+            BarBrush = brush
+        };
+        var generationCount = 0;
+        barcode.BarcodeGenerated += (_, _) => generationCount++;
+        var window = CreateBarcodeWindow(barcode);
+
+        try
+        {
+            window.Show();
+            AssertRenderedBarColor(barcode, Colors.Black);
+
+            if (mutateBrush)
+                brush.Color = Colors.Red;
+            else
+                barcode.BarBrush = Brushes.Red;
+
+            AssertRenderedBarColor(barcode, Colors.Red);
+            Dispatcher.UIThread.RunJobs();
+            Assert.Equal(1, generationCount);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
+    private static Window CreateBarcodeWindow(BarcodeGeneratorControl barcode)
+    {
+        var window = new Window
+        {
+            Width = 220,
+            Height = 220,
+            RequestedThemeVariant = ThemeVariant.Light,
+            Content = barcode
+        };
+        window.Resources.MergedDictionaries.Add(new ResourceInclude(new Uri("avares://Nova.Avalonia.UI.Tests"))
+        {
+            Source = new Uri("avares://Nova.Avalonia.UI.BarcodeGenerator/Themes/BarcodeGenerator.axaml")
+        });
+        Assert.True(window.Resources.TryGetResource(typeof(BarcodeGeneratorControl), ThemeVariant.Light, out var theme));
+        barcode.Theme = Assert.IsType<ControlTheme>(theme);
+        return window;
+    }
+
+    private static void AssertRenderedBarColor(BarcodeGeneratorControl barcode, Color expected)
+    {
+        using var bitmap = new RenderTargetBitmap(new PixelSize(220, 220), new Vector(96, 96));
+        bitmap.Render(barcode);
+        using var copy = new WriteableBitmap(bitmap.PixelSize, bitmap.Dpi, PixelFormat.Bgra8888, AlphaFormat.Premul);
+        using var framebuffer = copy.Lock();
+        bitmap.CopyPixels(framebuffer);
+        var pixels = new byte[framebuffer.RowBytes * framebuffer.Size.Height];
+        Marshal.Copy(framebuffer.Address, pixels, 0, pixels.Length);
+
+        var matchingPixels = 0;
+        for (var y = 0; y < framebuffer.Size.Height; y++)
+        {
+            for (var x = 0; x < framebuffer.Size.Width; x++)
+            {
+                var offset = y * framebuffer.RowBytes + x * 4;
+                if (pixels[offset] == expected.B && pixels[offset + 1] == expected.G &&
+                    pixels[offset + 2] == expected.R && pixels[offset + 3] == expected.A)
+                    matchingPixels++;
+            }
+        }
+
+        Assert.True(matchingPixels > framebuffer.Size.Width * framebuffer.Size.Height / 20,
+            $"Expected barcode bars in {expected}, but found only {matchingPixels} matching pixels.");
+    }
+
+    [AvaloniaFact]
     public void BackgroundBrush_CanBeChangedDynamically()
     {
         var barcode = new BarcodeGeneratorControl { BackgroundBrush = Brushes.White };
@@ -667,4 +797,3 @@ public class BarcodeGeneratorTests
         }
     }
 }
-
