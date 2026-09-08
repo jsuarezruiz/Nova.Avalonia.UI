@@ -1,58 +1,236 @@
-﻿/* HTML styles for the splash screen */
-.avalonia-splash {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background: white;
-    font-family: 'Outfit', sans-serif;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    pointer-events: none;
+:root {
+    color-scheme: light dark;
+    font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f7f5fa;
 }
 
-/* Light theme styles */
-@media (prefers-color-scheme: light) {
-    .avalonia-splash {
-        background: white;
+html,
+body,
+#out {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    overscroll-behavior: none;
+}
+
+.avalonia-splash {
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    min-width: 280px;
+    padding: max(32px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right))
+        max(32px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+    overflow: hidden;
+    color: #241d2b;
+    background:
+        linear-gradient(rgb(255 255 255 / 55%), rgb(255 255 255 / 55%)),
+        radial-gradient(circle at 50% 42%, #faf8fc 0, #f3eef8 56%, #eee7f4 100%);
+    pointer-events: none;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 320ms ease, visibility 0s linear 320ms;
+}
+
+.splash-glow {
+    position: absolute;
+    width: min(58vw, 680px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.56;
+}
+
+.splash-glow-top {
+    top: -42%;
+    right: -12%;
+    background: radial-gradient(circle, rgb(192 132 252 / 42%), transparent 67%);
+}
+
+.splash-glow-bottom {
+    bottom: -48%;
+    left: -14%;
+    background: radial-gradient(circle, rgb(139 92 246 / 32%), transparent 68%);
+}
+
+.splash-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.splash-mark {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 28px;
+    filter: drop-shadow(0 18px 30px rgb(109 40 217 / 25%));
+    animation: mark-enter 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.splash-mark img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.splash-copy {
+    animation: copy-enter 500ms 100ms ease-out both;
+}
+
+.splash-title {
+    display: flex;
+    align-items: baseline;
+    font-size: clamp(28px, 4vw, 36px);
+    letter-spacing: -0.045em;
+    line-height: 1.1;
+}
+
+.splash-title strong {
+    font-weight: 750;
+}
+
+.splash-title span {
+    font-weight: 530;
+}
+
+.splash-copy p {
+    margin: 10px 0 0;
+    color: #766d7e;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+}
+
+.splash-loading {
+    display: flex;
+    gap: 6px;
+    height: 8px;
+    margin-top: 36px;
+}
+
+.splash-loading span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #9333ea;
+    animation: loading-pulse 1.2s ease-in-out infinite;
+}
+
+.splash-loading span:nth-child(2) {
+    animation-delay: 150ms;
+}
+
+.splash-loading span:nth-child(3) {
+    animation-delay: 300ms;
+}
+
+.splash-label {
+    margin-top: 10px;
+    color: #8b8192;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.splash-footer {
+    position: absolute;
+    bottom: max(28px, env(safe-area-inset-bottom));
+    color: #9b92a2;
+    font-size: 11px;
+    font-weight: 650;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.avalonia-splash.splash-close {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes mark-enter {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.92);
     }
 
-    .avalonia-splash h2 {
-        color: #1b2a4e;
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes copy-enter {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
     }
 
-    .avalonia-splash a {
-        color: #0D6EFD;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes loading-pulse {
+    0%,
+    70%,
+    100% {
+        opacity: 0.28;
+        transform: translateY(0) scale(0.8);
+    }
+
+    35% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1);
     }
 }
 
 @media (prefers-color-scheme: dark) {
+    :root {
+        background: #121016;
+    }
+
     .avalonia-splash {
-        background: #1b2a4e;
+        color: #f8f5fb;
+        background:
+            linear-gradient(rgb(18 16 22 / 48%), rgb(18 16 22 / 48%)),
+            radial-gradient(circle at 50% 42%, #211b29 0, #17131d 58%, #100e13 100%);
     }
 
-    .avalonia-splash h2 {
-        color: white;
+    .splash-glow-top {
+        background: radial-gradient(circle, rgb(168 85 247 / 30%), transparent 67%);
     }
 
-    .avalonia-splash a {
-        color: white;
+    .splash-glow-bottom {
+        background: radial-gradient(circle, rgb(109 40 217 / 26%), transparent 68%);
+    }
+
+    .splash-copy p {
+        color: #aaa0b3;
+    }
+
+    .splash-label,
+    .splash-footer {
+        color: #817788;
     }
 }
 
-.avalonia-splash h2 {
-    font-weight: 400;
-    font-size: 1.5rem;
-}
-
-.avalonia-splash a {
-    text-decoration: none;
-    font-size: 2.5rem;
-    display: block;   
-}
-
-.avalonia-splash.splash-close {
-    transition: opacity 200ms, display 200ms;
-    display: none;
-    opacity: 0;
+@media (prefers-reduced-motion: reduce) {
+    .avalonia-splash,
+    .splash-mark,
+    .splash-copy,
+    .splash-loading span {
+        animation: none;
+        transition: none;
+    }
 }
