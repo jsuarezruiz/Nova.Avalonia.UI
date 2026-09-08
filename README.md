@@ -36,6 +36,13 @@ dotnet add package Nova.Avalonia.UI.CodeViewer
 
 The docs cover everything from first steps to detailed control APIs and samples, aiming to make the library easy to adopt and extend. If you're interested in exploring more, you can find it here: https://jsuarezruiz.github.io/Nova.Avalonia.UI/
 
+You can also try the controls in the [WebAssembly gallery](https://jsuarezruiz.github.io/Nova.Avalonia.UI/gallery/). To run it locally:
+
+```bash
+dotnet workload install wasm-tools
+dotnet run --project src/Nova.Avalonia.UI.Gallery.Browser
+```
+
 ## Controls
 
 ### Avatar

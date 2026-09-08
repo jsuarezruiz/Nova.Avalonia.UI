@@ -8,6 +8,7 @@ ms.date: 2026-02-01
 
 **Nova.Avalonia.UI** is a comprehensive suite of controls for [Avalonia UI](https://avaloniaui.net/). The library bridges the gap between standard framework controls and the complex requirements of modern applications, providing components that are production-ready, fully themeable, and accessibility-first.
 
+**[Try the controls in the WebAssembly gallery](https://jsuarezruiz.github.io/Nova.Avalonia.UI/gallery/)**
 
 ## Overview
 

@@ -1,4 +1,4 @@
-name: Deploy DocFX site
+name: Deploy documentation and gallery
 
 on:
   push:
@@ -37,7 +37,19 @@ jobs:
           export PATH="$HOME/.dotnet/tools:$PATH"
           docfx docfx.json --warningsAsErrors
 
-      - name: Upload artifact
+      - name: Install WebAssembly tools
+        run: dotnet workload install wasm-tools
+
+      - name: Publish browser gallery
+        run: dotnet publish src/Nova.Avalonia.UI.Gallery.Browser/Nova.Avalonia.UI.Gallery.Browser.csproj --configuration Release --verbosity minimal
+
+      - name: Add gallery to documentation site
+        run: |
+          mkdir -p docs/_site/gallery
+          cp -R src/Nova.Avalonia.UI.Gallery.Browser/bin/Release/net10.0-browser/publish/wwwroot/. docs/_site/gallery/
+          touch docs/_site/.nojekyll
+
+      - name: Upload documentation and gallery
         uses: actions/upload-pages-artifact@v5
         with:
           path: docs/_site

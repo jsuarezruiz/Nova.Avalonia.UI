@@ -2,6 +2,8 @@
   href: introduction.md
 - name: Getting Started
   href: getting-started.md
+- name: Gallery
+  href: gallery.md
 - name: Controls
   items:
   - name: ArcPanel
