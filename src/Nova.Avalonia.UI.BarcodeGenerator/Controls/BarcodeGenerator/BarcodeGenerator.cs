@@ -22,6 +22,7 @@ namespace Nova.Avalonia.UI.BarcodeGenerator;
         private TextBlock? _caption;
         private BitMatrix? _cachedMatrix;
         private RenderTargetBitmap? _cachedBitmap;
+        private IBrush? _cachedBarBrush;
         private string _lastValue = "";
         private BarcodeSymbology _lastSymbology;
         private int _lastQuietZone = -1;
@@ -210,7 +211,7 @@ namespace Nova.Avalonia.UI.BarcodeGenerator;
             QuietZoneProperty.Changed.AddClassHandler<BarcodeGenerator>((x, e) => x.OnDataChanged(e));
             ErrorCorrectionLevelProperty.Changed.AddClassHandler<BarcodeGenerator>((x, e) => x.OnDataChanged(e));
 
-            // Visual properties only require a re-render, not regeneration of the matrix
+            // Visual changes preserve the matrix; Render checks whether the bar bitmap can be reused.
             AffectsRender<BarcodeGenerator>(BarBrushProperty, BackgroundBrushProperty, LogoProperty, LogoSizePercentProperty);
 
             // Caption properties affect layout/measure
@@ -361,9 +362,14 @@ namespace Nova.Avalonia.UI.BarcodeGenerator;
                 : new Rect(_surface.Bounds.Size).WithX(_surface.Bounds.X).WithY(_surface.Bounds.Y);
 
             context.FillRectangle(BackgroundBrush, renderBounds);
+
+            // Snapshot mutable brushes so theme changes and in-place color edits invalidate the bitmap.
+            var barBrush = (BarBrush ?? Brushes.Black).ToImmutable();
+            if (!Equals(_cachedBarBrush, barBrush))
+                ClearBitmapCache();
             
             // We render the barcode once into a RenderTargetBitmap and reuse that bitmap
-            // on subsequent frames until the data or size changes.
+            // on subsequent frames until the data, size, or bar brush changes.
             if (_cachedBitmap != null)
             {
                 context.DrawImage(_cachedBitmap, target);
@@ -381,11 +387,12 @@ namespace Nova.Avalonia.UI.BarcodeGenerator;
 
             using (var rtbContext = rtb.CreateDrawingContext())
             {
-                var operation = new BarcodeDrawOperation(new Rect(rtb.Size), matrix, BarBrush);
+                var operation = new BarcodeDrawOperation(new Rect(rtb.Size), matrix, barBrush);
                 rtbContext.Custom(operation);
             }
             
             _cachedBitmap = rtb;
+            _cachedBarBrush = barBrush;
             context.DrawImage(_cachedBitmap, target);
             
             DrawLogoIfNeeded(context, target);
@@ -411,6 +418,7 @@ namespace Nova.Avalonia.UI.BarcodeGenerator;
         {
             _cachedBitmap?.Dispose();
             _cachedBitmap = null;
+            _cachedBarBrush = null;
         }
         
         private static BarcodeFormat ToFormat(BarcodeSymbology s) => s switch
