@@ -4,6 +4,8 @@
 
 **Nova.Avalonia.UI** is a comprehensive suite of UI controls for [Avalonia UI](https://avaloniaui.net/), designed to help developers build modern, accessible, and high-performance cross-platform applications.
 
+**[Try the live web gallery](https://jsuarezruiz.github.io/Nova.Avalonia.UI/gallery/)**. Explore the controls and layout panels in your browser, with no installation required.
+
 ![Nova.Avalonia.UI](images/promo-banner.png)
 
 ## Installation
@@ -34,14 +36,30 @@ dotnet add package Nova.Avalonia.UI.CodeViewer
 
 ## Documentation
 
-The docs cover everything from first steps to detailed control APIs and samples, aiming to make the library easy to adopt and extend. If you're interested in exploring more, you can find it here: https://jsuarezruiz.github.io/Nova.Avalonia.UI/
+The documentation covers everything from first steps to detailed control APIs and samples:
 
-You can also try the controls in the [WebAssembly gallery](https://jsuarezruiz.github.io/Nova.Avalonia.UI/gallery/). To run it locally:
+**[Read the Nova.Avalonia.UI documentation](https://jsuarezruiz.github.io/Nova.Avalonia.UI/)**
+
+## Gallery
+
+**[Open the WebAssembly gallery](https://jsuarezruiz.github.io/Nova.Avalonia.UI/gallery/)** to try the controls and layout panels, switch between light and dark themes, and view sample code.
+
+To run the web sample locally, install the .NET 10 SDK, then run these commands from the repository root:
 
 ```bash
 dotnet workload install wasm-tools
 dotnet run --project src/Nova.Avalonia.UI.Gallery.Browser
 ```
+
+Install `wasm-tools` once. Open the local URL printed in the terminal and keep the command running while testing. The sample must be served over HTTP; opening `wwwroot/index.html` directly will not run it.
+
+The shared gallery lives in `src/Nova.Avalonia.UI.Gallery`. To run it on your desktop:
+
+```bash
+dotnet run --project src/Nova.Avalonia.UI.Gallery.Desktop
+```
+
+Mobile hosts are available at `src/Nova.Avalonia.UI.Gallery.iOS` and `src/Nova.Avalonia.UI.Gallery.Android`.
 
 ## Controls
 
