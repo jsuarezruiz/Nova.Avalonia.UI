@@ -147,6 +147,7 @@
                         AutomationProperties.Name="View sample source code"
                         DocumentsSource="{Binding CurrentSourceDocuments}"
                         DrawerMaxWidth="640"
+                        IsVisible="{Binding IsSourceCodeAvailable}"
                         VerticalAlignment="Top" />
                 </Grid>
 

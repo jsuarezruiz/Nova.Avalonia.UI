@@ -10,6 +10,8 @@ The Nova.Avalonia.UI gallery lets you try the controls and layout panels directl
 
 **[Open the WebAssembly gallery](https://jsuarezruiz.github.io/Nova.Avalonia.UI/gallery/)**
 
+The Code Viewer sample and the source code button on each sample page are only available in the desktop, Android, and iOS galleries.
+
 ## Run locally
 
 Install the WebAssembly tools once, then run the browser host:

@@ -48,7 +48,7 @@ Use `CodeViewer` when the source should remain visible on the page. The viewer i
 
 Set `ShowLineNumbers` or `ShowCopyButton` to `False` when those parts are not useful. `TextWrapping` controls whether long lines wrap or scroll horizontally.
 
-Syntax highlighting is available for C#, XAML/XML, JSON, CSS, JavaScript, and Markdown. Other language values display as plain text. Highlighting uses TextMate on desktop and browser targets; Android, iOS, tvOS, and Mac Catalyst fall back to plain text because the native tokenizer is not available on those platforms.
+Syntax highlighting is available for C#, XAML/XML, JSON, CSS, JavaScript, and Markdown. Other language values display as plain text. Highlighting uses TextMate on desktop targets; Android, iOS, tvOS, and Mac Catalyst fall back to plain text because the native tokenizer is not available on those platforms. Browser (WebAssembly) targets are not supported yet, so the WebAssembly gallery does not include the Code Viewer sample.
 
 ## Open several source files
 

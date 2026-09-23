@@ -69,7 +69,7 @@ The optional `Nova.Avalonia.UI.CodeViewer` package displays read-only source cod
 
 <img src="images/novaui_codeviewer_light.png" alt="CodeViewer" width="250" />
 
-TextMate highlighting is enabled on desktop and browser targets. Mobile Apple and Android targets use the same viewer with plain text because the tokenizer's native dependency is not available there.
+TextMate highlighting is enabled on desktop targets. Mobile Apple and Android targets use the same viewer with plain text because the tokenizer's native dependency is not available there. Browser (WebAssembly) targets are not supported yet, so the WebAssembly gallery does not include the Code Viewer sample or the source code button.
 
 Code Viewer is kept in a separate package because it uses AvaloniaEdit and its TextMate grammars. Applications that do not show source code can continue using `Nova.Avalonia.UI` without those extra dependencies.
 
