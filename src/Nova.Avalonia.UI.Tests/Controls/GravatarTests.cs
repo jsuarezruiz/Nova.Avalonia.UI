@@ -1,4 +1,6 @@
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
@@ -226,6 +228,31 @@ public class GravatarTests
         var avatar = generator.GenerateAvatar(longId);
         Assert.NotNull(avatar);
         Assert.IsType<global::Avalonia.Controls.Shapes.Path>(avatar);
+    }
+
+    [AvaloniaFact]
+    public void ManagedMd5_Matches_Platform_Md5()
+    {
+        string[] samples =
+        [
+            "",
+            "a",
+            "test@example.com",
+            "j\u00f6rg@m\u00fcller.de",
+            new string('a', 55),
+            new string('a', 56),
+            new string('a', 63),
+            new string('a', 64),
+            new string('a', 65),
+            new string('a', 10000) + "@example.com",
+        ];
+
+        foreach (var sample in samples)
+        {
+            var bytes = Encoding.UTF8.GetBytes(sample);
+
+            Assert.Equal(MD5.HashData(bytes), ManagedMd5.HashData(bytes));
+        }
     }
 
     [AvaloniaFact]
