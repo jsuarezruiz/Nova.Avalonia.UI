@@ -58,7 +58,8 @@ public class GithubGravatarGenerator : IGravatarGenerator
     private static string ComputeHash(string id)
     {
         var bytes = Encoding.UTF8.GetBytes(id);
-        var hash = MD5.HashData(bytes);
+        // The platform MD5 is not available in the browser.
+        var hash = OperatingSystem.IsBrowser() ? ManagedMd5.HashData(bytes) : MD5.HashData(bytes);
         var sb = new StringBuilder(hash.Length * 2);
         foreach (var b in hash)
         {
