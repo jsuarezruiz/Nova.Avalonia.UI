@@ -55,9 +55,27 @@ public partial class MainViewModel : ViewModelBase
                 new("Virtualized Variable Size Wrap Panel", new VirtualizedVariableSizeWrapPanelViewModel(), "Virtualize large grids of variable-size tiles."),
             }),
         };
+
+        if (!IsSourceCodeAvailable)
+        {
+            foreach (var category in Categories)
+            {
+                var codeViewerSample = category.Samples.FirstOrDefault(sample => sample.Page is CodeViewerViewModel);
+                if (codeViewerSample is not null)
+                {
+                    category.Samples.Remove(codeViewerSample);
+                }
+            }
+        }
     }
 
     public ObservableCollection<SampleCategory> Categories { get; }
+
+    /// <summary>
+    /// TextMate highlighting depends on a native library that has no WebAssembly build,
+    /// so the Code Viewer sample and the source code drawer are hidden in the browser gallery.
+    /// </summary>
+    public bool IsSourceCodeAvailable { get; } = !OperatingSystem.IsBrowser();
 
     public int SampleCount => Categories.Sum(category => category.Samples.Count);
 
